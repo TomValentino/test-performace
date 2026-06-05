@@ -48,6 +48,7 @@ export function FooterSimple({ bg = '#f9f9f9', color = '#999', text, store, prof
 // ---------------------------------------------------------------------------
 export function PropertyHero({     headingFont = 'plus-jakarta-sans', overlayOpacity = 0.45, accentColor = '#fff', property }) {
   if (!property) return null
+  const fontVars = getFontVariables([headingFont, bodyFont])
 
   const photo = property.photos?.[0] ?? null
   const price = property.price ? `$${Number(property.price).toLocaleString()}` : null
@@ -56,7 +57,7 @@ export function PropertyHero({     headingFont = 'plus-jakarta-sans', overlayOpa
   const specs = property.specs ?? {}
 
   return (
-    <section style={{
+    <section className={fontVars} style={{
       position: 'relative', minHeight: '520px',
       background: '#111', display: 'flex', alignItems: 'flex-end',
     }}>
