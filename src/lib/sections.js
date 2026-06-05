@@ -79,12 +79,7 @@ export function PropertyHero({ overlayOpacity = 0.45, accentColor = '#fff', prop
     <section style={{ position: 'relative', minHeight: '520px', background: '#111', display: 'flex', alignItems: 'flex-end' }}>
 
       {/* Background photo */}
-      {photo && (
-        <img src={photo} alt={property.title} style={{
-          position: 'absolute', inset: 0, width: '100%', height: '100%',
-          objectFit: 'cover', opacity: overlayOpacity,
-        }} />
-      )}
+
 
       {/* Gradient overlay */}
       <div style={{
@@ -196,13 +191,7 @@ function PropertyCard({ property, accentColor }) {
       background: '#fff', borderRadius: '10px',
       overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.07)',
     }}>
-      {photo && (
-        <div style={{ height: '220px', overflow: 'hidden' }}>
-          <img src={photo} alt={property.title} style={{
-            width: '100%', height: '100%', objectFit: 'cover',
-          }} />
-        </div>
-      )}
+
       <div style={{ padding: '20px' }}>
         {property.sale_status && (
           <span style={{
