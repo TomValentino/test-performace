@@ -81,7 +81,7 @@ export const getCollectionsByIds = cache(async (ids) => {
       )
     `)
     .in('id', ids)
-    console.log('[getCollectionsByIds] raw data:', data, 'error:', error)
+    
   if (error) console.error('[getCollectionsByIds]', error.message, { ids })
   if (!data) return []
   return data.map((c) => ({
