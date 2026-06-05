@@ -46,7 +46,7 @@ export function FooterSimple({ bg = '#f9f9f9', color = '#999', text, store, prof
 // Full-bleed background image.
 // priority=true → preloads as LCP image (above the fold)
 // ---------------------------------------------------------------------------
-export function PropertyHero({   headingFont = 'plus-jakarta-sans', overlayOpacity = 0.45, accentColor = '#fff', property }) {
+export function PropertyHero({     headingFont = 'plus-jakarta-sans', overlayOpacity = 0.45, accentColor = '#fff', property }) {
   if (!property) return null
 
   const photo = property.photos?.[0] ?? null
