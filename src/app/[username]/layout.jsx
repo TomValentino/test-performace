@@ -22,7 +22,8 @@ export default async function RootLayout({ children, params }) {
   // const ctx = { store, profile }
 
   return (
-    <html lang="en" className={fontVariables}>
+    // <html lang="en" className={fontVariables}>
+    <html lang="en">
       <body>
         {/* {renderSections(header.sections, ctx)} */}
         {children}
