@@ -37,7 +37,7 @@ const FONT_MAP = {
 
 export function getFontVariables(fonts = []) {
   return fonts
-    .map(key => FONT_MAP[key])
+    .map(key => FONT_MAP[key.replace(/-/g, '_')])
     .filter(Boolean)
     .map(f => f.variable)
     .join(' ')

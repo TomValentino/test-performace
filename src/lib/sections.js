@@ -5,7 +5,7 @@ import { PropImage } from '@/components/img' // adjust path as needed
 // NAV
 // ---------------------------------------------------------------------------
 export function NavSimple({
-  headingFont = 'syne',
+  headingFont = 'plus-jakarta-sans',
   headlineWeight = 300,
   bodyFont = 'dm_sans',
   store,
