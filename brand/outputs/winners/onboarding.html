@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Kit — Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'Manrope', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --fs-1:    clamp( 9px,  8.55px + 0.114vw,  10px);
+  --fs-2:    clamp(11px, 10.55px + 0.114vw,  12px);
+  --fs-3:    clamp(12px, 11.55px + 0.114vw,  13px);
+  --fs-4:    clamp(14px, 13.55px + 0.114vw,  15px);
+  --fs-base: var(--fs-4);
+  --fs-5:    clamp(15px, 14.55px + 0.114vw,  16px);
+  --fs-6:    clamp(18px, 14.36px + 0.909vw,  26px);
+  --fs-7:    clamp(22px, 15.64px + 1.591vw,  36px);
+  --fs-8:    clamp(32px, 19.27px + 3.182vw,  60px);
+  --fs-9:    clamp(56px, 23.27px + 8.182vw, 128px);
+  --ls-1: -0.05em;
+  --ls-2: -0.04em;
+  --ls-3: -0.03em;
+  --ls-4: -0.01em;
+  --ls-5:  0.08em;
+  --ls-6:  0.12em;
+  --ls-7:  0.18em;
+  --lh-1: 0.92;
+  --lh-2: 1.00;
+  --lh-3: 1.10;
+  --lh-4: 1.30;
+  --lh-5: 1.60;
+  --lh-6: 1.65;
+  --primary-100: #EBF2F1;
+  --primary-200: #D4E7E5;
+  --primary-300: #AECFCB;
+  --primary-400: #83B5AF;
+  --primary-500: #5C9B93;
+  --primary-600: #4A8079;
+  --primary-700: #3A6560;
+  --primary-800: #2A4A46;
+  --primary-900: #1A302E;
+  --cream-100: #FDFCFA;
+  --cream-200: #F8F5F0;
+  --cream-300: #F4F1EC;
+  --cream-400: #EAE6DE;
+  --cream-500: #E0DBD1;
+  --cream-600: #D4CEC3;
+  --cream-700: #C4BDB0;
+  --cream-800: #A8A096;
+  --cream-900: #8A8278;
+  --dark-100: #3D3D3D;
+  --dark-200: #2C2C2C;
+  --dark-300: #1A1A1A;
+  --dark-400: #141414;
+  --dark-500: #0B0B0B;
+  --grey-100: #F5F5F5;
+  --grey-200: #E8E8E8;
+  --grey-300: #D4D4D4;
+  --grey-400: #BEBEBE;
+  --grey-500: #9A9A9A;
+  --grey-600: #7A7A7A;
+  --grey-700: #5A5A5A;
+  --grey-800: #3A3A3A;
+  --grey-900: #1A1A1A;
+  --white-100: rgba(255,255,255,0.05);
+  --white-200: rgba(255,255,255,0.10);
+  --white-300: rgba(255,255,255,0.20);
+  --white-400: rgba(255,255,255,0.35);
+  --white-500: rgba(255,255,255,0.50);
+  --white-600: rgba(255,255,255,0.65);
+  --white-700: rgba(255,255,255,0.80);
+  --white-800: rgba(255,255,255,0.92);
+  --white-900: rgba(255,255,255,1.00);
+  --border-col-1: rgba(11,11,11,0.06);
+  --border-col-2: rgba(11,11,11,0.10);
+  --border-col-3: rgba(11,11,11,0.16);
+  --border-col-4: rgba(11,11,11,0.24);
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 14px;
+  --r-4: 20px;
+  --r-5: 28px;
+  --r-6: 40px;
+  --r-7: 999px;
+  --sp-1:   2px;
+  --sp-2:   4px;
+  --sp-3:   8px;
+  --sp-4:  12px;
+  --sp-5:  16px;
+  --sp-6:  20px;
+  --sp-7:  24px;
+  --sp-8:  32px;
+  --sp-9:  40px;
+  --sp-10: 48px;
+  --sp-11: 56px;
+  --sp-12: 64px;
+  --sp-13: 80px;
+  --sp-14: 96px;
+  --sp-15: 120px;
+  --sp-16: 160px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream-300);
+  color: var(--dark-500);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PAGE WRAPPER ── */
+.onboarding-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(32px, 2.27px + 7.27vw, 96px) clamp(20px, 8.18px + 2.955vw, 48px);
+}
+
+/* ── TOP HEADER ── */
+.ob-header {
+  margin-bottom: clamp(32px, 17.09px + 3.636vw, 64px);
+}
+
+.ob-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  margin-bottom: var(--sp-5);
+}
+
+.ob-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  flex-shrink: 0;
+}
+
+.ob-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-4);
+}
+
+.ob-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-6);
+  color: var(--grey-600);
+  max-width: 500px;
+}
+
+/* ── PROGRESS TRACK ── */
+.progress-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: clamp(32px, 17.09px + 3.636vw, 64px);
+}
+
+.progress-step {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: 1;
+  position: relative;
+}
+
+.progress-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(28px + var(--sp-3));
+  right: 0;
+  top: 14px;
+  height: 1px;
+  background: var(--border-col-3);
+  transition: background 0.4s ease;
+}
+
+.progress-step.done::after,
+.progress-step.active::after {
+  background: var(--primary-300);
+}
+
+.step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-col-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--grey-500);
+  background: var(--cream-100);
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+  z-index: 1;
+}
+
+.progress-step.active .step-circle {
+  background: var(--dark-500);
+  border-color: var(--dark-500);
+  color: #fff;
+}
+
+.progress-step.done .step-circle {
+  background: var(--primary-500);
+  border-color: var(--primary-500);
+  color: #fff;
+}
+
+.step-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  letter-spacing: var(--ls-4);
+  color: var(--grey-500);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.progress-step.active .step-label { color: var(--dark-500); }
+.progress-step.done .step-label { color: var(--primary-600); }
+
+@media (max-width: 600px) {
+  .step-label { display: none; }
+  .progress-step:not(:last-child)::after {
+    left: calc(28px + 4px);
+  }
+}
+
+/* ── CARD ── */
+.ob-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  padding: clamp(28px, 15.27px + 3.182vw, 56px);
+  margin-bottom: var(--sp-5);
+  animation: cardIn 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  margin-bottom: var(--sp-6);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.section-label::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--primary-400);
+}
+
+/* ── HANDLE STEP ── */
+.handle-input-wrap {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid var(--border-col-3);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.handle-input-wrap:focus-within {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+.handle-prefix {
+  padding: 0 var(--sp-5);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  background: var(--cream-300);
+  border-right: 1px solid var(--border-col-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--grey-600);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.handle-input {
+  flex: 1;
+  height: 56px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 600;
+  color: var(--dark-500);
+  padding: 0 var(--sp-5);
+  outline: none;
+  letter-spacing: var(--ls-4);
+  min-width: 0;
+}
+
+.handle-input::placeholder { color: var(--grey-400); font-weight: 400; }
+
+.handle-hint {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  margin-top: var(--sp-3);
+  line-height: var(--lh-5);
+}
+
+.handle-status {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  margin-top: var(--sp-4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.handle-status.show { opacity: 1; }
+.handle-status.ok { color: var(--primary-600); }
+.handle-status.err { color: #c0392b; }
+
+/* ── FINALIZING SCREEN ── */
+.finalizing-screen {
+  text-align: center;
+  padding: clamp(40px, 22.73px + 4.545vw, 80px) 0;
+}
+
+.finalizing-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--primary-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--sp-7);
+}
+
+.finalizing-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2.5px solid var(--primary-200);
+  border-top-color: var(--primary-500);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.finalizing-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-4);
+}
+
+.finalizing-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--grey-600);
+  line-height: var(--lh-6);
+}
+
+.finalizing-steps {
+  list-style: none;
+  margin-top: var(--sp-8);
+  text-align: left;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.fin-step {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--grey-600);
+}
+
+.fin-step-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fin-step-icon.pending {
+  border: 1.5px solid var(--border-col-3);
+  background: var(--cream-300);
+}
+
+.fin-step-icon.loading {
+  background: var(--primary-100);
+}
+
+.fin-step-icon.done-icon {
+  background: var(--primary-500);
+}
+
+.fin-step.active-step { color: var(--dark-500); font-weight: 500; }
+.fin-step.done-step { color: var(--primary-700); }
+
+/* ── FORM ELEMENTS ── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 9.09px + 1.727vw, 32px);
+}
+
+.form-grid .full { grid-column: 1 / -1; }
+
+@media (max-width: 540px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid .full { grid-column: 1; }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.field-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-700);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.field-label .req {
+  color: var(--primary-500);
+  font-size: var(--fs-3);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.field-label .opt {
+  color: var(--grey-400);
+  font-size: var(--fs-3);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  font-family: var(--font-body);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--border-col-3);
+  border-radius: var(--r-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--dark-500);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"] {
+  height: 48px;
+  padding: 0 var(--sp-5);
+}
+
+textarea {
+  padding: var(--sp-4) var(--sp-5);
+  resize: vertical;
+  line-height: var(--lh-6);
+  min-height: 110px;
+}
+
+select {
+  height: 48px;
+  padding: 0 var(--sp-5);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A7A7A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+input::placeholder,
+textarea::placeholder { color: var(--grey-400); }
+
+.prefilled {
+  background: var(--cream-200) !important;
+  color: var(--grey-700) !important;
+  cursor: not-allowed;
+}
+
+.field-hint {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  line-height: var(--lh-5);
+}
+
+/* ── AVATAR UPLOAD ── */
+.avatar-upload {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-7);
+  flex-wrap: wrap;
+}
+
+.avatar-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--r-7);
+  background: var(--cream-400);
+  border: 2px dashed var(--border-col-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  position: relative;
+}
+
+.avatar-preview:hover { border-color: var(--primary-400); }
+
+.avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-preview-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.avatar-upload-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.avatar-upload-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--dark-500);
+  margin-bottom: var(--sp-2);
+}
+
+.avatar-upload-hint {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  line-height: var(--lh-5);
+}
+
+/* ── LOGO UPLOAD ── */
+.logo-upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+}
+
+@media (max-width: 480px) {
+  .logo-upload-grid { grid-template-columns: 1fr; }
+}
+
+.logo-upload-box {
+  border: 1.5px dashed var(--border-col-3);
+  border-radius: var(--r-4);
+  padding: var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  min-height: 110px;
+  background: #fff;
+}
+
+.logo-upload-box:hover {
+  border-color: var(--primary-400);
+  background: var(--primary-100);
+}
+
+.logo-upload-box.dark-bg {
+  background: var(--dark-400);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.logo-upload-box.dark-bg:hover {
+  border-color: var(--primary-400);
+}
+
+.logo-upload-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--grey-600);
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+}
+
+.logo-upload-box.dark-bg .logo-upload-label { color: var(--white-600); }
+
+.logo-upload-hint {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-400);
+}
+
+.logo-upload-box.dark-bg .logo-upload-hint { color: var(--white-400); }
+
+/* ── SOCIALS ── */
+.socials-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.social-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.social-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-2);
+  background: var(--cream-300);
+  border: 1px solid var(--border-col-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.social-row input { flex: 1; }
+
+/* ── DIVIDER ── */
+.ob-divider {
+  height: 1px;
+  background: var(--border-col-2);
+  margin: clamp(24px, 13.09px + 2.727vw, 48px) 0;
+}
+
+/* ── SECTION TITLE ── */
+.ob-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  line-height: var(--lh-3);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-5);
+}
+
+/* ── OPTIONAL BADGE ── */
+.optional-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: var(--cream-400);
+  border-radius: var(--r-7);
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--grey-600);
+  margin-left: var(--sp-3);
+  vertical-align: middle;
+}
+
+/* ── HOME PAGE CARD ── */
+.homepage-card {
+  background: var(--cream-200);
+  border: 1.5px dashed var(--border-col-3);
+  border-radius: var(--r-4);
+  padding: clamp(24px, 13.09px + 2.727vw, 48px);
+}
+
+.homepage-empty {
+  text-align: center;
+  padding: var(--sp-7) 0;
+}
+
+.homepage-empty-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 600;
+  color: var(--dark-500);
+  margin-bottom: var(--sp-3);
+}
+
+.homepage-empty-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--grey-600);
+  line-height: var(--lh-6);
+  margin-bottom: var(--sp-7);
+}
+
+/* ── ACTIONS ── */
+.ob-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-5);
+  padding-top: var(--sp-5);
+}
+
+.ob-actions-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  padding-top: var(--sp-5);
+  flex-wrap: wrap;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.25s cubic-bezier(0.22,1,0.36,1),
+              transform 0.25s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.25s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.25s cubic-bezier(0.22,1,0.36,1),
+              color 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+
+.btn-primary { background: var(--primary-500); color: #fff; border-radius: var(--r-3); }
+.btn-primary:hover { background: var(--primary-400); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(92,155,147,.35); }
+.btn-dark { background: var(--dark-500); color: #fff; border-radius: var(--r-3); }
+.btn-dark:hover { background: var(--dark-300); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.btn-outline { background: transparent; color: var(--dark-500); border: 1.5px solid var(--border-col-3); border-radius: var(--r-3); }
+.btn-outline:hover { border-color: var(--dark-500); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--grey-700); border-bottom: 1.5px solid transparent; padding-left: 0; padding-right: 0; border-radius: 0; }
+.btn-ghost:hover { color: var(--dark-500); border-bottom-color: var(--dark-500); }
+.btn-sm { padding: 10px 20px; font-size: var(--fs-1); }
+.btn-md { padding: 16px 32px; font-size: var(--fs-2); }
+.btn-lg { padding: 18px 36px; font-size: var(--fs-2); }
+.btn-ghost.btn-sm { padding: 8px 0; }
+.btn-ghost.btn-md { padding: 12px 0; }
+
+/* ── SKIP LINK ── */
+.ob-skip {
+  text-align: center;
+  padding-top: var(--sp-5);
+}
+
+.ob-skip a {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-col-3);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ob-skip a:hover { color: var(--dark-500); border-color: var(--dark-500); }
+
+/* ── STEPS VISIBILITY ── */
+.ob-step { display: none; }
+.ob-step.active { display: block; animation: cardIn 0.35s cubic-bezier(0.22,1,0.36,1) both; }
+
+/* ── SVG ICONS ── */
+svg { display: block; }
+
+/* ── COMPLETE STATE ── */
+.complete-state {
+  text-align: center;
+  padding: clamp(48px, 26.18px + 5.455vw, 96px) 0;
+}
+
+.complete-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--sp-8);
+  animation: popIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.complete-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-4);
+}
+
+.complete-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-5);
+  color: var(--grey-600);
+  line-height: var(--lh-6);
+  margin-bottom: var(--sp-9);
+}
+
+/* ── CURRENCY SELECT ── */
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--sp-3);
+}
+
+.currency-option {
+  border: 1.5px solid var(--border-col-3);
+  border-radius: var(--r-3);
+  padding: var(--sp-4) var(--sp-5);
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.currency-option:hover {
+  border-color: var(--primary-400);
+  background: var(--primary-100);
+}
+
+.currency-option.selected {
+  border-color: var(--primary-500);
+  background: var(--primary-100);
+}
+
+.currency-option input[type="radio"] { display: none; }
+
+.currency-code {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 700;
+  color: var(--dark-500);
+  display: block;
+}
+
+.currency-name {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  display: block;
+  margin-top: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="onboarding-wrap">
+
+  <!-- Header -->
+  <div class="ob-header">
+    <div class="ob-eyebrow">
+      <span class="ob-eyebrow-dot"></span>
+      Account Setup
+    </div>
+    <h1 class="ob-title">Let's build your profile.</h1>
+    <p class="ob-sub">A few details before you access the platform. This takes about 3 minutes.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-track">
+    <div class="progress-step active" id="prog-0">
+      <div class="step-circle">1</div>
+      <span class="step-label">Handle</span>
+    </div>
+    <div class="progress-step" id="prog-1">
+      <div class="step-circle">2</div>
+      <span class="step-label">Profile</span>
+    </div>
+    <div class="progress-step" id="prog-2">
+      <div class="step-circle">3</div>
+      <span class="step-label">Business</span>
+    </div>
+    <div class="progress-step" id="prog-3">
+      <div class="step-circle">4</div>
+      <span class="step-label">Done</span>
+    </div>
+  </div>
+
+  <!-- ── STEP 0: HANDLE ── -->
+  <div class="ob-step active" id="step-0">
+    <div class="ob-card">
+      <div class="section-label">Your handle</div>
+
+      <h2 class="ob-section-title" style="font-size: var(--fs-6); margin-bottom: var(--sp-3);">Choose your unique handle</h2>
+      <p style="font-family: var(--font-body); font-size: var(--fs-base); color: var(--grey-600); line-height: var(--lh-6); margin-bottom: var(--sp-8);">Your handle is how you appear across the platform — in URLs, client links, and your agent profile.</p>
+
+      <div class="field">
+        <label class="field-label">Handle <span class="req">*</span></label>
+        <div class="handle-input-wrap">
+          <span class="handle-prefix">propertykit.com/</span>
+          <input type="text" class="handle-input" id="handle-input" placeholder="your-name" maxlength="30" autocomplete="off" oninput="checkHandle(this.value)">
+        </div>
+        <div class="handle-hint">Lowercase letters, numbers, and hyphens only. 3–30 characters.</div>
+        <div class="handle-status" id="handle-status"></div>
+      </div>
+    </div>
+
+    <div class="ob-actions">
+      <button class="btn btn-dark btn-md" onclick="goNext(0)">
+        Continue
+        <svg class="btn-icon btn-icon-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── STEP F: FINALIZING (interstitial) ── -->
+  <div class="ob-step" id="step-finalizing">
+    <div class="ob-card">
+      <div class="finalizing-screen">
+        <div class="finalizing-icon-wrap">
+          <div class="finalizing-spinner"></div>
+        </div>
+        <h2 class="finalizing-title">Finalizing your setup…</h2>
+        <p class="finalizing-sub">We're getting everything ready in the background.<br>This only takes a moment.</p>
+
+        <ul class="finalizing-steps">
+          <li class="fin-step done-step" id="fin-1">
+            <div class="fin-step-icon done-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            Handle reserved
+          </li>
+          <li class="fin-step active-step" id="fin-2">
+            <div class="fin-step-icon loading">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            </div>
+            Adding to ImageKit
+          </li>
+          <li class="fin-step" id="fin-3">
+            <div class="fin-step-icon pending"></div>
+            Setting up media storage
+          </li>
+          <li class="fin-step" id="fin-4">
+            <div class="fin-step-icon pending"></div>
+            Creating profile workspace
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 1: AGENT PROFILE ── -->
+  <div class="ob-step" id="step-1">
+    <div class="ob-card">
+      <div class="section-label">Agent profile</div>
+
+      <!-- Photo -->
+      <div class="field" style="margin-bottom: clamp(24px, 13.09px + 2.727vw, 48px);">
+        <label class="field-label">Profile photo <span class="opt">(recommended)</span></label>
+        <div class="avatar-upload">
+          <div class="avatar-preview" onclick="triggerAvatarUpload()" title="Upload photo">
+            <div class="avatar-preview-icon" id="avatar-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--grey-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <img id="avatar-img" src="" alt="" style="display:none;">
+          </div>
+          <div class="avatar-upload-info">
+            <div class="avatar-upload-title">Upload your photo</div>
+            <div class="avatar-upload-hint">JPG or PNG. Minimum 400×400px.<br>This appears on your agent profile and client-facing pages.</div>
+            <button class="btn btn-outline btn-sm" style="margin-top: var(--sp-4);" onclick="triggerAvatarUpload()">Choose photo</button>
+            <input type="file" id="avatar-file" accept="image/*" style="display:none;" onchange="previewAvatar(this)">
+          </div>
+        </div>
+      </div>
+
+      <div class="ob-divider"></div>
+
+      <!-- Fields -->
+      <div class="form-grid">
+        <div class="field">
+          <label class="field-label">Full name <span class="req">*</span></label>
+          <input type="text" class="prefilled" value="Sarah Mitchell" readonly>
+        </div>
+        <div class="field">
+          <label class="field-label">Email <span class="req">*</span></label>
+          <input type="email" class="prefilled" value="sarah@milestonegroup.com" readonly>
+        </div>
+        <div class="field">
+          <label class="field-label">Phone <span class="opt">(optional)</span></label>
+          <input type="tel" placeholder="+1 (415) 000 0000">
+        </div>
+        <div class="field">
+          <label class="field-label">Title <span class="opt">(optional)</span></label>
+          <input type="text" placeholder="e.g. Luxury Specialist">
+        </div>
+        <div class="field full">
+          <label class="field-label">About <span class="opt">(optional)</span></label>
+          <textarea placeholder="A short bio for your agent profile. 2–3 sentences works best."></textarea>
+          <div class="field-hint">Shown on your public profile page and client-facing materials.</div>
+        </div>
+        <div class="field">
+          <label class="field-label">License number <span class="opt">(optional)</span></label>
+          <input type="text" placeholder="DRE #00000000">
+        </div>
+      </div>
+    </div>
+
+    <div class="ob-actions-split">
+      <button class="btn btn-ghost btn-md" onclick="goBack(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <button class="btn btn-dark btn-md" onclick="goNext(1)">
+        Continue
+        <svg class="btn-icon btn-icon-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: BUSINESS & SOCIALS ── -->
+  <div class="ob-step" id="step-2">
+    <div class="ob-card">
+      <div class="section-label">Business details</div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label class="field-label">Company name <span class="opt">(optional)</span></label>
+          <input type="text" placeholder="e.g. Mitchell Group">
+        </div>
+        <div class="field">
+          <label class="field-label">Currency <span class="req">*</span></label>
+          <select>
+            <option value="">Select currency</option>
+            <option value="USD" selected>USD — US Dollar</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="NZD">NZD — New Zealand Dollar</option>
+            <option value="SGD">SGD — Singapore Dollar</option>
+            <option value="HKD">HKD — Hong Kong Dollar</option>
+            <option value="AED">AED — UAE Dirham</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ob-divider"></div>
+
+      <!-- Logos -->
+      <h3 class="ob-section-title" style="font-size: var(--fs-5); margin-bottom: var(--sp-3);">Company logos <span class="optional-badge">Optional</span></h3>
+      <p style="font-family: var(--font-body); font-size: var(--fs-base); color: var(--grey-600); line-height: var(--lh-6); margin-bottom: var(--sp-6);">Used across your website, funnels, and printed materials. SVG or PNG on transparent background preferred.</p>
+
+      <div class="logo-upload-grid">
+        <div>
+          <div class="field-label" style="margin-bottom: var(--sp-3);">Primary logo</div>
+          <div class="logo-upload-box" onclick="this.querySelector('input').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--grey-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <span class="logo-upload-label">Light version</span>
+            <span class="logo-upload-hint">For light backgrounds</span>
+            <input type="file" accept="image/*" style="display:none;">
+          </div>
+        </div>
+        <div>
+          <div class="field-label" style="margin-bottom: var(--sp-3);">Inverse logo</div>
+          <div class="logo-upload-box dark-bg" onclick="this.querySelector('input').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <span class="logo-upload-label">Dark version</span>
+            <span class="logo-upload-hint" style="color: var(--white-400);">For dark backgrounds</span>
+            <input type="file" accept="image/*" style="display:none;">
+          </div>
+        </div>
+      </div>
+
+      <div class="ob-divider"></div>
+
+      <!-- Socials -->
+      <h3 class="ob-section-title" style="font-size: var(--fs-5); margin-bottom: var(--sp-3);">Socials <span class="optional-badge">Optional</span></h3>
+      <p style="font-family: var(--font-body); font-size: var(--fs-base); color: var(--grey-600); line-height: var(--lh-6); margin-bottom: var(--sp-6);">Linked from your profile and property pages.</p>
+
+      <div class="socials-grid">
+        <div class="social-row">
+          <div class="social-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--grey-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <input type="url" placeholder="instagram.com/yourhandle">
+        </div>
+        <div class="social-row">
+          <div class="social-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--grey-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m4 4V7"/></svg>
+          </div>
+          <input type="url" placeholder="linkedin.com/in/yourname">
+        </div>
+        <div class="social-row">
+          <div class="social-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--grey-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+          </div>
+          <input type="url" placeholder="youtube.com/@yourchannel">
+        </div>
+        <div class="social-row">
+          <div class="social-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--grey-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </div>
+          <input type="url" placeholder="facebook.com/yourpage">
+        </div>
+      </div>
+    </div>
+
+    <!-- Home page (optional) -->
+    <div class="ob-card" style="border: 1.5px dashed var(--border-col-3); background: var(--cream-200);">
+      <div class="section-label">Home page</div>
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-6); flex-wrap: wrap; margin-bottom: var(--sp-6);">
+        <div>
+          <h3 class="ob-section-title" style="font-size: var(--fs-5); margin-bottom: var(--sp-2);">Add a home page <span class="optional-badge">Optional</span></h3>
+          <p style="font-family: var(--font-body); font-size: var(--fs-base); color: var(--grey-600); line-height: var(--lh-6);">Your existing site or a custom domain you want to connect. You can always add this later from your dashboard.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Website URL <span class="opt">(optional)</span></label>
+        <input type="url" placeholder="https://yourdomain.com">
+        <div class="field-hint">We'll connect your domain and configure DNS after setup is complete.</div>
+      </div>
+    </div>
+
+    <div class="ob-actions-split">
+      <button class="btn btn-ghost btn-md" onclick="goBack(2)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <button class="btn btn-primary btn-lg" onclick="goNext(2)">
+        Complete setup
+        <svg class="btn-icon btn-icon-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="ob-skip">
+      <a href="#" onclick="goNext(2); return false;">Skip optional fields — complete setup now</a>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: COMPLETE ── -->
+  <div class="ob-step" id="step-3">
+    <div class="ob-card">
+      <div class="complete-state">
+        <div class="complete-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 class="complete-title">You're all set, Sarah.</h2>
+        <p class="complete-sub">Your profile is live and your platform is ready.<br>Time to build something exceptional.</p>
+        <button class="btn btn-dark btn-lg">
+          Go to dashboard
+          <svg class="btn-icon btn-icon-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let currentStep = 0;
+
+function goNext(from) {
+  if (from === 0) {
+    const handle = document.getElementById('handle-input').value.trim();
+    if (!handle || handle.length < 3) {
+      const status = document.getElementById('handle-status');
+      status.textContent = '✕  Please enter a valid handle (minimum 3 characters)';
+      status.className = 'handle-status show err';
+      return;
+    }
+    // Show finalizing interstitial
+    showStep('finalizing');
+    runFinalizing();
+    return;
+  }
+
+  if (from === 1) { showStep(2); return; }
+  if (from === 2) { showStep(3); return; }
+}
+
+function goBack(current) {
+  if (current === 1) { showStep(0); return; }
+  if (current === 2) { showStep(1); return; }
+}
+
+function showStep(step) {
+  // Hide all
+  document.querySelectorAll('.ob-step').forEach(s => s.classList.remove('active'));
+
+  if (step === 'finalizing') {
+    document.getElementById('step-finalizing').classList.add('active');
+    return;
+  }
+
+  document.getElementById('step-' + step).classList.add('active');
+  currentStep = step;
+
+  // Update progress
+  const steps = document.querySelectorAll('.progress-step');
+  steps.forEach((s, i) => {
+    s.classList.remove('active', 'done');
+    if (i < step) s.classList.add('done');
+    if (i === step) s.classList.add('active');
+
+    // Update circle content for done steps
+    const circle = s.querySelector('.step-circle');
+    if (i < step) {
+      circle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>`;
+    } else {
+      circle.textContent = i + 1;
+    }
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function runFinalizing() {
+  // Simulate steps completing
+  setTimeout(() => {
+    const fin2 = document.getElementById('fin-2');
+    fin2.classList.remove('active-step');
+    fin2.classList.add('done-step');
+    fin2.querySelector('.fin-step-icon').className = 'fin-step-icon done-icon';
+    fin2.querySelector('.fin-step-icon').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+    const fin3 = document.getElementById('fin-3');
+    fin3.classList.add('active-step');
+    fin3.querySelector('.fin-step-icon').className = 'fin-step-icon loading';
+    fin3.querySelector('.fin-step-icon').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>`;
+  }, 900);
+
+  setTimeout(() => {
+    const fin3 = document.getElementById('fin-3');
+    fin3.classList.remove('active-step');
+    fin3.classList.add('done-step');
+    fin3.querySelector('.fin-step-icon').className = 'fin-step-icon done-icon';
+    fin3.querySelector('.fin-step-icon').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+    const fin4 = document.getElementById('fin-4');
+    fin4.classList.add('active-step');
+    fin4.querySelector('.fin-step-icon').className = 'fin-step-icon loading';
+    fin4.querySelector('.fin-step-icon').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>`;
+  }, 1800);
+
+  setTimeout(() => {
+    const fin4 = document.getElementById('fin-4');
+    fin4.classList.remove('active-step');
+    fin4.classList.add('done-step');
+    fin4.querySelector('.fin-step-icon').className = 'fin-step-icon done-icon';
+    fin4.querySelector('.fin-step-icon').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg>`;
+  }, 2600);
+
+  setTimeout(() => {
+    showStep(1);
+  }, 3200);
+}
+
+// Handle input validation
+let handleTimer;
+function checkHandle(val) {
+  clearTimeout(handleTimer);
+  const status = document.getElementById('handle-status');
+
+  if (!val) { status.className = 'handle-status'; return; }
+
+  const valid = /^[a-z0-9-]+$/.test(val);
+  if (!valid) {
+    status.textContent = '✕  Only lowercase letters, numbers, and hyphens allowed';
+    status.className = 'handle-status show err';
+    return;
+  }
+  if (val.length < 3) {
+    status.textContent = '✕  Minimum 3 characters';
+    status.className = 'handle-status show err';
+    return;
+  }
+
+  status.textContent = 'Checking availability…';
+  status.className = 'handle-status show';
+  status.style.color = 'var(--grey-500)';
+
+  handleTimer = setTimeout(() => {
+    const taken = ['admin', 'support', 'info', 'hello', 'team'];
+    if (taken.includes(val)) {
+      status.textContent = '✕  This handle is taken — try another';
+      status.className = 'handle-status show err';
+    } else {
+      status.textContent = '✓  propertykit.com/' + val + ' is available';
+      status.className = 'handle-status show ok';
+    }
+  }, 600);
+}
+
+// Avatar upload
+function triggerAvatarUpload() {
+  document.getElementById('avatar-file').click();
+}
+
+function previewAvatar(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = document.getElementById('avatar-img');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      document.getElementById('avatar-placeholder').style.display = 'none';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+</body>
+</html>

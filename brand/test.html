@@ -1,0 +1,3604 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Kit — Platform Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   PROPERTY KIT — DESIGN TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --fs-1:  clamp(9px,  8.55px + 0.114vw, 10px);
+  --fs-2:  clamp(11px, 10.55px + 0.114vw, 12px);
+  --fs-3:  clamp(12px, 11.55px + 0.114vw, 13px);
+  --fs-4:  clamp(14px, 13.55px + 0.114vw, 15px);
+  --fs-base: var(--fs-4);
+  --fs-5:  clamp(15px, 14.55px + 0.114vw, 16px);
+  --fs-6:  clamp(18px, 14.36px + 0.909vw, 26px);
+  --fs-7:  clamp(22px, 15.64px + 1.591vw, 36px);
+  --fs-8:  clamp(32px, 19.27px + 3.182vw, 60px);
+  --fs-9:  clamp(56px, 23.27px + 8.182vw, 128px);
+
+  --ls-1: -0.05em;
+  --ls-2: -0.04em;
+  --ls-3: -0.03em;
+  --ls-4: -0.01em;
+  --ls-5:  0.08em;
+  --ls-6:  0.12em;
+  --ls-7:  0.18em;
+
+  --lh-1: 0.92;
+  --lh-2: 1.00;
+  --lh-3: 1.10;
+  --lh-4: 1.30;
+  --lh-5: 1.60;
+  --lh-6: 1.65;
+
+  --primary-100: #EBF2F1;
+  --primary-200: #D4E7E5;
+  --primary-300: #AECFCB;
+  --primary-400: #83B5AF;
+  --primary-500: #5C9B93;
+  --primary-600: #4A8079;
+  --primary-700: #3A6560;
+  --primary-800: #2A4A46;
+  --primary-900: #1A302E;
+
+  --cream-100: #FDFCFA;
+  --cream-200: #F8F5F0;
+  --cream-300: #F4F1EC;
+  --cream-400: #EAE6DE;
+  --cream-500: #E0DBD1;
+  --cream-600: #D4CEC3;
+  --cream-700: #C4BDB0;
+  --cream-800: #A8A096;
+  --cream-900: #8A8278;
+
+  --dark-100: #3D3D3D;
+  --dark-200: #2C2C2C;
+  --dark-300: #1A1A1A;
+  --dark-400: #141414;
+  --dark-500: #0B0B0B;
+  --dark-600: #080808;
+
+  --grey-100: #F5F5F5;
+  --grey-200: #E8E8E8;
+  --grey-300: #D4D4D4;
+  --grey-400: #BEBEBE;
+  --grey-500: #9A9A9A;
+  --grey-600: #7A7A7A;
+  --grey-700: #5A5A5A;
+  --grey-800: #3A3A3A;
+  --grey-900: #1A1A1A;
+
+  --white-100: rgba(255,255,255,0.05);
+  --white-200: rgba(255,255,255,0.10);
+  --white-300: rgba(255,255,255,0.20);
+  --white-400: rgba(255,255,255,0.35);
+  --white-500: rgba(255,255,255,0.50);
+  --white-600: rgba(255,255,255,0.65);
+  --white-700: rgba(255,255,255,0.80);
+  --white-800: rgba(255,255,255,0.92);
+  --white-900: rgba(255,255,255,1.00);
+
+  --border-col-1: rgba(11,11,11,0.06);
+  --border-col-2: rgba(11,11,11,0.10);
+  --border-col-3: rgba(11,11,11,0.16);
+  --border-col-4: rgba(11,11,11,0.24);
+
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 14px;
+  --r-4: 20px;
+  --r-5: 28px;
+  --r-6: 40px;
+  --r-7: 999px;
+
+  --icon-size-1: 12px;
+  --icon-size-2: 14px;
+  --icon-size-3: 18px;
+  --icon-size-4: 20px;
+  --icon-size-5: 24px;
+  --icon-size-6: 32px;
+
+  --sp-1: 2px;
+  --sp-2: 4px;
+  --sp-3: 8px;
+  --sp-4: 12px;
+  --sp-5: 16px;
+  --sp-6: 20px;
+  --sp-7: 24px;
+  --sp-8: 32px;
+  --sp-9: 40px;
+  --sp-10: 48px;
+  --sp-11: 56px;
+  --sp-12: 64px;
+  --sp-13: 80px;
+  --sp-14: 96px;
+  --sp-15: 120px;
+  --sp-16: 160px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--dark-500);
+  background: var(--cream-300);
+  line-height: var(--lh-6);
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+
+/* ═══════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════ */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-500);
+}
+.eyebrow-dark {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--white-500);
+}
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--primary-100);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--r-7);
+  padding: 6px 14px;
+  margin-bottom: var(--sp-7);
+}
+.section-label-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--white-100);
+  border: 1px solid var(--white-200);
+  border-radius: var(--r-7);
+  padding: 6px 14px;
+  margin-bottom: var(--sp-7);
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: var(--ls-5); text-transform: uppercase;
+  border: none; cursor: pointer; white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.25s cubic-bezier(0.22,1,0.36,1),
+              transform 0.25s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.25s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.25s cubic-bezier(0.22,1,0.36,1),
+              color 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-primary { background: var(--primary-500); color: #fff; border-radius: var(--r-3); }
+.btn-primary:hover { background: var(--primary-400); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(92,155,147,.35); }
+.btn-dark { background: var(--dark-500); color: #fff; border-radius: var(--r-3); }
+.btn-dark:hover { background: var(--dark-300); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.btn-outline { background: transparent; color: var(--dark-500); border: 1.5px solid var(--border-col-3); border-radius: var(--r-3); }
+.btn-outline:hover { border-color: var(--dark-500); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--grey-700); border-bottom: 1.5px solid transparent; padding-left: 0; padding-right: 0; border-radius: 0; }
+.btn-ghost:hover { color: var(--dark-500); border-bottom-color: var(--dark-500); }
+.btn-sm { padding: 10px 20px; font-size: var(--fs-1); }
+.btn-md { padding: 16px 32px; font-size: var(--fs-2); }
+.btn-lg { padding: 18px 36px; font-size: var(--fs-2); }
+.btn-ghost.btn-sm { padding: 8px 0; }
+
+/* PAGE SECTION DIVIDER */
+.showcase-divider {
+  text-align: center;
+  padding: clamp(24px, 2vw, 40px) clamp(24px, 5vw, 80px);
+  background: var(--dark-500);
+  color: var(--white-400);
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+}
+.showcase-divider span { color: var(--primary-400); margin: 0 8px; }
+
+/* ═══════════════════════════════════════════════
+   ① DASHBOARD
+═══════════════════════════════════════════════ */
+.dashboard {
+  background: var(--cream-200);
+  padding: clamp(32px, 4vw, 64px) clamp(20px, 4vw, 48px);
+  min-height: 100vh;
+}
+.dash-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  margin-bottom: clamp(32px, 4vw, 56px);
+  flex-wrap: wrap;
+}
+.dash-greeting-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--primary-500);
+  margin-bottom: var(--sp-3);
+}
+.dash-greeting-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+}
+.dash-greeting-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-5);
+  color: var(--grey-600);
+  margin-top: var(--sp-3);
+}
+.dash-header-actions {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: center;
+  flex-shrink: 0;
+}
+.dash-notif-btn {
+  width: 44px; height: 44px;
+  border-radius: var(--r-5);
+  background: #fff;
+  border: 1px solid var(--border-col-2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+.dash-notif-btn:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.dash-notif-dot {
+  position: absolute; top: 9px; right: 9px;
+  width: 8px; height: 8px;
+  background: var(--primary-500);
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+.dash-avatar {
+  width: 44px; height: 44px;
+  border-radius: var(--r-7);
+  background: linear-gradient(135deg, var(--primary-400), var(--primary-700));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+/* METRIC ROW */
+.dash-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(12px, 2vw, 20px);
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+@media (max-width: 900px) { .dash-metrics { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .dash-metrics { grid-template-columns: 1fr; } }
+
+.metric-card {
+  background: #fff;
+  border-radius: var(--r-5);
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--border-col-1);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.25s cubic-bezier(0.22,1,0.36,1), transform 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.metric-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.07); transform: translateY(-2px); }
+.metric-card.accent {
+  background: var(--primary-500);
+}
+.metric-card-accent-bg {
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 120px; height: 120px;
+  background: var(--primary-400);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+.metric-icon-wrap {
+  width: 36px; height: 36px;
+  border-radius: var(--r-2);
+  background: var(--primary-100);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--sp-5);
+}
+.metric-icon-wrap.white { background: var(--white-200); }
+.metric-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-600);
+  margin-bottom: var(--sp-3);
+}
+.metric-label.light { color: var(--white-600); }
+.metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  color: var(--dark-500);
+  line-height: var(--lh-2);
+}
+.metric-value.light { color: #fff; }
+.metric-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: #2ecc87;
+  letter-spacing: var(--ls-4);
+}
+.metric-delta.neg { color: #e85c5c; }
+.metric-delta.light { color: var(--white-700); }
+
+/* DASH MAIN GRID */
+.dash-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: clamp(16px, 2.5vw, 28px);
+}
+@media (max-width: 1100px) { .dash-main-grid { grid-template-columns: 1fr; } }
+
+/* ACTIVITY FEED */
+.dash-panel {
+  background: #fff;
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-1);
+  overflow: hidden;
+}
+.dash-panel-header {
+  padding: clamp(20px, 2.5vw, 28px) clamp(20px, 2.5vw, 28px) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-6);
+}
+.dash-panel-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+}
+.dash-panel-link {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--primary-500);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.dash-panel-link:hover { color: var(--primary-600); }
+
+/* ACTIVITY CHART PLACEHOLDER */
+.dash-chart-area {
+  padding: 0 clamp(20px, 2.5vw, 28px);
+  height: 180px;
+  position: relative;
+  margin-bottom: var(--sp-6);
+}
+.dash-chart-svg {
+  width: 100%; height: 100%;
+}
+
+/* LEAD ACTIVITY LIST */
+.activity-list { padding: 0 clamp(20px, 2.5vw, 28px) clamp(20px, 2.5vw, 28px); }
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: var(--sp-5) 0;
+  border-bottom: 1px solid var(--border-col-1);
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.activity-dot.teal { background: var(--primary-500); }
+.activity-dot.green { background: #2ecc87; }
+.activity-dot.amber { background: #f0a500; }
+.activity-dot.blue { background: #4a90d9; }
+.activity-info { flex: 1; min-width: 0; }
+.activity-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 700;
+  color: var(--dark-400);
+  letter-spacing: var(--ls-4);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.activity-action {
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.activity-time {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  letter-spacing: var(--ls-5);
+  color: var(--grey-400);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.activity-badge {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: var(--r-7);
+}
+.activity-badge.new { background: var(--primary-100); color: var(--primary-600); }
+.activity-badge.hot { background: #fff4e0; color: #c07800; }
+.activity-badge.replied { background: #e8f7f0; color: #1a8a52; }
+
+/* QUICK ACCESS PANEL */
+.quick-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 16px);
+  padding: 0 clamp(20px, 2.5vw, 28px) clamp(20px, 2.5vw, 28px);
+}
+.quick-task {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: clamp(14px, 2vw, 18px);
+  border-radius: var(--r-4);
+  background: var(--cream-200);
+  border: 1px solid var(--border-col-1);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.22,1,0.36,1);
+}
+.quick-task:hover { background: var(--cream-300); border-color: var(--primary-300); transform: translateX(2px); }
+.quick-task-icon {
+  width: 36px; height: 36px;
+  border-radius: var(--r-2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.quick-task-info { flex: 1; }
+.quick-task-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 700;
+  color: var(--dark-400);
+  letter-spacing: var(--ls-4);
+  margin-bottom: 2px;
+}
+.quick-task-sub {
+  font-size: var(--fs-2);
+  color: var(--grey-500);
+}
+.quick-task-arrow {
+  color: var(--grey-400);
+  transition: transform 0.2s;
+}
+.quick-task:hover .quick-task-arrow { transform: translateX(3px); color: var(--primary-500); }
+
+/* STATUS INDICATORS */
+.dash-status-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 1.5vw, 16px);
+  padding: 0 clamp(20px, 2.5vw, 28px) clamp(20px, 2.5vw, 28px);
+}
+.status-chip {
+  background: var(--cream-200);
+  border-radius: var(--r-4);
+  padding: clamp(12px, 1.5vw, 16px);
+  border: 1px solid var(--border-col-1);
+  text-align: center;
+}
+.status-chip-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin: 0 auto var(--sp-3);
+}
+.status-chip-dot.live { background: #2ecc87; box-shadow: 0 0 0 3px rgba(46,204,135,0.2); }
+.status-chip-dot.building { background: #f0a500; box-shadow: 0 0 0 3px rgba(240,165,0,0.2); }
+.status-chip-dot.paused { background: var(--grey-400); }
+.status-chip-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--grey-600);
+  margin-bottom: 2px;
+}
+.status-chip-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+}
+
+
+/* ═══════════════════════════════════════════════
+   ② PROPERTY MANAGER
+═══════════════════════════════════════════════ */
+.property-manager {
+  background: var(--cream-300);
+  padding: clamp(32px, 4vw, 64px) clamp(20px, 4vw, 48px);
+}
+.pm-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  margin-bottom: clamp(32px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.pm-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+}
+.pm-sub {
+  font-size: var(--fs-5);
+  color: var(--grey-600);
+  margin-top: var(--sp-3);
+}
+.pm-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--cream-400);
+  border-radius: var(--r-3);
+  padding: 4px;
+  border: 1px solid var(--border-col-2);
+}
+.pm-tab {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: var(--r-2);
+  cursor: pointer;
+  color: var(--grey-600);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.pm-tab.active {
+  background: #fff;
+  color: var(--dark-500);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* SITE TABLE */
+.pm-site-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.5vw, 14px);
+}
+.pm-site-row {
+  background: #fff;
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-1);
+  padding: clamp(16px, 2vw, 24px) clamp(20px, 2.5vw, 32px);
+  display: grid;
+  grid-template-columns: 56px 1fr auto auto auto;
+  gap: clamp(12px, 2vw, 24px);
+  align-items: center;
+  transition: box-shadow 0.22s, transform 0.22s;
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .pm-site-row { grid-template-columns: 48px 1fr auto; }
+  .pm-site-status, .pm-site-metrics { display: none; }
+}
+.pm-site-row:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(-1px); }
+.pm-site-thumb {
+  width: 56px; height: 40px;
+  border-radius: var(--r-2);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.pm-site-thumb-inner {
+  width: 100%; height: 100%;
+  position: relative;
+}
+.pm-site-info { min-width: 0; }
+.pm-site-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pm-site-url {
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pm-site-status {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+}
+.pm-status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.pm-status-dot.live { background: #2ecc87; }
+.pm-status-dot.draft { background: var(--grey-400); }
+.pm-status-dot.building { background: #f0a500; }
+.pm-site-live { color: #1a8a52; }
+.pm-site-draft { color: var(--grey-500); }
+.pm-site-building { color: #c07800; }
+.pm-site-metrics {
+  display: flex; gap: var(--sp-7);
+  text-align: right;
+}
+.pm-metric-mini { text-align: right; }
+.pm-metric-mini-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+}
+.pm-metric-mini-label {
+  font-size: var(--fs-1);
+  font-weight: 600;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--grey-500);
+  font-family: var(--font-display);
+}
+.pm-site-actions {
+  display: flex; gap: var(--sp-3);
+}
+.pm-action-btn {
+  width: 36px; height: 36px;
+  border-radius: var(--r-2);
+  border: 1px solid var(--border-col-2);
+  background: var(--cream-200);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--grey-600);
+}
+.pm-action-btn:hover { background: var(--primary-100); border-color: var(--primary-300); color: var(--primary-600); }
+
+/* PAGES BUILDER PREVIEW */
+.pm-pages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 2vw, 20px);
+  margin-top: clamp(24px, 3vw, 40px);
+}
+@media (max-width: 900px) { .pm-pages-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .pm-pages-grid { grid-template-columns: 1fr; } }
+
+.page-card {
+  background: #fff;
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.25s cubic-bezier(0.22,1,0.36,1), transform 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.page-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.10); transform: translateY(-3px); }
+.page-card-preview {
+  height: clamp(140px, 18vw, 200px);
+  position: relative;
+  overflow: hidden;
+}
+.page-card-info {
+  padding: clamp(14px, 2vw, 20px);
+}
+.page-card-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  margin-bottom: 4px;
+}
+.page-card-meta {
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+}
+.page-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: clamp(10px, 1.5vw, 14px);
+  padding-top: clamp(10px, 1.5vw, 14px);
+  border-top: 1px solid var(--border-col-1);
+}
+.page-card-stats {
+  display: flex; gap: var(--sp-5);
+}
+.page-stat {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--grey-600);
+  letter-spacing: var(--ls-4);
+}
+.page-stat strong { color: var(--dark-500); }
+.page-edit-btn {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--primary-500);
+  cursor: pointer;
+}
+
+
+/* ═══════════════════════════════════════════════
+   ③ PAGES SECTION — BUILDER UI
+═══════════════════════════════════════════════ */
+.pages-builder {
+  background: var(--dark-500);
+  padding: clamp(32px, 4vw, 64px) clamp(20px, 4vw, 48px);
+}
+.pb-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  margin-bottom: clamp(32px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.pb-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: #fff;
+}
+.pb-sub {
+  font-size: var(--fs-5);
+  color: var(--white-500);
+  margin-top: var(--sp-3);
+  max-width: 480px;
+}
+.pb-editor-chrome {
+  background: var(--dark-300);
+  border-radius: var(--r-6);
+  overflow: hidden;
+  border: 1px solid var(--white-100);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+}
+.pb-chrome-bar {
+  background: var(--dark-400);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  border-bottom: 1px solid var(--white-100);
+}
+.pb-chrome-dots { display: flex; gap: 6px; }
+.pb-chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
+.pb-chrome-dot.red { background: #ff5f57; }
+.pb-chrome-dot.amber { background: #ffbd2e; }
+.pb-chrome-dot.green { background: #28ca41; }
+.pb-url-bar {
+  flex: 1;
+  background: var(--white-100);
+  border-radius: var(--r-2);
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--white-500);
+  display: flex; align-items: center; gap: 8px;
+}
+.pb-url-bar-icon { color: var(--primary-400); flex-shrink: 0; }
+.pb-editor-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 240px;
+  min-height: 560px;
+}
+@media (max-width: 900px) {
+  .pb-editor-layout { grid-template-columns: 1fr; }
+  .pb-sidebar-right, .pb-sidebar-left { display: none; }
+}
+.pb-sidebar-left {
+  background: var(--dark-400);
+  border-right: 1px solid var(--white-100);
+  padding: var(--sp-6);
+}
+.pb-sidebar-section-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--white-300);
+  margin-bottom: var(--sp-4);
+  margin-top: var(--sp-6);
+}
+.pb-sidebar-section-label:first-child { margin-top: 0; }
+.pb-layer-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 8px 10px;
+  border-radius: var(--r-2);
+  cursor: pointer;
+  margin-bottom: 2px;
+  transition: background 0.15s;
+}
+.pb-layer-item:hover { background: var(--white-100); }
+.pb-layer-item.active { background: var(--primary-900); border: 1px solid var(--primary-700); }
+.pb-layer-icon { color: var(--white-300); width: 14px; height: 14px; flex-shrink: 0; }
+.pb-layer-icon.active { color: var(--primary-400); }
+.pb-layer-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  color: var(--white-500);
+  letter-spacing: var(--ls-4);
+}
+.pb-layer-name.active { color: var(--primary-300); }
+.pb-canvas {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.pb-canvas-inner {
+  width: 100%; height: 100%;
+  transform-origin: top center;
+}
+/* Hero section mockup within canvas */
+.canvas-hero {
+  background: linear-gradient(160deg, #0f2620 0%, #1a3830 50%, #0f2620 100%);
+  height: clamp(240px, 35vw, 380px);
+  display: flex;
+  align-items: center;
+  padding: clamp(24px, 4vw, 60px) clamp(24px, 4vw, 60px);
+  position: relative;
+  overflow: hidden;
+}
+.canvas-hero-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+}
+.canvas-hero-eyebrow {
+  font-family: var(--font-display);
+  font-size: clamp(8px, 1vw, 11px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary-300);
+  margin-bottom: clamp(8px, 1vw, 14px);
+}
+.canvas-hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  color: #fff;
+  margin-bottom: clamp(10px, 1.5vw, 18px);
+}
+.canvas-hero-sub {
+  font-size: clamp(11px, 1.4vw, 16px);
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  max-width: 340px;
+  margin-bottom: clamp(12px, 2vw, 24px);
+}
+.canvas-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: clamp(8px, 1.2vw, 14px) clamp(14px, 2vw, 24px);
+  background: var(--primary-500);
+  color: #fff;
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(8px, 1vw, 11px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.canvas-section-preview {
+  padding: clamp(16px, 2.5vw, 32px) clamp(24px, 4vw, 60px);
+  background: #fdfcfa;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.canvas-section-mini-label {
+  font-family: var(--font-display);
+  font-size: clamp(7px, 0.9vw, 9px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary-500);
+  margin-bottom: clamp(6px, 1vw, 12px);
+}
+.canvas-section-mini-h {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2.5vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--dark-500);
+  max-width: 360px;
+}
+.canvas-section-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(8px, 1.5vw, 16px);
+  margin-top: clamp(12px, 1.5vw, 20px);
+}
+.canvas-col-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: clamp(10px, 1.5vw, 16px);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.canvas-col-icon {
+  width: clamp(24px, 3vw, 32px);
+  height: clamp(24px, 3vw, 32px);
+  border-radius: 6px;
+  margin-bottom: clamp(6px, 1vw, 10px);
+}
+.canvas-col-title {
+  font-family: var(--font-display);
+  font-size: clamp(9px, 1.2vw, 13px);
+  font-weight: 800;
+  color: var(--dark-500);
+  margin-bottom: 3px;
+}
+.canvas-col-text {
+  font-size: clamp(8px, 1vw, 11px);
+  color: var(--grey-600);
+  line-height: 1.5;
+}
+
+/* RIGHT SIDEBAR — STYLE PANEL */
+.pb-sidebar-right {
+  background: var(--dark-400);
+  border-left: 1px solid var(--white-100);
+  padding: var(--sp-6);
+}
+.pb-style-group { margin-bottom: var(--sp-7); }
+.pb-style-group-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--white-300);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--white-100);
+}
+.pb-style-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-4);
+}
+.pb-style-label {
+  font-size: var(--fs-2);
+  color: var(--white-400);
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+.pb-style-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--white-700);
+  background: var(--white-100);
+  border: 1px solid var(--white-200);
+  border-radius: var(--r-1);
+  padding: 4px 8px;
+  min-width: 60px;
+  text-align: right;
+}
+.pb-color-swatches {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.pb-color-swatch {
+  width: 20px; height: 20px;
+  border-radius: var(--r-1);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.pb-color-swatch.selected { border-color: #fff; }
+
+
+/* ═══════════════════════════════════════════════
+   ④ CHANGELOG + CALENDAR
+═══════════════════════════════════════════════ */
+.changelog-section {
+  background: var(--cream-200);
+  padding: clamp(32px, 4vw, 64px) clamp(20px, 4vw, 48px);
+}
+.changelog-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: clamp(20px, 3vw, 40px);
+  margin-top: clamp(32px, 4vw, 48px);
+}
+@media (max-width: 900px) { .changelog-grid { grid-template-columns: 1fr; } }
+
+.changelog-feed { display: flex; flex-direction: column; gap: 0; }
+.changelog-item {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: clamp(16px, 2.5vw, 32px);
+  position: relative;
+}
+.changelog-item::before {
+  content: '';
+  position: absolute;
+  left: 96px;
+  top: 20px; bottom: -1px;
+  width: 1px;
+  background: var(--border-col-2);
+  transform: translateX(clamp(16px, 2.5vw, 32px));
+}
+.changelog-item:last-child::before { display: none; }
+.changelog-date {
+  text-align: right;
+  padding-top: 16px;
+}
+.changelog-date-day {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  color: var(--dark-500);
+  line-height: 1;
+}
+.changelog-date-month {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--grey-500);
+}
+.changelog-content {
+  padding: clamp(16px, 2.5vw, 24px) 0 clamp(24px, 3vw, 40px) clamp(24px, 3vw, 36px);
+  position: relative;
+}
+.changelog-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  border: 2px solid var(--cream-200);
+  box-shadow: 0 0 0 2px var(--primary-300);
+}
+.changelog-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--r-7);
+  margin-bottom: var(--sp-4);
+}
+.changelog-tag.feature { background: var(--primary-100); color: var(--primary-600); }
+.changelog-tag.improvement { background: #e8f3ff; color: #2a6fb0; }
+.changelog-tag.fix { background: #fff4e0; color: #c07800; }
+.changelog-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-4);
+}
+.changelog-body {
+  font-size: var(--fs-4);
+  color: var(--grey-700);
+  line-height: var(--lh-6);
+  max-width: 560px;
+}
+.changelog-body strong { color: var(--dark-500); font-weight: 600; }
+
+/* CALENDAR WIDGET */
+.calendar-widget {
+  background: #fff;
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-1);
+  overflow: hidden;
+  height: fit-content;
+  position: sticky;
+  top: 24px;
+}
+.cal-header {
+  background: var(--dark-500);
+  padding: clamp(16px, 2vw, 20px) clamp(16px, 2vw, 22px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cal-month {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: #fff;
+}
+.cal-nav-btns { display: flex; gap: var(--sp-3); }
+.cal-nav-btn {
+  width: 28px; height: 28px;
+  border-radius: var(--r-2);
+  background: var(--white-100);
+  border: 1px solid var(--white-200);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--white-600);
+  transition: background 0.15s;
+}
+.cal-nav-btn:hover { background: var(--white-200); }
+.cal-grid {
+  padding: clamp(12px, 2vw, 16px);
+}
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 8px;
+}
+.cal-weekday {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-400);
+  padding: 4px 0;
+}
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--dark-400);
+  border-radius: var(--r-2);
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+.cal-day:hover { background: var(--cream-200); }
+.cal-day.today {
+  background: var(--primary-500);
+  color: #fff;
+  font-weight: 800;
+}
+.cal-day.has-event::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--primary-400);
+}
+.cal-day.today.has-event::after { background: rgba(255,255,255,0.7); }
+.cal-day.other-month { color: var(--grey-300); }
+.cal-upcoming {
+  border-top: 1px solid var(--border-col-1);
+  padding: clamp(14px, 2vw, 18px) clamp(16px, 2vw, 22px);
+}
+.cal-upcoming-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-500);
+  margin-bottom: var(--sp-5);
+}
+.cal-event {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  margin-bottom: var(--sp-5);
+}
+.cal-event-bar {
+  width: 3px;
+  border-radius: var(--r-7);
+  flex-shrink: 0;
+  align-self: stretch;
+  min-height: 36px;
+}
+.cal-event-info {}
+.cal-event-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 700;
+  color: var(--dark-500);
+  letter-spacing: var(--ls-4);
+  margin-bottom: 2px;
+}
+.cal-event-date {
+  font-size: var(--fs-2);
+  color: var(--grey-500);
+}
+
+
+/* ═══════════════════════════════════════════════
+   ⑤ ACADEMY
+═══════════════════════════════════════════════ */
+.academy-section {
+  background: var(--dark-500);
+  padding: clamp(32px, 4vw, 80px) clamp(20px, 4vw, 48px);
+}
+.academy-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  margin-bottom: clamp(32px, 4vw, 56px);
+  flex-wrap: wrap;
+}
+.academy-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: #fff;
+}
+.academy-sub {
+  font-size: var(--fs-5);
+  color: var(--white-500);
+  margin-top: var(--sp-3);
+  max-width: 460px;
+}
+.academy-progress-bar-wrap {
+  margin-top: var(--sp-5);
+  display: flex; align-items: center; gap: var(--sp-5);
+}
+.academy-progress-track {
+  flex: 1; height: 6px;
+  background: var(--white-200);
+  border-radius: var(--r-7);
+  overflow: hidden;
+  max-width: 240px;
+}
+.academy-progress-fill {
+  height: 100%;
+  border-radius: var(--r-7);
+  background: linear-gradient(90deg, var(--primary-400), var(--primary-500));
+}
+.academy-progress-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  color: var(--white-500);
+}
+
+/* FEATURED VIDEO */
+.academy-featured {
+  background: var(--dark-300);
+  border-radius: var(--r-6);
+  overflow: hidden;
+  border: 1px solid var(--white-100);
+  margin-bottom: clamp(24px, 3.5vw, 40px);
+  display: grid;
+  grid-template-columns: 1fr 340px;
+}
+@media (max-width: 860px) {
+  .academy-featured { grid-template-columns: 1fr; }
+  .academy-featured-meta { border-left: none; border-top: 1px solid var(--white-100); }
+}
+.academy-video-thumb {
+  position: relative;
+  background: linear-gradient(135deg, #0a1f1d, #1a3832, #0d2b28);
+  aspect-ratio: 16/9;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 220px;
+}
+.academy-video-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(92,155,147,0.15), transparent);
+}
+.academy-play-btn {
+  width: clamp(56px, 7vw, 72px);
+  height: clamp(56px, 7vw, 72px);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+}
+.academy-play-btn:hover { background: var(--primary-500); border-color: var(--primary-400); transform: scale(1.08); }
+.academy-video-duration {
+  position: absolute;
+  bottom: 14px; right: 14px;
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,0,0,0.6);
+  padding: 4px 8px;
+  border-radius: var(--r-2);
+  z-index: 2;
+}
+.academy-video-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.academy-featured-meta {
+  padding: clamp(20px, 3vw, 32px);
+  border-left: 1px solid var(--white-100);
+  display: flex;
+  flex-direction: column;
+}
+.academy-featured-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-400);
+  margin-bottom: var(--sp-4);
+}
+.academy-featured-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: #fff;
+  line-height: var(--lh-3);
+  margin-bottom: var(--sp-5);
+}
+.academy-featured-desc {
+  font-size: var(--fs-4);
+  color: var(--white-500);
+  line-height: var(--lh-6);
+  flex: 1;
+  margin-bottom: var(--sp-7);
+}
+.academy-instructor {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+.academy-instructor-avatar {
+  width: 36px; height: 36px;
+  border-radius: var(--r-7);
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 800;
+  color: var(--primary-200);
+}
+.academy-instructor-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--white-700);
+  letter-spacing: var(--ls-4);
+}
+.academy-instructor-role {
+  font-size: var(--fs-2);
+  color: var(--white-400);
+}
+.academy-tags {
+  display: flex; gap: var(--sp-3); flex-wrap: wrap;
+  margin-top: auto;
+}
+.academy-tag {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--r-7);
+  background: var(--white-100);
+  color: var(--white-500);
+  border: 1px solid var(--white-200);
+}
+
+/* COURSE TRACKS */
+.academy-tracks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 2vw, 20px);
+}
+@media (max-width: 900px) { .academy-tracks { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .academy-tracks { grid-template-columns: 1fr; } }
+
+.track-card {
+  background: var(--dark-300);
+  border-radius: var(--r-5);
+  border: 1px solid var(--white-100);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.track-card:hover { border-color: var(--primary-700); box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 0 1px var(--primary-700); transform: translateY(-2px); }
+.track-card-header {
+  height: clamp(80px, 10vw, 110px);
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: flex-end;
+  padding: var(--sp-5);
+}
+.track-number {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 900;
+  letter-spacing: var(--ls-1);
+  color: rgba(255,255,255,0.06);
+  position: absolute;
+  right: 12px; top: -8px;
+  line-height: 1;
+  user-select: none;
+}
+.track-badge {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--r-7);
+  position: relative;
+  z-index: 1;
+}
+.track-card-body { padding: clamp(16px, 2vw, 22px); }
+.track-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: #fff;
+  margin-bottom: var(--sp-3);
+}
+.track-desc {
+  font-size: var(--fs-3);
+  color: var(--white-400);
+  line-height: var(--lh-5);
+  margin-bottom: var(--sp-5);
+}
+.track-progress-row {
+  display: flex; align-items: center; gap: var(--sp-4); margin-bottom: var(--sp-4);
+}
+.track-progress-bar {
+  flex: 1; height: 4px;
+  background: var(--white-100);
+  border-radius: var(--r-7);
+  overflow: hidden;
+}
+.track-progress-fill {
+  height: 100%;
+  border-radius: var(--r-7);
+  background: var(--primary-500);
+}
+.track-progress-pct {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--white-500);
+  flex-shrink: 0;
+}
+.track-lessons {
+  font-size: var(--fs-2);
+  color: var(--white-300);
+  display: flex; align-items: center; gap: 5px;
+}
+
+
+/* ═══════════════════════════════════════════════
+   ⑥ ONBOARDING CHECKLIST
+═══════════════════════════════════════════════ */
+.onboarding-section {
+  background: var(--cream-300);
+  padding: clamp(32px, 4vw, 80px) clamp(20px, 4vw, 48px);
+}
+.onboarding-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: clamp(24px, 4vw, 60px);
+  align-items: start;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+@media (max-width: 1000px) { .onboarding-layout { grid-template-columns: 1fr; } }
+
+.onboarding-intro {}
+.onboarding-big-num {
+  font-family: var(--font-display);
+  font-size: clamp(80px, 14vw, 160px);
+  font-weight: 900;
+  letter-spacing: var(--ls-1);
+  line-height: 1;
+  color: var(--cream-500);
+  margin-bottom: var(--sp-5);
+  margin-top: var(--sp-5);
+  user-select: none;
+}
+.onboarding-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-5);
+}
+.onboarding-body {
+  font-size: var(--fs-5);
+  color: var(--grey-600);
+  line-height: var(--lh-6);
+  max-width: 440px;
+  margin-bottom: var(--sp-9);
+}
+.onboarding-eta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 600;
+  color: var(--grey-600);
+}
+.onboarding-eta-icon {
+  width: 32px; height: 32px;
+  border-radius: var(--r-2);
+  background: var(--primary-100);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary-500);
+}
+
+/* CHECKLIST */
+.checklist-panel {
+  background: #fff;
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-1);
+  overflow: hidden;
+}
+.checklist-panel-header {
+  padding: clamp(16px, 2vw, 24px) clamp(20px, 2.5vw, 28px);
+  border-bottom: 1px solid var(--border-col-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.checklist-panel-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+}
+.checklist-progress-pill {
+  display: flex; align-items: center; gap: var(--sp-3);
+  background: var(--primary-100);
+  border-radius: var(--r-7);
+  padding: 6px 14px;
+}
+.checklist-progress-num {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 800;
+  letter-spacing: var(--ls-4);
+  color: var(--primary-600);
+}
+.checklist-progress-track-sm {
+  width: 60px; height: 4px;
+  background: var(--primary-200);
+  border-radius: var(--r-7);
+  overflow: hidden;
+}
+.checklist-progress-fill-sm {
+  height: 100%;
+  background: var(--primary-500);
+  border-radius: var(--r-7);
+}
+.checklist-items { padding: clamp(8px, 1vw, 12px) clamp(20px, 2.5vw, 28px); }
+.checklist-item {
+  display: flex;
+  gap: var(--sp-5);
+  align-items: flex-start;
+  padding: clamp(12px, 1.5vw, 16px) 0;
+  border-bottom: 1px solid var(--border-col-1);
+  cursor: pointer;
+  transition: background 0.15s;
+  margin: 0 calc(-1 * clamp(20px, 2.5vw, 28px));
+  padding-left: clamp(20px, 2.5vw, 28px);
+  padding-right: clamp(20px, 2.5vw, 28px);
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item:hover { background: var(--cream-100); }
+.checklist-item.done { opacity: 0.5; }
+.checklist-check {
+  width: 22px; height: 22px;
+  border-radius: var(--r-7);
+  border: 2px solid var(--border-col-3);
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.checklist-check.done {
+  background: var(--primary-500);
+  border-color: var(--primary-500);
+}
+.checklist-item-info { flex: 1; }
+.checklist-item-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 700;
+  color: var(--dark-500);
+  letter-spacing: var(--ls-4);
+  margin-bottom: 3px;
+}
+.checklist-item.done .checklist-item-title { text-decoration: line-through; color: var(--grey-500); }
+.checklist-item-desc {
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+}
+.checklist-item-time {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-400);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ONBOARDING VIDEO TILES */
+.onboarding-tips {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(10px, 1.5vw, 14px);
+  margin-top: clamp(16px, 2.5vw, 24px);
+}
+@media (max-width: 480px) { .onboarding-tips { grid-template-columns: 1fr; } }
+.tip-card {
+  background: var(--cream-200);
+  border-radius: var(--r-4);
+  border: 1px solid var(--border-col-1);
+  padding: clamp(14px, 2vw, 18px);
+  cursor: pointer;
+  transition: all 0.22s;
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+}
+.tip-card:hover { background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transform: translateY(-1px); }
+.tip-icon {
+  width: 32px; height: 32px;
+  border-radius: var(--r-2);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.tip-text {}
+.tip-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 800;
+  letter-spacing: var(--ls-4);
+  color: var(--dark-500);
+  margin-bottom: 3px;
+}
+.tip-sub {
+  font-size: var(--fs-2);
+  color: var(--grey-500);
+}
+
+
+/* ═══════════════════════════════════════════════
+   ⑦ ANALYTICS PREVIEW (COMING SOON)
+═══════════════════════════════════════════════ */
+.analytics-section {
+  background: var(--dark-400);
+  padding: clamp(32px, 4vw, 80px) clamp(20px, 4vw, 48px);
+  position: relative;
+  overflow: hidden;
+}
+.analytics-bg-glow {
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, rgba(92,155,147,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.analytics-content { position: relative; z-index: 1; }
+.analytics-header {
+  text-align: center;
+  margin-bottom: clamp(32px, 5vw, 64px);
+}
+.analytics-coming-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--white-100);
+  border: 1px solid var(--white-200);
+  border-radius: var(--r-7);
+  padding: 6px 16px;
+  margin-bottom: var(--sp-6);
+}
+.analytics-coming-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary-400);
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(92,155,147,0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(92,155,147,0); }
+  100% { box-shadow: 0 0 0 0 rgba(92,155,147,0); }
+}
+.analytics-coming-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-300);
+}
+.analytics-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: #fff;
+  margin-bottom: var(--sp-5);
+}
+.analytics-sub {
+  font-size: var(--fs-5);
+  color: var(--white-400);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: var(--lh-6);
+}
+
+/* ANALYTICS DASHBOARD MOCKUP */
+.analytics-mockup {
+  background: var(--dark-500);
+  border-radius: var(--r-6);
+  border: 1px solid var(--white-100);
+  overflow: hidden;
+  position: relative;
+}
+.analytics-mockup-blur {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(0px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, transparent 0%, rgba(20,20,20,0.6) 60%, var(--dark-400) 100%);
+}
+.analytics-unlock-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-5);
+  padding: clamp(24px, 3vw, 40px);
+  text-align: center;
+  backdrop-filter: blur(20px);
+  max-width: 380px;
+  width: 90%;
+}
+.analytics-unlock-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--r-4);
+  background: var(--primary-900);
+  border: 1px solid var(--primary-700);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto var(--sp-5);
+}
+.analytics-unlock-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: #fff;
+  margin-bottom: var(--sp-4);
+}
+.analytics-unlock-body {
+  font-size: var(--fs-4);
+  color: var(--white-400);
+  line-height: var(--lh-6);
+  margin-bottom: var(--sp-7);
+}
+.analytics-mockup-inner {
+  padding: clamp(16px, 2.5vw, 28px);
+  opacity: 0.4;
+  user-select: none;
+  pointer-events: none;
+}
+.analytics-mock-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-5);
+}
+@media (max-width: 600px) { .analytics-mock-row { grid-template-columns: repeat(2,1fr); } }
+.analytics-mock-card {
+  background: var(--dark-300);
+  border-radius: var(--r-4);
+  border: 1px solid var(--white-100);
+  padding: clamp(12px, 2vw, 18px);
+}
+.analytics-mock-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--white-300);
+  margin-bottom: var(--sp-3);
+}
+.analytics-mock-val {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: #fff;
+}
+.analytics-mock-chart {
+  background: var(--dark-300);
+  border-radius: var(--r-4);
+  border: 1px solid var(--white-100);
+  padding: var(--sp-6);
+  height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+.analytics-mock-chart-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--white-400);
+  margin-bottom: var(--sp-4);
+}
+
+
+/* ═══════════════════════════════════════════════
+   ⑧ PAGES — Editorial Marketing Section
+═══════════════════════════════════════════════ */
+.pages-showcase {
+  background: var(--cream-100);
+  padding: clamp(32px, 4vw, 80px) clamp(20px, 4vw, 48px);
+}
+.pages-showcase-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 5vw, 80px);
+  align-items: center;
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+@media (max-width: 800px) { .pages-showcase-hero { grid-template-columns: 1fr; } }
+
+.pages-hero-content {}
+.pages-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-500);
+  margin-bottom: var(--sp-6);
+}
+.pages-hero-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-6);
+}
+.pages-hero-body {
+  font-size: var(--fs-5);
+  color: var(--grey-600);
+  line-height: var(--lh-6);
+  margin-bottom: var(--sp-9);
+  max-width: 440px;
+}
+.pages-hero-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.pages-feature-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.pages-feature-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  flex-shrink: 0;
+}
+.pages-feature-text {
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 600;
+  color: var(--dark-400);
+  letter-spacing: var(--ls-4);
+}
+
+/* DEVICE MOCKUP */
+.pages-device-wrap {
+  position: relative;
+}
+.pages-browser-chrome {
+  background: var(--dark-300);
+  border-radius: var(--r-5);
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.05);
+}
+.pages-browser-bar {
+  background: var(--dark-400);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.pages-browser-dots { display: flex; gap: 5px; }
+.pages-browser-dot { width: 8px; height: 8px; border-radius: 50%; }
+.pages-browser-url {
+  flex: 1;
+  background: var(--white-100);
+  border-radius: var(--r-2);
+  padding: 5px 10px;
+  font-size: var(--fs-2);
+  color: var(--white-400);
+  font-family: var(--font-body);
+}
+.pages-browser-content {
+  background: var(--cream-200);
+  height: clamp(300px, 40vw, 480px);
+  overflow: hidden;
+}
+
+/* INSIDE BROWSER — AGENT SITE MOCKUP */
+.agent-site-nav {
+  background: #fff;
+  padding: clamp(10px, 1.5vw, 14px) clamp(16px, 2.5vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.agent-site-logo {
+  font-family: var(--font-display);
+  font-size: clamp(12px, 1.8vw, 18px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--dark-500);
+}
+.agent-site-links {
+  display: flex; gap: clamp(10px, 2vw, 24px);
+}
+.agent-site-link {
+  font-family: var(--font-display);
+  font-size: clamp(8px, 1vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--grey-600);
+}
+.agent-site-hero {
+  background: linear-gradient(160deg, #0f1f1e 0%, #1c3630 100%);
+  padding: clamp(20px, 4vw, 48px) clamp(16px, 2.5vw, 36px);
+  min-height: clamp(140px, 20vw, 220px);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+}
+.agent-site-hero-text { position: relative; z-index: 1; max-width: 480px; }
+.agent-hero-eyebrow-sm {
+  font-family: var(--font-display);
+  font-size: clamp(7px, 0.9vw, 9px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary-300);
+  margin-bottom: clamp(4px, 0.8vw, 8px);
+}
+.agent-hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3.5vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: clamp(6px, 1vw, 12px);
+}
+.agent-hero-sub-sm {
+  font-size: clamp(9px, 1.1vw, 13px);
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+.agent-site-floating-card {
+  position: absolute;
+  right: clamp(12px, 3vw, 32px);
+  bottom: clamp(12px, 3vw, 28px);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: clamp(8px, 1.5vw, 14px) clamp(10px, 1.5vw, 18px);
+  backdrop-filter: blur(12px);
+  z-index: 2;
+}
+.agent-card-stat {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 36px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.agent-card-label {
+  font-family: var(--font-display);
+  font-size: clamp(7px, 0.9vw, 9px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* TEMPLATE GRID */
+.pages-template-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(12px, 2vw, 20px);
+}
+@media (max-width: 900px) { .pages-template-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 520px) { .pages-template-grid { grid-template-columns: 1fr; } }
+.template-card {
+  border-radius: var(--r-5);
+  overflow: hidden;
+  border: 1px solid var(--border-col-2);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.template-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.12); transform: translateY(-4px); border-color: var(--primary-300); }
+.template-thumb {
+  height: clamp(140px, 16vw, 200px);
+  position: relative;
+  overflow: hidden;
+}
+.template-card-foot {
+  background: #fff;
+  padding: clamp(12px, 1.5vw, 16px);
+}
+.template-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  margin-bottom: 3px;
+}
+.template-type {
+  font-size: var(--fs-2);
+  color: var(--grey-500);
+  font-family: var(--font-display);
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════
+   SHARED SVG ICONS
+═══════════════════════════════════════════════ */
+svg.icon {
+  width: var(--icon-size-4);
+  height: var(--icon-size-4);
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+svg.icon-sm {
+  width: var(--icon-size-3);
+  height: var(--icon-size-3);
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+svg.icon-xs {
+  width: var(--icon-size-2);
+  height: var(--icon-size-2);
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Section header utility */
+.section-head { margin-bottom: clamp(32px, 4.5vw, 56px); }
+.section-head-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+}
+.section-head-title.light { color: #fff; }
+.section-head-sub {
+  font-size: var(--fs-5);
+  color: var(--grey-600);
+  margin-top: var(--sp-4);
+  max-width: 520px;
+  line-height: var(--lh-6);
+}
+.section-head-sub.light { color: var(--white-400); }
+
+/* spacer */
+.sp { height: clamp(20px, 3vw, 40px); }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     SHOWCASE DIVIDER
+════════════════════════════════════════ -->
+<div class="showcase-divider">Property Kit Platform <span>·</span> Section Library <span>·</span> Design Reference</div>
+
+
+<!-- ════════════════════════════════════════
+     ① DASHBOARD
+════════════════════════════════════════ -->
+<section class="dashboard">
+  <div class="dash-header">
+    <div>
+      <div class="dash-greeting-eyebrow">Good morning</div>
+      <div class="dash-greeting-name">Sarah Chen.</div>
+      <div class="dash-greeting-sub">Here's what's happening across your portfolio this week.</div>
+    </div>
+    <div class="dash-header-actions">
+      <div class="dash-notif-btn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div class="dash-notif-dot"></div>
+      </div>
+      <div class="dash-avatar">SC</div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="dash-metrics">
+    <div class="metric-card accent">
+      <div class="metric-card-accent-bg"></div>
+      <div class="metric-icon-wrap white">
+        <svg class="icon-sm" style="color:rgba(255,255,255,0.8)" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="metric-label light">New Leads</div>
+      <div class="metric-value light">142</div>
+      <div class="metric-delta light">
+        <svg style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        +18% vs last month
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon-wrap">
+        <svg class="icon-sm" style="color:var(--primary-500)" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="metric-label">Avg. Response Time</div>
+      <div class="metric-value">4.2<span style="font-size:0.5em;letter-spacing:0;font-weight:600;color:var(--grey-500)">min</span></div>
+      <div class="metric-delta">
+        <svg style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        62% faster than avg
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon-wrap">
+        <svg class="icon-sm" style="color:var(--primary-500)" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="metric-label">Site Visitors</div>
+      <div class="metric-value">8,341</div>
+      <div class="metric-delta">
+        <svg style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        +34% this week
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon-wrap">
+        <svg class="icon-sm" style="color:var(--primary-500)" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="metric-label">Ad Spend ROI</div>
+      <div class="metric-value">6.8<span style="font-size:0.5em;letter-spacing:0;font-weight:600;color:var(--grey-500)">x</span></div>
+      <div class="metric-delta neg">
+        <svg style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+        −0.3x from last week
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="dash-main-grid">
+    <!-- LEFT — ACTIVITY + CHART -->
+    <div style="display:flex;flex-direction:column;gap:clamp(16px,2vw,24px)">
+      <div class="dash-panel">
+        <div class="dash-panel-header">
+          <div class="dash-panel-title">Lead Activity</div>
+          <div class="dash-panel-link">View all →</div>
+        </div>
+        <!-- CHART -->
+        <div class="dash-chart-area">
+          <svg class="dash-chart-svg" viewBox="0 0 700 180" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5C9B93" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#5C9B93" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- Grid lines -->
+            <line x1="0" y1="45" x2="700" y2="45" stroke="#E8E8E8" stroke-width="1"/>
+            <line x1="0" y1="90" x2="700" y2="90" stroke="#E8E8E8" stroke-width="1"/>
+            <line x1="0" y1="135" x2="700" y2="135" stroke="#E8E8E8" stroke-width="1"/>
+            <!-- Area fill -->
+            <path d="M0,140 C58,140 58,100 117,100 C175,100 175,60 233,60 C292,60 292,80 350,80 C408,80 408,30 467,30 C525,30 525,50 583,50 C642,50 642,70 700,70 L700,180 L0,180 Z" fill="url(#chartGrad)"/>
+            <!-- Line -->
+            <path d="M0,140 C58,140 58,100 117,100 C175,100 175,60 233,60 C292,60 292,80 350,80 C408,80 408,30 467,30 C525,30 525,50 583,50 C642,50 642,70 700,70" fill="none" stroke="#5C9B93" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Dots -->
+            <circle cx="467" cy="30" r="4" fill="#5C9B93"/>
+            <circle cx="467" cy="30" r="8" fill="#5C9B93" opacity="0.2"/>
+            <!-- Labels -->
+            <text x="14" y="170" font-family="Manrope,sans-serif" font-size="9" fill="#BEBEBE" font-weight="600" letter-spacing="1">MON</text>
+            <text x="108" y="170" font-family="Manrope,sans-serif" font-size="9" fill="#BEBEBE" font-weight="600" letter-spacing="1">TUE</text>
+            <text x="225" y="170" font-family="Manrope,sans-serif" font-size="9" fill="#BEBEBE" font-weight="600" letter-spacing="1">WED</text>
+            <text x="340" y="170" font-family="Manrope,sans-serif" font-size="9" fill="#BEBEBE" font-weight="600" letter-spacing="1">THU</text>
+            <text x="454" y="170" font-family="Manrope,sans-serif" font-size="9" fill="#BEBEBE" font-weight="600" letter-spacing="1">FRI</text>
+            <text x="570" y="170" font-family="Manrope,sans-serif" font-size="9" fill="#BEBEBE" font-weight="600" letter-spacing="1">SAT</text>
+            <text x="685" y="170" font-family="Manrope,sans-serif" font-size="9" fill="#BEBEBE" font-weight="600" letter-spacing="1">SUN</text>
+          </svg>
+        </div>
+        <!-- ACTIVITY LIST -->
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-dot teal"></div>
+            <div class="activity-info">
+              <div class="activity-name">Marcus & Jennifer Holoway</div>
+              <div class="activity-action">Submitted valuation request — Pacific Heights</div>
+            </div>
+            <div class="activity-badge new">New</div>
+            <div class="activity-time">3m ago</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot green"></div>
+            <div class="activity-info">
+              <div class="activity-name">David Pratt</div>
+              <div class="activity-action">Replied to AI nurture sequence — Day 3</div>
+            </div>
+            <div class="activity-badge replied">Replied</div>
+            <div class="activity-time">17m ago</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot amber"></div>
+            <div class="activity-info">
+              <div class="activity-name">The Nakamura Family</div>
+              <div class="activity-action">Returned to site — viewed 5 listings</div>
+            </div>
+            <div class="activity-badge hot">Hot</div>
+            <div class="activity-time">41m ago</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot blue"></div>
+            <div class="activity-info">
+              <div class="activity-name">Rachel Stone</div>
+              <div class="activity-action">Downloaded neighborhood guide — Nob Hill PDF</div>
+            </div>
+            <div class="activity-badge new">New</div>
+            <div class="activity-time">1h ago</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot teal"></div>
+            <div class="activity-info">
+              <div class="activity-name">Connor & Alexis Webb</div>
+              <div class="activity-action">Booked buyer consultation via calendar widget</div>
+            </div>
+            <div class="activity-badge replied">Booked</div>
+            <div class="activity-time">2h ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATUS ROW -->
+      <div class="dash-panel">
+        <div class="dash-panel-header">
+          <div class="dash-panel-title">Platform Status</div>
+          <div class="dash-panel-link">Details →</div>
+        </div>
+        <div class="dash-status-row">
+          <div class="status-chip">
+            <div class="status-chip-dot live"></div>
+            <div class="status-chip-label">Live Sites</div>
+            <div class="status-chip-val">3</div>
+          </div>
+          <div class="status-chip">
+            <div class="status-chip-dot building"></div>
+            <div class="status-chip-label">Building</div>
+            <div class="status-chip-val">1</div>
+          </div>
+          <div class="status-chip">
+            <div class="status-chip-dot paused"></div>
+            <div class="status-chip-label">Paused</div>
+            <div class="status-chip-val">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — QUICK ACCESS -->
+    <div style="display:flex;flex-direction:column;gap:clamp(16px,2vw,24px)">
+      <div class="dash-panel">
+        <div class="dash-panel-header">
+          <div class="dash-panel-title">Quick Actions</div>
+        </div>
+        <div class="quick-tasks">
+          <div class="quick-task">
+            <div class="quick-task-icon" style="background:var(--primary-100)">
+              <svg class="icon-sm" style="color:var(--primary-500)" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <div class="quick-task-info">
+              <div class="quick-task-title">Edit Homepage</div>
+              <div class="quick-task-sub">sarahchen.com · last edited 2d ago</div>
+            </div>
+            <svg class="quick-task-arrow icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+          <div class="quick-task">
+            <div class="quick-task-icon" style="background:#e8f3ff">
+              <svg class="icon-sm" style="color:#2a6fb0" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="quick-task-info">
+              <div class="quick-task-title">Respond to Leads</div>
+              <div class="quick-task-sub">6 new messages waiting</div>
+            </div>
+            <svg class="quick-task-arrow icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+          <div class="quick-task">
+            <div class="quick-task-icon" style="background:#fff4e0">
+              <svg class="icon-sm" style="color:#c07800" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="quick-task-info">
+              <div class="quick-task-title">Review Ad Performance</div>
+              <div class="quick-task-sub">Meta report ready · Jun 4</div>
+            </div>
+            <svg class="quick-task-arrow icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+          <div class="quick-task">
+            <div class="quick-task-icon" style="background:var(--primary-100)">
+              <svg class="icon-sm" style="color:var(--primary-500)" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="quick-task-info">
+              <div class="quick-task-title">Continue Training</div>
+              <div class="quick-task-sub">Academy · Module 3 of 6</div>
+            </div>
+            <svg class="quick-task-arrow icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEAM SNAPSHOT -->
+      <div class="dash-panel" style="padding-bottom:0">
+        <div class="dash-panel-header">
+          <div class="dash-panel-title">Team</div>
+          <div class="dash-panel-link">Manage →</div>
+        </div>
+        <div style="padding:0 clamp(20px,2.5vw,28px) clamp(20px,2.5vw,28px)">
+          <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+            <!-- team member -->
+            <div style="display:flex;align-items:center;gap:var(--sp-4)">
+              <div style="width:36px;height:36px;border-radius:var(--r-7);background:linear-gradient(135deg,#4a90d9,#2a5fa0);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-2);font-weight:800;color:#fff;flex-shrink:0">JL</div>
+              <div style="flex:1">
+                <div style="font-family:var(--font-display);font-size:var(--fs-4);font-weight:700;color:var(--dark-500);letter-spacing:var(--ls-4)">James Liu</div>
+                <div style="font-size:var(--fs-2);color:var(--grey-500)">Lead Strategist</div>
+              </div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#2ecc87"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--sp-4)">
+              <div style="width:36px;height:36px;border-radius:var(--r-7);background:linear-gradient(135deg,#e85c8a,#b03060);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-2);font-weight:800;color:#fff;flex-shrink:0">MP</div>
+              <div style="flex:1">
+                <div style="font-family:var(--font-display);font-size:var(--fs-4);font-weight:700;color:var(--dark-500);letter-spacing:var(--ls-4)">Maya Patel</div>
+                <div style="font-size:var(--fs-2);color:var(--grey-500)">Content Specialist</div>
+              </div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#2ecc87"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--sp-4)">
+              <div style="width:36px;height:36px;border-radius:var(--r-7);background:linear-gradient(135deg,var(--primary-500),var(--primary-800));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:var(--fs-2);font-weight:800;color:#fff;flex-shrink:0">TR</div>
+              <div style="flex:1">
+                <div style="font-family:var(--font-display);font-size:var(--fs-4);font-weight:700;color:var(--dark-500);letter-spacing:var(--ls-4)">Tyler Reed</div>
+                <div style="font-size:var(--fs-2);color:var(--grey-500)">Ads Manager</div>
+              </div>
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--grey-400)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DIVIDER
+════════════════════════════════════════ -->
+<div class="showcase-divider">Property Manager <span>·</span> Site &amp; Pages Overview</div>
+
+
+<!-- ════════════════════════════════════════
+     ② PROPERTY MANAGER
+════════════════════════════════════════ -->
+<section class="property-manager">
+  <div class="pm-header">
+    <div>
+      <div class="section-label">
+        <span class="eyebrow">Property Manager</span>
+      </div>
+      <div class="pm-title">Your Digital Properties</div>
+      <div class="pm-sub">Manage every site, page, and funnel from one place.</div>
+    </div>
+    <div style="display:flex;gap:var(--sp-4);flex-wrap:wrap;align-items:center">
+      <div class="pm-tabs">
+        <div class="pm-tab active">All Sites</div>
+        <div class="pm-tab">Funnels</div>
+        <div class="pm-tab">Landing Pages</div>
+      </div>
+      <button class="btn btn-primary btn-md">
+        <svg class="icon-xs" style="stroke:#fff" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Site
+      </button>
+    </div>
+  </div>
+
+  <div class="pm-site-list">
+    <!-- SITE ROW 1 — LIVE -->
+    <div class="pm-site-row">
+      <div class="pm-site-thumb">
+        <div class="pm-site-thumb-inner" style="background:linear-gradient(135deg,#0f2620,#1a3830)">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+            <div style="font-family:Manrope,sans-serif;font-size:7px;font-weight:800;color:rgba(255,255,255,0.7);letter-spacing:0.1em">SC</div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-site-info">
+        <div class="pm-site-name">sarahchen.com</div>
+        <div class="pm-site-url">sarahchen.com · Homepage + 6 pages</div>
+      </div>
+      <div class="pm-site-status pm-site-live">
+        <div class="pm-status-dot live"></div>Live
+      </div>
+      <div class="pm-site-metrics">
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">8.3K</div>
+          <div class="pm-metric-mini-label">Monthly</div>
+        </div>
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">142</div>
+          <div class="pm-metric-mini-label">Leads</div>
+        </div>
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">3.8%</div>
+          <div class="pm-metric-mini-label">CVR</div>
+        </div>
+      </div>
+      <div class="pm-site-actions">
+        <div class="pm-action-btn" title="Edit">
+          <svg class="icon-xs" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="pm-action-btn" title="View live">
+          <svg class="icon-xs" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+        <div class="pm-action-btn" title="More">
+          <svg class="icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SITE ROW 2 — LIVE -->
+    <div class="pm-site-row">
+      <div class="pm-site-thumb">
+        <div class="pm-site-thumb-inner" style="background:linear-gradient(135deg,#1a1020,#3a1850)">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+            <div style="font-family:Manrope,sans-serif;font-size:7px;font-weight:800;color:rgba(255,255,255,0.7);letter-spacing:0.1em">BH</div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-site-info">
+        <div class="pm-site-name">Pacific Heights Homes</div>
+        <div class="pm-site-url">pacificheightshomes.com · Neighborhood funnel</div>
+      </div>
+      <div class="pm-site-status pm-site-live">
+        <div class="pm-status-dot live"></div>Live
+      </div>
+      <div class="pm-site-metrics">
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">3.1K</div>
+          <div class="pm-metric-mini-label">Monthly</div>
+        </div>
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">58</div>
+          <div class="pm-metric-mini-label">Leads</div>
+        </div>
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">5.1%</div>
+          <div class="pm-metric-mini-label">CVR</div>
+        </div>
+      </div>
+      <div class="pm-site-actions">
+        <div class="pm-action-btn"><svg class="icon-xs" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <div class="pm-action-btn"><svg class="icon-xs" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+        <div class="pm-action-btn"><svg class="icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div>
+      </div>
+    </div>
+
+    <!-- SITE ROW 3 — BUILDING -->
+    <div class="pm-site-row">
+      <div class="pm-site-thumb">
+        <div class="pm-site-thumb-inner" style="background:linear-gradient(135deg,#1f1200,#3d2800)">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+            <div style="font-family:Manrope,sans-serif;font-size:7px;font-weight:800;color:rgba(255,255,255,0.5);letter-spacing:0.1em">LX</div>
+          </div>
+        </div>
+      </div>
+      <div class="pm-site-info">
+        <div class="pm-site-name">Luxury Buyer Guide 2025</div>
+        <div class="pm-site-url">chen-luxury.com · Lead magnet funnel</div>
+      </div>
+      <div class="pm-site-status pm-site-building">
+        <div class="pm-status-dot building"></div>Building
+      </div>
+      <div class="pm-site-metrics">
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">—</div>
+          <div class="pm-metric-mini-label">Monthly</div>
+        </div>
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">—</div>
+          <div class="pm-metric-mini-label">Leads</div>
+        </div>
+        <div class="pm-metric-mini">
+          <div class="pm-metric-mini-val">—</div>
+          <div class="pm-metric-mini-label">CVR</div>
+        </div>
+      </div>
+      <div class="pm-site-actions">
+        <div class="pm-action-btn"><svg class="icon-xs" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <div class="pm-action-btn"><svg class="icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGES GRID -->
+  <div class="sp"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(16px,2.5vw,24px)">
+    <div style="font-family:var(--font-display);font-size:var(--fs-6);font-weight:800;letter-spacing:var(--ls-3);color:var(--dark-500)">Pages · sarahchen.com</div>
+    <button class="btn btn-outline btn-sm">
+      <svg class="icon-xs" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Page
+    </button>
+  </div>
+  <div class="pm-pages-grid">
+    <!-- Page Card 1 -->
+    <div class="page-card">
+      <div class="page-card-preview" style="background:linear-gradient(160deg,#0f2620,#1a3830)">
+        <div style="position:absolute;inset:0;padding:clamp(12px,2vw,20px)">
+          <div style="font-family:Manrope,sans-serif;font-size:clamp(7px,1vw,9px);font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(92,155,147,0.8);margin-bottom:8px">Top Performer</div>
+          <div style="font-family:Manrope,sans-serif;font-size:clamp(16px,2.5vw,28px);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff">Sell Smarter.<br>Live Better.</div>
+          <div style="margin-top:10px;display:inline-block;background:var(--primary-500);padding:5px 12px;border-radius:8px;font-family:Manrope,sans-serif;font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff">Get Your Value →</div>
+        </div>
+      </div>
+      <div class="page-card-info">
+        <div class="page-card-name">Homepage</div>
+        <div class="page-card-meta">Updated 2 days ago</div>
+        <div class="page-card-footer">
+          <div class="page-card-stats">
+            <div class="page-stat"><strong>4.2K</strong> visits</div>
+            <div class="page-stat"><strong>72</strong> leads</div>
+          </div>
+          <div class="page-edit-btn">Edit →</div>
+        </div>
+      </div>
+    </div>
+    <!-- Page Card 2 -->
+    <div class="page-card">
+      <div class="page-card-preview" style="background:var(--cream-200)">
+        <div style="position:absolute;inset:0;padding:clamp(12px,2vw,20px)">
+          <div style="background:#fff;border-radius:10px;padding:12px;height:100%;display:flex;flex-direction:column;gap:6px;border:1px solid rgba(0,0,0,0.06)">
+            <div style="font-family:Manrope,sans-serif;font-size:clamp(8px,1.2vw,11px);font-weight:800;letter-spacing:-0.03em;color:var(--dark-500)">Pacific Heights Guide</div>
+            <div style="font-size:clamp(7px,0.9vw,9px);color:var(--grey-500);line-height:1.5;flex:1">Everything buyers and sellers need to know about SF's most sought-after neighborhood...</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <div style="background:var(--primary-100);border-radius:20px;padding:3px 8px;font-family:Manrope,sans-serif;font-size:7px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--primary-600)">Guide</div>
+              <div style="background:#e8f3ff;border-radius:20px;padding:3px 8px;font-family:Manrope,sans-serif;font-size:7px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#2a6fb0">SEO</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-card-info">
+        <div class="page-card-name">Neighborhood Guide</div>
+        <div class="page-card-meta">Updated 5 days ago</div>
+        <div class="page-card-footer">
+          <div class="page-card-stats">
+            <div class="page-stat"><strong>1.8K</strong> visits</div>
+            <div class="page-stat"><strong>31</strong> leads</div>
+          </div>
+          <div class="page-edit-btn">Edit →</div>
+        </div>
+      </div>
+    </div>
+    <!-- Page Card 3 -->
+    <div class="page-card">
+      <div class="page-card-preview" style="background:linear-gradient(135deg,#1a0a28,#2d1050)">
+        <div style="position:absolute;inset:0;padding:clamp(12px,2vw,20px);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center">
+          <div style="font-family:Manrope,sans-serif;font-size:clamp(7px,0.9vw,9px);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(180,130,255,0.7);margin-bottom:8px">Free Valuation</div>
+          <div style="font-family:Manrope,sans-serif;font-size:clamp(14px,2vw,22px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:#fff">What's Your<br>Home Worth?</div>
+          <div style="margin-top:12px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:6px 16px;font-family:Manrope,sans-serif;font-size:8px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff">Enter address →</div>
+        </div>
+      </div>
+      <div class="page-card-info">
+        <div class="page-card-name">Home Valuation</div>
+        <div class="page-card-meta">Updated today</div>
+        <div class="page-card-footer">
+          <div class="page-card-stats">
+            <div class="page-stat"><strong>2.1K</strong> visits</div>
+            <div class="page-stat"><strong>89</strong> leads</div>
+          </div>
+          <div class="page-edit-btn">Edit →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DIVIDER
+════════════════════════════════════════ -->
+<div class="showcase-divider">Pages Builder <span>·</span> Visual Editor</div>
+
+
+<!-- ════════════════════════════════════════
+     ③ PAGES BUILDER
+════════════════════════════════════════ -->
+<section class="pages-builder">
+  <div class="pb-top">
+    <div>
+      <div class="section-label-dark">
+        <span class="eyebrow-dark">Visual Editor</span>
+      </div>
+      <div class="pb-title">Build without limits.</div>
+      <div class="pb-sub">Every pixel, every section, every conversion flow — crafted exactly how your brand demands it.</div>
+    </div>
+    <div style="display:flex;gap:var(--sp-4);align-items:center;flex-wrap:wrap">
+      <button class="btn btn-outline btn-md" style="border-color:var(--white-300);color:#fff">Preview</button>
+      <button class="btn btn-primary btn-md">Publish Site</button>
+    </div>
+  </div>
+
+  <div class="pb-editor-chrome">
+    <!-- CHROME BAR -->
+    <div class="pb-chrome-bar">
+      <div class="pb-chrome-dots">
+        <div class="pb-chrome-dot red"></div>
+        <div class="pb-chrome-dot amber"></div>
+        <div class="pb-chrome-dot green"></div>
+      </div>
+      <div class="pb-url-bar">
+        <svg class="pb-url-bar-icon" style="width:12px;height:12px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        sarahchen.com — Editing: Homepage
+      </div>
+      <div style="display:flex;gap:var(--sp-4);align-items:center">
+        <svg style="width:16px;height:16px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <svg style="width:16px;height:16px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+    </div>
+
+    <!-- EDITOR LAYOUT -->
+    <div class="pb-editor-layout">
+      <!-- LEFT SIDEBAR — LAYERS -->
+      <div class="pb-sidebar-left">
+        <div class="pb-sidebar-section-label">Sections</div>
+        <div class="pb-layer-item active">
+          <svg class="pb-layer-icon active" viewBox="0 0 24 24" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+          <span class="pb-layer-name active">Hero</span>
+        </div>
+        <div class="pb-layer-item">
+          <svg class="pb-layer-icon" viewBox="0 0 24 24" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="pb-layer-name">Features</span>
+        </div>
+        <div class="pb-layer-item">
+          <svg class="pb-layer-icon" viewBox="0 0 24 24" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          <span class="pb-layer-name">Testimonials</span>
+        </div>
+        <div class="pb-layer-item">
+          <svg class="pb-layer-icon" viewBox="0 0 24 24" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span class="pb-layer-name">Stats</span>
+        </div>
+        <div class="pb-layer-item">
+          <svg class="pb-layer-icon" viewBox="0 0 24 24" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/><path d="M2 6.92A2 2 0 0 1 4.18 5H7a2 2 0 0 1 2 1.72"/></svg>
+          <span class="pb-layer-name">Contact CTA</span>
+        </div>
+        <div class="pb-layer-item">
+          <svg class="pb-layer-icon" viewBox="0 0 24 24" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <span class="pb-layer-name">Footer</span>
+        </div>
+
+        <div class="pb-sidebar-section-label">Add Block</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+          <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-2);padding:8px 6px;cursor:pointer;text-align:center;transition:background 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+            <svg style="width:14px;height:14px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none;margin:0 auto 3px" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+            <div style="font-family:Manrope,sans-serif;font-size:8px;font-weight:600;color:var(--white-400)">Hero</div>
+          </div>
+          <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-2);padding:8px 6px;cursor:pointer;text-align:center;transition:background 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+            <svg style="width:14px;height:14px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none;margin:0 auto 3px" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <div style="font-family:Manrope,sans-serif;font-size:8px;font-weight:600;color:var(--white-400)">Grid</div>
+          </div>
+          <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-2);padding:8px 6px;cursor:pointer;text-align:center;transition:background 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+            <svg style="width:14px;height:14px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none;margin:0 auto 3px" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div style="font-family:Manrope,sans-serif;font-size:8px;font-weight:600;color:var(--white-400)">Quote</div>
+          </div>
+          <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-2);padding:8px 6px;cursor:pointer;text-align:center;transition:background 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+            <svg style="width:14px;height:14px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none;margin:0 auto 3px" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div style="font-family:Manrope,sans-serif;font-size:8px;font-weight:600;color:var(--white-400)">Stats</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CANVAS -->
+      <div class="pb-canvas">
+        <!-- HERO SECTION IN CANVAS -->
+        <div class="canvas-hero">
+          <div class="canvas-hero-bg-circle" style="width:300px;height:300px;background:var(--primary-500);top:-100px;right:-50px"></div>
+          <div class="canvas-hero-bg-circle" style="width:200px;height:200px;background:var(--primary-700);bottom:-80px;left:30%"></div>
+          <div style="position:relative;z-index:1">
+            <div class="canvas-hero-eyebrow">San Francisco's #1 Agent Team</div>
+            <div class="canvas-hero-h1">Real estate<br>reimagined.</div>
+            <div class="canvas-hero-sub">From your first home to your forever investment — we handle every detail with precision and care.</div>
+            <div class="canvas-hero-btn">
+              <svg style="width:10px;height:10px;stroke:#fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              Start your search
+            </div>
+          </div>
+          <!-- SELECTION HIGHLIGHT -->
+          <div style="position:absolute;inset:0;border:2px solid var(--primary-400);pointer-events:none;opacity:0.6"></div>
+          <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);background:var(--primary-500);color:#fff;font-family:Manrope,sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:4px">Hero Section</div>
+        </div>
+
+        <!-- FEATURES SECTION IN CANVAS -->
+        <div class="canvas-section-preview">
+          <div class="canvas-section-mini-label">Why us</div>
+          <div class="canvas-section-mini-h">A team that works as hard as you do.</div>
+          <div class="canvas-section-cols">
+            <div class="canvas-col-card">
+              <div class="canvas-col-icon" style="background:var(--primary-100)"></div>
+              <div class="canvas-col-title">AI Lead Nurture</div>
+              <div class="canvas-col-text">Every lead followed up within minutes. Every time.</div>
+            </div>
+            <div class="canvas-col-card">
+              <div class="canvas-col-icon" style="background:#e8f3ff"></div>
+              <div class="canvas-col-title">Paid Ads</div>
+              <div class="canvas-col-text">Meta, Google & YouTube. Managed by experts.</div>
+            </div>
+            <div class="canvas-col-card">
+              <div class="canvas-col-icon" style="background:#fff4e0"></div>
+              <div class="canvas-col-title">Premium Design</div>
+              <div class="canvas-col-text">A digital identity as strong as your brand.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDEBAR — STYLE PANEL -->
+      <div class="pb-sidebar-right">
+        <div class="pb-style-group">
+          <div class="pb-style-group-label">Section</div>
+          <div class="pb-style-row">
+            <div class="pb-style-label">Background</div>
+            <div style="display:flex;gap:4px">
+              <div style="width:20px;height:20px;border-radius:3px;background:linear-gradient(135deg,#0f2620,#1a3830);border:2px solid rgba(255,255,255,0.4)"></div>
+            </div>
+          </div>
+          <div class="pb-style-row">
+            <div class="pb-style-label">Padding V</div>
+            <div class="pb-style-val">80px</div>
+          </div>
+          <div class="pb-style-row">
+            <div class="pb-style-label">Padding H</div>
+            <div class="pb-style-val">60px</div>
+          </div>
+        </div>
+        <div class="pb-style-group">
+          <div class="pb-style-group-label">Heading</div>
+          <div class="pb-style-row">
+            <div class="pb-style-label">Font</div>
+            <div class="pb-style-val">Manrope</div>
+          </div>
+          <div class="pb-style-row">
+            <div class="pb-style-label">Weight</div>
+            <div class="pb-style-val">800</div>
+          </div>
+          <div class="pb-style-row">
+            <div class="pb-style-label">Size</div>
+            <div class="pb-style-val">60px</div>
+          </div>
+          <div class="pb-style-row">
+            <div class="pb-style-label">Color</div>
+            <div style="display:flex;gap:4px">
+              <div style="width:20px;height:20px;border-radius:3px;background:#ffffff;border:1px solid rgba(255,255,255,0.3)"></div>
+            </div>
+          </div>
+        </div>
+        <div class="pb-style-group">
+          <div class="pb-style-group-label">Button</div>
+          <div class="pb-color-swatches">
+            <div class="pb-color-swatch selected" style="background:var(--primary-500)"></div>
+            <div class="pb-color-swatch" style="background:#fff"></div>
+            <div class="pb-color-swatch" style="background:var(--dark-500)"></div>
+            <div class="pb-color-swatch" style="background:transparent;border:1px solid rgba(255,255,255,0.4)"></div>
+          </div>
+          <div class="pb-style-row" style="margin-top:var(--sp-4)">
+            <div class="pb-style-label">Radius</div>
+            <div class="pb-style-val">14px</div>
+          </div>
+        </div>
+        <div class="pb-style-group">
+          <div class="pb-style-group-label">Responsive</div>
+          <div style="display:flex;gap:var(--sp-3)">
+            <div style="background:var(--primary-900);border:1px solid var(--primary-700);border-radius:var(--r-2);padding:6px 10px;cursor:pointer;display:flex;align-items:center;justify-content:center">
+              <svg style="width:12px;height:12px;stroke:var(--primary-300);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-2);padding:6px 10px;cursor:pointer;display:flex;align-items:center;justify-content:center" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+              <svg style="width:12px;height:12px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-2);padding:6px 10px;cursor:pointer;display:flex;align-items:center;justify-content:center" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+              <svg style="width:12px;height:12px;stroke:var(--white-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2" ry="2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     ④ PAGES — AGENT SITE TEMPLATES
+════════════════════════════════════════ -->
+<section class="pages-showcase">
+  <div class="pages-showcase-hero">
+    <div class="pages-hero-content">
+      <div class="pages-hero-eyebrow">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--primary-500)"></div>
+        Pages &amp; Sites
+      </div>
+      <div class="pages-hero-title">Your presence,<br>perfectly built.</div>
+      <div class="pages-hero-body">Every template is crafted to convert — with the editorial quality your personal brand demands. No compromises, no shortcuts.</div>
+      <div class="pages-hero-features">
+        <div class="pages-feature-row"><div class="pages-feature-dot"></div><div class="pages-feature-text">Mobile-first, desktop-stunning</div></div>
+        <div class="pages-feature-row"><div class="pages-feature-dot"></div><div class="pages-feature-text">SEO-optimized from day one</div></div>
+        <div class="pages-feature-row"><div class="pages-feature-dot"></div><div class="pages-feature-text">Lead capture built into every section</div></div>
+        <div class="pages-feature-row"><div class="pages-feature-dot"></div><div class="pages-feature-text">Connects to AI nurture automatically</div></div>
+      </div>
+    </div>
+    <!-- BROWSER MOCKUP WITH AGENT SITE -->
+    <div class="pages-device-wrap">
+      <div class="pages-browser-chrome">
+        <div class="pages-browser-bar">
+          <div class="pages-browser-dots">
+            <div class="pages-browser-dot" style="background:#ff5f57"></div>
+            <div class="pages-browser-dot" style="background:#ffbd2e"></div>
+            <div class="pages-browser-dot" style="background:#28ca41"></div>
+          </div>
+          <div class="pages-browser-url">sarahchen.com</div>
+        </div>
+        <div class="pages-browser-content">
+          <div class="agent-site-nav">
+            <div class="agent-site-logo">Sarah Chen</div>
+            <div class="agent-site-links">
+              <div class="agent-site-link">Buy</div>
+              <div class="agent-site-link">Sell</div>
+              <div class="agent-site-link">Neighborhoods</div>
+              <div class="agent-site-link">About</div>
+            </div>
+          </div>
+          <div class="agent-site-hero">
+            <div class="agent-site-hero-text">
+              <div class="agent-hero-eyebrow-sm">San Francisco's Top 1%</div>
+              <div class="agent-hero-h1">Luxury Living,<br>Expertly Navigated.</div>
+              <div class="agent-hero-sub-sm">$2B+ in closed volume. Representing the city's most discerning buyers and sellers.</div>
+              <div style="margin-top:clamp(10px,1.5vw,18px);display:inline-flex;align-items:center;gap:6px;background:var(--primary-500);padding:clamp(6px,1vw,10px) clamp(12px,2vw,20px);border-radius:10px">
+                <div style="font-family:Manrope,sans-serif;font-size:clamp(8px,0.9vw,10px);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff">Get Your Home Value</div>
+              </div>
+            </div>
+            <div class="agent-site-floating-card">
+              <div class="agent-card-stat">$14.2M</div>
+              <div class="agent-card-label">Avg. sale price '24</div>
+            </div>
+            <!-- background decorative -->
+            <div style="position:absolute;right:0;top:0;bottom:0;width:40%;background:linear-gradient(135deg,rgba(92,155,147,0.08),transparent);pointer-events:none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE GRID -->
+  <div style="margin-bottom:clamp(20px,3vw,36px)">
+    <div class="section-label"><span class="eyebrow">Page Templates</span></div>
+    <div class="section-head-title">Browse the library.</div>
+  </div>
+
+  <div class="pages-template-grid">
+    <div class="template-card">
+      <div class="template-thumb" style="background:linear-gradient(160deg,#0d1f1e,#1a3530)">
+        <div style="position:absolute;inset:0;padding:14px">
+          <div style="font-family:Manrope,sans-serif;font-size:8px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(92,155,147,0.8);margin-bottom:6px">Agent HQ</div>
+          <div style="font-family:Manrope,sans-serif;font-size:clamp(14px,2.5vw,20px);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff">The<br>Estate<br>Theme</div>
+        </div>
+      </div>
+      <div class="template-card-foot">
+        <div class="template-name">The Estate</div>
+        <div class="template-type">Homepage</div>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-thumb" style="background:var(--cream-200)">
+        <div style="position:absolute;inset:0;padding:14px;display:flex;flex-direction:column;gap:8px">
+          <div style="background:#fff;border-radius:10px;height:40%;border:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center">
+            <div style="font-family:Manrope,sans-serif;font-size:8px;font-weight:800;letter-spacing:-0.02em;color:var(--dark-500)">Buyer Guide 2025</div>
+          </div>
+          <div style="background:#fff;border-radius:8px;height:20%;border:1px solid rgba(0,0,0,0.06)"></div>
+          <div style="background:#fff;border-radius:8px;height:20%;border:1px solid rgba(0,0,0,0.06)"></div>
+        </div>
+      </div>
+      <div class="template-card-foot">
+        <div class="template-name">Guide Page</div>
+        <div class="template-type">Lead Magnet</div>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-thumb" style="background:linear-gradient(135deg,#1a0025,#350050)">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:14px">
+          <div style="font-family:Manrope,sans-serif;font-size:8px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(200,150,255,0.7);margin-bottom:8px">Free</div>
+          <div style="font-family:Manrope,sans-serif;font-size:clamp(14px,2vw,18px);font-weight:800;letter-spacing:-0.03em;color:#fff">What Is Your<br>Home Worth?</div>
+          <div style="margin-top:10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:4px 12px;font-family:Manrope,sans-serif;font-size:8px;font-weight:700;color:#fff">Enter address →</div>
+        </div>
+      </div>
+      <div class="template-card-foot">
+        <div class="template-name">Valuation</div>
+        <div class="template-type">Funnel</div>
+      </div>
+    </div>
+    <div class="template-card">
+      <div class="template-thumb" style="background:var(--dark-500)">
+        <div style="position:absolute;inset:0;padding:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;height:100%">
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;border:1px solid rgba(255,255,255,0.08)"></div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;border:1px solid rgba(255,255,255,0.08)"></div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;border:1px solid rgba(255,255,255,0.08)"></div>
+            <div style="background:rgba(92,155,147,0.15);border-radius:8px;border:1px solid rgba(92,155,147,0.3)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="template-card-foot">
+        <div class="template-name">Listings</div>
+        <div class="template-type">Search Page</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DIVIDER
+════════════════════════════════════════ -->
+<div class="showcase-divider">Changelog <span>·</span> Platform Updates &amp; Roadmap</div>
+
+
+<!-- ════════════════════════════════════════
+     ④ CHANGELOG + CALENDAR
+════════════════════════════════════════ -->
+<section class="changelog-section">
+  <div class="section-label"><span class="eyebrow">Platform Updates</span></div>
+  <div class="section-head-title" style="font-family:var(--font-display);font-size:var(--fs-8);font-weight:800;letter-spacing:var(--ls-2);line-height:var(--lh-2);color:var(--dark-500)">What's new.</div>
+  <div style="font-size:var(--fs-5);color:var(--grey-600);margin-top:var(--sp-4);max-width:520px;line-height:var(--lh-6)">We ship fast and communicate clearly. Here's what we've built and what's coming.</div>
+
+  <div class="changelog-grid">
+    <div class="changelog-feed">
+      <!-- ITEM 1 -->
+      <div class="changelog-item">
+        <div class="changelog-date">
+          <div class="changelog-date-day">28</div>
+          <div class="changelog-date-month">May</div>
+        </div>
+        <div class="changelog-content">
+          <div class="changelog-tag feature">✦ New Feature</div>
+          <div class="changelog-title">AI Lead Scoring 2.0</div>
+          <div class="changelog-body">Your leads are now automatically scored based on <strong>engagement depth, return visits, and response patterns</strong>. Hot leads surface to the top of your inbox so you never miss a live opportunity.</div>
+        </div>
+      </div>
+      <!-- ITEM 2 -->
+      <div class="changelog-item">
+        <div class="changelog-date">
+          <div class="changelog-date-day">21</div>
+          <div class="changelog-date-month">May</div>
+        </div>
+        <div class="changelog-content">
+          <div class="changelog-tag improvement">↑ Improvement</div>
+          <div class="changelog-title">Page Builder — Mobile Preview</div>
+          <div class="changelog-body">You can now preview every section at exactly <strong>400px, 768px, and 1280px</strong> simultaneously. Ship with confidence knowing your site looks exceptional on every device.</div>
+        </div>
+      </div>
+      <!-- ITEM 3 -->
+      <div class="changelog-item">
+        <div class="changelog-date">
+          <div class="changelog-date-day">14</div>
+          <div class="changelog-date-month">May</div>
+        </div>
+        <div class="changelog-content">
+          <div class="changelog-tag feature">✦ New Feature</div>
+          <div class="changelog-title">YouTube Ads Integration</div>
+          <div class="changelog-body">Your campaigns now extend to YouTube. <strong>Pre-roll and mid-roll formats</strong> are available with the same geo-targeting precision you already use on Meta and Google.</div>
+        </div>
+      </div>
+      <!-- ITEM 4 -->
+      <div class="changelog-item">
+        <div class="changelog-date">
+          <div class="changelog-date-day">6</div>
+          <div class="changelog-date-month">May</div>
+        </div>
+        <div class="changelog-content">
+          <div class="changelog-tag fix">⚡ Fix</div>
+          <div class="changelog-title">Form submission latency resolved</div>
+          <div class="changelog-body">Response times on valuation forms dropped from <strong>800ms to under 120ms</strong>. Leads land instantly, and your follow-up sequences fire without delay.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div>
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <div class="cal-month">June 2025</div>
+          <div class="cal-nav-btns">
+            <div class="cal-nav-btn">
+              <svg style="width:10px;height:10px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </div>
+            <div class="cal-nav-btn">
+              <svg style="width:10px;height:10px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-weekdays">
+            <div class="cal-weekday">S</div><div class="cal-weekday">M</div><div class="cal-weekday">T</div><div class="cal-weekday">W</div><div class="cal-weekday">T</div><div class="cal-weekday">F</div><div class="cal-weekday">S</div>
+          </div>
+          <div class="cal-days">
+            <!-- blank days -->
+            <div class="cal-day other-month">28</div>
+            <div class="cal-day other-month">29</div>
+            <div class="cal-day other-month">30</div>
+            <div class="cal-day other-month">31</div>
+            <div class="cal-day">1</div>
+            <div class="cal-day has-event">2</div>
+            <div class="cal-day">3</div>
+            <div class="cal-day">4</div>
+            <div class="cal-day today has-event">5</div>
+            <div class="cal-day">6</div>
+            <div class="cal-day has-event">7</div>
+            <div class="cal-day has-event">8</div>
+            <div class="cal-day">9</div>
+            <div class="cal-day">10</div>
+            <div class="cal-day">11</div>
+            <div class="cal-day">12</div>
+            <div class="cal-day has-event">13</div>
+            <div class="cal-day">14</div>
+            <div class="cal-day">15</div>
+            <div class="cal-day has-event">16</div>
+            <div class="cal-day">17</div>
+            <div class="cal-day">18</div>
+            <div class="cal-day">19</div>
+            <div class="cal-day">20</div>
+            <div class="cal-day has-event">21</div>
+            <div class="cal-day">22</div>
+            <div class="cal-day">23</div>
+            <div class="cal-day">24</div>
+            <div class="cal-day">25</div>
+            <div class="cal-day">26</div>
+            <div class="cal-day">27</div>
+            <div class="cal-day">28</div>
+            <div class="cal-day has-event">29</div>
+            <div class="cal-day">30</div>
+            <div class="cal-day other-month">1</div>
+            <div class="cal-day other-month">2</div>
+            <div class="cal-day other-month">3</div>
+            <div class="cal-day other-month">4</div>
+            <div class="cal-day other-month">5</div>
+          </div>
+        </div>
+        <div class="cal-upcoming">
+          <div class="cal-upcoming-title">Coming up</div>
+          <div class="cal-event">
+            <div class="cal-event-bar" style="background:var(--primary-500)"></div>
+            <div class="cal-event-info">
+              <div class="cal-event-title">Analytics Dashboard Launch</div>
+              <div class="cal-event-date">June 29 · Full platform rollout</div>
+            </div>
+          </div>
+          <div class="cal-event">
+            <div class="cal-event-bar" style="background:#4a90d9"></div>
+            <div class="cal-event-info">
+              <div class="cal-event-title">AI Nurture Sequences v3</div>
+              <div class="cal-event-date">July 7 · Feature release</div>
+            </div>
+          </div>
+          <div class="cal-event">
+            <div class="cal-event-bar" style="background:#f0a500"></div>
+            <div class="cal-event-info">
+              <div class="cal-event-title">SEO Content Expansion</div>
+              <div class="cal-event-date">July 21 · Your new pages go live</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DIVIDER
+════════════════════════════════════════ -->
+<div class="showcase-divider">Academy <span>·</span> Courses &amp; Training</div>
+
+
+<!-- ════════════════════════════════════════
+     ⑤ ACADEMY
+════════════════════════════════════════ -->
+<section class="academy-section">
+  <div class="academy-header">
+    <div>
+      <div class="section-label-dark"><span class="eyebrow-dark">Property Kit Academy</span></div>
+      <div class="academy-title">Master your<br>platform.</div>
+      <div class="academy-sub">Every lesson is built for top producers — no fluff, no filler. Just what works at the highest level.</div>
+      <div class="academy-progress-bar-wrap">
+        <div class="academy-progress-track">
+          <div class="academy-progress-fill" style="width:38%"></div>
+        </div>
+        <div class="academy-progress-label">38% complete · 11 lessons done</div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-lg">Continue Learning</button>
+  </div>
+
+  <!-- FEATURED VIDEO -->
+  <div class="academy-featured">
+    <div class="academy-video-thumb">
+      <div class="academy-video-grid-overlay"></div>
+      <div class="academy-video-overlay"></div>
+      <!-- Abstract visual element -->
+      <div style="position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(92,155,147,0.3),transparent);top:-50px;right:-50px"></div>
+      <div style="position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(92,155,147,0.15),transparent);bottom:-30px;left:20%"></div>
+      <div class="academy-play-btn">
+        <svg style="width:20px;height:20px;stroke:#fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:rgba(255,255,255,0.1)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="academy-video-duration">18:42</div>
+      <div style="position:absolute;bottom:14px;left:14px;z-index:2;font-family:Manrope,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Featured · Module 3</div>
+    </div>
+    <div class="academy-featured-meta">
+      <div class="academy-featured-eyebrow">Must-Watch</div>
+      <div class="academy-featured-title">How to convert warm leads into signed listings in under 72 hours</div>
+      <div class="academy-featured-desc">The follow-up playbook used by our top 10 clients. From first contact to signed agreement — step by step, with real scripts and real timelines.</div>
+      <div class="academy-instructor">
+        <div class="academy-instructor-avatar">JL</div>
+        <div>
+          <div class="academy-instructor-name">James Liu</div>
+          <div class="academy-instructor-role">Head of Strategy · Property Kit</div>
+        </div>
+      </div>
+      <div class="academy-tags">
+        <div class="academy-tag">Lead Nurture</div>
+        <div class="academy-tag">Scripts</div>
+        <div class="academy-tag">Listings</div>
+        <div class="academy-tag">18 min</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACK CARDS -->
+  <div class="academy-tracks">
+    <div class="track-card">
+      <div class="track-card-header" style="background:linear-gradient(135deg,#0d2220,#1a3830)">
+        <div class="track-number">01</div>
+        <div class="track-badge" style="background:var(--primary-900);color:var(--primary-300);border:1px solid var(--primary-700)">Foundation</div>
+      </div>
+      <div class="track-card-body">
+        <div class="track-title">Platform Basics</div>
+        <div class="track-desc">Set up your account, connect your domain, and launch your first live page. Everything in order.</div>
+        <div class="track-progress-row">
+          <div class="track-progress-bar"><div class="track-progress-fill" style="width:100%"></div></div>
+          <div class="track-progress-pct">Done</div>
+        </div>
+        <div class="track-lessons">
+          <svg style="width:12px;height:12px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          6 of 6 lessons complete
+        </div>
+      </div>
+    </div>
+    <div class="track-card">
+      <div class="track-card-header" style="background:linear-gradient(135deg,#141030,#241860)">
+        <div class="track-number">02</div>
+        <div class="track-badge" style="background:rgba(100,80,200,0.2);color:rgb(180,160,255);border:1px solid rgba(100,80,200,0.3)">Pages</div>
+      </div>
+      <div class="track-card-body">
+        <div class="track-title">Building Pages That Convert</div>
+        <div class="track-desc">Master the builder. Learn which sections drive leads — and how to sequence them for maximum conversion.</div>
+        <div class="track-progress-row">
+          <div class="track-progress-bar"><div class="track-progress-fill" style="width:60%"></div></div>
+          <div class="track-progress-pct">60%</div>
+        </div>
+        <div class="track-lessons">
+          <svg style="width:12px;height:12px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          3 of 5 lessons complete
+        </div>
+      </div>
+    </div>
+    <div class="track-card">
+      <div class="track-card-header" style="background:linear-gradient(135deg,#1a1000,#3a2400)">
+        <div class="track-number">03</div>
+        <div class="track-badge" style="background:rgba(200,120,0,0.2);color:rgb(255,190,80);border:1px solid rgba(200,120,0,0.3)">Ads</div>
+      </div>
+      <div class="track-card-body">
+        <div class="track-title">Paid Media Mastery</div>
+        <div class="track-desc">Understand your Meta and Google campaigns. Learn to read the reports your team sends — and ask the right questions.</div>
+        <div class="track-progress-row">
+          <div class="track-progress-bar"><div class="track-progress-fill" style="width:20%"></div></div>
+          <div class="track-progress-pct">20%</div>
+        </div>
+        <div class="track-lessons">
+          <svg style="width:12px;height:12px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          1 of 5 lessons complete
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DIVIDER
+════════════════════════════════════════ -->
+<div class="showcase-divider">Getting Started <span>·</span> Onboarding Checklist</div>
+
+
+<!-- ════════════════════════════════════════
+     ⑥ ONBOARDING CHECKLIST
+════════════════════════════════════════ -->
+<section class="onboarding-section">
+  <div class="section-label"><span class="eyebrow">Getting Started</span></div>
+
+  <div class="onboarding-layout">
+    <div class="onboarding-intro">
+      <div class="onboarding-big-num">4/7</div>
+      <div class="onboarding-title">You're almost ready to launch.</div>
+      <div class="onboarding-body">Three steps stand between you and a fully live platform. Each one takes less than 10 minutes — and your team handles the heavy lifting.</div>
+      <div class="onboarding-eta">
+        <div class="onboarding-eta-icon">
+          <svg style="width:16px;height:16px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        Est. 22 minutes to full launch
+      </div>
+
+      <div class="onboarding-tips" style="margin-top:clamp(24px,3.5vw,40px)">
+        <div class="tip-card">
+          <div class="tip-icon" style="background:var(--primary-100)">
+            <svg style="width:16px;height:16px;stroke:var(--primary-500);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="tip-text">
+            <div class="tip-title">2-min setup tour</div>
+            <div class="tip-sub">Watch before you click anything</div>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#e8f3ff">
+            <svg style="width:16px;height:16px;stroke:#2a6fb0;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="tip-text">
+            <div class="tip-title">Chat with your team</div>
+            <div class="tip-sub">James responds within the hour</div>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:#fff4e0">
+            <svg style="width:16px;height:16px;stroke:#c07800;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="tip-text">
+            <div class="tip-title">Read the FAQ</div>
+            <div class="tip-sub">Most questions answered instantly</div>
+          </div>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon" style="background:var(--primary-100)">
+            <svg style="width:16px;height:16px;stroke:var(--primary-500);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 15.1"/><path d="M2 6.92A2 2 0 0 1 4.18 5H7a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 12a16 16 0 0 0 6.29 6.29l.26-.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 20.5v3"/></svg>
+          </div>
+          <div class="tip-text">
+            <div class="tip-title">Book a strategy call</div>
+            <div class="tip-sub">30-min deep dive, your choice of time</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST -->
+    <div>
+      <div class="checklist-panel">
+        <div class="checklist-panel-header">
+          <div class="checklist-panel-title">Launch Checklist</div>
+          <div class="checklist-progress-pill">
+            <div class="checklist-progress-num">4 / 7</div>
+            <div class="checklist-progress-track-sm">
+              <div class="checklist-progress-fill-sm" style="width:57%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="checklist-items">
+          <div class="checklist-item done">
+            <div class="checklist-check done">
+              <svg style="width:11px;height:11px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="checklist-item-info">
+              <div class="checklist-item-title">Connect your domain</div>
+              <div class="checklist-item-desc">sarahchen.com is live and verified</div>
+            </div>
+            <div class="checklist-item-time">Done</div>
+          </div>
+          <div class="checklist-item done">
+            <div class="checklist-check done">
+              <svg style="width:11px;height:11px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="checklist-item-info">
+              <div class="checklist-item-title">Upload your headshots &amp; bio</div>
+              <div class="checklist-item-desc">Team will format these for your site</div>
+            </div>
+            <div class="checklist-item-time">Done</div>
+          </div>
+          <div class="checklist-item done">
+            <div class="checklist-check done">
+              <svg style="width:11px;height:11px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="checklist-item-info">
+              <div class="checklist-item-title">Complete onboarding call</div>
+              <div class="checklist-item-desc">60-min session with James Liu</div>
+            </div>
+            <div class="checklist-item-time">Done</div>
+          </div>
+          <div class="checklist-item done">
+            <div class="checklist-check done">
+              <svg style="width:11px;height:11px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="checklist-item-info">
+              <div class="checklist-item-title">Review homepage draft</div>
+              <div class="checklist-item-desc">Approve or request revisions</div>
+            </div>
+            <div class="checklist-item-time">Done</div>
+          </div>
+          <!-- UNCOMPLETED -->
+          <div class="checklist-item">
+            <div class="checklist-check"></div>
+            <div class="checklist-item-info">
+              <div class="checklist-item-title">Connect your CRM</div>
+              <div class="checklist-item-desc">Follow Up Boss, Kvcore, or custom</div>
+            </div>
+            <div class="checklist-item-time">~8 min</div>
+          </div>
+          <div class="checklist-item">
+            <div class="checklist-check"></div>
+            <div class="checklist-item-info">
+              <div class="checklist-item-title">Set up Meta Ads account</div>
+              <div class="checklist-item-desc">Grant access to your team</div>
+            </div>
+            <div class="checklist-item-time">~6 min</div>
+          </div>
+          <div class="checklist-item">
+            <div class="checklist-check"></div>
+            <div class="checklist-item-info">
+              <div class="checklist-item-title">Approve ad creative &amp; copy</div>
+              <div class="checklist-item-desc">Ready for your review in the portal</div>
+            </div>
+            <div class="checklist-item-time">~5 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DIVIDER
+════════════════════════════════════════ -->
+<div class="showcase-divider">Analytics <span>·</span> Launching Next Month</div>
+
+
+<!-- ════════════════════════════════════════
+     ⑦ ANALYTICS (COMING SOON)
+════════════════════════════════════════ -->
+<section class="analytics-section">
+  <div class="analytics-bg-glow"></div>
+  <div class="analytics-content">
+    <div class="analytics-header">
+      <div class="analytics-coming-soon">
+        <div class="analytics-coming-pulse"></div>
+        <div class="analytics-coming-label">Launching June 29</div>
+      </div>
+      <div class="analytics-title">Finally — analytics<br>that actually matter.</div>
+      <div class="analytics-sub">Not vanity metrics. Real data: which pages generate leads, which ads convert, which neighborhoods drive your pipeline.</div>
+    </div>
+
+    <div class="analytics-mockup">
+      <!-- INNER MOCKUP (blurred/faded) -->
+      <div class="analytics-mockup-inner">
+        <div class="analytics-mock-row">
+          <div class="analytics-mock-card">
+            <div class="analytics-mock-label">Leads / Month</div>
+            <div class="analytics-mock-val">142</div>
+          </div>
+          <div class="analytics-mock-card">
+            <div class="analytics-mock-label">CVR</div>
+            <div class="analytics-mock-val">3.8%</div>
+          </div>
+          <div class="analytics-mock-card">
+            <div class="analytics-mock-label">Ad ROAS</div>
+            <div class="analytics-mock-val">6.8x</div>
+          </div>
+          <div class="analytics-mock-card">
+            <div class="analytics-mock-label">Cost / Lead</div>
+            <div class="analytics-mock-val">$18</div>
+          </div>
+        </div>
+        <div class="analytics-mock-chart">
+          <div class="analytics-mock-chart-label">Lead Volume — Last 90 Days</div>
+          <svg width="100%" height="100px" viewBox="0 0 600 100" preserveAspectRatio="none" style="position:absolute;bottom:16px;left:0;right:0">
+            <defs>
+              <linearGradient id="aGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5C9B93" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#5C9B93" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,80 C100,80 100,60 150,60 C200,60 200,40 250,40 C300,40 300,50 350,50 C400,50 400,20 450,20 C500,20 500,30 600,30 L600,100 L0,100 Z" fill="url(#aGrad)"/>
+            <path d="M0,80 C100,80 100,60 150,60 C200,60 200,40 250,40 C300,40 300,50 350,50 C400,50 400,20 450,20 C500,20 500,30 600,30" fill="none" stroke="#5C9B93" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+      <!-- OVERLAY -->
+      <div class="analytics-mockup-blur">
+        <div class="analytics-unlock-card">
+          <div class="analytics-unlock-icon">
+            <svg style="width:24px;height:24px;stroke:var(--primary-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="analytics-unlock-title">Analytics in 30 days</div>
+          <div class="analytics-unlock-body">Full attribution, lead source breakdown, and performance benchmarks against the platform's top producers.</div>
+          <button class="btn btn-primary btn-md" style="width:100%;justify-content:center">Notify Me When Live</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEASER FEATURES -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,20px);margin-top:clamp(24px,3vw,40px)">
+      <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-4);padding:clamp(16px,2vw,24px)">
+        <div style="width:32px;height:32px;border-radius:var(--r-2);background:var(--primary-900);border:1px solid var(--primary-700);display:flex;align-items:center;justify-content:center;margin-bottom:var(--sp-5)">
+          <svg style="width:16px;height:16px;stroke:var(--primary-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div style="font-family:var(--font-display);font-size:var(--fs-5);font-weight:800;letter-spacing:var(--ls-3);color:#fff;margin-bottom:var(--sp-3)">Lead Attribution</div>
+        <div style="font-size:var(--fs-4);color:var(--white-400);line-height:var(--lh-6)">Know exactly which page, ad, and keyword brought each lead through the door.</div>
+      </div>
+      <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-4);padding:clamp(16px,2vw,24px)">
+        <div style="width:32px;height:32px;border-radius:var(--r-2);background:var(--primary-900);border:1px solid var(--primary-700);display:flex;align-items:center;justify-content:center;margin-bottom:var(--sp-5)">
+          <svg style="width:16px;height:16px;stroke:var(--primary-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div style="font-family:var(--font-display);font-size:var(--fs-5);font-weight:800;letter-spacing:var(--ls-3);color:#fff;margin-bottom:var(--sp-3)">Platform Benchmarks</div>
+        <div style="font-size:var(--fs-4);color:var(--white-400);line-height:var(--lh-6)">See how your numbers stack up against top producers on the platform.</div>
+      </div>
+      <div style="background:var(--white-100);border:1px solid var(--white-100);border-radius:var(--r-4);padding:clamp(16px,2vw,24px)">
+        <div style="width:32px;height:32px;border-radius:var(--r-2);background:var(--primary-900);border:1px solid var(--primary-700);display:flex;align-items:center;justify-content:center;margin-bottom:var(--sp-5)">
+          <svg style="width:16px;height:16px;stroke:var(--primary-400);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div style="font-family:var(--font-display);font-size:var(--fs-5);font-weight:800;letter-spacing:var(--ls-3);color:#fff;margin-bottom:var(--sp-3)">ROI Reporting</div>
+        <div style="font-size:var(--fs-4);color:var(--white-400);line-height:var(--lh-6)">Monthly PDF you can hand to your accountant or review in 5 minutes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="showcase-divider">End of Section Library <span>·</span> Property Kit</div>
+
+</body>
+</html>

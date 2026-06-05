@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estate Sites — Brand Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+img{display:block;max-width:100%}
+ul,ol{list-style:none}
+a{text-decoration:none;color:inherit}
+
+/* ── TOKENS ────────────────────────────────────────────── */
+:root{
+  --black:      #0a0a0a;
+  --white:      #ffffff;
+  --cream:      #F0EDE8;
+  --cream-dark: #E8E4DE;
+  --cream-mid:  #ddd9d3;
+  --gold:       #C9A84C;
+  --gold-hover: #b8962f;
+  --gold-pale:  #f5edda;
+  --text:       #0a0a0a;
+  --muted:      #6b6b6b;
+  --light:      #999999;
+  --font-head:  'Manrope', sans-serif;
+  --font-serif: 'DM Serif Display', serif;
+  --pad-x:      clamp(24px, 6vw, 96px);
+  --pad-y:      clamp(64px, 8vw, 120px);
+}
+
+body{
+  font-family: var(--font-head);
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY HELPERS ─────────────────────────────────── */
+.eyebrow{
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.eyebrow--gold{color: var(--gold);}
+.eyebrow--white{color: rgba(255,255,255,0.5);}
+
+h1,h2,h3{
+  font-family: var(--font-head);
+  font-weight: 800;
+  color: var(--text);
+}
+h1{font-size: clamp(40px,5vw,64px); letter-spacing:-0.02em; line-height:1.05;}
+h2{font-size: clamp(28px,3.5vw,44px); letter-spacing:-0.02em; line-height:1.1;}
+h3{font-size: clamp(18px,2vw,26px); letter-spacing:-0.01em; line-height:1.2;}
+h1.white,h2.white,h3.white{color:#fff;}
+
+.serif-pull{
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(22px,2.5vw,36px);
+  line-height: 1.3;
+  color: var(--text);
+}
+.serif-pull.white{color: rgba(255,255,255,0.9);}
+
+.body-text{color: var(--muted); max-width: 520px;}
+.body-text.wide{max-width:680px;}
+
+/* ── GOLD LINE ────────────────────────────────────────── */
+.gold-line{
+  display:block;
+  width:40px;
+  height:1px;
+  background: var(--gold);
+  margin-bottom: 20px;
+}
+
+/* ── BUTTONS ────────────────────────────────────────────── */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.18s ease;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.btn-primary{
+  background: var(--gold);
+  color: var(--black);
+  padding: 14px 28px;
+}
+.btn-primary:hover{background: var(--gold-hover);}
+.btn-outline{
+  background: transparent;
+  color: var(--black);
+  border-color: var(--black);
+  padding: 14px 28px;
+}
+.btn-outline:hover{background: var(--black); color: #fff;}
+.btn-outline-white{
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255,255,255,0.4);
+  padding: 14px 28px;
+}
+.btn-outline-white:hover{border-color:#fff;}
+.btn-lg{padding:18px 36px; font-size:12px;}
+.btn-sm{padding:10px 20px;}
+.btn-arrow{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  transition: gap 0.2s ease;
+}
+.btn-arrow:hover{gap:16px;}
+.btn-arrow span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px; height:28px;
+  border-radius:50%;
+  background: var(--gold);
+  color: var(--black);
+  font-size:13px;
+}
+
+/* ── SECTION WRAPPERS ───────────────────────────────────── */
+.section{
+  padding: var(--pad-y) var(--pad-x);
+}
+.section--cream{background: var(--cream);}
+.section--white{background: var(--white);}
+.section--dark{background: var(--black);}
+
+/* ── GRID HELPERS ───────────────────────────────────────── */
+.two-col{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+.three-col{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.four-col{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ── NAV ────────────────────────────────────────────────── */
+.nav{
+  position: sticky;
+  top:0;
+  z-index:100;
+  background: var(--black);
+  padding: 0 var(--pad-x);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo{
+  font-weight:800;
+  font-size:15px;
+  letter-spacing:-0.01em;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.nav-logo-mark{
+  width:28px;height:28px;
+  border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-logo-mark svg{width:14px;height:14px;}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:32px;
+}
+.nav-links a{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.55);
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:#fff;}
+.nav-links a.active{color:#fff;}
+.nav-cta{margin-left:16px;}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero{
+  background: var(--black);
+  padding: clamp(80px,10vw,140px) var(--pad-x) clamp(64px,8vw,100px);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.028) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.028) 80px);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap: clamp(40px,5vw,100px);
+  align-items:center;
+}
+.hero-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:2px;
+  padding:6px 12px;
+  margin-bottom:28px;
+  background: rgba(201,168,76,0.06);
+}
+.hero-tag-dot{
+  width:5px;height:5px;
+  border-radius:50%;
+  background:var(--gold);
+}
+.hero h1{
+  color:#fff;
+  margin-bottom:24px;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--gold);
+}
+.hero-sub{
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-size:clamp(19px,2vw,26px);
+  color:rgba(255,255,255,0.65);
+  margin-bottom:40px;
+  line-height:1.45;
+}
+.hero-actions{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.hero-stats{
+  display:flex;
+  gap:36px;
+  margin-top:52px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.hero-stat-num{
+  font-size: clamp(28px,3vw,42px);
+  font-weight:800;
+  color:#fff;
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+.hero-stat-label{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  margin-top:5px;
+}
+.hero-visual{
+  position:relative;
+}
+.hero-card-stack{
+  position:relative;
+}
+.hero-property-card{
+  background: rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;
+  overflow:hidden;
+}
+.hero-property-img{
+  width:100%;
+  aspect-ratio:4/3;
+  background: linear-gradient(135deg,#1a1a1a 0%,#2a2520 100%);
+  position:relative;
+  overflow:hidden;
+}
+.hero-property-img::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(201,168,76,0.12) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 50%);
+}
+.hero-img-label{
+  position:absolute;
+  bottom:16px;left:16px;
+  background:rgba(10,10,10,0.85);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:6px;
+  padding:8px 14px;
+  color:#fff;
+  font-size:12px;
+  font-weight:600;
+}
+.hero-img-label strong{
+  display:block;
+  font-size:16px;
+  font-weight:800;
+  color:var(--gold);
+  letter-spacing:-0.01em;
+}
+.hero-property-meta{
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.hero-property-name{
+  font-weight:800;
+  font-size:14px;
+  color:#fff;
+  margin-bottom:3px;
+}
+.hero-property-loc{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+}
+.hero-property-price{
+  font-size:18px;
+  font-weight:800;
+  color:var(--gold);
+  letter-spacing:-0.01em;
+}
+.hero-card-back{
+  position:absolute;
+  bottom:-12px;left:20px;right:20px;
+  height:12px;
+  background:rgba(201,168,76,0.15);
+  border-radius:0 0 8px 8px;
+  border:1px solid rgba(201,168,76,0.2);
+  border-top:none;
+}
+.hero-badge{
+  position:absolute;
+  top:-16px;
+  right:-16px;
+  width:90px;height:90px;
+  border-radius:50%;
+  background:var(--gold);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+}
+.hero-badge-num{
+  font-size:22px;
+  font-weight:800;
+  color:var(--black);
+  line-height:1;
+  letter-spacing:-0.02em;
+}
+.hero-badge-text{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:rgba(10,10,10,0.65);
+  text-align:center;
+  line-height:1.2;
+}
+
+/* ── LOGOS / TRUST BAR ──────────────────────────────────── */
+.trust-bar{
+  background: var(--white);
+  padding: 28px var(--pad-x);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.trust-inner{
+  display:flex;
+  align-items:center;
+  gap:40px;
+  flex-wrap:wrap;
+}
+.trust-label{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--light);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.trust-logos{
+  display:flex;
+  align-items:center;
+  gap:clamp(24px,4vw,56px);
+  flex-wrap:wrap;
+}
+.trust-logo{
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:-0.01em;
+  color: var(--cream-mid);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  transition:color 0.2s;
+}
+.trust-logo:hover{color: var(--muted);}
+
+/* ── SECTION: VALUE PROPS ───────────────────────────────── */
+.value-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background: var(--cream-mid);
+  border:1px solid var(--cream-mid);
+  border-radius:12px;
+  overflow:hidden;
+  margin-top:56px;
+}
+.value-cell{
+  background: var(--cream);
+  padding:36px 32px;
+  position:relative;
+}
+.value-number{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.value-number::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--gold);
+  opacity:0.3;
+}
+.value-cell h3{
+  margin-bottom:12px;
+}
+.value-cell p{
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* ── SECTION: FEATURE SPLIT ─────────────────────────────── */
+.feature-img{
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+}
+.feature-img-inner{
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg, var(--cream-dark) 0%, var(--cream-mid) 100%);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.feature-img-inner.dark{
+  background:linear-gradient(135deg, #1a1a1a 0%, #252120 100%);
+}
+.feature-mockup{
+  width:80%;
+  background:var(--white);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.12);
+}
+.feature-mockup-bar{
+  background:var(--cream);
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  border-bottom:1px solid var(--cream-dark);
+}
+.mock-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+}
+.mock-url{
+  flex:1;
+  height:20px;
+  background:var(--cream-dark);
+  border-radius:3px;
+  margin-left:6px;
+}
+.feature-mockup-body{
+  padding:16px;
+}
+.mock-row{
+  height:10px;
+  border-radius:2px;
+  background:var(--cream);
+  margin-bottom:8px;
+}
+.mock-row.short{width:60%;}
+.mock-row.shorter{width:40%;}
+.mock-img-placeholder{
+  width:100%;
+  aspect-ratio:16/9;
+  background:linear-gradient(135deg,var(--cream) 0%,var(--cream-dark) 100%);
+  border-radius:6px;
+  margin-bottom:12px;
+  position:relative;
+  overflow:hidden;
+}
+.mock-img-placeholder::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 50%, rgba(201,168,76,0.2) 0%, transparent 70%);
+}
+.feature-content{
+  padding: clamp(0px,2vw,32px) 0;
+}
+.feature-list{
+  margin-top:28px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.feature-list-item{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.feature-list-icon{
+  width:20px;height:20px;
+  border-radius:50%;
+  background:var(--gold-pale);
+  border:1px solid rgba(201,168,76,0.3);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.feature-list-icon svg{width:10px;height:10px;stroke:var(--gold);}
+.feature-list-text{
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.55;
+}
+.feature-list-text strong{
+  display:block;
+  color:var(--text);
+  font-weight:700;
+  font-size:14px;
+  margin-bottom:2px;
+}
+
+/* ── SECTION: STATS ─────────────────────────────────────── */
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+}
+.stat-item{
+  padding: 48px 40px;
+  border-right:1px solid rgba(255,255,255,0.08);
+  position:relative;
+}
+.stat-item:last-child{border-right:none;}
+.stat-item::before{
+  content:'';
+  position:absolute;
+  top:0;left:40px;right:40px;
+  height:1px;
+  background: var(--gold);
+  opacity:0.25;
+}
+.stat-num{
+  font-size: clamp(36px,4vw,60px);
+  font-weight:800;
+  letter-spacing:-0.03em;
+  color:#fff;
+  line-height:1;
+  margin-bottom:8px;
+}
+.stat-label{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  line-height:1.4;
+}
+.stat-sub{
+  font-size:13px;
+  color:rgba(255,255,255,0.5);
+  margin-top:8px;
+  font-family:var(--font-serif);
+  font-style:italic;
+}
+
+/* ── SECTION: TESTIMONIALS ──────────────────────────────── */
+.testimonial-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-top:48px;
+}
+.testimonial-card{
+  background:var(--black);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  padding:36px 32px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.t-quote{
+  color:var(--gold);
+  font-size:36px;
+  line-height:0.8;
+  font-family:var(--font-serif);
+  font-style:italic;
+}
+.t-body{
+  font-size:16px;
+  color:rgba(255,255,255,0.8);
+  line-height:1.65;
+  font-family:var(--font-serif);
+  font-style:italic;
+  flex:1;
+}
+.t-author{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.07);
+}
+.t-avatar{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--cream-mid) 0%, var(--cream-dark) 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:13px;
+  color:var(--muted);
+  flex-shrink:0;
+}
+.t-name{
+  font-weight:700;
+  font-size:13px;
+  color:#fff;
+}
+.t-role{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  margin-top:2px;
+}
+.t-stars{
+  display:flex;gap:3px;margin-bottom:4px;
+}
+.t-star{
+  width:11px;height:11px;
+  background:var(--gold);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+
+/* ── SECTION: PROCESS ───────────────────────────────────── */
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  margin-top:56px;
+  position:relative;
+}
+.process-steps::before{
+  content:'';
+  position:absolute;
+  top:28px;
+  left:calc(12.5% + 16px);
+  right:calc(12.5% + 16px);
+  height:1px;
+  background:linear-gradient(90deg,var(--gold) 0%,rgba(201,168,76,0.2) 100%);
+}
+.process-step{
+  padding:0 24px;
+  text-align:left;
+}
+.process-num{
+  width:56px;height:56px;
+  border:1px solid var(--gold);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  font-weight:800;
+  color:var(--gold);
+  background:var(--cream);
+  position:relative;
+  z-index:1;
+  margin-bottom:24px;
+  letter-spacing:-0.01em;
+}
+.process-step h3{
+  margin-bottom:10px;
+}
+.process-step p{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* ── SECTION: PRICING ───────────────────────────────────── */
+.pricing-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:20px;
+  margin-top:52px;
+  align-items:start;
+}
+.pricing-card{
+  border:1px solid var(--cream-mid);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--white);
+}
+.pricing-card.featured{
+  border-color:var(--black);
+  background:var(--black);
+  position:relative;
+}
+.pricing-card.featured::before{
+  content:'Most Popular';
+  position:absolute;
+  top:0;left:0;right:0;
+  background:var(--gold);
+  text-align:center;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  padding:7px;
+  color:var(--black);
+}
+.pricing-head{
+  padding:32px 32px 24px;
+  border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.pricing-card.featured .pricing-head{
+  padding-top:52px;
+  border-bottom-color:rgba(255,255,255,0.07);
+}
+.pricing-tier{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+.pricing-card.featured .pricing-tier{color:rgba(255,255,255,0.45);}
+.pricing-price{
+  display:flex;
+  align-items:baseline;
+  gap:4px;
+  margin-bottom:4px;
+}
+.pricing-dollar{font-size:22px;font-weight:800;color:var(--text);}
+.pricing-amount{font-size:clamp(44px,4vw,60px);font-weight:800;letter-spacing:-0.03em;color:var(--text);line-height:1;}
+.pricing-period{font-size:14px;font-weight:500;color:var(--muted);}
+.pricing-card.featured .pricing-dollar,
+.pricing-card.featured .pricing-amount{color:#fff;}
+.pricing-card.featured .pricing-period{color:rgba(255,255,255,0.4);}
+.pricing-desc{font-size:13px;color:var(--muted);margin-top:12px;}
+.pricing-card.featured .pricing-desc{color:rgba(255,255,255,0.5);}
+.pricing-body{padding:28px 32px;}
+.pricing-features{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.pricing-feature{
+  display:flex;align-items:center;gap:12px;
+  font-size:14px;color:var(--text);
+}
+.pricing-card.featured .pricing-feature{color:rgba(255,255,255,0.8);}
+.pricing-check{
+  width:18px;height:18px;
+  border-radius:50%;
+  background:rgba(201,168,76,0.12);
+  border:1px solid rgba(201,168,76,0.3);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.pricing-check svg{width:9px;height:9px;stroke:var(--gold);}
+
+/* ── SECTION: CTA BANNER ────────────────────────────────── */
+.cta-section{
+  position:relative;
+  padding: clamp(80px,10vw,140px) var(--pad-x);
+  overflow:hidden;
+}
+.cta-bg{
+  position:absolute;
+  inset:0;
+  background: var(--black);
+  overflow:hidden;
+}
+.cta-bg::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+}
+.cta-inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:60px;
+  align-items:center;
+}
+.cta-label{
+  margin-bottom:16px;
+}
+.cta-section h2.white{
+  margin-bottom:16px;
+}
+.cta-sub{
+  font-size:17px;
+  color:rgba(255,255,255,0.5);
+  max-width:480px;
+  line-height:1.6;
+}
+.cta-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:16px;
+}
+.cta-note{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+  text-align:right;
+}
+
+/* ── SECTION: TYPOGRAPHY SHOWCASE ──────────────────────────── */
+.type-showcase{
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:60px;
+  margin-top:48px;
+  align-items:start;
+}
+.type-divider{
+  background: var(--cream-mid);
+  align-self:stretch;
+}
+.type-example{
+  display:flex;
+  flex-direction:column;
+  gap:32px;
+}
+.type-row{
+  padding-bottom:28px;
+  border-bottom:1px solid var(--cream-dark);
+}
+.type-row:last-child{border-bottom:none;padding-bottom:0;}
+.type-meta{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--light);
+  margin-bottom:10px;
+}
+
+/* ── SECTION: COLOR PALETTE ────────────────────────────── */
+.palette-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-top:40px;
+}
+.palette-swatch{
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,0.06);
+}
+.swatch-color{
+  aspect-ratio:1/1;
+  position:relative;
+}
+.swatch-info{
+  background:var(--white);
+  padding:10px 12px;
+  border-top:1px solid rgba(0,0,0,0.06);
+}
+.swatch-name{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--text);
+  margin-bottom:2px;
+}
+.swatch-hex{
+  font-size:11px;
+  color:var(--light);
+  font-feature-settings:'tnum';
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SECTION: COMPONENTS ────────────────────────────────── */
+.components-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-top:48px;
+}
+.component-block{
+  background:var(--white);
+  border:1px solid var(--cream-mid);
+  border-radius:12px;
+  padding:32px;
+}
+.component-block.dark-bg{
+  background:var(--black);
+  border-color:rgba(255,255,255,0.08);
+}
+.component-block.span-2{grid-column:span 2;}
+.component-label{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--light);
+  margin-bottom:20px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--cream-dark);
+}
+.component-block.dark-bg .component-label{
+  color:rgba(255,255,255,0.25);
+  border-bottom-color:rgba(255,255,255,0.07);
+}
+.btn-showcase{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+}
+.input-showcase{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.form-label{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.form-input{
+  width:100%;
+  padding:12px 16px;
+  background:var(--cream);
+  border:1px solid var(--cream-mid);
+  border-radius:4px;
+  font-family:var(--font-head);
+  font-size:14px;
+  color:var(--text);
+  outline:none;
+  transition:border-color 0.2s;
+}
+.form-input:focus{border-color:var(--gold);}
+.form-input::placeholder{color:var(--light);}
+.card-showcase{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.prop-card{
+  border:1px solid var(--cream-mid);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--cream);
+  cursor:pointer;
+  transition:border-color 0.2s;
+}
+.prop-card:hover{border-color:var(--black);}
+.prop-card-img{
+  aspect-ratio:3/2;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--cream-dark) 0%,var(--cream-mid) 100%);
+}
+.prop-card-img::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 60% 40%, rgba(201,168,76,0.15) 0%, transparent 60%);
+}
+.prop-card-tag{
+  position:absolute;
+  top:12px;left:12px;
+  background:var(--gold);
+  border-radius:2px;
+  padding:4px 8px;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--black);
+}
+.prop-card-body{
+  padding:16px;
+}
+.prop-card-price{
+  font-size:16px;
+  font-weight:800;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:3px;
+}
+.prop-card-name{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+.prop-card-meta{
+  display:flex;gap:12px;
+}
+.prop-card-meta-item{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--light);
+}
+
+/* ── SECTION: TAG / BADGE ───────────────────────────────── */
+.tags-showcase{display:flex;flex-wrap:wrap;gap:10px;}
+.tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;
+  border-radius:2px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+.tag-gold{background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.25);}
+.tag-dark{background:var(--black);color:#fff;}
+.tag-outline{background:transparent;border:1px solid var(--cream-mid);color:var(--muted);}
+.tag-cream{background:var(--cream-dark);color:var(--muted);}
+.tag-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+.footer{
+  background:var(--black);
+  padding: 0 var(--pad-x);
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.footer-cta{
+  padding: 56px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.footer-cta-text{
+  font-family:var(--font-serif);
+  font-style:italic;
+  font-size:clamp(20px,2.5vw,32px);
+  color:rgba(255,255,255,0.8);
+}
+.footer-cta-text strong{
+  color:#fff;
+  font-style:normal;
+  font-family:var(--font-head);
+  font-weight:800;
+  display:block;
+  font-size:clamp(24px,3vw,40px);
+  letter-spacing:-0.02em;
+}
+.footer-nav-row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;
+  padding:52px 0;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.footer-brand-desc{
+  font-size:14px;
+  color:rgba(255,255,255,0.4);
+  line-height:1.65;
+  max-width:280px;
+  margin-top:16px;
+}
+.footer-col-title{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+  margin-bottom:20px;
+}
+.footer-links{display:flex;flex-direction:column;gap:12px;}
+.footer-link{
+  font-size:14px;
+  color:rgba(255,255,255,0.5);
+  transition:color 0.2s;
+}
+.footer-link:hover{color:#fff;}
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:24px 0;
+}
+.footer-legal{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.2);
+}
+.footer-socials{display:flex;gap:16px;}
+.social-link{
+  width:32px;height:32px;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color 0.2s, background 0.2s;
+}
+.social-link:hover{border-color:var(--gold);background:rgba(201,168,76,0.1);}
+.social-link svg{width:13px;height:13px;stroke:rgba(255,255,255,0.5);}
+.social-link:hover svg{stroke:var(--gold);}
+
+/* ── SECTION HEADER REUSE ────────────────────────────────── */
+.section-head{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:start;
+  margin-bottom:16px;
+}
+.section-head.centered{
+  grid-template-columns:1fr;
+  text-align:center;
+}
+.section-head.centered .body-text{
+  margin:0 auto;
+  max-width:560px;
+}
+.section-head.centered .eyebrow{
+  display:block;
+  text-align:center;
+}
+.section-head.centered .gold-line{margin:0 auto 20px;}
+
+/* ── DIVIDER ────────────────────────────────────────────── */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,var(--gold) 0%,rgba(201,168,76,0.2) 50%,transparent 100%);
+  margin:0 var(--pad-x);
+}
+
+/* ── ANIMATE IN ─────────────────────────────────────────── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.hero-content > *:nth-child(1){animation:fadeUp 0.7s ease both 0s;}
+.hero-content > *:nth-child(2){animation:fadeUp 0.7s ease both 0.1s;}
+.hero-content > *:nth-child(3){animation:fadeUp 0.7s ease both 0.2s;}
+.hero-content > *:nth-child(4){animation:fadeUp 0.7s ease both 0.3s;}
+.hero-visual{animation:fadeUp 0.7s ease both 0.2s;}
+
+/* ── SCROLL INDICATOR BAR ───────────────────────────────── */
+.scroll-progress{
+  position:fixed;
+  top:72px;left:0;
+  width:0%;height:2px;
+  background:var(--gold);
+  z-index:999;
+  transition:width 0.1s linear;
+}
+
+/* ── SECTION INTRO LABEL ────────────────────────────────── */
+.section-index{
+  position:relative;
+  padding:20px var(--pad-x) 0;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  pointer-events:none;
+}
+.section-index-label{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--light);
+}
+.section-index-line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,var(--cream-mid) 0%,transparent 100%);
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollBar"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 1L13 4.5V10.5L7 14L1 10.5V4.5L7 1Z" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        <path d="M7 4L10 5.75V9.25L7 11L4 9.25V5.75L7 4Z" fill="#C9A84C" opacity="0.4"/>
+      </svg>
+    </div>
+    Estate Sites
+  </div>
+  <div class="nav-links">
+    <a href="#" class="active">For Agents</a>
+    <a href="#">For Brokerages</a>
+    <a href="#">Showcase</a>
+    <a href="#">Pricing</a>
+    <a href="#">About</a>
+    <a href="#" class="btn btn-primary btn-sm nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        <span class="eyebrow eyebrow--gold">Brand Showcase · 2026</span>
+      </div>
+      <h1>Your brand.<br>At the level<br>you <em>deserve.</em></h1>
+      <p class="hero-sub">Premium real estate websites that convert — built for agents who operate at the highest level.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary btn-lg">See Our Work</a>
+        <a href="#" class="btn-arrow">
+          Book a Call
+          <span>→</span>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">$2.4B</div>
+          <div class="hero-stat-label">Properties Listed</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">840+</div>
+          <div class="hero-stat-label">Active Agents</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">94%</div>
+          <div class="hero-stat-label">Client Retention</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-property-card">
+          <div class="hero-property-img">
+            <div class="hero-img-label">
+              <strong>$4,850,000</strong>
+              Just Listed
+            </div>
+          </div>
+          <div class="hero-property-meta">
+            <div>
+              <div class="hero-property-name">Meridian Penthouse</div>
+              <div class="hero-property-loc">Pacific Heights, San Francisco</div>
+            </div>
+            <div class="hero-property-price">$4.85M</div>
+          </div>
+        </div>
+        <div class="hero-card-back"></div>
+        <div class="hero-badge">
+          <div class="hero-badge-num">5★</div>
+          <div class="hero-badge-text">Rated<br>Platform</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <span class="trust-label">Trusted by</span>
+    <div class="trust-logos">
+      <span class="trust-logo">Compass</span>
+      <span class="trust-logo">Sotheby's</span>
+      <span class="trust-logo">Christie's</span>
+      <span class="trust-logo">Douglas Elliman</span>
+      <span class="trust-logo">The Agency</span>
+      <span class="trust-logo">Corcoran</span>
+    </div>
+  </div>
+</div>
+
+<!-- VALUE PROPS -->
+<section class="section section--cream">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow" style="display:block;margin-bottom:16px;">What We Build</span>
+      <h2>Everything a top<br>producer needs.</h2>
+    </div>
+    <div style="padding-top:8px;">
+      <p class="body-text" style="margin-top:8px;">We don't build websites. We build the digital presence that makes clients choose you before you've even spoken. Every pixel is intentional. Every word earns its place.</p>
+      <div style="margin-top:28px;">
+        <a href="#" class="btn btn-outline">View All Features</a>
+      </div>
+    </div>
+  </div>
+  <div class="value-grid">
+    <div class="value-cell">
+      <div class="value-number">01</div>
+      <h3>Conversion-First Design</h3>
+      <p>Built around a single goal: turning browsers into buyers. Every layout decision is backed by real estate conversion data.</p>
+    </div>
+    <div class="value-cell">
+      <div class="value-number">02</div>
+      <h3>IDX & MLS Integration</h3>
+      <p>Lightning-fast property search, saved searches, and instant alerts — all under your brand, not a third-party platform.</p>
+    </div>
+    <div class="value-cell">
+      <div class="value-number">03</div>
+      <h3>AI-Powered Lead Engine</h3>
+      <p>Intelligent follow-up sequences, lead scoring, and CRM sync that works while you're at the closing table.</p>
+    </div>
+    <div class="value-cell">
+      <div class="value-number">04</div>
+      <h3>Editorial Content Engine</h3>
+      <p>Neighbourhood guides, market reports, and blog content that positions you as the undisputed local authority.</p>
+    </div>
+    <div class="value-cell">
+      <div class="value-number">05</div>
+      <h3>White-Glove Onboarding</h3>
+      <p>Your dedicated strategist handles everything. You'll be live in 14 days with zero technical involvement required.</p>
+    </div>
+    <div class="value-cell">
+      <div class="value-number">06</div>
+      <h3>Always-On Support</h3>
+      <p>24/7 priority support from humans who know real estate. Not a chatbot. Not a ticket queue.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURE SPLIT 1 -->
+<section class="section section--white">
+  <div class="two-col">
+    <div class="feature-img">
+      <div class="feature-img-inner">
+        <div class="feature-mockup">
+          <div class="feature-mockup-bar">
+            <div class="mock-dot" style="background:#e5e5e5;"></div>
+            <div class="mock-dot" style="background:#e5e5e5;"></div>
+            <div class="mock-dot" style="background:#e5e5e5;"></div>
+            <div class="mock-url"></div>
+          </div>
+          <div class="feature-mockup-body">
+            <div class="mock-img-placeholder"></div>
+            <div class="mock-row" style="width:75%;height:12px;background:var(--cream-dark);"></div>
+            <div style="height:8px;"></div>
+            <div class="mock-row"></div>
+            <div class="mock-row short"></div>
+            <div style="height:10px;"></div>
+            <div style="display:flex;gap:8px;">
+              <div style="height:30px;width:90px;background:var(--gold);border-radius:2px;opacity:0.85;"></div>
+              <div style="height:30px;width:80px;background:var(--cream-dark);border-radius:2px;border:1px solid var(--cream-mid);"></div>
+            </div>
+            <div style="height:12px;"></div>
+            <div class="mock-row shorter"></div>
+            <div class="mock-row" style="width:80%;"></div>
+            <div class="mock-row shorter"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feature-content">
+      <span class="eyebrow" style="display:block;margin-bottom:16px;">Websites That Win</span>
+      <span class="gold-line"></span>
+      <h2>A website that works as hard as you do.</h2>
+      <p class="body-text" style="margin-top:16px;">Most agent websites are digital brochures. Yours will be a 24/7 sales engine — pulling leads, nurturing relationships, and showcasing your listings with a level of craft that commands premium prices.</p>
+      <ul class="feature-list">
+        <li class="feature-list-item">
+          <div class="feature-list-icon">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="2,5 4.5,7.5 8,2.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feature-list-text">
+            <strong>Bespoke Design</strong>
+            No templates. Your site is designed from scratch around your brand, market, and clientele.
+          </div>
+        </li>
+        <li class="feature-list-item">
+          <div class="feature-list-icon">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="2,5 4.5,7.5 8,2.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feature-list-text">
+            <strong>Mobile-First Performance</strong>
+            Sub-2 second load times on every device. Google loves it. Clients stay longer.
+          </div>
+        </li>
+        <li class="feature-list-item">
+          <div class="feature-list-icon">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="2,5 4.5,7.5 8,2.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feature-list-text">
+            <strong>SEO-Dominating Structure</strong>
+            Hyper-local keyword architecture that puts you at the top of Google — and keeps you there.
+          </div>
+        </li>
+      </ul>
+      <div style="margin-top:36px;">
+        <a href="#" class="btn btn-primary">See Examples</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS DARK -->
+<section class="section--dark">
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">312%</div>
+      <div class="stat-label">Average Lead Increase</div>
+      <div class="stat-sub">vs. previous website</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">14<span style="font-size:0.5em;">days</span></div>
+      <div class="stat-label">Average Launch Time</div>
+      <div class="stat-sub">from brief to live</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">$2.4B</div>
+      <div class="stat-label">In Listed Inventory</div>
+      <div class="stat-sub">across our client network</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">840+</div>
+      <div class="stat-label">Agents Powered</div>
+      <div class="stat-sub">from solo to teams of 50</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE SPLIT 2 (reversed) -->
+<section class="section section--cream">
+  <div class="two-col">
+    <div class="feature-content">
+      <span class="eyebrow" style="display:block;margin-bottom:16px;">Lead Intelligence</span>
+      <span class="gold-line"></span>
+      <h2>Know who's ready to move. Before they know it themselves.</h2>
+      <p class="body-text" style="margin-top:16px;">Our AI behaviour engine tracks every search, save, and click. It scores your leads in real-time and surfaces the ones who are 30 days from a decision — so you're always calling at exactly the right moment.</p>
+      <ul class="feature-list">
+        <li class="feature-list-item">
+          <div class="feature-list-icon">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="2,5 4.5,7.5 8,2.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feature-list-text">
+            <strong>Real-Time Behaviour Scoring</strong>
+            Leads ranked by intent signals: search frequency, price range movement, saved listings.
+          </div>
+        </li>
+        <li class="feature-list-item">
+          <div class="feature-list-icon">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="2,5 4.5,7.5 8,2.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feature-list-text">
+            <strong>Automated Nurture Sequences</strong>
+            Personalised email campaigns that feel handwritten, triggered by what each lead actually looks at.
+          </div>
+        </li>
+        <li class="feature-list-item">
+          <div class="feature-list-icon">
+            <svg viewBox="0 0 10 10" fill="none"><polyline points="2,5 4.5,7.5 8,2.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feature-list-text">
+            <strong>CRM Integration</strong>
+            Push hot leads directly to Follow Up Boss, Salesforce, or any platform you already use.
+          </div>
+        </li>
+      </ul>
+      <div style="margin-top:36px;display:flex;gap:16px;align-items:center;">
+        <a href="#" class="btn btn-primary">Explore the Platform</a>
+        <a href="#" class="btn-arrow">Learn More <span>→</span></a>
+      </div>
+    </div>
+    <div class="feature-img">
+      <div class="feature-img-inner dark">
+        <!-- Mini dashboard mockup -->
+        <div style="width:85%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Hot Leads</div>
+            <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);">Live</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--gold);flex-shrink:0;">S</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:#fff;">Sarah Mitchell</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.06em;text-transform:uppercase;">Viewed 12 listings · $2.2M range</div>
+              </div>
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:rgba(255,255,255,0.5);flex-shrink:0;">J</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:#fff;">James Okafor</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.06em;text-transform:uppercase;">Saved 4 listings · Pacific Heights</div>
+              </div>
+              <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);flex-shrink:0;"></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:rgba(255,255,255,0.5);flex-shrink:0;">R</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:#fff;">Rachel Chen</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.06em;text-transform:uppercase;">First-time visit · $1.8M budget</div>
+              </div>
+              <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);flex-shrink:0;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section class="section section--cream">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow" style="display:block;margin-bottom:16px;">Client Results</span>
+      <h2>Agents who made<br>the switch.</h2>
+    </div>
+    <div style="padding-top:8px;">
+      <p class="body-text">Don't take our word for it. These are the numbers our clients are seeing — and the words they use to describe working with us.</p>
+    </div>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div>
+        <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+        <div class="t-body">"My leads tripled in the first 90 days. I was sceptical — I'd tried three other platforms. Estate Sites is genuinely in a different category."</div>
+      </div>
+      <div class="t-author">
+        <div class="t-avatar">AM</div>
+        <div>
+          <div class="t-name">Alexandra Moore</div>
+          <div class="t-role">The Agency · Beverly Hills</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div>
+        <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+        <div class="t-body">"The design alone changed how clients perceive me. I went from chasing leads to turning people away. Worth every penny and then some."</div>
+      </div>
+      <div class="t-author">
+        <div class="t-avatar">DK</div>
+        <div>
+          <div class="t-name">David Kim</div>
+          <div class="t-role">Compass · NYC</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div>
+        <div class="t-stars"><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div><div class="t-star"></div></div>
+        <div class="t-body">"Onboarded in 11 days. The team knew what they were doing from the first call. My old website made me look like every other agent. This one makes me look like the best."</div>
+      </div>
+      <div class="t-author">
+        <div class="t-avatar">SB</div>
+        <div>
+          <div class="t-name">Sophia Brennan</div>
+          <div class="t-role">Douglas Elliman · Miami</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section section--white">
+  <div class="section-head centered">
+    <div>
+      <span class="gold-line"></span>
+      <span class="eyebrow" style="display:block;margin-bottom:16px;">How It Works</span>
+      <h2>Live in 14 days.<br>No technical knowledge required.</h2>
+      <p class="body-text" style="margin:16px auto 0;">We handle everything. You focus on what you do best — closing deals and serving clients at the highest level.</p>
+    </div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-num">01</div>
+      <h3>Strategy Call</h3>
+      <p>60-minute session with your dedicated strategist. We map your market, your brand, and exactly who your ideal client is.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">02</div>
+      <h3>Design & Build</h3>
+      <p>Our designers create your bespoke site. You get two rounds of revisions until it's exactly right. Usually takes 7–10 days.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">03</div>
+      <h3>Review & Refine</h3>
+      <p>You review the live staging site, request changes, and sign off. We handle all technical setup, DNS, and MLS connection.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">04</div>
+      <h3>Launch & Grow</h3>
+      <p>Go live. Your account manager monitors performance, runs your first Google Ads campaign, and checks in monthly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section section--cream">
+  <div class="section-head centered">
+    <div>
+      <span class="gold-line"></span>
+      <span class="eyebrow" style="display:block;margin-bottom:16px;">Pricing</span>
+      <h2>Simple, transparent pricing.</h2>
+      <p class="body-text" style="margin:16px auto 0;">No setup fees. No hidden costs. No long-term contracts. Cancel anytime — though no one ever does.</p>
+    </div>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-head">
+        <div class="pricing-tier">Solo Agent</div>
+        <div class="pricing-price">
+          <div class="pricing-dollar">$</div>
+          <div class="pricing-amount">297</div>
+          <div class="pricing-period">/mo</div>
+        </div>
+        <div class="pricing-desc">For established agents ready to step up their digital presence.</div>
+      </div>
+      <div class="pricing-body">
+        <ul class="pricing-features">
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Bespoke website design</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Full IDX / MLS integration</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Lead capture & CRM sync</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Basic AI nurture sequences</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Email support</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;justify-content:center;">Get Started</a>
+      </div>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-head">
+        <div class="pricing-tier">Growth</div>
+        <div class="pricing-price">
+          <div class="pricing-dollar" style="color:#fff;">$</div>
+          <div class="pricing-amount" style="color:#fff;">597</div>
+          <div class="pricing-period" style="color:rgba(255,255,255,0.4);">/mo</div>
+        </div>
+        <div class="pricing-desc">For top producers who want every advantage the platform offers.</div>
+      </div>
+      <div class="pricing-body">
+        <ul class="pricing-features">
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Everything in Solo</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Full AI lead scoring engine</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Google Ads management</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Neighbourhood content engine</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Priority phone & chat support</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Monthly strategy review</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;">Get Started</a>
+      </div>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-head">
+        <div class="pricing-tier">Brokerage</div>
+        <div class="pricing-price">
+          <div class="pricing-amount" style="font-size:clamp(28px,3vw,40px);">Custom</div>
+        </div>
+        <div class="pricing-desc">For teams and brokerages managing multiple agent profiles and offices.</div>
+      </div>
+      <div class="pricing-body">
+        <ul class="pricing-features">
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Unlimited agent profiles</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Team lead routing logic</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Brokerage-level analytics</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>White-label option</li>
+          <li class="pricing-feature"><div class="pricing-check"><svg viewBox="0 0 9 9" fill="none"><polyline points="1.5,4.5 3.8,7 7.5,1.5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Dedicated account director</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;justify-content:center;">Talk to Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND SYSTEM SHOWCASE (for investors) -->
+<section class="section section--white">
+  <div class="section-head centered" style="margin-bottom:52px;">
+    <div>
+      <span class="eyebrow" style="display:block;margin-bottom:16px;">Design System</span>
+      <h2>The brand in detail.</h2>
+      <p class="body-text" style="margin:16px auto 0;">Every element of the Estate Sites visual identity — built for consistency, premium feel, and effortless extension.</p>
+    </div>
+  </div>
+
+  <!-- Colour Palette -->
+  <div style="margin-bottom:60px;">
+    <div class="eyebrow" style="margin-bottom:24px;">Colour Palette</div>
+    <div class="palette-grid">
+      <div class="palette-swatch">
+        <div class="swatch-color" style="background:#0a0a0a;">
+          <div style="position:absolute;bottom:12px;left:12px;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);"></div>
+        </div>
+        <div class="swatch-info"><div class="swatch-name">Black</div><div class="swatch-hex">#0a0a0a</div></div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch-color" style="background:#F0EDE8;border-bottom:1px solid var(--cream-mid);">
+          <div style="position:absolute;bottom:12px;left:12px;width:24px;height:24px;border-radius:50%;border:1px solid rgba(0,0,0,0.1);"></div>
+        </div>
+        <div class="swatch-info"><div class="swatch-name">Cream</div><div class="swatch-hex">#F0EDE8</div></div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch-color" style="background:#C9A84C;">
+          <div style="position:absolute;bottom:12px;left:12px;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);"></div>
+        </div>
+        <div class="swatch-info"><div class="swatch-name">Gold</div><div class="swatch-hex">#C9A84C</div></div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch-color" style="background:#6b6b6b;">
+          <div style="position:absolute;bottom:12px;left:12px;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);"></div>
+        </div>
+        <div class="swatch-info"><div class="swatch-name">Muted</div><div class="swatch-hex">#6b6b6b</div></div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch-color" style="background:#E8E4DE;border-bottom:1px solid var(--cream-mid);">
+          <div style="position:absolute;bottom:12px;left:12px;width:24px;height:24px;border-radius:50%;border:1px solid rgba(0,0,0,0.1);"></div>
+        </div>
+        <div class="swatch-info"><div class="swatch-name">Cream Dark</div><div class="swatch-hex">#E8E4DE</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div style="margin-bottom:60px;">
+    <div class="eyebrow" style="margin-bottom:32px;">Typography</div>
+    <div class="type-showcase">
+      <div class="type-example">
+        <div class="type-row">
+          <div class="type-meta">Manrope 800 — Hero H1</div>
+          <h1 style="font-size:clamp(32px,4vw,54px);">Prestige starts here.</h1>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Manrope 800 — Section H2</div>
+          <h2>Built for the best agents in the world.</h2>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Manrope 800 — Card H3</div>
+          <h3>AI-Powered Lead Engine</h3>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Manrope 600 — Eyebrow</div>
+          <span class="eyebrow">Section Label · Uppercase · 11px</span>
+        </div>
+      </div>
+      <div class="type-divider"></div>
+      <div class="type-example">
+        <div class="type-row">
+          <div class="type-meta">DM Serif Display — Pull Quote</div>
+          <p class="serif-pull">"The kind of presence that makes clients choose you before you've even spoken."</p>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Manrope 400 — Body Text</div>
+          <p style="color:var(--muted);line-height:1.65;">We build digital presences for real estate professionals who understand that perception is everything. Every element is considered. Every decision is intentional.</p>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Manrope 700 — Button / Label</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <a href="#" class="btn btn-primary">Get Started</a>
+            <a href="#" class="btn btn-outline">Learn More</a>
+            <a href="#" class="btn-arrow">Explore <span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Components -->
+  <div>
+    <div class="eyebrow" style="margin-bottom:32px;">UI Components</div>
+    <div class="components-grid">
+      <div class="component-block">
+        <div class="component-label">Buttons — Light Surface</div>
+        <div class="btn-showcase">
+          <a href="#" class="btn btn-primary">Book a Demo</a>
+          <a href="#" class="btn btn-outline">Learn More</a>
+          <a href="#" class="btn btn-primary btn-sm">Get Started</a>
+          <a href="#" class="btn-arrow">View All <span>→</span></a>
+        </div>
+      </div>
+      <div class="component-block dark-bg">
+        <div class="component-label">Buttons — Dark Surface</div>
+        <div class="btn-showcase">
+          <a href="#" class="btn btn-primary">Book a Demo</a>
+          <a href="#" class="btn btn-outline-white">Learn More</a>
+          <a href="#" class="btn btn-primary btn-sm">Get Started</a>
+          <a href="#" class="btn-arrow" style="color:#fff;">View All <span>→</span></a>
+        </div>
+      </div>
+      <div class="component-block">
+        <div class="component-label">Tags & Badges</div>
+        <div class="tags-showcase">
+          <span class="tag tag-gold"><span class="tag-dot"></span>Gold Accent</span>
+          <span class="tag tag-dark">Featured</span>
+          <span class="tag tag-outline">For Sale</span>
+          <span class="tag tag-cream">Pending</span>
+          <span class="tag tag-gold">Just Listed</span>
+          <span class="tag tag-outline">Open House</span>
+        </div>
+      </div>
+      <div class="component-block">
+        <div class="component-label">Form Elements</div>
+        <div class="input-showcase">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input class="form-input" type="text" placeholder="Alexandra Moore" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="a.moore@theagency.com" readonly>
+          </div>
+        </div>
+      </div>
+      <div class="component-block span-2">
+        <div class="component-label">Property Cards</div>
+        <div class="card-showcase">
+          <div class="prop-card">
+            <div class="prop-card-img">
+              <span class="prop-card-tag">Just Listed</span>
+            </div>
+            <div class="prop-card-body">
+              <div class="prop-card-price">$3,250,000</div>
+              <div class="prop-card-name">14 Laurel Heights Blvd, San Francisco</div>
+              <div class="prop-card-meta">
+                <span class="prop-card-meta-item">4 Bed</span>
+                <span class="prop-card-meta-item">3 Bath</span>
+                <span class="prop-card-meta-item">3,200 sqft</span>
+              </div>
+            </div>
+          </div>
+          <div class="prop-card">
+            <div class="prop-card-img" style="background:linear-gradient(135deg,#1e1c18 0%,#2a2520 100%);">
+              <span class="prop-card-tag" style="background:transparent;border:1px solid rgba(201,168,76,0.4);color:var(--gold);">Off Market</span>
+            </div>
+            <div class="prop-card-body">
+              <div class="prop-card-price">$6,900,000</div>
+              <div class="prop-card-name">Penthouse 48A, Pacific Heights</div>
+              <div class="prop-card-meta">
+                <span class="prop-card-meta-item">5 Bed</span>
+                <span class="prop-card-meta-item">5.5 Bath</span>
+                <span class="prop-card-meta-item">6,100 sqft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <div>
+      <div class="cta-label"><span class="eyebrow eyebrow--gold">Ready to Begin</span></div>
+      <h2 class="white">Join 840+ agents who<br>stopped blending in.</h2>
+      <p class="cta-sub">Your first call is free. We'll show you exactly what your website could look like — before you commit to anything.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="#" class="btn btn-primary btn-lg">Book Your Free Strategy Call</a>
+      <div class="cta-note">No credit card · No commitment</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-cta">
+    <div>
+      <div class="footer-cta-text">
+        The standard you've been waiting for.
+        <strong>Estate Sites.</strong>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;">
+      <a href="#" class="btn btn-primary">Get Started</a>
+      <a href="#" class="btn btn-outline-white">Contact Sales</a>
+    </div>
+  </div>
+  <div class="footer-nav-row">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div class="nav-logo-mark" style="width:24px;height:24px;">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:12px;height:12px;">
+            <path d="M7 1L13 4.5V10.5L7 14L1 10.5V4.5L7 1Z" stroke="#C9A84C" stroke-width="1" fill="none"/>
+            <path d="M7 4L10 5.75V9.25L7 11L4 9.25V5.75L7 4Z" fill="#C9A84C" opacity="0.4"/>
+          </svg>
+        </div>
+        <span style="font-weight:800;font-size:14px;color:#fff;letter-spacing:-0.01em;">Estate Sites</span>
+      </div>
+      <p class="footer-brand-desc">Premium real estate websites for agents, teams, and brokerages who operate at the highest level. Built to convert. Designed to impress.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-link">For Agents</a></li>
+        <li><a href="#" class="footer-link">For Teams</a></li>
+        <li><a href="#" class="footer-link">For Brokerages</a></li>
+        <li><a href="#" class="footer-link">Pricing</a></li>
+        <li><a href="#" class="footer-link">Changelog</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-link">About</a></li>
+        <li><a href="#" class="footer-link">Careers</a></li>
+        <li><a href="#" class="footer-link">Blog</a></li>
+        <li><a href="#" class="footer-link">Press</a></li>
+        <li><a href="#" class="footer-link">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <ul class="footer-links">
+        <li><a href="#" class="footer-link">Case Studies</a></li>
+        <li><a href="#" class="footer-link">Help Center</a></li>
+        <li><a href="#" class="footer-link">Status</a></li>
+        <li><a href="#" class="footer-link">API Docs</a></li>
+        <li><a href="#" class="footer-link">Partners</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal">© 2026 Estate Sites. All rights reserved.</div>
+    <div class="footer-socials">
+      <a href="#" class="social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="#" class="social-link" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="3"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.5"/><polyline points="12,16 12,11 15.5,11 15.5,16"/>
+        </svg>
+      </a>
+      <a href="#" class="social-link" aria-label="Twitter">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4l16 16M4 20L20 4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const bar = document.getElementById('scrollBar');
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    bar.style.width = (window.scrollY / total * 100) + '%';
+  }, { passive: true });
+</script>
+</body>
+</html>

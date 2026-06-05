@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Meridian — Luxury Residence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --background-primary: #ffffff;
+    --background-secondary: #fafaf9;
+    --background-hover: #f5f5f5;
+    --background-muted: #e8e8e5;
+    --background-warm: #f5f0e4;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b67;
+    --text-muted: #8a8a86;
+    --text-subtle: #adadaa;
+    --text-disabled: #b8b8b4;
+    --text-inverse: #ffffff;
+    --border-subtle: #f5f5f5;
+    --border-default: #ebebea;
+    --border-muted: #c4c4bf;
+    --border-focus: #c8c8c4;
+    --accent-primary: #5B6EA6;
+    --accent-secondary: #7D8FC2;
+    --accent-background: #EEF2FF;
+    --accent-background-hover: #E3E9FF;
+    --button-primary-background: #1a1a1a;
+    --button-primary-text: #ffffff;
+    --button-secondary-background: #f1f0ef;
+    --button-secondary-text: #1a1a1a;
+    --heading: 'Manrope', sans-serif;
+    --body: 'Manrope', sans-serif;
+    --accent: 'Manrope', sans-serif;
+    --text-xxs: 10px;
+    --text-xs: 12px;
+    --text-sm: 13px;
+    --text-base: 14px;
+    --text-md1: 15px;
+    --text-md: 16px;
+    --text-mdlg: 17px;
+    --text-lg: 18px;
+    --text-xl: 22px;
+    --text-2xl: 28px;
+    --text-3xl: 36px;
+    --text-4xl: 48px;
+    --text-5xl: 64px;
+    --leading-tight: 1;
+    --leading-mid: 1.2;
+    --leading-normal: 1.4;
+    --leading-loose: 1.7;
+    --tracking-extra-tight: -0.05em;
+    --tracking-tight: -0.03em;
+    --tracking-mid: -0.02em;
+    --tracking-normal: 0.0em;
+    --tracking-wide: 0.02em;
+    --tracking-extra-wide: 0.04em;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--background-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .nav-logo {
+    font-family: var(--heading);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent-primary); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text-primary); }
+
+  .nav-cta {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-inverse);
+    background: var(--button-primary-background);
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-cta:hover { opacity: 0.82; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    animation: fadeIn 0.8s ease 0.2s both;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px 80px 48px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    animation: slideUp 0.7s ease 0.3s both;
+  }
+
+  .eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background: var(--accent-primary);
+  }
+
+  .eyebrow-text {
+    font-size: var(--text-xxs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .hero-title {
+    font-family: var(--heading);
+    font-size: clamp(44px, 5vw, 76px);
+    font-weight: 800;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    animation: slideUp 0.7s ease 0.4s both;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 300;
+    line-height: var(--leading-mid);
+    letter-spacing: var(--tracking-mid);
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    animation: slideUp 0.7s ease 0.5s both;
+  }
+
+  .hero-address {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: var(--tracking-normal);
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    animation: slideUp 0.7s ease 0.55s both;
+  }
+
+  .hero-address svg { flex-shrink: 0; }
+
+  .hero-price-block {
+    margin-bottom: 48px;
+    animation: slideUp 0.7s ease 0.6s both;
+  }
+
+  .price-label {
+    font-size: var(--text-xxs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .price-value {
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 800;
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border-default);
+    margin-bottom: 48px;
+    animation: slideUp 0.7s ease 0.65s both;
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 20px 24px;
+    border-right: 1px solid var(--border-default);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-value {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: var(--text-xxs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    animation: slideUp 0.7s ease 0.7s both;
+  }
+
+  .btn-primary {
+    flex: 1;
+    padding: 18px 32px;
+    background: var(--button-primary-background);
+    color: var(--button-primary-text);
+    border: none;
+    font-family: var(--body);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-secondary {
+    padding: 18px 28px;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    font-family: var(--body);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .btn-secondary:hover { background: var(--background-hover); }
+
+  /* ─── HERO IMAGE GRID ─── */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.9s ease 0.3s both;
+  }
+
+  .hero-image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    gap: 3px;
+  }
+
+  .img-main {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    position: relative;
+    overflow: hidden;
+    background: var(--background-muted);
+  }
+
+  .img-thumb {
+    position: relative;
+    overflow: hidden;
+    background: var(--background-muted);
+  }
+
+  /* Placeholder images using CSS gradients & patterns */
+  .img-scene {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .img-main:hover .img-scene,
+  .img-thumb:hover .img-scene { transform: scale(1.04); }
+
+  .img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.18) 100%);
+  }
+
+  .img-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255,255,255,0.95);
+    padding: 7px 14px;
+    font-size: var(--text-xxs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: var(--accent-primary);
+  }
+
+  .gallery-count {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 8px 14px;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  /* ─── DIVIDER STRIP ─── */
+  .strip {
+    background: var(--text-primary);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    overflow-x: auto;
+  }
+
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+
+  .strip-item svg { flex-shrink: 0; }
+
+  .strip-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .strip-value {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-normal);
+    color: white;
+  }
+
+  .strip-sep {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 100px 48px; }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-eyebrow .eyebrow-line { background: var(--border-muted); }
+
+  .section-title {
+    font-family: var(--heading);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 800;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-mid);
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .section-body {
+    font-size: var(--text-md);
+    font-weight: 400;
+    line-height: var(--leading-loose);
+    color: var(--text-secondary);
+    max-width: 600px;
+  }
+
+  /* ─── ABOUT SECTION ─── */
+  .about {
+    background: var(--background-secondary);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-img-wrap {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: var(--background-muted);
+    position: relative;
+  }
+
+  .about-img-wrap .img-scene { height: 100%; }
+
+  .about-card {
+    position: absolute;
+    bottom: -24px;
+    right: -24px;
+    background: white;
+    border: 1px solid var(--border-default);
+    padding: 24px 28px;
+    min-width: 200px;
+  }
+
+  .about-card-value {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .about-card-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 48px;
+    border-top: 1px solid var(--border-default);
+  }
+
+  .feature-item {
+    padding: 24px 0 24px;
+    border-bottom: 1px solid var(--border-default);
+    padding-right: 24px;
+  }
+
+  .feature-item:nth-child(even) {
+    padding-left: 24px;
+    padding-right: 0;
+    border-left: 1px solid var(--border-default);
+  }
+
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .feature-name {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: var(--tracking-mid);
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .feature-desc {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-normal);
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── GALLERY ─── */
+  .gallery {
+    background: var(--background-primary);
+    padding: 100px 48px;
+  }
+
+  .gallery-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 4px;
+  }
+
+  .g-cell {
+    overflow: hidden;
+    background: var(--background-muted);
+    position: relative;
+  }
+
+  .g-cell-tall { grid-row: 1 / 3; }
+  .g-cell-wide { grid-column: 2 / 4; }
+
+  .g-cell .img-scene {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .g-cell:hover .img-scene { transform: scale(1.05); }
+
+  .g-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    font-size: var(--text-xxs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: white;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+  }
+
+  /* ─── FLOOR PLAN ─── */
+  .floorplan {
+    background: var(--background-secondary);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 100px 48px;
+  }
+
+  .floorplan-diagram {
+    background: white;
+    border: 1px solid var(--border-default);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* SVG Floor plan inline */
+  .fp-svg { width: 88%; height: 88%; }
+
+  .floorplan-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .fp-tab {
+    padding: 12px 20px;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+    background: none;
+    border-left: none; border-right: none; border-top: none;
+    font-family: var(--body);
+  }
+
+  .fp-tab.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+  }
+
+  .room-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+
+  .room-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .room-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: var(--tracking-mid);
+    color: var(--text-primary);
+  }
+
+  .room-size {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: var(--tracking-normal);
+    color: var(--text-muted);
+  }
+
+  /* ─── LOCATION ─── */
+  .location-section {
+    padding: 100px 48px;
+    background: var(--background-primary);
+  }
+
+  .location-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .map-placeholder {
+    aspect-ratio: 4/3;
+    background: #e8e8e5;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-pin {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .map-pin-dot {
+    width: 14px;
+    height: 14px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 12px rgba(91,110,166,0.4);
+  }
+
+  .map-pin-line {
+    width: 1px;
+    height: 20px;
+    background: var(--accent-primary);
+  }
+
+  .map-label {
+    background: white;
+    padding: 10px 16px;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-primary);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  }
+
+  /* Decorative map lines */
+  .map-grid-line {
+    position: absolute;
+    background: rgba(0,0,0,0.07);
+  }
+
+  .proximity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 32px;
+  }
+
+  .prox-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .prox-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .prox-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    flex-shrink: 0;
+  }
+
+  .prox-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: var(--tracking-mid);
+    color: var(--text-primary);
+  }
+
+  .prox-time {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-normal);
+    color: var(--text-muted);
+  }
+
+  /* ─── AGENT ─── */
+  .agent-section {
+    padding: 100px 48px;
+    background: var(--text-primary);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .agent-tag {
+    font-size: var(--text-xxs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 12px;
+  }
+
+  .agent-headline {
+    font-family: var(--heading);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 800;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-mid);
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .agent-body {
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: var(--leading-loose);
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 40px;
+  }
+
+  .agent-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .agent-avatar {
+    width: 64px;
+    height: 64px;
+    background: var(--accent-background);
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .avatar-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #c4c8d8, #8a90b0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+
+  .agent-info { flex: 1; }
+
+  .agent-name {
+    font-size: var(--text-md);
+    font-weight: 700;
+    letter-spacing: var(--tracking-mid);
+    color: white;
+    margin-bottom: 3px;
+  }
+
+  .agent-title {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-normal);
+    color: rgba(255,255,255,0.45);
+  }
+
+  .agent-contact-col { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+
+  .contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--body);
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+
+  .contact-btn:hover { background: rgba(255,255,255,0.06); }
+
+  .contact-btn-label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .contact-btn-sub {
+    font-size: var(--text-xxs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-normal);
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  .contact-btn-icon {
+    margin-left: auto;
+    opacity: 0.3;
+  }
+
+  /* ─── CTA STRIP ─── */
+  .cta-strip {
+    background: var(--accent-primary);
+    padding: 64px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .cta-strip-left {}
+
+  .cta-strip-eyebrow {
+    font-size: var(--text-xxs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+
+  .cta-strip-title {
+    font-family: var(--heading);
+    font-size: clamp(22px, 2.5vw, 36px);
+    font-weight: 800;
+    letter-spacing: var(--tracking-tight);
+    color: white;
+    line-height: var(--leading-mid);
+  }
+
+  .cta-strip-actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .btn-white {
+    padding: 18px 32px;
+    background: white;
+    color: var(--accent-primary);
+    border: none;
+    font-family: var(--body);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-white:hover { opacity: 0.9; }
+
+  .btn-ghost-white {
+    padding: 18px 28px;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+    font-family: var(--body);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-ghost-white:hover { background: rgba(255,255,255,0.1); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--text-primary);
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-logo {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: var(--tracking-extra-wide);
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .footer-logo span { color: var(--accent-secondary); }
+
+  .footer-legal {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-normal);
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 60vw; }
+    .hero-image-grid { height: 60vw; }
+    .hero-left { padding: 48px 24px; }
+    section { padding: 64px 24px; }
+    .about, .floorplan, .agent-section, .location-inner { grid-template-columns: 1fr; gap: 40px; }
+    .strip { padding: 16px 24px; gap: 16px; }
+    .cta-strip { flex-direction: column; padding: 48px 24px; }
+    .cta-strip-actions { flex-direction: column; width: 100%; }
+    .btn-white, .btn-ghost-white { justify-content: center; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .gallery { padding: 64px 24px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .g-cell-tall { grid-row: auto; }
+    .g-cell-wide { grid-column: auto; }
+    .about-card { right: 0; bottom: -16px; }
+    .location-section { padding: 64px 24px; }
+    .agent-section { padding: 64px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Meridian<span>.</span>Estate</a>
+  <ul class="nav-links">
+    <li><a href="#about">Overview</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#floorplan">Floor Plan</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Schedule Viewing</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0; margin-top:80px;">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Exclusive New Listing</span>
+    </div>
+    <h1 class="hero-title">The Meridian</h1>
+    <p class="hero-subtitle">Penthouse Collection</p>
+    <div class="hero-address">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 1C4.79 1 3 2.79 3 5C3 8 7 13 7 13C7 13 11 8 11 5C11 2.79 9.21 1 7 1ZM7 6.5C6.17 6.5 5.5 5.83 5.5 5C5.5 4.17 6.17 3.5 7 3.5C7.83 3.5 8.5 4.17 8.5 5C8.5 5.83 7.83 6.5 7 6.5Z" fill="#8a8a86"/>
+      </svg>
+      14 Harbour Boulevard, Level 42 · Sydney, NSW 2000
+    </div>
+    <div class="hero-price-block">
+      <div class="price-label">Guide Price</div>
+      <div class="price-value">$8,450,000</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-value">4</div>
+        <div class="stat-label">Bedrooms</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Bathrooms</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">420</div>
+        <div class="stat-label">sqm total</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">2</div>
+        <div class="stat-label">Car spaces</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L9.5 5H12.5L10 8L11 12L7 10L3 12L4 8L1.5 5H4.5L7 1Z" stroke="white" stroke-width="1.2" stroke-linejoin="round" fill="none"/></svg>
+        Book a Private Tour
+      </a>
+      <a href="#gallery" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="1" stroke="#1a1a1a" stroke-width="1.2"/><path d="M1 9L4.5 5.5L7 8L9.5 5.5L13 9" stroke="#1a1a1a" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        Gallery
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-image-grid">
+      <div class="img-main">
+        <!-- Main hero image: luxury penthouse exterior/living -->
+        <svg class="img-scene" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#c5cfe0"/>
+              <stop offset="100%" stop-color="#e8ede8"/>
+            </linearGradient>
+            <linearGradient id="facade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d6cfc4"/>
+              <stop offset="100%" stop-color="#c2b9ae"/>
+            </linearGradient>
+            <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#a8bcd4" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#7098b8" stop-opacity="0.6"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="480" fill="url(#sky)"/>
+          <!-- Horizon buildings silhouette -->
+          <rect x="0" y="200" width="800" height="280" fill="#e0dbd4" opacity="0.4"/>
+          <rect x="60" y="160" width="80" height="320" fill="#bbb3aa" opacity="0.3" rx="2"/>
+          <rect x="600" y="140" width="100" height="340" fill="#bbb3aa" opacity="0.25" rx="2"/>
+          <rect x="700" y="180" width="60" height="300" fill="#bbb3aa" opacity="0.2" rx="2"/>
+          <!-- Main tower -->
+          <rect x="220" y="40" width="360" height="440" fill="url(#facade)" rx="2"/>
+          <!-- Glass panels grid -->
+          <g opacity="0.75">
+            <rect x="240" y="60" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="330" y="60" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="420" y="60" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="510" y="60" width="52" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="240" y="126" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="330" y="126" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="420" y="126" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="510" y="126" width="52" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="240" y="192" width="76" height="52" fill="url(#glass)" opacity="0.9" rx="1"/>
+            <rect x="330" y="192" width="76" height="52" fill="url(#glass)" opacity="0.9" rx="1"/>
+            <rect x="420" y="192" width="76" height="52" fill="url(#glass)" opacity="0.9" rx="1"/>
+            <rect x="510" y="192" width="52" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="240" y="258" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="330" y="258" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="420" y="258" width="76" height="52" fill="url(#glass)" rx="1"/>
+            <rect x="510" y="258" width="52" height="52" fill="url(#glass)" rx="1"/>
+          </g>
+          <!-- Penthouse highlight -->
+          <rect x="230" y="48" width="342" height="68" fill="#f0ebdf" opacity="0.5" rx="1"/>
+          <rect x="230" y="48" width="342" height="3" fill="#5B6EA6" opacity="0.6"/>
+          <!-- Ground -->
+          <rect x="0" y="420" width="800" height="60" fill="#d4cec8"/>
+          <!-- Water reflection hint -->
+          <rect x="0" y="380" width="800" height="40" fill="#b8c8d8" opacity="0.25"/>
+        </svg>
+        <div class="img-overlay"></div>
+        <div class="img-badge">New Listing</div>
+      </div>
+      <div class="img-thumb">
+        <!-- Interior: living room -->
+        <svg class="img-scene" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="min-height:200px">
+          <defs>
+            <linearGradient id="lr-bg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f0ebe3"/>
+              <stop offset="100%" stop-color="#e0d9cf"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="280" fill="url(#lr-bg)"/>
+          <!-- Floor -->
+          <rect x="0" y="210" width="400" height="70" fill="#c8b89a"/>
+          <!-- Wall panels -->
+          <rect x="0" y="0" width="400" height="210" fill="#ede8df"/>
+          <rect x="20" y="20" width="160" height="180" fill="#e4ddd4" rx="2" opacity="0.5"/>
+          <rect x="220" y="20" width="160" height="180" fill="#e4ddd4" rx="2" opacity="0.5"/>
+          <!-- Large window -->
+          <rect x="140" y="0" width="120" height="200" fill="#b8cedd" opacity="0.6"/>
+          <line x1="200" y1="0" x2="200" y2="200" stroke="#a0b2c2" stroke-width="2"/>
+          <!-- Sofa -->
+          <rect x="80" y="170" width="240" height="50" fill="#c4b8aa" rx="4"/>
+          <rect x="80" y="155" width="240" height="22" fill="#d0c4b6" rx="2"/>
+          <rect x="80" y="155" width="22" height="65" fill="#c4b8aa" rx="2"/>
+          <rect x="298" y="155" width="22" height="65" fill="#c4b8aa" rx="2"/>
+          <!-- Coffee table -->
+          <rect x="150" y="215" width="100" height="8" fill="#9e8e7a" rx="1"/>
+          <!-- Ambient light -->
+          <ellipse cx="200" cy="120" rx="100" ry="60" fill="white" opacity="0.08"/>
+        </svg>
+        <div class="img-overlay"></div>
+        <div class="g-label">Living Room</div>
+      </div>
+      <div class="img-thumb">
+        <!-- Interior: kitchen -->
+        <svg class="img-scene" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="min-height:200px">
+          <rect width="400" height="280" fill="#e8e2da"/>
+          <!-- Cabinets upper -->
+          <rect x="0" y="40" width="400" height="80" fill="#d8d0c4" rx="1"/>
+          <line x1="133" y1="40" x2="133" y2="120" stroke="#cac2b6" stroke-width="1"/>
+          <line x1="267" y1="40" x2="267" y2="120" stroke="#cac2b6" stroke-width="1"/>
+          <!-- Countertop -->
+          <rect x="0" y="170" width="400" height="20" fill="#a89880" rx="1"/>
+          <!-- Lower cabinets -->
+          <rect x="0" y="190" width="400" height="90" fill="#c8c0b4"/>
+          <line x1="133" y1="190" x2="133" y2="280" stroke="#bab2a6" stroke-width="1"/>
+          <line x1="267" y1="190" x2="267" y2="280" stroke="#bab2a6" stroke-width="1"/>
+          <!-- Backsplash -->
+          <rect x="0" y="120" width="400" height="50" fill="#d4cdc6"/>
+          <g opacity="0.4">
+            <line x1="0" y1="130" x2="400" y2="130" stroke="#b8b2ac" stroke-width="0.5"/>
+            <line x1="0" y1="140" x2="400" y2="140" stroke="#b8b2ac" stroke-width="0.5"/>
+            <line x1="0" y1="150" x2="400" y2="150" stroke="#b8b2ac" stroke-width="0.5"/>
+            <line x1="0" y1="160" x2="400" y2="160" stroke="#b8b2ac" stroke-width="0.5"/>
+            <line x1="80" y1="120" x2="80" y2="170" stroke="#b8b2ac" stroke-width="0.5"/>
+            <line x1="160" y1="120" x2="160" y2="170" stroke="#b8b2ac" stroke-width="0.5"/>
+            <line x1="240" y1="120" x2="240" y2="170" stroke="#b8b2ac" stroke-width="0.5"/>
+            <line x1="320" y1="120" x2="320" y2="170" stroke="#b8b2ac" stroke-width="0.5"/>
+          </g>
+          <!-- Pendant lights -->
+          <circle cx="160" cy="30" r="14" fill="#e0d8cc" stroke="#c8c0b4" stroke-width="1.5"/>
+          <circle cx="240" cy="30" r="14" fill="#e0d8cc" stroke="#c8c0b4" stroke-width="1.5"/>
+          <line x1="160" y1="0" x2="160" y2="16" stroke="#b0a898" stroke-width="1.5"/>
+          <line x1="240" y1="0" x2="240" y2="16" stroke="#b0a898" stroke-width="1.5"/>
+        </svg>
+        <div class="img-overlay"></div>
+        <div class="g-label">Chef's Kitchen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L10 6H15L11 9.5L12.5 14.5L8 11.5L3.5 14.5L5 9.5L1 6H6L8 1Z" fill="rgba(255,255,255,0.35)"/></svg>
+    <span class="strip-label">Status</span>
+    <span class="strip-value">Available Now</span>
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <span class="strip-label">Strata</span>
+    <span class="strip-value">$3,200 / qtr</span>
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <span class="strip-label">Council</span>
+    <span class="strip-value">$1,850 / qtr</span>
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <span class="strip-label">Property Type</span>
+    <span class="strip-value">Penthouse</span>
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <span class="strip-label">Built</span>
+    <span class="strip-value">2021</span>
+  </div>
+  <div class="strip-sep"></div>
+  <div class="strip-item">
+    <span class="strip-label">Level</span>
+    <span class="strip-value">42 / 44</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-img-wrap">
+      <svg class="img-scene" viewBox="0 0 500 625" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="rm-bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f2ece4"/>
+            <stop offset="100%" stop-color="#e8e0d6"/>
+          </linearGradient>
+        </defs>
+        <rect width="500" height="625" fill="url(#rm-bg)"/>
+        <!-- Floor -->
+        <rect x="0" y="480" width="500" height="145" fill="#d4c4aa"/>
+        <!-- Wall -->
+        <rect x="0" y="0" width="500" height="480" fill="#ece6de"/>
+        <!-- Large window wall -->
+        <rect x="0" y="0" width="200" height="480" fill="#d0deea" opacity="0.5"/>
+        <line x1="100" y1="0" x2="100" y2="480" stroke="#b0c0d0" stroke-width="2" opacity="0.5"/>
+        <!-- City view through window -->
+        <g opacity="0.4">
+          <rect x="20" y="200" width="30" height="280" fill="#8a9aaa"/>
+          <rect x="60" y="240" width="20" height="240" fill="#8a9aaa"/>
+          <rect x="120" y="180" width="40" height="300" fill="#8a9aaa"/>
+        </g>
+        <!-- Bed -->
+        <rect x="220" y="300" width="260" height="200" fill="#c8b89a" rx="4"/>
+        <rect x="220" y="285" width="260" height="30" fill="#d4c4aa" rx="2"/>
+        <!-- Pillows -->
+        <rect x="240" y="290" width="90" height="28" fill="#ede8df" rx="12"/>
+        <rect x="350" y="290" width="90" height="28" fill="#ede8df" rx="12"/>
+        <!-- Bedside tables -->
+        <rect x="180" y="350" width="40" height="80" fill="#b8a890" rx="2"/>
+        <rect x="480" y="350" width="40" height="80" fill="#b8a890" rx="2"/>
+        <!-- Lamp -->
+        <rect x="192" y="320" width="16" height="36" fill="#8a7a68" rx="1"/>
+        <ellipse cx="200" cy="316" rx="22" ry="14" fill="#e8e0d4" opacity="0.8"/>
+        <!-- Wardrobe -->
+        <rect x="320" y="60" width="160" height="240" fill="#c8c0b4" rx="2"/>
+        <line x1="400" y1="60" x2="400" y2="300" stroke="#b8b0a4" stroke-width="1.5"/>
+        <!-- Artwork -->
+        <rect x="230" y="70" width="80" height="100" fill="#d8d0c8" rx="1"/>
+        <rect x="236" y="76" width="68" height="88" fill="#c4bcb0" rx="1"/>
+      </svg>
+      <div class="img-overlay"></div>
+    </div>
+    <div class="about-card">
+      <div class="about-card-value">42nd</div>
+      <div class="about-card-label">Floor · Ocean Views</div>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <div class="section-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Property Overview</span>
+    </div>
+    <h2 class="section-title">A residence above<br>the ordinary</h2>
+    <p class="section-body">
+      The Meridian Penthouse Collection redefines elevated living with an unrivalled position on the 42nd level. Designed by award-winning architects Carr & Associates, every detail speaks to a life of exceptional quality — from the floor-to-ceiling glazing framing sweeping harbour panoramas, to the hand-selected Italian stone and European oak throughout.
+    </p>
+
+    <div class="about-features">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16.5L12.5 10.5L14 15.5L9 12.5L4 15.5L5.5 10.5L1.5 7H6.5L9 2Z" stroke="#5B6EA6" stroke-width="1.3" stroke-linejoin="round" fill="none"/></svg>
+        </div>
+        <div class="feature-name">Panoramic Harbour Views</div>
+        <div class="feature-desc">Uninterrupted 270° views from every principal room.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="8" width="14" height="8" stroke="#5B6EA6" stroke-width="1.3" rx="1"/><path d="M5 8V5C5 3.34 6.34 2 8 2H10C11.66 2 13 3.34 13 5V8" stroke="#5B6EA6" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="feature-name">Private Lift Lobby</div>
+        <div class="feature-desc">Dedicated lift access exclusive to this penthouse level.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 14C2 14 4 10 9 10C14 10 16 14 16 14" stroke="#5B6EA6" stroke-width="1.3" stroke-linecap="round"/><circle cx="9" cy="6" r="3" stroke="#5B6EA6" stroke-width="1.3"/></svg>
+        </div>
+        <div class="feature-name">Sub-Penthouse Retreat</div>
+        <div class="feature-desc">Separate guest suite with ensuite and private entrance.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" stroke="#5B6EA6" stroke-width="1.3" rx="2"/><path d="M2 7H16M7 2V16" stroke="#5B6EA6" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="feature-name">4-Car Basement</div>
+        <div class="feature-desc">Secure basement parking with dedicated storage vault.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C5.13 2 2 5.13 2 9C2 12.87 5.13 16 9 16C12.87 16 16 12.87 16 9C16 5.13 12.87 2 9 2Z" stroke="#5B6EA6" stroke-width="1.3"/><path d="M9 5V9.5L12 11" stroke="#5B6EA6" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="feature-name">Smart Home Automation</div>
+        <div class="feature-desc">Full Lutron and Crestron integration throughout.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14L9 3L14 14" stroke="#5B6EA6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10.5H12" stroke="#5B6EA6" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="feature-name">Rooftop Terrace</div>
+        <div class="feature-desc">780sqm private terrace with pool, spa and outdoor kitchen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Photo Gallery</span>
+      </div>
+      <h2 class="section-title">Every detail,<br>considered</h2>
+    </div>
+    <a href="#contact" class="btn-secondary">
+      View All 36 Photos
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="#1a1a1a" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- Tall cell: terrace -->
+    <div class="g-cell g-cell-tall">
+      <svg class="img-scene" viewBox="0 0 500 640" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="min-height:400px">
+        <defs>
+          <linearGradient id="terrace-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b0c4d8"/>
+            <stop offset="60%" stop-color="#d8e4ee"/>
+            <stop offset="100%" stop-color="#e4dcd4"/>
+          </linearGradient>
+        </defs>
+        <rect width="500" height="640" fill="url(#terrace-sky)"/>
+        <!-- Horizon city -->
+        <rect x="0" y="340" width="500" height="300" fill="#c8d4dc" opacity="0.4"/>
+        <g opacity="0.25">
+          <rect x="20" y="280" width="40" height="360" fill="#789" rx="1"/>
+          <rect x="80" y="300" width="30" height="340" fill="#789" rx="1"/>
+          <rect x="380" y="260" width="50" height="380" fill="#789" rx="1"/>
+          <rect x="440" y="290" width="35" height="350" fill="#789" rx="1"/>
+        </g>
+        <!-- Pool -->
+        <rect x="80" y="400" width="340" height="160" fill="#7098b8" opacity="0.7" rx="4"/>
+        <rect x="80" y="400" width="340" height="10" fill="#88aac8" opacity="0.5" rx="2"/>
+        <!-- Terrace floor -->
+        <rect x="0" y="380" width="500" height="260" fill="#d4c8b8" opacity="0.5"/>
+        <!-- Loungers -->
+        <rect x="120" y="350" width="100" height="36" fill="#e8e0d4" rx="2"/>
+        <rect x="280" y="350" width="100" height="36" fill="#e8e0d4" rx="2"/>
+        <!-- Railing -->
+        <rect x="0" y="330" width="500" height="6" fill="#e4ddd6"/>
+        <g stroke="#d0cac4" stroke-width="1.5" opacity="0.8">
+          <line x1="40" y1="336" x2="40" y2="400"/>
+          <line x1="80" y1="336" x2="80" y2="400"/>
+          <line x1="120" y1="336" x2="120" y2="400"/>
+          <line x1="160" y1="336" x2="160" y2="400"/>
+          <line x1="200" y1="336" x2="200" y2="400"/>
+          <line x1="240" y1="336" x2="240" y2="400"/>
+          <line x1="280" y1="336" x2="280" y2="400"/>
+          <line x1="320" y1="336" x2="320" y2="400"/>
+          <line x1="360" y1="336" x2="360" y2="400"/>
+          <line x1="400" y1="336" x2="400" y2="400"/>
+          <line x1="440" y1="336" x2="440" y2="400"/>
+          <line x1="480" y1="336" x2="480" y2="400"/>
+        </g>
+      </svg>
+      <div class="img-overlay"></div>
+      <div class="g-label">Private Rooftop Terrace &amp; Pool</div>
+    </div>
+
+    <!-- Wide cell: master bath -->
+    <div class="g-cell g-cell-wide">
+      <svg class="img-scene" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="min-height:200px">
+        <rect width="700" height="300" fill="#eeebe6"/>
+        <!-- Bath walls -->
+        <rect x="0" y="0" width="700" height="300" fill="#e8e4de"/>
+        <!-- Marble effect -->
+        <path d="M0 80 Q 100 70 200 90 Q 300 110 400 85 Q 500 65 600 88 Q 650 96 700 82" stroke="#d8d4ce" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M0 120 Q 150 108 300 125 Q 450 140 600 118 Q 650 112 700 120" stroke="#d8d4ce" stroke-width="1" fill="none" opacity="0.4"/>
+        <!-- Floor -->
+        <rect x="0" y="220" width="700" height="80" fill="#cdc8c0"/>
+        <!-- Freestanding bath -->
+        <rect x="250" y="140" width="200" height="90" fill="#f0ece6" rx="8"/>
+        <rect x="258" y="148" width="184" height="74" fill="#e8e2da" rx="6"/>
+        <!-- Taps -->
+        <rect x="336" y="136" width="28" height="14" fill="#c8c4bc" rx="2"/>
+        <rect x="345" y="125" width="10" height="15" fill="#b8b4ac" rx="1"/>
+        <!-- Window -->
+        <rect x="500" y="20" width="160" height="200" fill="#b8cedd" opacity="0.5"/>
+        <line x1="580" y1="20" x2="580" y2="220" stroke="#a0b2c2" stroke-width="1.5" opacity="0.5"/>
+        <!-- Vanity -->
+        <rect x="20" y="160" width="200" height="70" fill="#c8c0b4" rx="2"/>
+        <rect x="30" y="140" width="180" height="22" fill="#e0d8d0" rx="1"/>
+        <!-- Mirror -->
+        <rect x="30" y="30" width="160" height="110" fill="#d4dce8" opacity="0.5" rx="1"/>
+        <rect x="34" y="34" width="152" height="102" fill="#c8d4e4" opacity="0.4" rx="1"/>
+      </svg>
+      <div class="img-overlay"></div>
+      <div class="g-label">Master Ensuite</div>
+    </div>
+
+    <!-- Small cell: dining -->
+    <div class="g-cell">
+      <svg class="img-scene" viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" style="min-height:200px">
+        <rect width="340" height="300" fill="#ece7de"/>
+        <rect x="0" y="240" width="340" height="60" fill="#c4b8a4"/>
+        <!-- Dining table -->
+        <rect x="60" y="150" width="220" height="100" fill="#b0a090" rx="3"/>
+        <rect x="58" y="148" width="224" height="6" fill="#c0b0a0" rx="2"/>
+        <!-- Chairs -->
+        <rect x="80" y="110" width="50" height="44" fill="#c8beb0" rx="3"/>
+        <rect x="150" y="110" width="50" height="44" fill="#c8beb0" rx="3"/>
+        <rect x="220" y="110" width="50" height="44" fill="#c8beb0" rx="3"/>
+        <rect x="80" y="248" width="50" height="40" fill="#c8beb0" rx="3"/>
+        <rect x="150" y="248" width="50" height="40" fill="#c8beb0" rx="3"/>
+        <rect x="220" y="248" width="50" height="40" fill="#c8beb0" rx="3"/>
+        <!-- Chandelier -->
+        <ellipse cx="170" cy="50" rx="50" ry="16" fill="#d8d0c4" opacity="0.8"/>
+        <line x1="170" y1="0" x2="170" y2="34" stroke="#b8b0a4" stroke-width="2"/>
+        <g opacity="0.5">
+          <line x1="130" y1="50" x2="120" y2="70" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="150" y1="66" x2="145" y2="80" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="170" y1="66" x2="170" y2="82" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="190" y1="66" x2="195" y2="80" stroke="#b8b0a4" stroke-width="1"/>
+          <line x1="210" y1="50" x2="220" y2="70" stroke="#b8b0a4" stroke-width="1"/>
+        </g>
+        <!-- Wall panelling -->
+        <rect x="0" y="0" width="340" height="100" fill="#e8e2d8" opacity="0.5"/>
+        <rect x="20" y="10" width="120" height="80" fill="#e0d8ce" rx="1" opacity="0.4"/>
+        <rect x="200" y="10" width="120" height="80" fill="#e0d8ce" rx="1" opacity="0.4"/>
+      </svg>
+      <div class="img-overlay"></div>
+      <div class="g-label">Formal Dining</div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOOR PLAN -->
+<section class="floorplan" id="floorplan">
+  <div>
+    <div class="section-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Floor Plan</span>
+    </div>
+    <h2 class="section-title">Intelligently<br>considered layout</h2>
+    <p class="section-body" style="margin-bottom: 32px;">
+      420sqm of thoughtfully arranged living space across a single level, with a separate media room, formal dining, and dedicated study — all oriented to maximise the harbour views.
+    </p>
+
+    <div class="floorplan-tabs">
+      <button class="fp-tab active">Level 42</button>
+      <button class="fp-tab">Rooftop</button>
+      <button class="fp-tab">Basement</button>
+    </div>
+
+    <div class="room-list">
+      <div class="room-row">
+        <span class="room-name">Master Bedroom Suite</span>
+        <span class="room-size">68 sqm</span>
+      </div>
+      <div class="room-row">
+        <span class="room-name">Living &amp; Dining</span>
+        <span class="room-size">94 sqm</span>
+      </div>
+      <div class="room-row">
+        <span class="room-name">Chef's Kitchen</span>
+        <span class="room-size">42 sqm</span>
+      </div>
+      <div class="room-row">
+        <span class="room-name">Bedroom 2</span>
+        <span class="room-size">38 sqm</span>
+      </div>
+      <div class="room-row">
+        <span class="room-name">Bedroom 3 &amp; 4</span>
+        <span class="room-size">28 sqm each</span>
+      </div>
+      <div class="room-row">
+        <span class="room-name">Study / Media Room</span>
+        <span class="room-size">32 sqm</span>
+      </div>
+      <div class="room-row">
+        <span class="room-name">Terrace</span>
+        <span class="room-size">78 sqm</span>
+      </div>
+    </div>
+
+    <a href="#contact" class="btn-primary" style="max-width:280px;">
+      Download Full Plans
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 2V9M3.5 6.5L6.5 9.5L9.5 6.5M2 11H11" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <div class="floorplan-diagram">
+    <!-- Inline SVG floor plan -->
+    <svg class="fp-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="6" stroke="#d4cfc8" stroke-width="0.8"/>
+        </pattern>
+      </defs>
+      <!-- Walls outer -->
+      <rect x="20" y="20" width="360" height="360" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+      <!-- Room partitions -->
+      <!-- Master suite top-left -->
+      <rect x="20" y="20" width="160" height="140" fill="#f5f2ee" stroke="none"/>
+      <text x="100" y="88" text-anchor="middle" font-family="Manrope,sans-serif" font-size="8" fill="#8a8a86" font-weight="600" letter-spacing="0.04em" text-transform="uppercase">MASTER</text>
+      <text x="100" y="100" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7" fill="#adadaa" font-weight="500">68 sqm</text>
+      <!-- Ensuite top-left corner -->
+      <rect x="20" y="20" width="80" height="60" fill="#eeeae4" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="60" y="52" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7" fill="#adadaa" font-weight="500">ENSUITE</text>
+      <!-- Living centre top -->
+      <rect x="180" y="20" width="200" height="200" fill="#f0ede8" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="280" y="115" text-anchor="middle" font-family="Manrope,sans-serif" font-size="8" fill="#8a8a86" font-weight="600" letter-spacing="0.04em">LIVING &amp; DINING</text>
+      <text x="280" y="128" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7" fill="#adadaa" font-weight="500">94 sqm</text>
+      <!-- Kitchen bottom-left -->
+      <rect x="20" y="220" width="160" height="80" fill="#edeae4" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="100" y="262" text-anchor="middle" font-family="Manrope,sans-serif" font-size="8" fill="#8a8a86" font-weight="600" letter-spacing="0.04em">KITCHEN</text>
+      <text x="100" y="274" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7" fill="#adadaa" font-weight="500">42 sqm</text>
+      <!-- Bed 2 -->
+      <rect x="20" y="300" width="120" height="80" fill="#f5f2ee" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="80" y="342" text-anchor="middle" font-family="Manrope,sans-serif" font-size="8" fill="#8a8a86" font-weight="600" letter-spacing="0.04em">BED 2</text>
+      <text x="80" y="354" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7" fill="#adadaa" font-weight="500">38 sqm</text>
+      <!-- Study -->
+      <rect x="140" y="300" width="100" height="80" fill="#edeae4" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="190" y="342" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7.5" fill="#8a8a86" font-weight="600" letter-spacing="0.04em">STUDY</text>
+      <!-- Bed 3+4 -->
+      <rect x="240" y="220" width="140" height="160" fill="#f5f2ee" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="240" y1="300" x2="380" y2="300" stroke="#1a1a1a" stroke-width="1.2"/>
+      <text x="310" y="264" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7.5" fill="#8a8a86" font-weight="600" letter-spacing="0.04em">BED 3</text>
+      <text x="310" y="336" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7.5" fill="#8a8a86" font-weight="600" letter-spacing="0.04em">BED 4</text>
+      <!-- Master inner wall -->
+      <line x1="20" y1="160" x2="180" y2="160" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="180" y1="20" x2="180" y2="220" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="20" y1="80" x2="100" y2="80" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="100" y1="20" x2="100" y2="80" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="20" y1="220" x2="240" y2="220" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="20" y1="300" x2="240" y2="300" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="140" y1="300" x2="140" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+      <line x1="240" y1="220" x2="240" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+      <!-- Door indicators -->
+      <path d="M 160 160 A 20 20 0 0 1 180 140" stroke="#5B6EA6" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
+      <path d="M 180 220 A 20 20 0 0 0 200 240" stroke="#5B6EA6" stroke-width="1" fill="none" stroke-dasharray="3,2"/>
+      <!-- Compass -->
+      <g transform="translate(355, 355)">
+        <circle cx="0" cy="0" r="14" fill="white" stroke="#ebebea" stroke-width="1"/>
+        <path d="M0 -10 L3 0 L0 3 L-3 0 Z" fill="#1a1a1a"/>
+        <path d="M0 10 L3 0 L0 -3 L-3 0 Z" fill="#c4c4bf"/>
+        <text x="0" y="-14" text-anchor="middle" font-family="Manrope,sans-serif" font-size="7" fill="#8a8a86" font-weight="700">N</text>
+      </g>
+      <!-- Scale bar -->
+      <line x1="20" y1="395" x2="80" y2="395" stroke="#c4c4bf" stroke-width="1.5"/>
+      <line x1="20" y1="392" x2="20" y2="398" stroke="#c4c4bf" stroke-width="1.5"/>
+      <line x1="80" y1="392" x2="80" y2="398" stroke="#c4c4bf" stroke-width="1.5"/>
+      <text x="50" y="393" text-anchor="middle" font-family="Manrope,sans-serif" font-size="6" fill="#adadaa">10m</text>
+    </svg>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <div class="section-eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-text">Location</span>
+  </div>
+  <h2 class="section-title" style="margin-bottom:48px;">Positioned at the<br>heart of it all</h2>
+
+  <div class="location-inner">
+    <div>
+      <p class="section-body" style="margin-bottom:32px;">
+        14 Harbour Boulevard sits within moments of Sydney's most revered dining, cultural institutions, and private schools — while the private lobby provides complete seclusion from the city's energy below.
+      </p>
+
+      <div class="proximity-list">
+        <div class="prox-row">
+          <div class="prox-left">
+            <div class="prox-dot"></div>
+            <span class="prox-name">Sydney CBD Core</span>
+          </div>
+          <span class="prox-time">4 min drive</span>
+        </div>
+        <div class="prox-row">
+          <div class="prox-left">
+            <div class="prox-dot"></div>
+            <span class="prox-name">Circular Quay</span>
+          </div>
+          <span class="prox-time">6 min walk</span>
+        </div>
+        <div class="prox-row">
+          <div class="prox-left">
+            <div class="prox-dot"></div>
+            <span class="prox-name">The Grounds Restaurant</span>
+          </div>
+          <span class="prox-time">3 min walk</span>
+        </div>
+        <div class="prox-row">
+          <div class="prox-left">
+            <div class="prox-dot"></div>
+            <span class="prox-name">Sydney Opera House</span>
+          </div>
+          <span class="prox-time">8 min walk</span>
+        </div>
+        <div class="prox-row">
+          <div class="prox-left">
+            <div class="prox-dot"></div>
+            <span class="prox-name">SHORE / PLC Schools</span>
+          </div>
+          <span class="prox-time">12 min drive</span>
+        </div>
+        <div class="prox-row">
+          <div class="prox-left">
+            <div class="prox-dot"></div>
+            <span class="prox-name">Sydney Airport</span>
+          </div>
+          <span class="prox-time">22 min drive</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-placeholder">
+      <!-- Stylised map SVG -->
+      <svg width="100%" height="100%" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="560" height="420" fill="#e8e4de"/>
+        <!-- Grid streets -->
+        <g stroke="#d8d4ce" stroke-width="1">
+          <line x1="0" y1="70" x2="560" y2="70"/>
+          <line x1="0" y1="140" x2="560" y2="140"/>
+          <line x1="0" y1="210" x2="560" y2="210"/>
+          <line x1="0" y1="280" x2="560" y2="280"/>
+          <line x1="0" y1="350" x2="560" y2="350"/>
+          <line x1="80" y1="0" x2="80" y2="420"/>
+          <line x1="160" y1="0" x2="160" y2="420"/>
+          <line x1="240" y1="0" x2="240" y2="420"/>
+          <line x1="320" y1="0" x2="320" y2="420"/>
+          <line x1="400" y1="0" x2="400" y2="420"/>
+          <line x1="480" y1="0" x2="480" y2="420"/>
+        </g>
+        <!-- Major roads -->
+        <g stroke="#d0cbc4" stroke-width="6">
+          <line x1="0" y1="210" x2="560" y2="210"/>
+          <line x1="240" y1="0" x2="240" y2="420"/>
+        </g>
+        <!-- Water -->
+        <rect x="320" y="0" width="240" height="210" fill="#c8d8e4" opacity="0.6" rx="4"/>
+        <!-- Parks -->
+        <rect x="0" y="0" width="80" height="140" fill="#d4dcc8" opacity="0.5" rx="2"/>
+        <rect x="320" y="280" width="160" height="140" fill="#d4dcc8" opacity="0.5" rx="2"/>
+        <!-- Buildings -->
+        <g fill="#cec8c0" opacity="0.7">
+          <rect x="90" y="150" width="60" height="50" rx="1"/>
+          <rect x="170" y="80" width="50" height="40" rx="1"/>
+          <rect x="170" y="150" width="50" height="50" rx="1"/>
+          <rect x="90" y="220" width="60" height="50" rx="1"/>
+          <rect x="170" y="220" width="50" height="50" rx="1"/>
+          <rect x="90" y="80" width="60" height="50" rx="1"/>
+          <rect x="340" y="220" width="40" height="50" rx="1"/>
+          <rect x="400" y="220" width="60" height="50" rx="1"/>
+          <rect x="340" y="290" width="60" height="50" rx="1"/>
+        </g>
+        <!-- Pin -->
+        <circle cx="240" cy="210" r="18" fill="white" opacity="0.9"/>
+        <circle cx="240" cy="210" r="10" fill="#5B6EA6"/>
+        <circle cx="240" cy="210" r="18" fill="none" stroke="#5B6EA6" stroke-width="2" opacity="0.3"/>
+        <!-- Label -->
+        <rect x="158" y="236" width="164" height="32" fill="white" rx="1"/>
+        <text x="240" y="255" text-anchor="middle" font-family="Manrope,sans-serif" font-size="10" font-weight="700" fill="#1a1a1a" letter-spacing="0.04em">14 HARBOUR BLVD</text>
+        <!-- Water label -->
+        <text x="420" y="100" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="500" fill="#7098b8" opacity="0.8" letter-spacing="0.06em">SYDNEY</text>
+        <text x="420" y="116" text-anchor="middle" font-family="Manrope,sans-serif" font-size="11" font-weight="500" fill="#7098b8" opacity="0.8" letter-spacing="0.06em">HARBOUR</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- AGENT -->
+<section class="agent-section" id="contact">
+  <div>
+    <div class="agent-tag">Your Agent</div>
+    <h2 class="agent-headline">Ready to make<br>this yours?</h2>
+    <p class="agent-body">
+      Contact our dedicated specialist directly to arrange a private viewing, request the full information memorandum, or discuss expressions of interest. Available seven days.
+    </p>
+    <div class="agent-card">
+      <div class="agent-avatar">
+        <div class="avatar-placeholder">JM</div>
+      </div>
+      <div class="agent-info">
+        <div class="agent-name">James Mercer</div>
+        <div class="agent-title">Principal — Prestige Residential</div>
+      </div>
+    </div>
+    <div class="agent-contact-col">
+      <a href="tel:0400000000" class="contact-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 1H6L7.5 4.5L5.5 5.5C6.5 7.5 8.5 9.5 10.5 10.5L11.5 8.5L15 10V13C15 14.1 14.1 15 13 15C6.4 15 1 9.6 1 3C1 1.9 1.9 1 3 1Z" stroke="white" stroke-width="1.2" stroke-linejoin="round" fill="none"/></svg>
+        <div>
+          <div class="contact-btn-label">Call James Directly</div>
+          <div class="contact-btn-sub">+61 400 000 000</div>
+        </div>
+        <svg class="contact-btn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7H11M8 4L11 7L8 10" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="mailto:james@meridian.estate" class="contact-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="white" stroke-width="1.2"/><path d="M1 4L8 9L15 4" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div>
+          <div class="contact-btn-label">Send an Enquiry</div>
+          <div class="contact-btn-sub">james@meridian.estate</div>
+        </div>
+        <svg class="contact-btn-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7H11M8 4L11 7L8 10" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Enquiry form -->
+  <div>
+    <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 40px;">
+      <div style="font-size: var(--text-xxs); font-weight: 700; letter-spacing: var(--tracking-extra-wide); text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px;">Request a Private Viewing</div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div>
+            <label style="display:block; font-size: var(--text-xxs); font-weight: 700; letter-spacing: var(--tracking-extra-wide); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px;">First Name</label>
+            <input type="text" placeholder="Alexander" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-family:var(--body); font-size:var(--text-sm); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.3)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
+          </div>
+          <div>
+            <label style="display:block; font-size: var(--text-xxs); font-weight: 700; letter-spacing: var(--tracking-extra-wide); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px;">Last Name</label>
+            <input type="text" placeholder="Whitmore" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-family:var(--body); font-size:var(--text-sm); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.3)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
+          </div>
+        </div>
+        <div>
+          <label style="display:block; font-size: var(--text-xxs); font-weight: 700; letter-spacing: var(--tracking-extra-wide); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px;">Email Address</label>
+          <input type="email" placeholder="alexander@example.com" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-family:var(--body); font-size:var(--text-sm); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.3)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
+        </div>
+        <div>
+          <label style="display:block; font-size: var(--text-xxs); font-weight: 700; letter-spacing: var(--tracking-extra-wide); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px;">Phone Number</label>
+          <input type="tel" placeholder="+61 400 000 000" style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-family:var(--body); font-size:var(--text-sm); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.3)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"/>
+        </div>
+        <div>
+          <label style="display:block; font-size: var(--text-xxs); font-weight: 700; letter-spacing: var(--tracking-extra-wide); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px;">Preferred Viewing Time</label>
+          <select style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.6); font-family:var(--body); font-size:var(--text-sm); outline:none; appearance:none; cursor:pointer;">
+            <option>Weekday Morning</option>
+            <option>Weekday Afternoon</option>
+            <option>Weekend Morning</option>
+            <option>Weekend Afternoon</option>
+            <option>By Appointment</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size: var(--text-xxs); font-weight: 700; letter-spacing: var(--tracking-extra-wide); text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:8px;">Message (Optional)</label>
+          <textarea rows="3" placeholder="Any specific questions or requirements..." style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-family:var(--body); font-size:var(--text-sm); outline:none; resize:vertical; transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(255,255,255,0.3)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'"></textarea>
+        </div>
+        <button style="padding:18px 32px; background:white; color:#1a1a1a; border:none; font-family:var(--body); font-size:var(--text-xs); font-weight:700; letter-spacing:var(--tracking-wide); text-transform:uppercase; cursor:pointer; transition:opacity 0.2s; margin-top:6px;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+          Submit Enquiry →
+        </button>
+        <p style="font-size:var(--text-xxs); color:rgba(255,255,255,0.25); line-height:1.6; letter-spacing:var(--tracking-normal);">
+          Your information is handled with complete discretion. We will respond within 2 business hours.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="cta-strip-left">
+    <div class="cta-strip-eyebrow">Limited Opportunity</div>
+    <div class="cta-strip-title">One of only two residences<br>at this level. Act with intention.</div>
+  </div>
+  <div class="cta-strip-actions">
+    <a href="#contact" class="btn-white">
+      Register Interest
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="#5B6EA6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="#" class="btn-ghost-white">
+      Download Brochure
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2V8M3.5 5.5L6 8.5L8.5 5.5M2 10H10" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Meridian<span>.</span>Estate</div>
+  <div class="footer-legal">© 2025 Meridian Estate. All rights reserved. License No. 000 000.</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Disclaimer</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Floor plan tab switching
+  document.querySelectorAll('.fp-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.fp-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.about, .gallery, .floorplan, .location-section').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+
+  // Smooth nav highlight on scroll
+  const sections = document.querySelectorAll('section[id], .agent-section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 120) {
+        current = section.getAttribute('id') || '';
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--text-primary)' : '';
+    });
+  });
+</script>
+</body>
+</html>

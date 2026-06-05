@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Kit — UI Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --font-display: 'Manrope', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --fs-1:    clamp( 9px,  8.55px + 0.114vw,  10px);
+  --fs-2:    clamp(11px, 10.55px + 0.114vw,  12px);
+  --fs-3:    clamp(12px, 11.55px + 0.114vw,  13px);
+  --fs-4:    clamp(14px, 13.55px + 0.114vw,  15px);
+  --fs-base: var(--fs-4);
+  --fs-5:    clamp(15px, 14.55px + 0.114vw,  16px);
+  --fs-6:    clamp(18px, 14.36px + 0.909vw,  26px);
+  --fs-7:    clamp(22px, 15.64px + 1.591vw,  36px);
+  --fs-8:    clamp(32px, 19.27px + 3.182vw,  60px);
+  --fs-9:    clamp(56px, 23.27px + 8.182vw, 128px);
+
+  --ls-1: -0.05em;
+  --ls-2: -0.04em;
+  --ls-3: -0.03em;
+  --ls-4: -0.01em;
+  --ls-5:  0.08em;
+  --ls-6:  0.12em;
+  --ls-7:  0.18em;
+
+  --lh-1: 0.92;
+  --lh-2: 1.00;
+  --lh-3: 1.10;
+  --lh-4: 1.30;
+  --lh-5: 1.60;
+  --lh-6: 1.65;
+
+  --primary-100: #EBF2F1;
+  --primary-200: #D4E7E5;
+  --primary-300: #AECFCB;
+  --primary-400: #83B5AF;
+  --primary-500: #5C9B93;
+  --primary-600: #4A8079;
+  --primary-700: #3A6560;
+  --primary-800: #2A4A46;
+  --primary-900: #1A302E;
+
+  --cream-100: #FDFCFA;
+  --cream-200: #F8F5F0;
+  --cream-300: #F4F1EC;
+  --cream-400: #EAE6DE;
+  --cream-500: #E0DBD1;
+  --cream-600: #D4CEC3;
+  --cream-700: #C4BDB0;
+  --cream-800: #A8A096;
+  --cream-900: #8A8278;
+
+  --dark-100: #3D3D3D;
+  --dark-200: #2C2C2C;
+  --dark-300: #1A1A1A;
+  --dark-400: #141414;
+  --dark-500: #0B0B0B;
+  --dark-600: #080808;
+  --dark-700: #050505;
+
+  --grey-100: #F5F5F5;
+  --grey-200: #E8E8E8;
+  --grey-300: #D4D4D4;
+  --grey-400: #BEBEBE;
+  --grey-500: #9A9A9A;
+  --grey-600: #7A7A7A;
+  --grey-700: #5A5A5A;
+  --grey-800: #3A3A3A;
+  --grey-900: #1A1A1A;
+
+  --white-100: rgba(255,255,255,0.05);
+  --white-200: rgba(255,255,255,0.10);
+  --white-300: rgba(255,255,255,0.20);
+  --white-400: rgba(255,255,255,0.35);
+  --white-500: rgba(255,255,255,0.50);
+  --white-600: rgba(255,255,255,0.65);
+  --white-700: rgba(255,255,255,0.80);
+  --white-800: rgba(255,255,255,0.92);
+  --white-900: rgba(255,255,255,1.00);
+
+  --border-col-1: rgba(11,11,11,0.06);
+  --border-col-2: rgba(11,11,11,0.10);
+  --border-col-3: rgba(11,11,11,0.16);
+  --border-col-4: rgba(11,11,11,0.24);
+
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 14px;
+  --r-4: 20px;
+  --r-5: 28px;
+  --r-6: 40px;
+  --r-7: 999px;
+
+  --icon-size-1: 12px;
+  --icon-size-2: 14px;
+  --icon-size-3: 18px;
+  --icon-size-4: 20px;
+  --icon-size-5: 24px;
+  --icon-size-6: 32px;
+
+  --sp-1:   2px;  --sp-2:   4px;  --sp-3:   8px;  --sp-4:  12px;
+  --sp-5:  16px;  --sp-6:  20px;  --sp-7:  24px;  --sp-8:  32px;
+  --sp-9:  40px;  --sp-10: 48px;  --sp-11: 56px;  --sp-12: 64px;
+  --sp-13: 80px;  --sp-14: 96px;  --sp-15: 120px; --sp-16: 160px;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-300);
+  color: var(--dark-500);
+  font-size: var(--fs-base);
+  line-height: var(--lh-6);
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: var(--ls-5); text-transform: uppercase;
+  border: none; cursor: pointer; white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.25s cubic-bezier(0.22,1,0.36,1),
+              transform  0.25s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.25s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.25s cubic-bezier(0.22,1,0.36,1),
+              color 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-primary { background: var(--primary-500); color: #fff; border-radius: var(--r-3); }
+.btn-primary:hover { background: var(--primary-400); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(92,155,147,.35); }
+.btn-dark { background: var(--dark-500); color: #fff; border-radius: var(--r-3); }
+.btn-dark:hover { background: var(--dark-300); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.btn-outline { background: transparent; color: var(--dark-500); border: 1.5px solid var(--border-col-3); border-radius: var(--r-3); }
+.btn-outline:hover { border-color: var(--dark-500); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--grey-700); border-bottom: 1.5px solid transparent; padding-left: 0; padding-right: 0; border-radius: 0; }
+.btn-ghost:hover { color: var(--dark-500); border-bottom-color: var(--dark-500); }
+.btn-sm { padding: 10px 20px; font-size: var(--fs-1); }
+.btn-md { padding: 16px 32px; font-size: var(--fs-2); }
+.btn-lg { padding: 18px 36px; font-size: var(--fs-2); }
+.btn-ghost.btn-sm { padding: 8px 0; }
+.btn-ghost.btn-md { padding: 12px 0; }
+
+/* ═══════════════════════════════════════════════
+   LAYOUT SHELL
+═══════════════════════════════════════════════ */
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Simulated nav */
+.nav-bar {
+  background: var(--cream-100);
+  border-bottom: 1px solid var(--border-col-2);
+  padding: 0 clamp(20px, 3.636vw, 52px);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-6);
+  letter-spacing: var(--ls-2);
+  color: var(--dark-500);
+}
+.nav-logo span { color: var(--primary-500); }
+.nav-tabs {
+  display: flex;
+  gap: var(--sp-3);
+  list-style: none;
+}
+.nav-tabs li a {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-2);
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--grey-600);
+  padding: 8px 14px;
+  border-radius: var(--r-2);
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+  display: block;
+}
+.nav-tabs li a:hover,
+.nav-tabs li a.active { color: var(--dark-500); background: var(--cream-300); }
+.nav-tabs li a.active { color: var(--primary-600); }
+.nav-right { display: flex; align-items: center; gap: var(--sp-4); }
+.nav-avatar {
+  width: 36px; height: 36px;
+  border-radius: var(--r-7);
+  background: var(--primary-800);
+  color: var(--white-800);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-3);
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: var(--ls-3);
+}
+.nav-notif {
+  position: relative;
+  width: 36px; height: 36px;
+  border-radius: var(--r-2);
+  background: var(--cream-300);
+  border: 1px solid var(--border-col-2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.nav-notif:hover { background: var(--cream-400); }
+.notif-dot {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  border: 1.5px solid var(--cream-100);
+}
+
+/* ═══════════════════════════════════════════════
+   SIDEBAR NAV
+═══════════════════════════════════════════════ */
+.app-body { display: flex; min-height: calc(100vh - 64px); }
+.sidebar {
+  width: clamp(200px, 18vw, 240px);
+  background: var(--cream-200);
+  border-right: 1px solid var(--border-col-2);
+  padding: var(--sp-7) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  flex-shrink: 0;
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+.sidebar-section-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--grey-500);
+  padding: var(--sp-4) var(--sp-7) var(--sp-2);
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: 10px var(--sp-7);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-4);
+  color: var(--grey-700);
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: color 0.2s, background 0.2s;
+  position: relative;
+  border-left: 2.5px solid transparent;
+}
+.sidebar-item:hover { color: var(--dark-500); background: var(--cream-300); }
+.sidebar-item.active {
+  color: var(--primary-600);
+  background: var(--primary-100);
+  border-left-color: var(--primary-500);
+  font-weight: 600;
+}
+.sidebar-icon {
+  width: var(--icon-size-4);
+  height: var(--icon-size-4);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.sidebar-item.active .sidebar-icon { opacity: 1; }
+.sidebar-badge {
+  margin-left: auto;
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  background: var(--primary-500);
+  color: white;
+  padding: 2px 7px;
+  border-radius: var(--r-7);
+}
+
+/* ═══════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════ */
+.main-content {
+  flex: 1;
+  padding: clamp(32px, 4.545vw, 56px) clamp(24px, 4.545vw, 52px);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 6.818vw, 80px);
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  margin-bottom: clamp(24px, 3.636vw, 40px);
+  flex-wrap: wrap;
+}
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-500);
+  margin-bottom: var(--sp-3);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+}
+.section-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-4);
+  color: var(--grey-600);
+  line-height: var(--lh-5);
+  margin-top: var(--sp-3);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 1 — DASHBOARD / KPI STRIP
+═══════════════════════════════════════════════ */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(12px, 1.818vw, 20px);
+}
+.kpi-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  padding: clamp(20px, 3.182vw, 32px) clamp(20px, 2.727vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s cubic-bezier(0.22,1,0.36,1);
+  cursor: default;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(11,11,11,0.08);
+}
+.kpi-card.accent {
+  background: var(--primary-900);
+  border-color: transparent;
+}
+.kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kpi-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--grey-500);
+}
+.kpi-card.accent .kpi-label { color: var(--white-500); }
+.kpi-icon-wrap {
+  width: 32px; height: 32px;
+  border-radius: var(--r-2);
+  background: var(--primary-100);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.kpi-card.accent .kpi-icon-wrap { background: var(--white-200); }
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.5vw + 16px, 44px);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+}
+.kpi-card.accent .kpi-value { color: var(--white-900); }
+.kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  letter-spacing: var(--ls-5);
+  padding: 3px 9px;
+  border-radius: var(--r-7);
+}
+.kpi-delta.up { background: #E8F5E9; color: #2E7D32; }
+.kpi-delta.down { background: #FEECEC; color: #C62828; }
+.kpi-card.accent .kpi-delta.up { background: rgba(255,255,255,0.15); color: var(--white-800); }
+
+/* ═══════════════════════════════════════════════
+   SECTION 2 — ANALYTICS / COLD TRAFFIC KPIs
+═══════════════════════════════════════════════ */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2.273vw, 24px);
+}
+@media (max-width: 800px) { .analytics-grid { grid-template-columns: 1fr; } }
+
+.analytics-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  padding: clamp(24px, 3.636vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-7);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.analytics-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(11,11,11,0.07);
+}
+.analytics-card.wide { grid-column: 1 / -1; }
+.analytics-card.dark {
+  background: var(--dark-400);
+  border-color: transparent;
+  grid-column: 1 / -1;
+}
+.a-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-5);
+}
+.a-card-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+}
+.analytics-card.dark .a-card-title { color: var(--white-900); }
+.a-card-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  margin-top: 4px;
+}
+.analytics-card.dark .a-card-sub { color: var(--white-400); }
+
+/* Funnel */
+.funnel-wrap { display: flex; flex-direction: column; gap: var(--sp-4); }
+.funnel-stage {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+.funnel-bar-wrap { flex: 1; height: 8px; background: var(--cream-400); border-radius: var(--r-7); overflow: hidden; }
+.funnel-bar { height: 100%; border-radius: var(--r-7); background: var(--primary-500); transition: width 0.6s cubic-bezier(0.22,1,0.36,1); }
+.funnel-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--grey-700);
+  width: 90px;
+  flex-shrink: 0;
+}
+.funnel-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--dark-500);
+  width: 52px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Sparkline chart (CSS only) */
+.chart-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(4px, 0.68vw, 7px);
+  height: 80px;
+}
+.chart-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: var(--primary-200);
+  transition: background 0.2s;
+  cursor: pointer;
+  min-width: 0;
+}
+.chart-bar:hover { background: var(--primary-400); }
+.chart-bar.highlight { background: var(--primary-500); }
+
+.chart-labels {
+  display: flex;
+  gap: clamp(4px, 0.68vw, 7px);
+  margin-top: var(--sp-3);
+}
+.chart-label {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  letter-spacing: var(--ls-5);
+  color: var(--grey-500);
+  min-width: 0;
+}
+
+/* Attribution pills */
+.attrib-list { display: flex; flex-direction: column; gap: var(--sp-4); }
+.attrib-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+.attrib-source {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--white-700);
+  width: 80px;
+  flex-shrink: 0;
+}
+.attrib-track { flex: 1; height: 6px; background: var(--white-200); border-radius: var(--r-7); overflow: hidden; }
+.attrib-fill { height: 100%; border-radius: var(--r-7); }
+.attrib-pct {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--white-600);
+  width: 38px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Score ring (CSS only) */
+.score-rings { display: flex; gap: clamp(16px, 2.727vw, 28px); flex-wrap: wrap; }
+.score-ring-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.score-ring {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  position: relative;
+}
+.score-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid var(--cream-500);
+}
+.score-ring-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--grey-500);
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 3 — PORTFOLIO BROWSER
+═══════════════════════════════════════════════ */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: clamp(16px, 2.273vw, 24px);
+}
+.prop-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s cubic-bezier(0.22,1,0.36,1);
+  cursor: pointer;
+  position: relative;
+}
+.prop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(11,11,11,0.12);
+}
+.prop-img {
+  width: 100%;
+  height: clamp(160px, 18vw, 220px);
+  object-fit: cover;
+  display: block;
+  background: var(--cream-500);
+  position: relative;
+  overflow: hidden;
+}
+.prop-img-placeholder {
+  width: 100%;
+  height: clamp(160px, 18vw, 220px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.prop-img-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(11,11,11,0.3) 100%);
+}
+.prop-status-pill {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--r-7);
+  z-index: 2;
+}
+.prop-status-pill.active { background: var(--primary-500); color: #fff; }
+.prop-status-pill.pending { background: var(--cream-100); color: var(--grey-700); border: 1px solid var(--border-col-3); }
+.prop-status-pill.sold { background: var(--dark-500); color: #fff; }
+.prop-body { padding: clamp(16px, 2.273vw, 24px); }
+.prop-price {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-2);
+}
+.prop-address {
+  font-family: var(--font-body);
+  font-size: var(--fs-4);
+  color: var(--grey-700);
+  line-height: var(--lh-4);
+  margin-bottom: var(--sp-5);
+}
+.prop-stats {
+  display: flex;
+  gap: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border-col-1);
+}
+.prop-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  color: var(--grey-600);
+}
+.prop-actions {
+  display: flex;
+  gap: var(--sp-3);
+  padding: 0 clamp(16px, 2.273vw, 24px) clamp(16px, 2.273vw, 24px);
+}
+.prop-action-btn {
+  flex: 1;
+  padding: 9px 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--r-3);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.prop-action-btn.primary { background: var(--primary-500); color: #fff; }
+.prop-action-btn.primary:hover { background: var(--primary-400); transform: translateY(-1px); }
+.prop-action-btn.outline { background: transparent; color: var(--grey-700); border: 1px solid var(--border-col-3); }
+.prop-action-btn.outline:hover { border-color: var(--dark-500); color: var(--dark-500); }
+
+/* Featured property card */
+.prop-card.featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+}
+@media (max-width: 680px) { .prop-card.featured { grid-template-columns: 1fr; } }
+.prop-card.featured .prop-img-placeholder {
+  height: 100%;
+  min-height: 240px;
+  border-radius: 0;
+}
+.prop-card.featured .prop-content {
+  padding: clamp(24px, 3.636vw, 40px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-7);
+}
+.prop-featured-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-500);
+}
+.prop-card.featured .prop-price { font-size: var(--fs-7); }
+.prop-card.featured .prop-actions { padding: 0; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 4 — CHANGELOG / UPDATES
+═══════════════════════════════════════════════ */
+.changelog-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: clamp(20px, 3.636vw, 40px);
+  align-items: start;
+}
+@media (max-width: 900px) { .changelog-layout { grid-template-columns: 1fr; } }
+
+.changelog-feed { display: flex; flex-direction: column; gap: 0; }
+.changelog-item {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: var(--sp-5);
+  padding-bottom: clamp(24px, 3.182vw, 36px);
+  position: relative;
+}
+.changelog-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 26px;
+  bottom: 0;
+  width: 1.5px;
+  background: var(--border-col-2);
+}
+.changelog-dot {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  z-index: 1;
+  margin-top: 2px;
+}
+.changelog-dot.feature { background: var(--primary-100); border: 2px solid var(--primary-500); }
+.changelog-dot.fix { background: var(--cream-300); border: 2px solid var(--grey-400); }
+.changelog-dot.new { background: var(--dark-500); border: 2px solid var(--dark-500); }
+.changelog-body {}
+.changelog-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-3);
+  flex-wrap: wrap;
+}
+.changelog-date {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  color: var(--grey-500);
+  letter-spacing: var(--ls-5);
+}
+.changelog-tag {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: var(--r-7);
+}
+.changelog-tag.feature { background: var(--primary-100); color: var(--primary-700); }
+.changelog-tag.fix { background: var(--cream-400); color: var(--grey-700); }
+.changelog-tag.new { background: var(--dark-500); color: #fff; }
+.changelog-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-3);
+}
+.changelog-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-4);
+  color: var(--grey-600);
+  line-height: var(--lh-6);
+}
+
+/* Announcements sidebar */
+.announcements-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  position: sticky;
+  top: calc(64px + var(--sp-7));
+}
+.announcement-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  padding: clamp(20px, 2.727vw, 28px);
+}
+.announcement-card.dark-card {
+  background: var(--primary-900);
+  border-color: transparent;
+}
+.ann-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-500);
+  margin-bottom: var(--sp-3);
+}
+.announcement-card.dark-card .ann-eyebrow { color: var(--primary-300); }
+.ann-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-3);
+}
+.announcement-card.dark-card .ann-title { color: var(--white-900); }
+.ann-body {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+  line-height: var(--lh-5);
+}
+.announcement-card.dark-card .ann-body { color: var(--white-500); }
+
+/* ═══════════════════════════════════════════════
+   SECTION 5 — ACADEMY
+═══════════════════════════════════════════════ */
+.academy-hero {
+  background: var(--dark-400);
+  border-radius: var(--r-6);
+  padding: clamp(36px, 5.455vw, 64px) clamp(28px, 4.545vw, 52px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-9);
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: clamp(24px, 3.636vw, 36px);
+}
+.academy-hero::before {
+  content: '';
+  position: absolute;
+  right: -80px; top: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(92,155,147,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.academy-hero-content { flex: 1; min-width: 240px; }
+.academy-hero-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-400);
+  margin-bottom: var(--sp-4);
+}
+.academy-hero-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--white-900);
+  margin-bottom: var(--sp-5);
+}
+.academy-hero-body {
+  font-family: var(--font-body);
+  font-size: var(--fs-5);
+  color: var(--white-600);
+  line-height: var(--lh-5);
+}
+.academy-progress-wrap {
+  background: var(--white-100);
+  border: 1px solid var(--white-200);
+  border-radius: var(--r-5);
+  padding: clamp(20px, 2.727vw, 28px);
+  min-width: 220px;
+  flex-shrink: 0;
+}
+.academy-prog-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--white-500);
+  margin-bottom: var(--sp-4);
+}
+.academy-prog-val {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-1);
+  color: var(--white-900);
+  margin-bottom: var(--sp-4);
+}
+.prog-track { height: 6px; background: var(--white-200); border-radius: var(--r-7); overflow: hidden; margin-bottom: var(--sp-4); }
+.prog-fill { height: 100%; border-radius: var(--r-7); background: var(--primary-400); }
+.academy-prog-sub { font-family: var(--font-body); font-size: var(--fs-3); color: var(--white-400); }
+
+/* Academy categories */
+.academy-cats {
+  display: flex;
+  gap: var(--sp-3);
+  margin-bottom: clamp(20px, 2.727vw, 28px);
+  flex-wrap: wrap;
+}
+.cat-pill {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: var(--r-7);
+  cursor: pointer;
+  border: 1.5px solid var(--border-col-3);
+  background: transparent;
+  color: var(--grey-600);
+  transition: all 0.2s;
+}
+.cat-pill.active { background: var(--dark-500); color: #fff; border-color: var(--dark-500); }
+.cat-pill:hover:not(.active) { border-color: var(--dark-500); color: var(--dark-500); }
+
+/* Course grid */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: clamp(16px, 2.273vw, 24px);
+}
+.course-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s cubic-bezier(0.22,1,0.36,1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.course-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(11,11,11,0.1); }
+.course-thumb {
+  height: clamp(120px, 14vw, 160px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 36px;
+  overflow: hidden;
+}
+.course-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(11,11,11,0.5) 100%);
+}
+.course-type-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--r-7);
+  background: rgba(11,11,11,0.7);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.play-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary-400);
+  flex-shrink: 0;
+}
+.course-body {
+  padding: clamp(16px, 2.273vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  flex: 1;
+}
+.course-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+.course-cat {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--primary-600);
+}
+.course-dur {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  color: var(--grey-500);
+  letter-spacing: var(--ls-5);
+}
+.course-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  line-height: var(--lh-4);
+}
+.course-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+  line-height: var(--lh-5);
+}
+.course-footer {
+  padding: var(--sp-4) clamp(16px, 2.273vw, 22px) clamp(16px, 2.273vw, 22px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.course-progress-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: 1;
+}
+.course-prog-track { flex: 1; height: 4px; background: var(--cream-400); border-radius: var(--r-7); overflow: hidden; }
+.course-prog-fill { height: 100%; border-radius: var(--r-7); background: var(--primary-500); }
+.course-prog-pct {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--grey-500);
+}
+
+/* Lesson template preview */
+.lesson-preview-wrap {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: clamp(20px, 2.727vw, 28px);
+  align-items: start;
+  margin-top: clamp(24px, 3.636vw, 36px);
+}
+@media (max-width: 960px) { .lesson-preview-wrap { grid-template-columns: 1fr; } }
+.lesson-player {
+  background: var(--dark-500);
+  border-radius: var(--r-5);
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.lesson-player::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 40%, rgba(92,155,147,0.18) 0%, transparent 60%);
+}
+.play-btn-large {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--white-800);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.play-btn-large:hover { transform: scale(1.08); background: var(--white-900); }
+.lesson-title-area {
+  padding: clamp(16px, 2.273vw, 24px) 0 0;
+}
+.lesson-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-3);
+}
+.lesson-instructor {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+.lesson-avatar {
+  width: 32px; height: 32px;
+  border-radius: var(--r-7);
+  background: var(--primary-800);
+  color: var(--white-800);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-2);
+  display: flex; align-items: center; justify-content: center;
+}
+.lesson-instr-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--grey-700);
+}
+.lesson-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-4);
+  color: var(--grey-600);
+  line-height: var(--lh-6);
+}
+/* Lesson sidebar / curriculum */
+.curriculum-panel {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  overflow: hidden;
+}
+.curriculum-header {
+  padding: clamp(16px, 2.273vw, 22px);
+  border-bottom: 1px solid var(--border-col-2);
+}
+.curriculum-header-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-4);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+}
+.curriculum-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-2);
+  color: var(--grey-500);
+  margin-top: 4px;
+}
+.curriculum-list { display: flex; flex-direction: column; }
+.curriculum-lesson {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) clamp(16px, 2.273vw, 22px);
+  border-bottom: 1px solid var(--border-col-1);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.curriculum-lesson:hover { background: var(--cream-300); }
+.curriculum-lesson.active { background: var(--primary-100); }
+.curriculum-lesson:last-child { border-bottom: none; }
+.lesson-num {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--grey-400);
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.curriculum-lesson.active .lesson-num { color: var(--primary-500); }
+.curriculum-lesson.done .lesson-num { color: var(--primary-400); }
+.lesson-info { flex: 1; min-width: 0; }
+.lesson-item-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--dark-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.curriculum-lesson.active .lesson-item-title { color: var(--primary-700); }
+.lesson-item-dur {
+  font-family: var(--font-body);
+  font-size: var(--fs-2);
+  color: var(--grey-500);
+}
+.lesson-type-icon {
+  width: 20px; height: 20px;
+  border-radius: var(--r-1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+.lesson-type-icon.video { background: var(--primary-100); }
+.lesson-type-icon.doc { background: var(--cream-400); }
+.lesson-type-icon.pdf { background: #FFF3E0; }
+.lesson-done-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--primary-500); }
+
+/* Resource cards */
+.resources-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: clamp(12px, 1.818vw, 18px);
+  margin-top: clamp(20px, 2.727vw, 28px);
+}
+.resource-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  padding: clamp(16px, 2.273vw, 22px);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-5);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.resource-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,11,11,0.08); }
+.resource-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--r-3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.resource-icon.pdf-icon { background: #FFF3E0; }
+.resource-icon.doc-icon { background: var(--primary-100); }
+.resource-icon.video-icon { background: var(--cream-400); }
+.resource-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--dark-500);
+  line-height: var(--lh-4);
+  margin-bottom: 3px;
+}
+.resource-meta {
+  font-family: var(--font-body);
+  font-size: var(--fs-2);
+  color: var(--grey-500);
+}
+
+/* ═══════════════════════════════════════════════
+   SHARED UTILITIES
+═══════════════════════════════════════════════ */
+.divider {
+  height: 1px;
+  background: var(--border-col-2);
+  margin: 0;
+}
+
+/* Scroll snap portfolio tabs */
+.portfolio-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: clamp(20px, 2.727vw, 28px);
+  flex-wrap: wrap;
+}
+.filter-count {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--grey-500);
+  margin-left: auto;
+}
+
+/* Gradient mesh background for analytics dark section */
+.analytics-card.dark {
+  background: linear-gradient(135deg, var(--dark-400) 0%, var(--primary-900) 100%);
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE MEDIA QUERIES
+═══════════════════════════════════════════════ */
+@media (max-width: 720px) {
+  .sidebar { display: none; }
+  .nav-tabs { display: none; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .kpi-strip { grid-template-columns: 1fr; }
+  .prop-card.featured { grid-column: auto; }
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.fade-up-1 { animation-delay: 0.05s; }
+.fade-up-2 { animation-delay: 0.10s; }
+.fade-up-3 { animation-delay: 0.15s; }
+.fade-up-4 { animation-delay: 0.20s; }
+.fade-up-5 { animation-delay: 0.25s; }
+.fade-up-6 { animation-delay: 0.30s; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     NAV (stubbed — user has their own)
+══════════════════════════════════════════════ -->
+<div class="page-shell">
+<nav class="nav-bar">
+  <div class="nav-logo">property<span>kit</span></div>
+  <ul class="nav-tabs">
+    <li><a href="#" class="active">Dashboard</a></li>
+    <li><a href="#">Portfolio</a></li>
+    <li><a href="#">Campaigns</a></li>
+    <li><a href="#">Analytics</a></li>
+    <li><a href="#">Academy</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-notif">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notif-dot"></span>
+    </div>
+    <div class="nav-avatar">JR</div>
+  </div>
+</nav>
+
+<div class="app-body">
+
+<!-- ══════════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-section-label">Main</div>
+  <a class="sidebar-item active" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Dashboard
+  </a>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Portfolio
+    <span class="sidebar-badge">12</span>
+  </a>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    Campaigns
+  </a>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Analytics
+  </a>
+
+  <div class="sidebar-section-label" style="margin-top: var(--sp-5);">Leads</div>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    Inbox
+    <span class="sidebar-badge">3</span>
+  </a>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Lead Pipeline
+  </a>
+
+  <div class="sidebar-section-label" style="margin-top: var(--sp-5);">Grow</div>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    Academy
+  </a>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Changelog
+  </a>
+
+  <div class="sidebar-section-label" style="margin-top: var(--sp-5);">Account</div>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+    Profile
+  </a>
+  <a class="sidebar-item" href="#">
+    <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+    Settings
+  </a>
+</aside>
+
+<!-- ══════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════ -->
+<main class="main-content">
+
+  <!-- ─────────────────────────────────────────
+       SECTION 1: DASHBOARD KPIs
+  ───────────────────────────────────────── -->
+  <section>
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Overview</div>
+        <h2 class="section-title">Good morning, James.</h2>
+        <p class="section-sub">Your portfolio is performing above market average this month.</p>
+      </div>
+      <div style="display:flex;gap:var(--sp-4);flex-wrap:wrap;">
+        <button class="btn btn-outline btn-sm">Export Report</button>
+        <button class="btn btn-dark btn-sm">+ New Listing</button>
+      </div>
+    </div>
+
+    <div class="kpi-strip">
+      <div class="kpi-card fade-up fade-up-1">
+        <div class="kpi-top">
+          <span class="kpi-label">Active Listings</span>
+          <div class="kpi-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value">12</div>
+        <span class="kpi-delta up">↑ 2 this month</span>
+      </div>
+
+      <div class="kpi-card fade-up fade-up-2">
+        <div class="kpi-top">
+          <span class="kpi-label">Total Volume</span>
+          <div class="kpi-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value">$24.6M</div>
+        <span class="kpi-delta up">↑ 8.4% YoY</span>
+      </div>
+
+      <div class="kpi-card fade-up fade-up-3">
+        <div class="kpi-top">
+          <span class="kpi-label">Leads This Month</span>
+          <div class="kpi-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value">184</div>
+        <span class="kpi-delta up">↑ 22% vs last mo</span>
+      </div>
+
+      <div class="kpi-card fade-up fade-up-4">
+        <div class="kpi-top">
+          <span class="kpi-label">Avg Days on Market</span>
+          <div class="kpi-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value">14</div>
+        <span class="kpi-delta up">↓ 6 days faster</span>
+      </div>
+
+      <div class="kpi-card accent fade-up fade-up-5">
+        <div class="kpi-top">
+          <span class="kpi-label">Ad Spend</span>
+          <div class="kpi-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value">$4,280</div>
+        <span class="kpi-delta up">ROAS 6.2×</span>
+      </div>
+
+      <div class="kpi-card fade-up fade-up-6">
+        <div class="kpi-top">
+          <span class="kpi-label">Lead-to-Close</span>
+          <div class="kpi-icon-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value">3.2%</div>
+        <span class="kpi-delta up">↑ 0.8pp</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 2: ANALYTICS — COLD TRAFFIC KPIs
+  ───────────────────────────────────────── -->
+  <section>
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Analytics</div>
+        <h2 class="section-title">Cold Traffic Performance</h2>
+        <p class="section-sub">Tracking what turns strangers into signed clients.</p>
+      </div>
+      <div style="display:flex;gap:var(--sp-3);align-items:center;">
+        <button class="btn btn-outline btn-sm">Last 30 Days ▾</button>
+      </div>
+    </div>
+
+    <div class="analytics-grid">
+
+      <!-- Lead Volume Chart -->
+      <div class="analytics-card">
+        <div class="a-card-header">
+          <div>
+            <div class="a-card-title">Lead Volume</div>
+            <div class="a-card-sub">Inbound inquiries — all sources</div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-7);font-weight:800;letter-spacing:var(--ls-2);color:var(--dark-500);">184</div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-bar" style="height:40%"></div>
+          <div class="chart-bar" style="height:55%"></div>
+          <div class="chart-bar" style="height:48%"></div>
+          <div class="chart-bar" style="height:65%"></div>
+          <div class="chart-bar" style="height:52%"></div>
+          <div class="chart-bar" style="height:70%"></div>
+          <div class="chart-bar" style="height:60%"></div>
+          <div class="chart-bar" style="height:75%"></div>
+          <div class="chart-bar" style="height:68%"></div>
+          <div class="chart-bar" style="height:80%"></div>
+          <div class="chart-bar" style="height:72%"></div>
+          <div class="chart-bar highlight" style="height:90%"></div>
+        </div>
+        <div class="chart-labels">
+          <div class="chart-label">Jan</div>
+          <div class="chart-label">Feb</div>
+          <div class="chart-label">Mar</div>
+          <div class="chart-label">Apr</div>
+          <div class="chart-label">May</div>
+          <div class="chart-label">Jun</div>
+          <div class="chart-label">Jul</div>
+          <div class="chart-label">Aug</div>
+          <div class="chart-label">Sep</div>
+          <div class="chart-label">Oct</div>
+          <div class="chart-label">Nov</div>
+          <div class="chart-label">Dec</div>
+        </div>
+      </div>
+
+      <!-- Conversion Funnel -->
+      <div class="analytics-card">
+        <div class="a-card-header">
+          <div>
+            <div class="a-card-title">Conversion Funnel</div>
+            <div class="a-card-sub">Cold traffic → signed client</div>
+          </div>
+        </div>
+        <div class="funnel-wrap">
+          <div class="funnel-stage">
+            <div class="funnel-label">Impressions</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%"></div></div>
+            <div class="funnel-val">84.2K</div>
+          </div>
+          <div class="funnel-stage">
+            <div class="funnel-label">Clicks</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:68%"></div></div>
+            <div class="funnel-val">5,720</div>
+          </div>
+          <div class="funnel-stage">
+            <div class="funnel-label">Leads</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:42%"></div></div>
+            <div class="funnel-val">184</div>
+          </div>
+          <div class="funnel-stage">
+            <div class="funnel-label">Qualified</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:24%"></div></div>
+            <div class="funnel-val">48</div>
+          </div>
+          <div class="funnel-stage">
+            <div class="funnel-label">Appointments</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:14%"></div></div>
+            <div class="funnel-val">22</div>
+          </div>
+          <div class="funnel-stage">
+            <div class="funnel-label">Signed</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:6%; background: var(--primary-700);"></div></div>
+            <div class="funnel-val" style="color:var(--primary-600);">6</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key conversion KPIs -->
+      <div class="analytics-card">
+        <div class="a-card-header">
+          <div>
+            <div class="a-card-title">Cost Metrics</div>
+            <div class="a-card-sub">Efficiency of paid acquisition</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6);">
+          <div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500);margin-bottom:var(--sp-2);">Cost Per Lead</div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-7);font-weight:800;letter-spacing:var(--ls-2);color:var(--dark-500);">$23.26</div>
+            <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-500);margin-top:4px;">↓ $4.10 vs prior period</div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500);margin-bottom:var(--sp-2);">Cost Per Appt</div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-7);font-weight:800;letter-spacing:var(--ls-2);color:var(--dark-500);">$195</div>
+            <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-500);margin-top:4px;">↓ $22 vs prior period</div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500);margin-bottom:var(--sp-2);">Cost Per Close</div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-7);font-weight:800;letter-spacing:var(--ls-2);color:var(--dark-500);">$713</div>
+            <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-500);margin-top:4px;">Industry avg: $1,240</div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500);margin-bottom:var(--sp-2);">Click-to-Lead</div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-7);font-weight:800;letter-spacing:var(--ls-2);color:var(--dark-500);">3.22%</div>
+            <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-500);margin-top:4px;">↑ 0.6pp this period</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score rings: quality metrics -->
+      <div class="analytics-card">
+        <div class="a-card-header">
+          <div>
+            <div class="a-card-title">Quality Scores</div>
+            <div class="a-card-sub">Content, presence & ad performance</div>
+          </div>
+        </div>
+        <div class="score-rings">
+          <div class="score-ring-item">
+            <div class="score-ring" style="background: conic-gradient(var(--primary-500) 0% 88%, var(--cream-400) 88% 100%);">
+              <span style="position:relative;z-index:1;color:var(--dark-500);">88</span>
+            </div>
+            <div class="score-ring-label">SEO Score</div>
+          </div>
+          <div class="score-ring-item">
+            <div class="score-ring" style="background: conic-gradient(var(--primary-500) 0% 76%, var(--cream-400) 76% 100%);">
+              <span style="position:relative;z-index:1;color:var(--dark-500);">76</span>
+            </div>
+            <div class="score-ring-label">Ad Quality</div>
+          </div>
+          <div class="score-ring-item">
+            <div class="score-ring" style="background: conic-gradient(var(--primary-500) 0% 92%, var(--cream-400) 92% 100%);">
+              <span style="position:relative;z-index:1;color:var(--dark-500);">92</span>
+            </div>
+            <div class="score-ring-label">Site Speed</div>
+          </div>
+          <div class="score-ring-item">
+            <div class="score-ring" style="background: conic-gradient(var(--primary-500) 0% 81%, var(--cream-400) 81% 100%);">
+              <span style="position:relative;z-index:1;color:var(--dark-500);">81</span>
+            </div>
+            <div class="score-ring-label">Lead Score</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attribution dark card -->
+      <div class="analytics-card dark wide">
+        <div class="a-card-header">
+          <div>
+            <div class="a-card-title">Traffic Attribution</div>
+            <div class="a-card-sub">Leads by acquisition source — last 30 days</div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-2);font-weight:700;letter-spacing:var(--ls-5);text-transform:uppercase;color:var(--white-400);cursor:pointer;">View Full Report →</div>
+        </div>
+        <div class="attrib-list">
+          <div class="attrib-row">
+            <div class="attrib-source">Meta Ads</div>
+            <div class="attrib-track"><div class="attrib-fill" style="width:62%;background:var(--primary-400);"></div></div>
+            <div class="attrib-pct">62%</div>
+          </div>
+          <div class="attrib-row">
+            <div class="attrib-source">Google</div>
+            <div class="attrib-track"><div class="attrib-fill" style="width:20%;background:var(--primary-300);"></div></div>
+            <div class="attrib-pct">20%</div>
+          </div>
+          <div class="attrib-row">
+            <div class="attrib-source">Organic</div>
+            <div class="attrib-track"><div class="attrib-fill" style="width:11%;background:var(--primary-200);"></div></div>
+            <div class="attrib-pct">11%</div>
+          </div>
+          <div class="attrib-row">
+            <div class="attrib-source">YouTube</div>
+            <div class="attrib-track"><div class="attrib-fill" style="width:7%;background:var(--white-300);"></div></div>
+            <div class="attrib-pct">7%</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 3: PORTFOLIO BROWSER
+  ───────────────────────────────────────── -->
+  <section>
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Portfolio</div>
+        <h2 class="section-title">Your Properties</h2>
+        <p class="section-sub">12 active listings across 4 markets.</p>
+      </div>
+      <div style="display:flex;gap:var(--sp-4);flex-wrap:wrap;align-items:center;">
+        <button class="btn btn-outline btn-sm">Sort: Newest ▾</button>
+        <button class="btn btn-dark btn-sm">+ Add Property</button>
+      </div>
+    </div>
+
+    <div class="portfolio-filter-bar">
+      <button class="cat-pill active">All</button>
+      <button class="cat-pill">Active</button>
+      <button class="cat-pill">Pending</button>
+      <button class="cat-pill">Sold</button>
+      <button class="cat-pill">Off-Market</button>
+      <div class="filter-count">12 properties</div>
+    </div>
+
+    <div class="portfolio-grid">
+      <!-- Featured -->
+      <div class="prop-card featured">
+        <div class="prop-img-placeholder" style="background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-600) 100%);">
+          <span style="position:relative;z-index:1;font-size:52px;">🏡</span>
+          <div class="prop-status-pill active" style="position:absolute;top:var(--sp-4);left:var(--sp-4);z-index:2;">Featured</div>
+        </div>
+        <div class="prop-content">
+          <div>
+            <div class="prop-featured-label">Showcase Listing</div>
+            <div class="prop-price">$4,850,000</div>
+            <div class="prop-address">142 Oceanview Terrace<br>Malibu, CA 90265</div>
+            <div class="prop-stats">
+              <div class="prop-stat">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                5 bd
+              </div>
+              <div class="prop-stat">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="M4 12a8 8 0 0 1 16 0"/><path d="M4 19h16"/><path d="M4 19v-7"/><path d="M20 19v-7"/></svg>
+                4.5 ba
+              </div>
+              <div class="prop-stat">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18"/></svg>
+                5,240 sqft
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-2);font-weight:600;letter-spacing:var(--ls-5);text-transform:uppercase;color:var(--grey-500);margin-bottom:var(--sp-4);">Campaign Performance</div>
+            <div style="display:flex;gap:var(--sp-6);margin-bottom:var(--sp-6);">
+              <div>
+                <div style="font-family:var(--font-display);font-size:var(--fs-6);font-weight:800;color:var(--dark-500);">38</div>
+                <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-500);">Leads</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:var(--fs-6);font-weight:800;color:var(--dark-500);">4,211</div>
+                <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-500);">Views</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:var(--fs-6);font-weight:800;color:var(--primary-500);">7</div>
+                <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-500);">Showings</div>
+              </div>
+            </div>
+            <div class="prop-actions">
+              <button class="prop-action-btn primary">Manage Campaign</button>
+              <button class="prop-action-btn outline">View Listing</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standard cards -->
+      <div class="prop-card">
+        <div class="prop-img-placeholder" style="background: linear-gradient(135deg, #2A4A46 0%, #5C9B93 100%);">
+          <span style="position:relative;z-index:1;">🏠</span>
+          <div class="prop-status-pill active">Active</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-price">$1,295,000</div>
+          <div class="prop-address">88 Ridgecrest Drive<br>Newport Beach, CA</div>
+          <div class="prop-stats">
+            <div class="prop-stat">4 bd</div>
+            <div class="prop-stat">3 ba</div>
+            <div class="prop-stat">2,840 sqft</div>
+          </div>
+        </div>
+        <div class="prop-actions">
+          <button class="prop-action-btn primary">Campaign</button>
+          <button class="prop-action-btn outline">Details</button>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-img-placeholder" style="background: linear-gradient(135deg, #1A302E 0%, #4A8079 100%);">
+          <span style="position:relative;z-index:1;">🏘️</span>
+          <div class="prop-status-pill pending">Pending</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-price">$2,100,000</div>
+          <div class="prop-address">22 Pacific Crest Blvd<br>Laguna Beach, CA</div>
+          <div class="prop-stats">
+            <div class="prop-stat">5 bd</div>
+            <div class="prop-stat">4 ba</div>
+            <div class="prop-stat">3,920 sqft</div>
+          </div>
+        </div>
+        <div class="prop-actions">
+          <button class="prop-action-btn primary">Campaign</button>
+          <button class="prop-action-btn outline">Details</button>
+        </div>
+      </div>
+
+      <div class="prop-card">
+        <div class="prop-img-placeholder" style="background: linear-gradient(135deg, #141414 0%, #3D3D3D 100%);">
+          <span style="position:relative;z-index:1;">🏙️</span>
+          <div class="prop-status-pill sold">Sold</div>
+        </div>
+        <div class="prop-body">
+          <div class="prop-price" style="color:var(--grey-600);text-decoration:line-through;">$875,000</div>
+          <div class="prop-address">410 Westside Ave #12<br>Santa Monica, CA</div>
+          <div class="prop-stats">
+            <div class="prop-stat">2 bd</div>
+            <div class="prop-stat">2 ba</div>
+            <div class="prop-stat">1,480 sqft</div>
+          </div>
+        </div>
+        <div class="prop-actions">
+          <button class="prop-action-btn outline" style="flex:1;color:var(--grey-600);">View Closed Report</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 4: CHANGELOG & ANNOUNCEMENTS
+  ───────────────────────────────────────── -->
+  <section>
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Platform Updates</div>
+        <h2 class="section-title">What's New</h2>
+        <p class="section-sub">Improvements to your platform, straight from the team.</p>
+      </div>
+    </div>
+
+    <div class="changelog-layout">
+      <!-- Feed -->
+      <div class="changelog-feed">
+
+        <div class="changelog-item">
+          <div class="changelog-dot new"></div>
+          <div class="changelog-body">
+            <div class="changelog-meta">
+              <div class="changelog-date">Dec 12, 2024</div>
+              <span class="changelog-tag new">New</span>
+            </div>
+            <div class="changelog-title">AI Lead Nurture — Smart Follow-Up Sequences</div>
+            <div class="changelog-desc">Your AI assistant now automatically segments cold leads by behavior and sends personalised follow-up sequences — adjusting cadence and message tone based on engagement. Average response rate up 34% in beta.</div>
+          </div>
+        </div>
+
+        <div class="changelog-item">
+          <div class="changelog-dot feature"></div>
+          <div class="changelog-body">
+            <div class="changelog-meta">
+              <div class="changelog-date">Dec 5, 2024</div>
+              <span class="changelog-tag feature">Feature</span>
+            </div>
+            <div class="changelog-title">Analytics Dashboard v2 — Cold Traffic KPIs</div>
+            <div class="changelog-desc">Deep-dive analytics now track your full cold traffic funnel: impression → click → lead → appointment → signed. Cost per stage, attribution breakdown, and quality scores in one view.</div>
+          </div>
+        </div>
+
+        <div class="changelog-item">
+          <div class="changelog-dot feature"></div>
+          <div class="changelog-body">
+            <div class="changelog-meta">
+              <div class="changelog-date">Nov 28, 2024</div>
+              <span class="changelog-tag feature">Feature</span>
+            </div>
+            <div class="changelog-title">Academy — Video Lessons + Resource Library</div>
+            <div class="changelog-desc">The PropertyKit Academy is live. 40+ lessons across strategy, ads, and content — with downloadable playbooks, PDF guides, and structured courses built specifically for top producers.</div>
+          </div>
+        </div>
+
+        <div class="changelog-item">
+          <div class="changelog-dot fix"></div>
+          <div class="changelog-body">
+            <div class="changelog-meta">
+              <div class="changelog-date">Nov 20, 2024</div>
+              <span class="changelog-tag fix">Improvement</span>
+            </div>
+            <div class="changelog-title">Campaign Sync Speed — 3× Faster Updates</div>
+            <div class="changelog-desc">Meta and Google campaign data now syncs every 15 minutes (previously every 4 hours). Spend, impressions, and lead counts are near real-time across all dashboards.</div>
+          </div>
+        </div>
+
+        <div class="changelog-item">
+          <div class="changelog-dot fix"></div>
+          <div class="changelog-body">
+            <div class="changelog-meta">
+              <div class="changelog-date">Nov 12, 2024</div>
+              <span class="changelog-tag fix">Improvement</span>
+            </div>
+            <div class="changelog-title">Mobile Navigation Redesign</div>
+            <div class="changelog-desc">The mobile app received a full navigation overhaul. Tab-based bottom nav, swipeable property cards, and touch-optimised lead inbox for seamless on-the-go access.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar announcements -->
+      <div class="announcements-sidebar">
+        <div class="announcement-card dark-card">
+          <div class="ann-eyebrow">Team Update</div>
+          <div class="ann-title">Q1 Strategy Call — Jan 9th</div>
+          <div class="ann-body" style="margin-bottom:var(--sp-6);">Your dedicated strategist has scheduled your quarterly review. 45 minutes covering ad spend, funnel performance, and 2025 growth plan.</div>
+          <button class="btn btn-primary btn-sm">Confirm Seat</button>
+        </div>
+        <div class="announcement-card">
+          <div class="ann-eyebrow">Coming Soon</div>
+          <div class="ann-title">YouTube Ads Integration</div>
+          <div class="ann-body">Property video campaigns on YouTube — managed and optimised in the same dashboard as Meta and Google.</div>
+        </div>
+        <div class="announcement-card">
+          <div class="ann-eyebrow">Tip of the Week</div>
+          <div class="ann-title">Listings with video get 3.8× more leads</div>
+          <div class="ann-body">Upload a walkthrough video to any of your active listings and we'll automatically create an ad creative from it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       SECTION 5: ACADEMY
+  ───────────────────────────────────────── -->
+  <section>
+    <!-- Hero -->
+    <div class="academy-hero">
+      <div class="academy-hero-content">
+        <div class="academy-hero-eyebrow">PropertyKit Academy</div>
+        <h2 class="academy-hero-title">Built for<br>top performers.</h2>
+        <p class="academy-hero-body">Strategy, ads, content, and conversion — taught by the team running the industry's best campaigns.</p>
+      </div>
+      <div class="academy-progress-wrap">
+        <div class="academy-prog-label">Your Progress</div>
+        <div class="academy-prog-val">68%</div>
+        <div class="prog-track"><div class="prog-fill" style="width:68%"></div></div>
+        <div class="academy-prog-sub">27 of 40 lessons complete</div>
+      </div>
+    </div>
+
+    <!-- Category filter -->
+    <div class="academy-cats">
+      <button class="cat-pill active">All Courses</button>
+      <button class="cat-pill">Ads Strategy</button>
+      <button class="cat-pill">Lead Conversion</button>
+      <button class="cat-pill">Content</button>
+      <button class="cat-pill">SEO</button>
+      <button class="cat-pill">Listings</button>
+    </div>
+
+    <!-- Course cards -->
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="course-thumb" style="background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-500) 100%);">
+          <span style="position:relative;z-index:1;font-size:32px;">📣</span>
+          <div class="course-type-pill"><div class="play-dot"></div> 8 Videos</div>
+        </div>
+        <div class="course-body">
+          <div class="course-meta">
+            <span class="course-cat">Ads Strategy</span>
+            <span class="course-dur">2h 14m</span>
+          </div>
+          <div class="course-title">Cold Traffic Mastery: Meta Ads for Luxury Real Estate</div>
+          <div class="course-desc">Build campaigns that convert complete strangers into qualified buyer appointments — without burning budget.</div>
+        </div>
+        <div class="course-footer">
+          <div class="course-progress-row">
+            <div class="course-prog-track"><div class="course-prog-fill" style="width:75%"></div></div>
+            <div class="course-prog-pct">75%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb" style="background: linear-gradient(135deg, var(--dark-400) 0%, var(--dark-200) 100%);">
+          <span style="position:relative;z-index:1;font-size:32px;">🎯</span>
+          <div class="course-type-pill"><div class="play-dot"></div> 6 Videos + 2 PDFs</div>
+        </div>
+        <div class="course-body">
+          <div class="course-meta">
+            <span class="course-cat">Lead Conversion</span>
+            <span class="course-dur">1h 48m</span>
+          </div>
+          <div class="course-title">The Appointment Conversion Framework</div>
+          <div class="course-desc">The exact follow-up system, scripts, and timing that turns cold leads into signed clients in 30 days or less.</div>
+        </div>
+        <div class="course-footer">
+          <div class="course-progress-row">
+            <div class="course-prog-track"><div class="course-prog-fill" style="width:40%"></div></div>
+            <div class="course-prog-pct">40%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb" style="background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);">
+          <span style="position:relative;z-index:1;font-size:32px;">✍️</span>
+          <div class="course-type-pill"><div class="play-dot"></div> 5 Videos</div>
+        </div>
+        <div class="course-body">
+          <div class="course-meta">
+            <span class="course-cat">Content</span>
+            <span class="course-dur">58m</span>
+          </div>
+          <div class="course-title">Listing Copy That Sells: Premium Properties, Premium Words</div>
+          <div class="course-desc">Write descriptions that qualify buyers before they ever call. Copy that earns the price — not apologises for it.</div>
+        </div>
+        <div class="course-footer">
+          <div class="course-progress-row">
+            <div class="course-prog-track"><div class="course-prog-fill" style="width:100%"></div></div>
+            <div class="course-prog-pct" style="color:var(--primary-500);">Done</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb" style="background: linear-gradient(135deg, #2C4A3E 0%, #5C9B93 100%);">
+          <span style="position:relative;z-index:1;font-size:32px;">📈</span>
+          <div class="course-type-pill"><div class="play-dot"></div> 4 Videos + Playbook</div>
+        </div>
+        <div class="course-body">
+          <div class="course-meta">
+            <span class="course-cat">SEO</span>
+            <span class="course-dur">1h 22m</span>
+          </div>
+          <div class="course-title">Hyper-Local SEO: Own Your Market's First Page</div>
+          <div class="course-desc">Rank #1 for the search terms your next client is already typing — without paying per click.</div>
+        </div>
+        <div class="course-footer">
+          <div class="course-progress-row">
+            <div class="course-prog-track"><div class="course-prog-fill" style="width:0%"></div></div>
+            <div class="course-prog-pct">Start</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lesson Template Preview -->
+    <div style="margin-top:clamp(32px, 4.545vw, 52px);">
+      <div class="section-eyebrow" style="margin-bottom:var(--sp-3);">Lesson View</div>
+      <h3 class="section-title" style="font-size:var(--fs-6);margin-bottom:clamp(20px,2.727vw,28px);">What a lesson looks like inside</h3>
+
+      <div class="lesson-preview-wrap">
+        <div>
+          <div class="lesson-player">
+            <div class="play-btn-large">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--dark-500)" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:var(--r-7);overflow:hidden;">
+                  <div style="height:100%;width:42%;background:var(--primary-400);border-radius:var(--r-7);"></div>
+                </div>
+                <span style="font-family:var(--font-display);font-size:var(--fs-2);color:rgba(255,255,255,0.8);font-weight:600;">18:24 / 44:00</span>
+              </div>
+            </div>
+          </div>
+          <div class="lesson-title-area">
+            <div class="lesson-title">Lesson 3: Building Your Cold Audience Stack</div>
+            <div class="lesson-instructor">
+              <div class="lesson-avatar">MK</div>
+              <div class="lesson-instr-name">Mark K. — Head of Growth Strategy</div>
+            </div>
+            <div class="lesson-desc">In this lesson we break down the exact audience layering system we use for luxury property campaigns — interest stacks, lookalike percentages, exclusion lists, and when to let Meta's algorithm take over vs staying manual.</div>
+          </div>
+
+          <!-- Resource downloads -->
+          <div style="margin-top:clamp(20px,2.727vw,28px);">
+            <div style="font-family:var(--font-display);font-size:var(--fs-2);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500);margin-bottom:var(--sp-5);">Lesson Resources</div>
+            <div class="resources-row">
+              <div class="resource-card">
+                <div class="resource-icon pdf-icon">📄</div>
+                <div>
+                  <div class="resource-name">Audience Stack Template</div>
+                  <div class="resource-meta">PDF · 2.4 MB</div>
+                </div>
+              </div>
+              <div class="resource-card">
+                <div class="resource-icon doc-icon">📋</div>
+                <div>
+                  <div class="resource-name">Campaign Brief Worksheet</div>
+                  <div class="resource-meta">Google Doc</div>
+                </div>
+              </div>
+              <div class="resource-card">
+                <div class="resource-icon video-icon">🎬</div>
+                <div>
+                  <div class="resource-name">Bonus: Ad Creative Swipe</div>
+                  <div class="resource-meta">Video · 8 min</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curriculum sidebar -->
+        <div class="curriculum-panel">
+          <div class="curriculum-header">
+            <div class="curriculum-header-title">Cold Traffic Mastery</div>
+            <div class="curriculum-sub">8 lessons · 2h 14m</div>
+          </div>
+          <div class="curriculum-list">
+            <div class="curriculum-lesson done">
+              <div class="lesson-num">1</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Why Cold Traffic Is Different</div>
+                <div class="lesson-item-dur">12 min</div>
+              </div>
+              <div class="lesson-type-icon video">▶</div>
+              <svg class="lesson-done-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="curriculum-lesson done">
+              <div class="lesson-num">2</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Funnel Architecture 101</div>
+                <div class="lesson-item-dur">18 min</div>
+              </div>
+              <div class="lesson-type-icon video">▶</div>
+              <svg class="lesson-done-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="curriculum-lesson active">
+              <div class="lesson-num">3</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Building Your Audience Stack</div>
+                <div class="lesson-item-dur">44 min</div>
+              </div>
+              <div class="lesson-type-icon video" style="background:var(--primary-200);">▶</div>
+            </div>
+            <div class="curriculum-lesson">
+              <div class="lesson-num">4</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Creative That Converts</div>
+                <div class="lesson-item-dur">22 min</div>
+              </div>
+              <div class="lesson-type-icon video">▶</div>
+            </div>
+            <div class="curriculum-lesson">
+              <div class="lesson-num">5</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Budget Allocation Framework</div>
+                <div class="lesson-item-dur">PDF Guide</div>
+              </div>
+              <div class="lesson-type-icon pdf">📄</div>
+            </div>
+            <div class="curriculum-lesson">
+              <div class="lesson-num">6</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Reading the Data</div>
+                <div class="lesson-item-dur">31 min</div>
+              </div>
+              <div class="lesson-type-icon video">▶</div>
+            </div>
+            <div class="curriculum-lesson">
+              <div class="lesson-num">7</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Scaling What Works</div>
+                <div class="lesson-item-dur">19 min</div>
+              </div>
+              <div class="lesson-type-icon video">▶</div>
+            </div>
+            <div class="curriculum-lesson">
+              <div class="lesson-num">8</div>
+              <div class="lesson-info">
+                <div class="lesson-item-title">Campaign Audit Worksheet</div>
+                <div class="lesson-item-dur">Workbook</div>
+              </div>
+              <div class="lesson-type-icon doc">📋</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+</div><!-- /app-body -->
+</div><!-- /page-shell -->
+
+<script>
+// Cat pills — toggle active
+document.querySelectorAll('.cat-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    const group = this.closest('.academy-cats, .portfolio-filter-bar');
+    if (group) group.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Sidebar items
+document.querySelectorAll('.sidebar-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Nav tabs
+document.querySelectorAll('.nav-tabs a').forEach(tab => {
+  tab.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.nav-tabs a').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Curriculum lessons
+document.querySelectorAll('.curriculum-lesson').forEach(lesson => {
+  lesson.addEventListener('click', function() {
+    document.querySelectorAll('.curriculum-lesson').forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

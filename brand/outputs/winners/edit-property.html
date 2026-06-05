@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Property — Property Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'Manrope', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --fs-1:    clamp( 9px,  8.55px + 0.114vw,  10px);
+  --fs-2:    clamp(11px, 10.55px + 0.114vw,  12px);
+  --fs-3:    clamp(12px, 11.55px + 0.114vw,  13px);
+  --fs-4:    clamp(14px, 13.55px + 0.114vw,  15px);
+  --fs-base: var(--fs-4);
+  --fs-5:    clamp(15px, 14.55px + 0.114vw,  16px);
+  --fs-6:    clamp(18px, 14.36px + 0.909vw,  26px);
+  --fs-7:    clamp(22px, 15.64px + 1.591vw,  36px);
+  --fs-8:    clamp(32px, 19.27px + 3.182vw,  60px);
+  --fs-9:    clamp(56px, 23.27px + 8.182vw, 128px);
+  --ls-1: -0.05em;
+  --ls-2: -0.04em;
+  --ls-3: -0.03em;
+  --ls-4: -0.01em;
+  --ls-5:  0.08em;
+  --ls-6:  0.12em;
+  --ls-7:  0.18em;
+  --lh-1: 0.92;
+  --lh-2: 1.00;
+  --lh-3: 1.10;
+  --lh-4: 1.30;
+  --lh-5: 1.60;
+  --lh-6: 1.65;
+  --primary-100: #EBF2F1;
+  --primary-200: #D4E7E5;
+  --primary-300: #AECFCB;
+  --primary-400: #83B5AF;
+  --primary-500: #5C9B93;
+  --primary-600: #4A8079;
+  --primary-700: #3A6560;
+  --primary-800: #2A4A46;
+  --primary-900: #1A302E;
+  --cream-100: #FDFCFA;
+  --cream-200: #F8F5F0;
+  --cream-300: #F4F1EC;
+  --cream-400: #EAE6DE;
+  --cream-500: #E0DBD1;
+  --cream-600: #D4CEC3;
+  --cream-700: #C4BDB0;
+  --cream-800: #A8A096;
+  --cream-900: #8A8278;
+  --dark-100: #3D3D3D;
+  --dark-200: #2C2C2C;
+  --dark-300: #1A1A1A;
+  --dark-400: #141414;
+  --dark-500: #0B0B0B;
+  --dark-600: #080808;
+  --grey-100: #F5F5F5;
+  --grey-200: #E8E8E8;
+  --grey-300: #D4D4D4;
+  --grey-400: #BEBEBE;
+  --grey-500: #9A9A9A;
+  --grey-600: #7A7A7A;
+  --grey-700: #5A5A5A;
+  --grey-800: #3A3A3A;
+  --grey-900: #1A1A1A;
+  --white-100: rgba(255,255,255,0.05);
+  --white-200: rgba(255,255,255,0.10);
+  --white-300: rgba(255,255,255,0.20);
+  --white-400: rgba(255,255,255,0.35);
+  --white-500: rgba(255,255,255,0.50);
+  --white-600: rgba(255,255,255,0.65);
+  --white-700: rgba(255,255,255,0.80);
+  --white-800: rgba(255,255,255,0.92);
+  --white-900: rgba(255,255,255,1.00);
+  --border-col-1: rgba(11,11,11,0.06);
+  --border-col-2: rgba(11,11,11,0.10);
+  --border-col-3: rgba(11,11,11,0.16);
+  --border-col-4: rgba(11,11,11,0.24);
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 14px;
+  --r-4: 20px;
+  --r-5: 28px;
+  --r-6: 40px;
+  --r-7: 999px;
+  --icon-size-1: 12px;
+  --icon-size-2: 14px;
+  --icon-size-3: 18px;
+  --icon-size-4: 20px;
+  --icon-size-5: 24px;
+  --icon-size-6: 32px;
+  --sp-1:   2px;
+  --sp-2:   4px;
+  --sp-3:   8px;
+  --sp-4:  12px;
+  --sp-5:  16px;
+  --sp-6:  20px;
+  --sp-7:  24px;
+  --sp-8:  32px;
+  --sp-9:  40px;
+  --sp-10: 48px;
+  --sp-11: 56px;
+  --sp-12: 64px;
+  --sp-13: 80px;
+  --sp-14: 96px;
+  --sp-15: 120px;
+  --sp-16: 160px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--dark-300);
+  background: var(--cream-300);
+  line-height: var(--lh-6);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PAGE LAYOUT ── */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(32px, 2.27px + 7.273vw, 96px) clamp(20px, 6.36px + 3.636vw, 52px);
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-7);
+  margin-bottom: clamp(40px, 13.64px + 6.818vw, 80px);
+  flex-wrap: wrap;
+}
+.page-header-left {}
+.page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  margin-bottom: var(--sp-4);
+}
+.page-eyebrow-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  flex-shrink: 0;
+}
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+}
+.page-subtitle {
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+  margin-top: var(--sp-3);
+}
+.page-header-actions {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.25s cubic-bezier(0.22,1,0.36,1),
+              transform  0.25s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.25s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.25s cubic-bezier(0.22,1,0.36,1),
+              color 0.25s cubic-bezier(0.22,1,0.36,1);
+  border-radius: var(--r-3);
+}
+.btn-primary { background: var(--primary-500); color: #fff; }
+.btn-primary:hover { background: var(--primary-400); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(92,155,147,.35); }
+.btn-dark { background: var(--dark-500); color: #fff; }
+.btn-dark:hover { background: var(--dark-300); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.btn-outline { background: transparent; color: var(--dark-500); border: 1.5px solid var(--border-col-3); }
+.btn-outline:hover { border-color: var(--dark-500); transform: translateY(-1px); }
+.btn-sm { padding: 10px 20px; font-size: var(--fs-1); }
+.btn-md { padding: 16px 32px; font-size: var(--fs-2); }
+.btn-lg { padding: 18px 36px; font-size: var(--fs-2); }
+
+/* ── SIDEBAR NAV + CONTENT LAYOUT ── */
+.edit-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: clamp(24px, 6.36px + 4.545vw, 64px);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .edit-layout { grid-template-columns: 1fr; }
+}
+
+/* ── STICKY SECTION NAV ── */
+.section-nav {
+  position: sticky;
+  top: 24px;
+}
+.section-nav-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--grey-500);
+  margin-bottom: var(--sp-5);
+  padding-left: var(--sp-4);
+}
+.section-nav-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.section-nav-item a {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 10px var(--sp-4);
+  border-radius: var(--r-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--grey-600);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  letter-spacing: var(--ls-4);
+}
+.section-nav-item a:hover,
+.section-nav-item.active a {
+  background: var(--cream-400);
+  color: var(--dark-400);
+}
+.section-nav-item.active a { color: var(--primary-600); }
+.section-nav-item a svg { flex-shrink: 0; opacity: 0.6; }
+.section-nav-item.active a svg { opacity: 1; color: var(--primary-500); }
+
+@media (max-width: 768px) {
+  .section-nav {
+    position: static;
+    display: flex;
+    overflow-x: auto;
+    gap: var(--sp-3);
+    padding-bottom: var(--sp-3);
+    -webkit-overflow-scrolling: touch;
+  }
+  .section-nav-label { display: none; }
+  .section-nav-list { flex-direction: row; gap: var(--sp-2); }
+  .section-nav-item a { white-space: nowrap; }
+}
+
+/* ── MAIN FORM AREA ── */
+.form-sections { display: flex; flex-direction: column; gap: clamp(24px, 6.36px + 4.545vw, 48px); }
+
+/* ── CARD ── */
+.card {
+  background: var(--cream-100);
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-2);
+  overflow: hidden;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(20px, 8.18px + 2.955vw, 36px) clamp(20px, 8.18px + 2.955vw, 36px) 0;
+  gap: var(--sp-5);
+}
+.card-title-group {}
+.card-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-5);
+  font-weight: 800;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+  line-height: var(--lh-3);
+}
+.card-desc {
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+  margin-top: 4px;
+  line-height: var(--lh-5);
+}
+.card-body {
+  padding: clamp(20px, 8.18px + 2.955vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 6.36px + 2.273vw, 28px);
+}
+.card-divider {
+  height: 1px;
+  background: var(--border-col-1);
+  margin: 0 clamp(20px, 8.18px + 2.955vw, 36px);
+}
+
+/* ── FORM ELEMENTS ── */
+.field { display: flex; flex-direction: column; gap: var(--sp-3); }
+.field-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-4);
+  color: var(--dark-300);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.field-label-optional {
+  font-family: var(--font-body);
+  font-size: var(--fs-1);
+  font-weight: 400;
+  color: var(--grey-500);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.field-hint {
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  line-height: var(--lh-5);
+  margin-top: -4px;
+}
+.field-input {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-3);
+  padding: 13px 16px;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--dark-400);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.field-input:focus {
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 3px rgba(92,155,147,0.12);
+}
+.field-input::placeholder { color: var(--grey-400); }
+.field-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: var(--lh-6);
+}
+.field-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A7A7A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* ── GRID UTILITIES ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2.727vw, 20px); }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(12px, 2.727vw, 20px); }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: clamp(12px, 2.727vw, 20px); }
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── LISTING ID BADGE ── */
+.listing-id-display {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.listing-id-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--primary-100);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--r-7);
+  padding: 6px 14px;
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--primary-700);
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+}
+.listing-id-mono {
+  font-family: 'Courier New', monospace;
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+  background: var(--cream-400);
+  padding: 6px 12px;
+  border-radius: var(--r-2);
+  letter-spacing: 0.04em;
+}
+
+/* ── STATUS TOGGLES ── */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #fff;
+  border-radius: var(--r-3);
+  border: 1.5px solid var(--border-col-2);
+  transition: border-color 0.2s ease;
+}
+.toggle-row:hover { border-color: var(--border-col-3); }
+.toggle-label-group {}
+.toggle-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--dark-400);
+  letter-spacing: var(--ls-4);
+}
+.toggle-sublabel { font-size: var(--fs-3); color: var(--grey-500); }
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-track {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--grey-300);
+  border-radius: var(--r-7);
+  cursor: pointer;
+  transition: background 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.toggle-switch input:checked + .toggle-track { background: var(--primary-500); }
+.toggle-track::before {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; left: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.toggle-switch input:checked + .toggle-track::before { transform: translateX(20px); }
+
+/* ── PRICE FIELD ── */
+.price-input-wrap {
+  position: relative;
+}
+.price-prefix {
+  position: absolute;
+  left: 16px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--grey-500);
+  font-size: var(--fs-base);
+  pointer-events: none;
+}
+.price-input-wrap .field-input { padding-left: 32px; }
+
+/* ── PHOTO UPLOAD ── */
+.photo-upload-zone {
+  border: 2px dashed var(--border-col-3);
+  border-radius: var(--r-4);
+  padding: clamp(32px, 3vw, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.5);
+  text-align: center;
+}
+.photo-upload-zone:hover {
+  border-color: var(--primary-400);
+  background: var(--primary-100);
+}
+.photo-upload-icon {
+  width: 48px; height: 48px;
+  background: var(--primary-100);
+  border-radius: var(--r-3);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary-500);
+}
+.photo-upload-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-4);
+  color: var(--dark-400);
+  letter-spacing: var(--ls-4);
+}
+.photo-upload-hint { font-size: var(--fs-3); color: var(--grey-500); }
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--sp-4);
+}
+.photo-thumb {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: var(--r-3);
+  overflow: hidden;
+  background: var(--cream-400);
+  border: 1px solid var(--border-col-2);
+  group: true;
+}
+.photo-thumb-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-thumb-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--grey-400);
+  font-size: var(--fs-3);
+  font-family: var(--font-display);
+  font-weight: 600;
+  flex-direction: column;
+  gap: 6px;
+}
+.photo-thumb-remove {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 24px; height: 24px;
+  background: rgba(11,11,11,0.6);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border: none;
+  color: white;
+}
+.photo-thumb:hover .photo-thumb-remove { opacity: 1; }
+.photo-thumb-badge {
+  position: absolute;
+  bottom: 6px; left: 6px;
+  background: var(--primary-500);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--r-7);
+}
+
+/* ── SPECS (JSON EDITOR STYLE) ── */
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--sp-3);
+  align-items: center;
+}
+.spec-row-key .field-input { font-family: 'Courier New', monospace; font-size: var(--fs-3); }
+.spec-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: var(--sp-3) 0;
+  transition: color 0.2s ease;
+}
+.spec-add-btn:hover { color: var(--primary-500); }
+.remove-btn {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--border-col-3);
+  border-radius: var(--r-2);
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--grey-500);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.remove-btn:hover { border-color: #e05c5c; color: #e05c5c; background: rgba(224,92,92,0.06); }
+
+/* ── FEATURES (ICON + NAME + DESC) ── */
+.feature-item {
+  background: #fff;
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-4);
+  padding: clamp(16px, 1.818vw, 24px);
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr auto;
+  gap: var(--sp-4);
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .feature-item { grid-template-columns: 1fr auto; }
+  .feature-item .field:nth-child(2),
+  .feature-item .field:nth-child(3) { grid-column: 1; }
+}
+.feature-icon-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.feature-icon-preview {
+  width: 48px; height: 48px;
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-3);
+  background: var(--primary-100);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary-500);
+  cursor: pointer;
+}
+
+/* ── AMENITIES ── */
+.amenity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+.amenity-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--primary-100);
+  border: 1px solid var(--primary-200);
+  color: var(--primary-700);
+  border-radius: var(--r-7);
+  padding: 6px 12px;
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 600;
+  letter-spacing: var(--ls-4);
+}
+.amenity-tag button {
+  background: none; border: none; cursor: pointer;
+  color: var(--primary-500); display: flex; align-items: center;
+  padding: 0; transition: color 0.2s;
+}
+.amenity-tag button:hover { color: var(--primary-800); }
+.amenity-input-row {
+  display: flex; gap: var(--sp-3); align-items: center;
+}
+.amenity-input-row .field-input { flex: 1; }
+
+/* ── ROOMS ── */
+.room-item {
+  background: #fff;
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-4);
+  overflow: hidden;
+}
+.room-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px clamp(16px, 2vw, 24px);
+  background: var(--cream-200);
+  border-bottom: 1px solid var(--border-col-1);
+  cursor: pointer;
+  gap: var(--sp-4);
+}
+.room-item-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-4);
+  color: var(--dark-400);
+  letter-spacing: var(--ls-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.room-item-meta {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.room-item-body {
+  padding: clamp(16px, 2vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+.room-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: var(--sp-3);
+}
+.room-photo-add {
+  aspect-ratio: 4/3;
+  border: 1.5px dashed var(--border-col-3);
+  border-radius: var(--r-2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--grey-400);
+  transition: all 0.2s ease;
+  font-size: 20px;
+}
+.room-photo-add:hover { border-color: var(--primary-400); color: var(--primary-500); }
+
+/* ── FLOORPLANS ── */
+.floorplan-item {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: clamp(12px, 2vw, 20px);
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-4);
+  padding: clamp(14px, 1.818vw, 20px);
+}
+@media (max-width: 640px) {
+  .floorplan-item { grid-template-columns: 1fr auto; }
+  .floorplan-thumb { display: none; }
+}
+.floorplan-thumb {
+  aspect-ratio: 4/3;
+  border-radius: var(--r-2);
+  overflow: hidden;
+  background: var(--cream-400);
+  border: 1px solid var(--border-col-1);
+}
+.floorplan-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ── MAP PREVIEW ── */
+.map-preview {
+  border-radius: var(--r-4);
+  overflow: hidden;
+  background: var(--cream-400);
+  border: 1px solid var(--border-col-2);
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.map-preview-placeholder {
+  text-align: center;
+  color: var(--grey-500);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.map-preview-placeholder svg { color: var(--primary-400); }
+
+/* ── COORD GRID ── */
+.coord-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+.coord-prefix-input { position: relative; }
+.coord-prefix-label {
+  position: absolute;
+  left: 14px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  color: var(--grey-400);
+  pointer-events: none;
+}
+.coord-prefix-input .field-input { padding-left: 36px; }
+
+/* ── SECTION SCROLL ANCHOR ── */
+.section-anchor { scroll-margin-top: 24px; }
+
+/* ── SOLD DATE CONDITIONAL ── */
+.conditional-field {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s ease;
+}
+.conditional-field.visible {
+  max-height: 200px;
+  opacity: 1;
+}
+
+/* ── BOTTOM SAVE BAR ── */
+.save-bar {
+  position: sticky;
+  bottom: 0;
+  background: rgba(253,252,250,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-col-2);
+  padding: clamp(12px, 1.5vw, 20px) clamp(20px, 6.36px + 3.636vw, 52px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  z-index: 10;
+  margin: 0 calc(-1 * clamp(20px, 6.36px + 3.636vw, 52px));
+  margin-top: clamp(32px, 2.27px + 7.273vw, 64px);
+}
+.save-bar-info {
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+}
+.save-bar-info strong { color: var(--dark-400); font-family: var(--font-display); font-weight: 700; }
+.save-bar-actions { display: flex; gap: var(--sp-4); align-items: center; }
+
+/* ── UNSAVED BADGE ── */
+.unsaved-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 183, 77, 0.15);
+  border: 1px solid rgba(255, 183, 77, 0.35);
+  color: #8B6200;
+  border-radius: var(--r-7);
+  padding: 4px 10px;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+}
+.unsaved-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #E6A817;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ── ICON HELPER ── */
+.icon {
+  width: var(--icon-size-5);
+  height: var(--icon-size-5);
+  flex-shrink: 0;
+}
+.icon-sm { width: var(--icon-size-3); height: var(--icon-size-3); }
+.icon-xs { width: var(--icon-size-2); height: var(--icon-size-2); }
+.icon-frame {
+  width: 32px; height: 32px;
+  border-radius: var(--r-2);
+  background: var(--primary-100);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--primary-500);
+  flex-shrink: 0;
+}
+
+/* ── COLLAPSE CHEVRON ── */
+.chevron {
+  width: var(--icon-size-3); height: var(--icon-size-3);
+  color: var(--grey-500);
+  transition: transform 0.25s ease;
+}
+.collapsed .chevron { transform: rotate(-90deg); }
+.room-item-body { display: block; }
+.room-item.collapsed .room-item-body { display: none; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-eyebrow">
+        <span class="page-eyebrow-dot"></span>
+        Properties
+      </div>
+      <h1 class="page-title">Edit Property</h1>
+      <p class="page-subtitle">Listing ID: <span class="listing-id-mono">PKT-20941</span></p>
+    </div>
+    <div class="page-header-actions">
+      <div class="unsaved-badge">
+        <span class="unsaved-dot"></span>
+        Unsaved changes
+      </div>
+      <button class="btn btn-outline btn-sm">Preview</button>
+      <button class="btn btn-primary btn-sm">
+        <svg class="icon-xs" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save
+      </button>
+    </div>
+  </div>
+
+  <!-- Edit Layout -->
+  <div class="edit-layout">
+
+    <!-- Sidebar Nav -->
+    <nav class="section-nav" aria-label="Sections">
+      <div class="section-nav-label">Sections</div>
+      <ul class="section-nav-list">
+        <li class="section-nav-item active">
+          <a href="#section-identity">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Identity
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-status">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Status & Sale
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-pricing">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Pricing
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-photos">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Photos
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-address">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Address
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-specs">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Specs
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-features">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Features
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-amenities">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Amenities
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-rooms">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Rooms
+          </a>
+        </li>
+        <li class="section-nav-item">
+          <a href="#section-floorplans">
+            <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Floorplans
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Form Content -->
+    <div class="form-sections">
+
+      <!-- ── IDENTITY ── -->
+      <div class="card section-anchor" id="section-identity">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Identity</div>
+            <div class="card-desc">Core listing information and public-facing copy.</div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div class="field">
+            <label class="field-label">Listing ID</label>
+            <div class="listing-id-display">
+              <span class="listing-id-badge">
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                PKT-20941
+              </span>
+              <span class="field-hint">Auto-generated. Cannot be changed.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Property Title</label>
+            <input class="field-input" type="text" value="Oceanfront Estate — Malibu" placeholder="Enter property title">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Default Page ID</label>
+            <div class="field-hint">The funnel or landing page shown by default for this listing.</div>
+            <input class="field-input" type="text" value="pg_malibu_ocean_01" placeholder="e.g. pg_property_name">
+          </div>
+
+          <div class="field">
+            <label class="field-label">
+              Description
+            </label>
+            <textarea class="field-input field-textarea" style="min-height: 140px;" placeholder="Full property description — shown on listing page and in detail views.">Perched on the bluffs above Malibu's most coveted stretch of coastline, this six-bedroom oceanfront estate redefines what it means to live at the water's edge. Floor-to-ceiling glass captures a 180° panorama from the Santa Monica Mountains to Catalina Island.</textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label">
+              Short Description
+              <span class="field-label-optional">optional</span>
+            </label>
+            <div class="field-hint">Used in search results, social previews, and email campaigns.</div>
+            <textarea class="field-input field-textarea" placeholder="2–3 sentence summary. Keep under 200 characters for best results.">Breathtaking Malibu oceanfront estate. Six bedrooms, 180° Pacific views, resort-grade amenities on a private 1.4-acre bluff.</textarea>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="field-label">Property Type</label>
+              <select class="field-input field-select">
+                <option>Residential</option>
+                <option>Commercial</option>
+                <option>Land</option>
+                <option>Multi-family</option>
+                <option>Industrial</option>
+                <option selected>Luxury / Estate</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label">Sale Type</label>
+              <select class="field-input field-select">
+                <option selected>Private Treaty</option>
+                <option>Auction</option>
+                <option>Tender</option>
+                <option>Expression of Interest</option>
+                <option>Off-Market</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── STATUS & SALE ── -->
+      <div class="card section-anchor" id="section-status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Status & Sale</div>
+            <div class="card-desc">Control visibility and sale state across the platform.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label class="field-label">Sale Status</label>
+            <select class="field-input field-select" id="sale-status-select" onchange="handleSaleStatus(this.value)">
+              <option value="active" selected>Active — Listed for sale</option>
+              <option value="under-offer">Under Offer</option>
+              <option value="sold">Sold</option>
+              <option value="withdrawn">Withdrawn</option>
+              <option value="off-market">Off-Market</option>
+            </select>
+          </div>
+
+          <div class="conditional-field" id="sold-date-field">
+            <div class="field">
+              <label class="field-label">
+                Sold Date
+                <span class="field-label-optional">nullable</span>
+              </label>
+              <input class="field-input" type="date" id="sold-date-input">
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--sp-3);">
+            <label class="field-label">Visibility</label>
+            <div class="toggle-row">
+              <div class="toggle-label-group">
+                <div class="toggle-label">Published</div>
+                <div class="toggle-sublabel">Show this listing on all active campaigns and pages</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-label-group">
+                <div class="toggle-label">Featured Listing</div>
+                <div class="toggle-sublabel">Promoted position in search results and homepage</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-label-group">
+                <div class="toggle-label">Off-Market Mode</div>
+                <div class="toggle-sublabel">Hidden from public, only accessible via direct link</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox">
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PRICING ── -->
+      <div class="card section-anchor" id="section-pricing">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Pricing</div>
+            <div class="card-desc">Listing price, taxes, and comparison values.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div class="field">
+              <label class="field-label">List Price</label>
+              <div class="price-input-wrap">
+                <span class="price-prefix">$</span>
+                <input class="field-input" type="text" value="24,500,000" placeholder="0">
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">
+                Compare At Price
+                <span class="field-label-optional">optional</span>
+              </label>
+              <div class="price-input-wrap">
+                <span class="price-prefix">$</span>
+                <input class="field-input" type="text" placeholder="Original or higher price">
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">
+              Annual Property Tax
+              <span class="field-label-optional">optional</span>
+            </label>
+            <div class="field-hint">Displayed to buyers for due diligence. Leave blank to omit.</div>
+            <div class="price-input-wrap">
+              <span class="price-prefix">$</span>
+              <input class="field-input" type="text" value="186,400" placeholder="Annual tax amount">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PHOTOS ── -->
+      <div class="card section-anchor" id="section-photos">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Photos</div>
+            <div class="card-desc">Drag to reorder. First image is the hero/cover.</div>
+          </div>
+          <button class="btn btn-outline btn-sm">Upload</button>
+        </div>
+        <div class="card-body">
+          <div class="photo-grid">
+            <!-- Hero photo -->
+            <div class="photo-thumb">
+              <div class="photo-thumb-placeholder" style="background: linear-gradient(135deg, var(--primary-200), var(--primary-300));">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color: var(--primary-600)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span style="font-size: 10px; color: var(--primary-700); font-family: var(--font-display); font-weight: 700;">Exterior</span>
+              </div>
+              <button class="photo-thumb-remove">
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+              <div class="photo-thumb-badge">Cover</div>
+            </div>
+            <!-- Additional photos -->
+            <div class="photo-thumb">
+              <div class="photo-thumb-placeholder" style="background: linear-gradient(135deg, var(--cream-400), var(--cream-600));">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color: var(--cream-800)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span style="font-size: 10px; color: var(--grey-600); font-family: var(--font-display); font-weight: 700;">Living</span>
+              </div>
+              <button class="photo-thumb-remove">
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="photo-thumb">
+              <div class="photo-thumb-placeholder" style="background: linear-gradient(135deg, #e8e0d5, #d4cabb);">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color: var(--grey-600)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span style="font-size: 10px; color: var(--grey-600); font-family: var(--font-display); font-weight: 700;">Kitchen</span>
+              </div>
+              <button class="photo-thumb-remove">
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="photo-thumb">
+              <div class="photo-thumb-placeholder" style="background: linear-gradient(135deg, var(--primary-100), var(--primary-200));">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color: var(--primary-500)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span style="font-size: 10px; color: var(--primary-700); font-family: var(--font-display); font-weight: 700;">Pool</span>
+              </div>
+              <button class="photo-thumb-remove">
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="photo-thumb">
+              <div class="photo-thumb-placeholder" style="background: var(--cream-300); border: 2px dashed var(--border-col-3);">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color: var(--grey-400)"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span style="font-size: 10px; color: var(--grey-400); font-family: var(--font-display); font-weight: 700;">Add</span>
+              </div>
+            </div>
+          </div>
+          <div class="photo-upload-zone">
+            <div class="photo-upload-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+            </div>
+            <div class="photo-upload-title">Drop photos here or click to upload</div>
+            <div class="photo-upload-hint">JPG, PNG, WEBP — max 20MB per file. Up to 50 photos.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ADDRESS ── -->
+      <div class="card section-anchor" id="section-address">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Address & Location</div>
+            <div class="card-desc">Property address and precise map coordinates.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label class="field-label">Street Address</label>
+            <input class="field-input" type="text" value="2846 Cliffside Drive" placeholder="Line 1">
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label class="field-label">Suburb</label>
+              <input class="field-input" type="text" value="Malibu" placeholder="Suburb">
+            </div>
+            <div class="field">
+              <label class="field-label">City</label>
+              <input class="field-input" type="text" value="Los Angeles" placeholder="City">
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="field">
+              <label class="field-label">State</label>
+              <input class="field-input" type="text" value="California" placeholder="State">
+            </div>
+            <div class="field">
+              <label class="field-label">Postcode</label>
+              <input class="field-input" type="text" value="90265" placeholder="90210">
+            </div>
+            <div class="field">
+              <label class="field-label">Country</label>
+              <select class="field-input field-select">
+                <option selected>United States</option>
+                <option>Australia</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>New Zealand</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card-divider" style="margin: 0;"></div>
+
+          <div class="map-preview">
+            <div class="map-preview-placeholder">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span style="font-size: var(--fs-3); font-family: var(--font-display); font-weight: 600;">Map preview — enter coordinates below</span>
+            </div>
+          </div>
+
+          <div class="coord-grid">
+            <div class="field">
+              <label class="field-label">Latitude</label>
+              <div class="coord-prefix-input">
+                <span class="coord-prefix-label">Lat</span>
+                <input class="field-input" type="text" value="34.0195" placeholder="34.0195">
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Longitude</label>
+              <div class="coord-prefix-input">
+                <span class="coord-prefix-label">Lng</span>
+                <input class="field-input" type="text" value="-118.7799" placeholder="-118.7799">
+              </div>
+            </div>
+          </div>
+          <button class="spec-add-btn" style="color: var(--primary-600);">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Auto-detect from address
+          </button>
+        </div>
+      </div>
+
+      <!-- ── SPECS ── -->
+      <div class="card section-anchor" id="section-specs">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Specs</div>
+            <div class="card-desc">Hard facts — beds, baths, garages, land size, etc. Stored as JSON key-value pairs.</div>
+          </div>
+        </div>
+        <div class="card-body" id="specs-container">
+          <div class="spec-row">
+            <div class="field spec-row-key">
+              <input class="field-input" type="text" value="beds" placeholder="key">
+            </div>
+            <div class="field">
+              <input class="field-input" type="text" value="6" placeholder="value">
+            </div>
+            <button class="remove-btn" onclick="removeSpec(this)">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="spec-row">
+            <div class="field spec-row-key">
+              <input class="field-input" type="text" value="baths" placeholder="key">
+            </div>
+            <div class="field">
+              <input class="field-input" type="text" value="8" placeholder="value">
+            </div>
+            <button class="remove-btn" onclick="removeSpec(this)">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="spec-row">
+            <div class="field spec-row-key">
+              <input class="field-input" type="text" value="garages" placeholder="key">
+            </div>
+            <div class="field">
+              <input class="field-input" type="text" value="3" placeholder="value">
+            </div>
+            <button class="remove-btn" onclick="removeSpec(this)">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="spec-row">
+            <div class="field spec-row-key">
+              <input class="field-input" type="text" value="land_sqm" placeholder="key">
+            </div>
+            <div class="field">
+              <input class="field-input" type="text" value="5666" placeholder="value">
+            </div>
+            <button class="remove-btn" onclick="removeSpec(this)">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <div style="padding: 0 clamp(20px, 8.18px + 2.955vw, 36px) clamp(20px, 8.18px + 2.955vw, 36px);">
+          <button class="spec-add-btn" onclick="addSpec()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Spec
+          </button>
+        </div>
+      </div>
+
+      <!-- ── FEATURES ── -->
+      <div class="card section-anchor" id="section-features">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Features</div>
+            <div class="card-desc">Highlight points with an icon, name, and description. Shown as callout cards on the listing page.</div>
+          </div>
+        </div>
+        <div class="card-body" id="features-container">
+          <div class="feature-item">
+            <div class="feature-icon-picker">
+              <div class="feature-icon-preview" title="Click to change icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <span style="font-size: 9px; color: var(--grey-500); font-family: var(--font-display); font-weight: 600; text-align: center; letter-spacing: 0.06em;">Icon</span>
+            </div>
+            <div class="field">
+              <label class="field-label" style="font-size: var(--fs-1);">Name</label>
+              <input class="field-input" type="text" value="Oceanfront Location" placeholder="Feature name">
+            </div>
+            <div class="field">
+              <label class="field-label" style="font-size: var(--fs-1);">Description</label>
+              <input class="field-input" type="text" value="Direct beach access with private stairs to 240ft of sandy beachfront." placeholder="Short description">
+            </div>
+            <button class="remove-btn" onclick="this.closest('.feature-item').remove()">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon-picker">
+              <div class="feature-icon-preview" title="Click to change icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span style="font-size: 9px; color: var(--grey-500); font-family: var(--font-display); font-weight: 600; text-align: center; letter-spacing: 0.06em;">Icon</span>
+            </div>
+            <div class="field">
+              <label class="field-label" style="font-size: var(--fs-1);">Name</label>
+              <input class="field-input" type="text" value="Gated & Secured" placeholder="Feature name">
+            </div>
+            <div class="field">
+              <label class="field-label" style="font-size: var(--fs-1);">Description</label>
+              <input class="field-input" type="text" value="Full perimeter security with 24/7 monitoring, smart gates, and biometric entry." placeholder="Short description">
+            </div>
+            <button class="remove-btn" onclick="this.closest('.feature-item').remove()">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <div style="padding: 0 clamp(20px, 8.18px + 2.955vw, 36px) clamp(20px, 8.18px + 2.955vw, 36px);">
+          <button class="spec-add-btn" onclick="addFeature()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Feature
+          </button>
+        </div>
+      </div>
+
+      <!-- ── AMENITIES ── -->
+      <div class="card section-anchor" id="section-amenities">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Amenities</div>
+            <div class="card-desc">Simple list of what the property has. Shown as tags or a checklist.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="amenity-tags" id="amenities-container">
+            <span class="amenity-tag">Infinity Pool <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+            <span class="amenity-tag">Home Theatre <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+            <span class="amenity-tag">Wine Cellar <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+            <span class="amenity-tag">Gym <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+            <span class="amenity-tag">Smart Home <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+            <span class="amenity-tag">Guest House <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+            <span class="amenity-tag">Tennis Court <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+            <span class="amenity-tag">Private Dock <button onclick="removeAmenity(this)" title="Remove">×</button></span>
+          </div>
+          <div class="amenity-input-row">
+            <input class="field-input" type="text" id="amenity-input" placeholder="Add amenity — e.g. Rooftop Terrace" onkeydown="if(event.key==='Enter'){addAmenity();event.preventDefault()}">
+            <button class="btn btn-outline btn-sm" onclick="addAmenity()">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ROOMS ── -->
+      <div class="card section-anchor" id="section-rooms">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Rooms</div>
+            <div class="card-desc">Individual room breakdowns with photos, size, and floor level.</div>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="addRoom()">+ Add Room</button>
+        </div>
+        <div class="card-body" id="rooms-container">
+          <div class="room-item">
+            <div class="room-item-header" onclick="toggleRoom(this)">
+              <div class="room-item-title">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color:var(--primary-500)"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Primary Suite
+                <span class="room-item-meta">Floor 2 · 94 m²</span>
+              </div>
+              <svg class="chevron" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="room-item-body">
+              <div class="grid-2">
+                <div class="field">
+                  <label class="field-label">Room Name</label>
+                  <input class="field-input" type="text" value="Primary Suite" placeholder="e.g. Master Bedroom">
+                </div>
+                <div class="grid-2" style="grid-template-columns: 1fr 1fr;">
+                  <div class="field">
+                    <label class="field-label">Size (m²)</label>
+                    <input class="field-input" type="number" value="94" placeholder="0">
+                  </div>
+                  <div class="field">
+                    <label class="field-label">Floor</label>
+                    <select class="field-input field-select">
+                      <option>Ground</option>
+                      <option selected>Floor 2</option>
+                      <option>Floor 3</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label">Room Photos</label>
+                <div class="room-photo-grid">
+                  <div class="photo-thumb" style="aspect-ratio: 4/3;">
+                    <div class="photo-thumb-placeholder" style="background: linear-gradient(135deg, var(--primary-100), var(--primary-200));">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:var(--primary-500)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      <span style="font-size:9px; color:var(--primary-700); font-family:var(--font-display); font-weight:700;">View 1</span>
+                    </div>
+                    <button class="photo-thumb-remove"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                  </div>
+                  <div class="room-photo-add" style="aspect-ratio:4/3;">+</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="room-item">
+            <div class="room-item-header" onclick="toggleRoom(this)">
+              <div class="room-item-title">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color:var(--primary-500)"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Great Room
+                <span class="room-item-meta">Floor 1 · 210 m²</span>
+              </div>
+              <svg class="chevron" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="room-item-body" style="display:none;">
+              <div class="grid-2">
+                <div class="field">
+                  <label class="field-label">Room Name</label>
+                  <input class="field-input" type="text" value="Great Room" placeholder="e.g. Living Room">
+                </div>
+                <div class="grid-2">
+                  <div class="field">
+                    <label class="field-label">Size (m²)</label>
+                    <input class="field-input" type="number" value="210" placeholder="0">
+                  </div>
+                  <div class="field">
+                    <label class="field-label">Floor</label>
+                    <select class="field-input field-select">
+                      <option selected>Ground</option>
+                      <option>Floor 2</option>
+                      <option>Floor 3</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label">Room Photos</label>
+                <div class="room-photo-grid">
+                  <div class="room-photo-add" style="aspect-ratio:4/3;">+</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FLOORPLANS ── -->
+      <div class="card section-anchor" id="section-floorplans">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-title">Floorplans</div>
+            <div class="card-desc">Upload plan images and provide download links for buyer distribution.</div>
+          </div>
+          <button class="btn btn-outline btn-sm">Upload Plan</button>
+        </div>
+        <div class="card-body" id="floorplans-container">
+          <div class="floorplan-item">
+            <div class="floorplan-thumb">
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--cream-300),var(--cream-500));display:flex;align-items:center;justify-content:center;">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color:var(--grey-500)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--sp-4);">
+              <div class="field">
+                <label class="field-label">Plan Name</label>
+                <input class="field-input" type="text" value="Level 1 — Ground Floor" placeholder="e.g. Ground Floor Plan">
+              </div>
+              <div class="field">
+                <label class="field-label">Download URL <span class="field-label-optional">optional</span></label>
+                <input class="field-input" type="url" value="https://assets.propertykit.com/plans/malibu-l1.pdf" placeholder="https://…">
+              </div>
+            </div>
+            <button class="remove-btn" onclick="this.closest('.floorplan-item').remove()">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="floorplan-item">
+            <div class="floorplan-thumb">
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--cream-300),var(--cream-500));display:flex;align-items:center;justify-content:center;">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color:var(--grey-500)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--sp-4);">
+              <div class="field">
+                <label class="field-label">Plan Name</label>
+                <input class="field-input" type="text" value="Level 2 — Upper Floor" placeholder="e.g. Upper Floor Plan">
+              </div>
+              <div class="field">
+                <label class="field-label">Download URL <span class="field-label-optional">optional</span></label>
+                <input class="field-input" type="url" placeholder="https://…">
+              </div>
+            </div>
+            <button class="remove-btn" onclick="this.closest('.floorplan-item').remove()">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <div style="padding: 0 clamp(20px, 8.18px + 2.955vw, 36px) clamp(20px, 8.18px + 2.955vw, 36px);">
+          <button class="spec-add-btn" onclick="addFloorplan()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Floorplan
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /form-sections -->
+  </div><!-- /edit-layout -->
+
+  <!-- Save Bar -->
+  <div class="save-bar">
+    <div class="save-bar-info">
+      <strong>Oceanfront Estate — Malibu</strong> &nbsp;·&nbsp; Last saved 12 minutes ago
+    </div>
+    <div class="save-bar-actions">
+      <button class="btn btn-outline btn-sm">Discard</button>
+      <button class="btn btn-primary btn-sm">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save Changes
+      </button>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  // ── SOLD DATE CONDITIONAL ──
+  function handleSaleStatus(val) {
+    const field = document.getElementById('sold-date-field');
+    if (val === 'sold') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  }
+
+  // ── SPECS ──
+  function addSpec() {
+    const container = document.getElementById('specs-container');
+    const row = document.createElement('div');
+    row.className = 'spec-row';
+    row.innerHTML = `
+      <div class="field spec-row-key"><input class="field-input" type="text" placeholder="key"></div>
+      <div class="field"><input class="field-input" type="text" placeholder="value"></div>
+      <button class="remove-btn" onclick="removeSpec(this)">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>`;
+    container.appendChild(row);
+    row.querySelector('input').focus();
+  }
+  function removeSpec(btn) {
+    btn.closest('.spec-row').remove();
+  }
+
+  // ── FEATURES ──
+  function addFeature() {
+    const container = document.getElementById('features-container');
+    const item = document.createElement('div');
+    item.className = 'feature-item';
+    item.innerHTML = `
+      <div class="feature-icon-picker">
+        <div class="feature-icon-preview">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <span style="font-size:9px;color:var(--grey-500);font-family:var(--font-display);font-weight:600;text-align:center;letter-spacing:0.06em;">Icon</span>
+      </div>
+      <div class="field"><label class="field-label" style="font-size:var(--fs-1);">Name</label><input class="field-input" type="text" placeholder="Feature name"></div>
+      <div class="field"><label class="field-label" style="font-size:var(--fs-1);">Description</label><input class="field-input" type="text" placeholder="Short description"></div>
+      <button class="remove-btn" onclick="this.closest('.feature-item').remove()">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>`;
+    container.appendChild(item);
+    item.querySelector('input').focus();
+  }
+
+  // ── AMENITIES ──
+  function addAmenity() {
+    const input = document.getElementById('amenity-input');
+    const val = input.value.trim();
+    if (!val) return;
+    const container = document.getElementById('amenities-container');
+    const tag = document.createElement('span');
+    tag.className = 'amenity-tag';
+    tag.innerHTML = `${val} <button onclick="removeAmenity(this)" title="Remove">×</button>`;
+    container.appendChild(tag);
+    input.value = '';
+    input.focus();
+  }
+  function removeAmenity(btn) {
+    btn.closest('.amenity-tag').remove();
+  }
+
+  // ── ROOMS ──
+  function toggleRoom(header) {
+    const item = header.closest('.room-item');
+    const body = item.querySelector('.room-item-body');
+    const isVisible = body.style.display !== 'none';
+    body.style.display = isVisible ? 'none' : 'block';
+    item.classList.toggle('collapsed', isVisible);
+  }
+  function addRoom() {
+    const container = document.getElementById('rooms-container');
+    const item = document.createElement('div');
+    item.className = 'room-item';
+    item.innerHTML = `
+      <div class="room-item-header" onclick="toggleRoom(this)">
+        <div class="room-item-title">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color:var(--primary-500)"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          New Room
+          <span class="room-item-meta">Floor 1 · — m²</span>
+        </div>
+        <svg class="chevron" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="room-item-body">
+        <div class="grid-2">
+          <div class="field"><label class="field-label">Room Name</label><input class="field-input" type="text" placeholder="e.g. Guest Suite"></div>
+          <div class="grid-2">
+            <div class="field"><label class="field-label">Size (m²)</label><input class="field-input" type="number" placeholder="0"></div>
+            <div class="field"><label class="field-label">Floor</label><select class="field-input field-select"><option selected>Ground</option><option>Floor 2</option><option>Floor 3</option></select></div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Room Photos</label>
+          <div class="room-photo-grid"><div class="room-photo-add" style="aspect-ratio:4/3;">+</div></div>
+        </div>
+      </div>`;
+    container.appendChild(item);
+    item.querySelector('input').focus();
+  }
+
+  // ── FLOORPLANS ──
+  function addFloorplan() {
+    const container = document.getElementById('floorplans-container');
+    const item = document.createElement('div');
+    item.className = 'floorplan-item';
+    item.innerHTML = `
+      <div class="floorplan-thumb">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--cream-300),var(--cream-500));display:flex;align-items:center;justify-content:center;">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="color:var(--grey-500)"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-4);">
+        <div class="field"><label class="field-label">Plan Name</label><input class="field-input" type="text" placeholder="e.g. Ground Floor Plan"></div>
+        <div class="field"><label class="field-label">Download URL <span class="field-label-optional">optional</span></label><input class="field-input" type="url" placeholder="https://…"></div>
+      </div>
+      <button class="remove-btn" onclick="this.closest('.floorplan-item').remove()">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>`;
+    container.appendChild(item);
+    item.querySelector('input').focus();
+  }
+
+  // ── NAV SCROLL SPY ──
+  const sections = document.querySelectorAll('.section-anchor');
+  const navItems = document.querySelectorAll('.section-nav-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.querySelector('a').getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // ── SMOOTH SCROLL ──
+  document.querySelectorAll('.section-nav-item a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

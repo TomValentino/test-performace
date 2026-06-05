@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Kit — UI Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'Manrope', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --fs-1:    clamp( 9px,  8.55px + 0.114vw,  10px);
+  --fs-2:    clamp(11px, 10.55px + 0.114vw,  12px);
+  --fs-3:    clamp(12px, 11.55px + 0.114vw,  13px);
+  --fs-4:    clamp(14px, 13.55px + 0.114vw,  15px);
+  --fs-base: var(--fs-4);
+  --fs-5:    clamp(15px, 14.55px + 0.114vw,  16px);
+  --fs-6:    clamp(18px, 14.36px + 0.909vw,  26px);
+  --fs-7:    clamp(22px, 15.64px + 1.591vw,  36px);
+  --fs-8:    clamp(32px, 19.27px + 3.182vw,  60px);
+  --fs-9:    clamp(56px, 23.27px + 8.182vw, 128px);
+  --ls-1: -0.05em;
+  --ls-2: -0.04em;
+  --ls-3: -0.03em;
+  --ls-4: -0.01em;
+  --ls-5:  0.08em;
+  --ls-6:  0.12em;
+  --ls-7:  0.18em;
+  --lh-1: 0.92;
+  --lh-2: 1.00;
+  --lh-3: 1.10;
+  --lh-4: 1.30;
+  --lh-5: 1.60;
+  --lh-6: 1.65;
+  --primary-100: #EBF2F1;
+  --primary-200: #D4E7E5;
+  --primary-300: #AECFCB;
+  --primary-400: #83B5AF;
+  --primary-500: #5C9B93;
+  --primary-600: #4A8079;
+  --primary-700: #3A6560;
+  --primary-800: #2A4A46;
+  --primary-900: #1A302E;
+  --cream-100: #FDFCFA;
+  --cream-200: #F8F5F0;
+  --cream-300: #F4F1EC;
+  --cream-400: #EAE6DE;
+  --cream-500: #E0DBD1;
+  --cream-600: #D4CEC3;
+  --cream-700: #C4BDB0;
+  --cream-800: #A8A096;
+  --cream-900: #8A8278;
+  --dark-100: #3D3D3D;
+  --dark-200: #2C2C2C;
+  --dark-300: #1A1A1A;
+  --dark-400: #141414;
+  --dark-500: #0B0B0B;
+  --dark-600: #080808;
+  --dark-700: #050505;
+  --dark-800: #030303;
+  --dark-900: #000000;
+  --grey-100: #F5F5F5;
+  --grey-200: #E8E8E8;
+  --grey-300: #D4D4D4;
+  --grey-400: #BEBEBE;
+  --grey-500: #9A9A9A;
+  --grey-600: #7A7A7A;
+  --grey-700: #5A5A5A;
+  --grey-800: #3A3A3A;
+  --grey-900: #1A1A1A;
+  --white-100: rgba(255,255,255,0.05);
+  --white-200: rgba(255,255,255,0.10);
+  --white-300: rgba(255,255,255,0.20);
+  --white-400: rgba(255,255,255,0.35);
+  --white-500: rgba(255,255,255,0.50);
+  --white-600: rgba(255,255,255,0.65);
+  --white-700: rgba(255,255,255,0.80);
+  --white-800: rgba(255,255,255,0.92);
+  --white-900: rgba(255,255,255,1.00);
+  --border-col-1: rgba(11,11,11,0.06);
+  --border-col-2: rgba(11,11,11,0.10);
+  --border-col-3: rgba(11,11,11,0.16);
+  --border-col-4: rgba(11,11,11,0.24);
+  --r-1: 4px;
+  --r-2: 8px;
+  --r-3: 14px;
+  --r-4: 20px;
+  --r-5: 28px;
+  --r-6: 40px;
+  --r-7: 999px;
+  --icon-size-1: 12px;
+  --icon-size-2: 14px;
+  --icon-size-3: 18px;
+  --icon-size-4: 20px;
+  --icon-size-5: 24px;
+  --icon-size-6: 32px;
+  --sp-1:   2px;
+  --sp-2:   4px;
+  --sp-3:   8px;
+  --sp-4:  12px;
+  --sp-5:  16px;
+  --sp-6:  20px;
+  --sp-7:  24px;
+  --sp-8:  32px;
+  --sp-9:  40px;
+  --sp-10: 48px;
+  --sp-11: 56px;
+  --sp-12: 64px;
+  --sp-13: 80px;
+  --sp-14: 96px;
+  --sp-15: 120px;
+  --sp-16: 160px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream-300);
+  color: var(--dark-500);
+  font-size: var(--fs-base);
+  line-height: var(--lh-6);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── BUTTONS ──────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: var(--ls-5); text-transform: uppercase;
+  border: none; cursor: pointer; white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.25s cubic-bezier(0.22,1,0.36,1),
+              transform  0.25s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.25s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.25s cubic-bezier(0.22,1,0.36,1),
+              color 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-primary       { background: var(--primary-500); color: #fff; border-radius: var(--r-3); }
+.btn-primary:hover { background: var(--primary-400); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(92,155,147,.35); }
+.btn-dark          { background: var(--dark-500); color: #fff; border-radius: var(--r-3); }
+.btn-dark:hover    { background: var(--dark-300); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.btn-outline       { background: transparent; color: var(--dark-500); border: 1.5px solid var(--border-col-3); border-radius: var(--r-3); }
+.btn-outline:hover { border-color: var(--dark-500); transform: translateY(-1px); }
+.btn-ghost         { background: transparent; color: var(--grey-700); border-bottom: 1.5px solid transparent; padding-left: 0; padding-right: 0; border-radius: 0; }
+.btn-ghost:hover   { color: var(--dark-500); border-bottom-color: var(--dark-500); }
+.btn-sm { padding: 10px 20px; font-size: var(--fs-1); }
+.btn-md { padding: 16px 32px; font-size: var(--fs-2); }
+.btn-lg { padding: 18px 36px; font-size: var(--fs-2); }
+.btn-ghost.btn-sm { padding: 8px 0; }
+.btn-ghost.btn-md { padding: 12px 0; }
+.btn-ghost.btn-lg { padding: 16px 0; }
+
+/* ── LAYOUT ───────────────────────────────── */
+.main-content {
+  padding: clamp(32px, 16.36px + 3.909vw, 64px) clamp(20px, 6.18px + 3.455vw, 48px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── SECTION WRAPPER ──────────────────────── */
+.section {
+  margin-bottom: clamp(48px, 22.91px + 6.273vw, 100px);
+}
+.section-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-500);
+  margin-bottom: var(--sp-3);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+  margin-bottom: clamp(24px, 13.09px + 2.727vw, 48px);
+}
+
+/* ── PILL ─────────────────────────────────── */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--r-7);
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+}
+.pill-primary { background: var(--primary-100); color: var(--primary-700); }
+.pill-dark    { background: var(--dark-500); color: var(--white-900); }
+.pill-cream   { background: var(--cream-500); color: var(--grey-700); }
+.pill-success { background: #E6F4F0; color: #2D7A5C; }
+.pill-warn    { background: #FEF3E2; color: #92610A; }
+.pill-danger  { background: #FDECEA; color: #A03028; }
+
+/* ── ICON FRAME ───────────────────────────── */
+.icon-frame {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--r-2);
+  flex-shrink: 0;
+}
+.icon-frame-sm { width: 36px; height: 36px; }
+.icon-frame-md { width: 44px; height: 44px; }
+.icon-frame-lg { width: 56px; height: 56px; }
+.icon-frame-primary { background: var(--primary-100); color: var(--primary-600); }
+.icon-frame-dark    { background: var(--dark-500); color: var(--white-900); }
+.icon-frame-cream   { background: var(--cream-500); color: var(--grey-700); }
+
+/* ──────────────────────────────────────────── */
+/*  1. OVERVIEW / DASHBOARD STATS              */
+/* ──────────────────────────────────────────── */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(12px, 5.45px + 1.636vw, 24px);
+  margin-bottom: clamp(24px, 13.09px + 2.727vw, 48px);
+}
+@media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .stats-grid { grid-template-columns: 1fr; } }
+
+.stat-card {
+  background: var(--cream-100);
+  border-radius: var(--r-5);
+  padding: clamp(20px, 10.91px + 2.273vw, 36px);
+  border: 1px solid var(--border-col-1);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(11,11,11,0.08); }
+.stat-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--primary-500);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.stat-card:hover::after { opacity: 1; }
+.stat-card-accent { background: var(--dark-500); }
+.stat-card-accent .stat-label { color: var(--white-500); }
+.stat-card-accent .stat-value { color: var(--white-900); }
+.stat-card-accent .stat-delta { color: var(--primary-400); }
+.stat-card-accent .stat-sub   { color: var(--white-400); }
+.stat-card-accent::after      { background: var(--primary-400); }
+
+.stat-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--sp-6); }
+.stat-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--grey-600);
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 16.36px + 2.909vw, 44px);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: 1;
+  color: var(--dark-500);
+  margin-bottom: var(--sp-2);
+}
+.stat-delta {
+  font-family: var(--font-display);
+  font-size: var(--fs-2);
+  font-weight: 700;
+  color: var(--primary-600);
+  letter-spacing: var(--ls-4);
+}
+.stat-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-500);
+  margin-top: var(--sp-1);
+}
+.sparkline {
+  width: 100%; height: 40px;
+  margin-top: var(--sp-5);
+}
+
+/* ──────────────────────────────────────────── */
+/*  2. PROPERTY PORTFOLIO GRID                 */
+/* ──────────────────────────────────────────── */
+
+.portfolio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  margin-bottom: clamp(20px, 10.91px + 2.273vw, 36px);
+}
+.portfolio-controls { display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; }
+
+.search-bar {
+  display: flex; align-items: center; gap: var(--sp-3);
+  background: var(--cream-100);
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-3);
+  padding: 10px 16px;
+  transition: border-color 0.2s;
+}
+.search-bar:focus-within { border-color: var(--primary-400); }
+.search-bar input {
+  border: none; background: transparent;
+  font-family: var(--font-body); font-size: var(--fs-base);
+  color: var(--dark-500); outline: none; width: clamp(140px, 80px + 10vw, 240px);
+}
+.search-bar input::placeholder { color: var(--grey-400); }
+.search-bar svg { color: var(--grey-400); flex-shrink: 0; }
+
+.filter-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 16px;
+  background: var(--cream-100);
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-3);
+  font-family: var(--font-display); font-size: var(--fs-2); font-weight: 700;
+  letter-spacing: var(--ls-5); text-transform: uppercase;
+  color: var(--grey-700); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.filter-btn:hover, .filter-btn.active { border-color: var(--primary-400); color: var(--primary-600); }
+
+.view-toggle {
+  display: flex;
+  background: var(--cream-400);
+  border-radius: var(--r-2);
+  padding: 3px;
+}
+.view-toggle button {
+  padding: 7px 10px; border: none; background: transparent;
+  border-radius: 6px; cursor: pointer; color: var(--grey-500);
+  transition: background 0.2s, color 0.2s;
+}
+.view-toggle button.active { background: var(--cream-100); color: var(--dark-500); box-shadow: 0 1px 4px rgba(11,11,11,0.08); }
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 6.36px + 1.909vw, 28px);
+}
+@media (max-width: 960px) { .property-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .property-grid { grid-template-columns: 1fr; } }
+
+.property-card {
+  background: var(--cream-100);
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-1);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+  cursor: pointer;
+}
+.property-card:hover { transform: translateY(-5px); box-shadow: 0 24px 64px rgba(11,11,11,0.10); }
+
+.property-img {
+  position: relative;
+  height: clamp(160px, 100px + 8vw, 200px);
+  background: var(--cream-400);
+  overflow: hidden;
+}
+.property-img-bg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.property-card:hover .property-img-bg { transform: scale(1.04); }
+.property-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(11,11,11,0.35) 100%);
+}
+.property-img-badges {
+  position: absolute; top: 12px; left: 12px; right: 12px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.property-img-price {
+  position: absolute; bottom: 14px; left: 16px;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: var(--fs-6); letter-spacing: var(--ls-3);
+  color: #fff; line-height: 1;
+}
+.property-actions-hover {
+  position: absolute; bottom: 14px; right: 14px;
+  display: flex; gap: 6px;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.property-card:hover .property-actions-hover { opacity: 1; transform: translateY(0); }
+.prop-action-btn {
+  width: 32px; height: 32px; border-radius: var(--r-2);
+  background: var(--white-300); backdrop-filter: blur(8px);
+  border: 1px solid var(--white-300);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #fff;
+  transition: background 0.2s;
+}
+.prop-action-btn:hover { background: var(--white-500); }
+
+.property-body { padding: clamp(16px, 8.73px + 1.818vw, 28px); }
+.property-address {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-5); letter-spacing: var(--ls-3);
+  color: var(--dark-500); line-height: var(--lh-3);
+  margin-bottom: 4px;
+}
+.property-city {
+  font-family: var(--font-body); font-size: var(--fs-3);
+  color: var(--grey-600); margin-bottom: var(--sp-5);
+}
+.property-specs {
+  display: flex; gap: var(--sp-6); flex-wrap: wrap;
+  margin-bottom: var(--sp-6);
+}
+.prop-spec {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--font-display); font-size: var(--fs-2);
+  font-weight: 600; color: var(--grey-700); letter-spacing: var(--ls-4);
+}
+.prop-spec svg { color: var(--primary-500); }
+.property-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border-col-1);
+}
+.property-footer-stat {
+  font-family: var(--font-display); font-size: var(--fs-2);
+  font-weight: 700; letter-spacing: var(--ls-4); color: var(--grey-700);
+}
+.property-footer-stat span {
+  display: block; font-size: var(--fs-1);
+  font-weight: 600; letter-spacing: var(--ls-6);
+  text-transform: uppercase; color: var(--grey-500);
+  margin-bottom: 2px;
+}
+
+/* ──────────────────────────────────────────── */
+/*  3. CAMPAIGN MANAGER                        */
+/* ──────────────────────────────────────────── */
+
+.campaigns-list { display: flex; flex-direction: column; gap: clamp(10px, 5.45px + 1.136vw, 16px); }
+
+.campaign-row {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-1);
+  border-radius: var(--r-4);
+  padding: clamp(16px, 8.73px + 1.818vw, 28px) clamp(20px, 10.91px + 2.273vw, 36px);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+  align-items: center;
+  gap: clamp(12px, 5.45px + 1.636vw, 24px);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
+  cursor: pointer;
+}
+@media (max-width: 860px) {
+  .campaign-row { grid-template-columns: 1fr 1fr; }
+  .campaign-row-meta { display: none; }
+}
+@media (max-width: 480px) { .campaign-row { grid-template-columns: 1fr; } }
+.campaign-row:hover { transform: translateX(4px); box-shadow: 0 8px 32px rgba(11,11,11,0.07); }
+
+.campaign-name-block { display: flex; flex-direction: column; gap: 4px; }
+.campaign-name {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-5); letter-spacing: var(--ls-3); color: var(--dark-500);
+}
+.campaign-sub {
+  font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-600);
+  display: flex; align-items: center; gap: 6px;
+}
+.campaign-metric {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.campaign-metric-label {
+  font-family: var(--font-display); font-size: var(--fs-1); font-weight: 700;
+  letter-spacing: var(--ls-7); text-transform: uppercase; color: var(--grey-500);
+}
+.campaign-metric-value {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-5);
+  letter-spacing: var(--ls-3); color: var(--dark-500);
+}
+.campaign-metric-delta {
+  font-size: var(--fs-1); font-family: var(--font-display); font-weight: 700;
+  letter-spacing: var(--ls-4); color: var(--primary-600);
+}
+
+.progress-bar-wrap { display: flex; flex-direction: column; gap: 6px; }
+.progress-bar-track {
+  height: 6px; background: var(--cream-400); border-radius: var(--r-7); overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%; border-radius: var(--r-7);
+  background: var(--primary-500);
+  transition: width 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.progress-bar-fill.warn { background: #D4963E; }
+
+/* ──────────────────────────────────────────── */
+/*  4. LEAD PIPELINE (KANBAN)                  */
+/* ──────────────────────────────────────────── */
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(12px, 5.45px + 1.636vw, 20px);
+  align-items: start;
+}
+@media (max-width: 900px) { .kanban-board { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .kanban-board { grid-template-columns: 1fr; } }
+
+.kanban-col { display: flex; flex-direction: column; gap: 10px; }
+.kanban-col-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4px; margin-bottom: 6px;
+}
+.kanban-col-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-2); letter-spacing: var(--ls-6);
+  text-transform: uppercase; color: var(--grey-700);
+  display: flex; align-items: center; gap: 8px;
+}
+.kanban-col-title::before {
+  content: '';
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+}
+.col-new .kanban-col-title::before { background: var(--grey-400); }
+.col-qualified .kanban-col-title::before { background: var(--primary-400); }
+.col-active .kanban-col-title::before { background: #D4963E; }
+.col-closed .kanban-col-title::before { background: #4CAF87; }
+
+.kanban-count {
+  font-family: var(--font-display); font-size: var(--fs-2); font-weight: 700;
+  letter-spacing: var(--ls-4); color: var(--grey-500);
+}
+
+.lead-card {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-1);
+  border-radius: var(--r-4);
+  padding: clamp(14px, 7.64px + 1.591vw, 22px);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
+  cursor: pointer;
+}
+.lead-card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(11,11,11,0.09); }
+.lead-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.lead-avatar {
+  width: 36px; height: 36px; border-radius: var(--r-7);
+  background: var(--primary-200); color: var(--primary-700);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: var(--fs-2);
+  letter-spacing: 0; flex-shrink: 0;
+}
+.lead-name {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-4);
+  letter-spacing: var(--ls-3); color: var(--dark-500); line-height: 1.2;
+}
+.lead-source { font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-500); }
+.lead-property {
+  font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-600);
+  background: var(--cream-300); border-radius: var(--r-2); padding: 6px 10px;
+  margin-bottom: 10px; line-height: 1.4;
+}
+.lead-card-footer { display: flex; align-items: center; justify-content: space-between; }
+.lead-budget {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-4);
+  letter-spacing: var(--ls-3); color: var(--dark-500);
+}
+.lead-time { font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-400); }
+
+/* ──────────────────────────────────────────── */
+/*  5. AI NURTURE / ACTIVITY FEED              */
+/* ──────────────────────────────────────────── */
+
+.two-col-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: clamp(16px, 7.27px + 2.182vw, 32px);
+  align-items: start;
+}
+@media (max-width: 900px) { .two-col-layout { grid-template-columns: 1fr; } }
+
+.panel {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-1);
+  border-radius: var(--r-5);
+  overflow: hidden;
+}
+.panel-header {
+  padding: clamp(18px, 9.82px + 2.045vw, 32px) clamp(20px, 10.91px + 2.273vw, 36px);
+  border-bottom: 1px solid var(--border-col-1);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
+}
+.panel-title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: var(--fs-6); letter-spacing: var(--ls-3); color: var(--dark-500);
+}
+.panel-body { padding: clamp(18px, 9.82px + 2.045vw, 32px) clamp(20px, 10.91px + 2.273vw, 36px); }
+
+.activity-feed { display: flex; flex-direction: column; }
+.activity-item {
+  display: flex; gap: var(--sp-5);
+  padding: var(--sp-6) 0;
+  border-bottom: 1px solid var(--border-col-1);
+  position: relative;
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-timeline {
+  display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0;
+}
+.activity-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--primary-400); flex-shrink: 0;
+  margin-top: 4px;
+}
+.activity-dot.grey  { background: var(--grey-300); }
+.activity-dot.warn  { background: #D4963E; }
+.activity-dot.green { background: #4CAF87; }
+.activity-line {
+  width: 1px; flex: 1; min-height: 20px;
+  background: var(--border-col-2); margin-top: 4px;
+}
+.activity-content { flex: 1; min-width: 0; }
+.activity-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-4); letter-spacing: var(--ls-4); color: var(--dark-500);
+  margin-bottom: 3px; line-height: var(--lh-4);
+}
+.activity-desc { font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-600); line-height: var(--lh-5); }
+.activity-time { font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-400); margin-top: 6px; }
+.activity-ai-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: var(--r-7);
+  background: var(--primary-100); color: var(--primary-700);
+  font-family: var(--font-display); font-size: var(--fs-1); font-weight: 700;
+  letter-spacing: var(--ls-6); text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ──────────────────────────────────────────── */
+/*  6. PERFORMANCE CHART AREA                  */
+/* ──────────────────────────────────────────── */
+
+.chart-area {
+  padding: clamp(16px, 8.73px + 1.818vw, 28px);
+  background: var(--cream-200);
+  border-radius: var(--r-4);
+  margin-bottom: var(--sp-6);
+}
+.chart-placeholder {
+  width: 100%; height: clamp(160px, 80px + 12vw, 240px);
+  position: relative;
+}
+.chart-svg { width: 100%; height: 100%; overflow: visible; }
+.chart-legend {
+  display: flex; gap: var(--sp-7); flex-wrap: wrap;
+  margin-top: var(--sp-5);
+}
+.chart-legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-size: var(--fs-2); font-weight: 700;
+  letter-spacing: var(--ls-5); text-transform: uppercase; color: var(--grey-600);
+}
+.chart-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* ──────────────────────────────────────────── */
+/*  7. QUICK ACTIONS / COMMAND                 */
+/* ──────────────────────────────────────────── */
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 4.55px + 1.364vw, 18px);
+}
+@media (max-width: 800px) { .quick-actions-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 440px) { .quick-actions-grid { grid-template-columns: 1fr; } }
+
+.quick-action {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-1);
+  border-radius: var(--r-4);
+  padding: clamp(20px, 10.91px + 2.273vw, 32px) clamp(16px, 8.73px + 1.818vw, 24px);
+  display: flex; flex-direction: column; gap: var(--sp-5);
+  cursor: pointer; transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
+  text-decoration: none;
+}
+.quick-action:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(11,11,11,0.09); border-color: var(--primary-300); }
+.quick-action-icon { /* icon-frame child */ }
+.quick-action-title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: var(--fs-5); letter-spacing: var(--ls-3); color: var(--dark-500);
+  line-height: var(--lh-4);
+}
+.quick-action-desc { font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-600); line-height: var(--lh-5); }
+.quick-action-arrow {
+  display: flex; align-items: center; gap: 4px;
+  font-family: var(--font-display); font-size: var(--fs-1); font-weight: 700;
+  letter-spacing: var(--ls-7); text-transform: uppercase; color: var(--primary-500);
+  transition: gap 0.2s;
+}
+.quick-action:hover .quick-action-arrow { gap: 8px; }
+
+/* ──────────────────────────────────────────── */
+/*  8. PROPERTY DETAIL HERO                    */
+/* ──────────────────────────────────────────── */
+
+.property-detail-hero {
+  background: var(--dark-500);
+  border-radius: var(--r-6);
+  overflow: hidden;
+  padding: clamp(28px, 15.27px + 3.182vw, 56px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 13.09px + 2.727vw, 48px);
+  align-items: center;
+  position: relative;
+  margin-bottom: clamp(24px, 13.09px + 2.727vw, 48px);
+}
+@media (max-width: 700px) { .property-detail-hero { grid-template-columns: 1fr; } }
+.property-detail-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(92,155,147,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-label {
+  font-family: var(--font-display); font-size: var(--fs-1); font-weight: 700;
+  letter-spacing: var(--ls-7); text-transform: uppercase; color: var(--primary-400);
+  margin-bottom: var(--sp-4);
+}
+.hero-address {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(24px, 13.09px + 2.727vw, 44px);
+  letter-spacing: var(--ls-2); line-height: var(--lh-2); color: var(--white-900);
+  margin-bottom: var(--sp-3);
+}
+.hero-city { font-family: var(--font-body); font-size: var(--fs-5); color: var(--white-500); margin-bottom: var(--sp-8); }
+.hero-price {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(32px, 18.18px + 3.455vw, 62px);
+  letter-spacing: var(--ls-1); color: var(--white-900); line-height: 1;
+  margin-bottom: var(--sp-4);
+}
+.hero-price-sub { font-family: var(--font-body); font-size: var(--fs-4); color: var(--white-400); }
+.hero-btns { display: flex; gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-8); }
+.hero-btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--primary-500); color: #fff;
+  border-radius: var(--r-3); border: none; cursor: pointer;
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-2);
+  letter-spacing: var(--ls-5); text-transform: uppercase;
+  transition: background 0.25s, transform 0.25s;
+}
+.hero-btn-primary:hover { background: var(--primary-400); transform: translateY(-1px); }
+.hero-btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--white-100); color: var(--white-800);
+  border-radius: var(--r-3); border: 1px solid var(--white-200); cursor: pointer;
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-2);
+  letter-spacing: var(--ls-5); text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  transition: background 0.25s, transform 0.25s;
+}
+.hero-btn-ghost:hover { background: var(--white-200); transform: translateY(-1px); }
+
+.hero-right { display: flex; flex-direction: column; gap: var(--sp-5); }
+.hero-img-block {
+  border-radius: var(--r-4); overflow: hidden;
+  height: clamp(180px, 100px + 12vw, 280px);
+  background: var(--white-100);
+  position: relative;
+}
+.hero-img-inner {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(92,155,147,0.2) 0%, rgba(26,48,46,0.4) 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-stats-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+.hero-stat {
+  background: var(--white-100); border-radius: var(--r-3);
+  padding: var(--sp-5) var(--sp-6);
+  border: 1px solid var(--white-200);
+}
+.hero-stat-label {
+  font-family: var(--font-display); font-size: var(--fs-1); font-weight: 700;
+  letter-spacing: var(--ls-7); text-transform: uppercase; color: var(--white-400);
+  margin-bottom: 4px;
+}
+.hero-stat-value {
+  font-family: var(--font-display); font-weight: 800; font-size: var(--fs-6);
+  letter-spacing: var(--ls-3); color: var(--white-900);
+}
+
+/* ──────────────────────────────────────────── */
+/*  9. FORM / CREATE CAMPAIGN                  */
+/* ──────────────────────────────────────────── */
+
+.form-panel {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-1);
+  border-radius: var(--r-5);
+  overflow: hidden;
+}
+.form-section-title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: var(--fs-5); letter-spacing: var(--ls-3); color: var(--dark-500);
+  margin-bottom: var(--sp-6);
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+.form-grid-full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: var(--sp-3); }
+.form-label {
+  font-family: var(--font-display); font-size: var(--fs-2); font-weight: 700;
+  letter-spacing: var(--ls-6); text-transform: uppercase; color: var(--grey-700);
+}
+.form-input, .form-select, .form-textarea {
+  font-family: var(--font-body); font-size: var(--fs-base); color: var(--dark-500);
+  background: var(--cream-200); border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-3); padding: 12px 16px; outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--primary-400); background: var(--cream-100);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--grey-400); }
+.form-textarea { min-height: 100px; resize: vertical; line-height: var(--lh-5); }
+.form-select { cursor: pointer; }
+
+.form-toggle-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.form-toggle {
+  padding: 8px 16px; border-radius: var(--r-7);
+  border: 1.5px solid var(--border-col-2);
+  background: transparent; cursor: pointer;
+  font-family: var(--font-display); font-size: var(--fs-2); font-weight: 700;
+  letter-spacing: var(--ls-5); text-transform: uppercase; color: var(--grey-600);
+  transition: all 0.2s;
+}
+.form-toggle.active { background: var(--primary-500); border-color: var(--primary-500); color: #fff; }
+.form-toggle:hover:not(.active) { border-color: var(--primary-300); color: var(--primary-600); }
+
+.budget-slider-wrap { display: flex; flex-direction: column; gap: var(--sp-4); }
+.budget-display {
+  font-family: var(--font-display); font-weight: 800; font-size: var(--fs-7);
+  letter-spacing: var(--ls-2); color: var(--dark-500);
+}
+.budget-slider {
+  -webkit-appearance: none; width: 100%; height: 6px;
+  border-radius: var(--r-7); background: var(--cream-400); outline: none;
+}
+.budget-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--primary-500); cursor: pointer;
+  box-shadow: 0 2px 8px rgba(92,155,147,0.4);
+  transition: transform 0.2s;
+}
+.budget-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+.form-footer {
+  padding: clamp(18px, 9.82px + 2.045vw, 32px) clamp(20px, 10.91px + 2.273vw, 36px);
+  border-top: 1px solid var(--border-col-1);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-5);
+  flex-wrap: wrap;
+}
+
+/* ──────────────────────────────────────────── */
+/*  10. NOTIFICATIONS / ALERTS                 */
+/* ──────────────────────────────────────────── */
+
+.alert {
+  display: flex; align-items: flex-start; gap: var(--sp-5);
+  padding: clamp(14px, 7.64px + 1.591vw, 22px) clamp(16px, 8.73px + 1.818vw, 24px);
+  border-radius: var(--r-4); border-left: 3px solid;
+  margin-bottom: var(--sp-5);
+}
+.alert:last-child { margin-bottom: 0; }
+.alert-primary { background: var(--primary-100); border-color: var(--primary-500); }
+.alert-warn    { background: #FEF3E2; border-color: #D4963E; }
+.alert-success { background: #E6F4F0; border-color: #4CAF87; }
+.alert-neutral { background: var(--cream-200); border-color: var(--grey-300); }
+.alert-content { flex: 1; }
+.alert-title {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-4);
+  letter-spacing: var(--ls-3); color: var(--dark-500); margin-bottom: 4px;
+}
+.alert-desc { font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-700); line-height: var(--lh-5); }
+.alert-close {
+  background: none; border: none; cursor: pointer; color: var(--grey-400);
+  flex-shrink: 0; transition: color 0.2s; padding: 2px;
+}
+.alert-close:hover { color: var(--dark-500); }
+
+/* ──────────────────────────────────────────── */
+/*  DARK SECTION                               */
+/* ──────────────────────────────────────────── */
+
+.section-dark {
+  background: var(--dark-500);
+  border-radius: var(--r-6);
+  padding: clamp(32px, 17.45px + 3.636vw, 64px) clamp(28px, 15.27px + 3.182vw, 56px);
+  margin-bottom: clamp(48px, 22.91px + 6.273vw, 100px);
+}
+.section-dark .section-label { color: var(--primary-400); }
+.section-dark .section-title { color: var(--white-900); }
+
+.metrics-dark-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 5.45px + 1.636vw, 20px);
+}
+@media (max-width: 680px) { .metrics-dark-grid { grid-template-columns: 1fr; } }
+
+.metric-dark-card {
+  background: var(--white-100);
+  border: 1px solid var(--white-200);
+  border-radius: var(--r-4);
+  padding: clamp(20px, 10.91px + 2.273vw, 32px);
+}
+.metric-dark-label {
+  font-family: var(--font-display); font-size: var(--fs-1); font-weight: 700;
+  letter-spacing: var(--ls-7); text-transform: uppercase; color: var(--white-400);
+  margin-bottom: var(--sp-4);
+}
+.metric-dark-value {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(28px, 16.36px + 2.909vw, 44px);
+  letter-spacing: var(--ls-2); color: var(--white-900); line-height: 1;
+  margin-bottom: var(--sp-2);
+}
+.metric-dark-sub { font-family: var(--font-body); font-size: var(--fs-3); color: var(--white-400); }
+.metric-dark-delta {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-display); font-size: var(--fs-2); font-weight: 700;
+  letter-spacing: var(--ls-4); color: var(--primary-400); margin-top: var(--sp-3);
+}
+
+/* ──────────────────────────────────────────── */
+/*  TABLE                                      */
+/* ──────────────────────────────────────────── */
+
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table thead th {
+  font-family: var(--font-display); font-size: var(--fs-1); font-weight: 700;
+  letter-spacing: var(--ls-7); text-transform: uppercase; color: var(--grey-500);
+  padding: var(--sp-4) var(--sp-6); text-align: left;
+  border-bottom: 1px solid var(--border-col-2);
+  white-space: nowrap;
+}
+.data-table tbody tr {
+  border-bottom: 1px solid var(--border-col-1);
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.data-table tbody tr:hover { background: var(--cream-200); }
+.data-table tbody tr:last-child { border-bottom: none; }
+.data-table tbody td {
+  padding: var(--sp-5) var(--sp-6);
+  font-family: var(--font-body); font-size: var(--fs-base);
+  color: var(--dark-500); vertical-align: middle;
+}
+.table-name-cell { display: flex; align-items: center; gap: var(--sp-4); }
+.table-avatar {
+  width: 36px; height: 36px; border-radius: var(--r-7); flex-shrink: 0;
+  background: var(--primary-100); color: var(--primary-700);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: var(--fs-2);
+}
+.table-name { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-4); letter-spacing: var(--ls-3); }
+.table-sub  { font-family: var(--font-body); font-size: var(--fs-3); color: var(--grey-500); }
+.table-amount { font-family: var(--font-display); font-weight: 700; letter-spacing: var(--ls-3); }
+
+/* ──────────────────────────────────────────── */
+/*  MISC UTILITIES                             */
+/* ──────────────────────────────────────────── */
+
+.divider { height: 1px; background: var(--border-col-1); margin: clamp(40px, 19.64px + 5.091vw, 80px) 0; }
+
+.text-muted { color: var(--grey-600); }
+
+.flex-between { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-4); }
+.flex-center  { display: flex; align-items: center; gap: var(--sp-4); }
+
+/* Fade-in on load */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.10s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.20s; }
+.delay-5 { animation-delay: 0.25s; }
+.delay-6 { animation-delay: 0.30s; }
+
+/* Property image SVG placeholder gradients */
+.prop-grad-1 { background: linear-gradient(135deg, #D4E7E5 0%, #AECFCB 100%); }
+.prop-grad-2 { background: linear-gradient(135deg, #EAE6DE 0%, #C4BDB0 100%); }
+.prop-grad-3 { background: linear-gradient(135deg, #2A4A46 0%, #3A6560 100%); }
+.prop-grad-4 { background: linear-gradient(135deg, #D4CEC3 0%, #A8A096 100%); }
+.prop-grad-5 { background: linear-gradient(135deg, #1A302E 0%, #2A4A46 100%); }
+.prop-grad-6 { background: linear-gradient(135deg, #83B5AF 0%, #5C9B93 100%); }
+
+.prop-img-icon {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.4);
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--cream-300); }
+::-webkit-scrollbar-thumb { background: var(--cream-600); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="main-content">
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  OVERVIEW STATS                         -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section fade-up">
+    <div class="flex-between" style="margin-bottom: clamp(20px,10.91px + 2.273vw,36px)">
+      <div>
+        <div class="section-label">Good morning</div>
+        <h1 style="font-family:var(--font-display);font-weight:800;font-size:var(--fs-7);letter-spacing:var(--ls-2);line-height:var(--lh-2);color:var(--dark-500)">Your Portfolio Overview</h1>
+      </div>
+      <div class="flex-center" style="gap:var(--sp-4)">
+        <button class="btn btn-outline btn-sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          May 2025
+        </button>
+        <button class="btn btn-primary btn-sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Property
+        </button>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-card-accent fade-up delay-1">
+        <div class="stat-top">
+          <div class="stat-label">Portfolio Value</div>
+          <div class="icon-frame icon-frame-sm" style="background:var(--white-100);color:var(--white-600)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">$42.6M</div>
+        <div class="stat-delta">↑ 12.4% vs last quarter</div>
+        <div class="stat-sub">Across 18 active listings</div>
+      </div>
+
+      <div class="stat-card fade-up delay-2">
+        <div class="stat-top">
+          <div class="stat-label">Active Leads</div>
+          <div class="icon-frame icon-frame-sm icon-frame-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">247</div>
+        <div class="stat-delta">↑ 38 new this week</div>
+        <div class="stat-sub">84 AI-nurtured sequences running</div>
+        <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+          <polyline points="0,32 25,28 50,22 75,26 100,18 125,14 150,10 175,8 200,4" fill="none" stroke="var(--primary-300)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polygon points="0,40 0,32 25,28 50,22 75,26 100,18 125,14 150,10 175,8 200,4 200,40" fill="var(--primary-100)" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <div class="stat-card fade-up delay-3">
+        <div class="stat-top">
+          <div class="stat-label">Avg. Days on Market</div>
+          <div class="icon-frame icon-frame-sm icon-frame-cream">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">18<span style="font-size:var(--fs-6);color:var(--grey-500)">d</span></div>
+        <div class="stat-delta" style="color:#4CAF87">↓ 6 days faster than market</div>
+        <div class="stat-sub">Market avg: 24 days</div>
+      </div>
+
+      <div class="stat-card fade-up delay-4">
+        <div class="stat-top">
+          <div class="stat-label">Ad Spend ROI</div>
+          <div class="icon-frame icon-frame-sm icon-frame-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+        </div>
+        <div class="stat-value">8.3×</div>
+        <div class="stat-delta">↑ 1.2× vs prior 90 days</div>
+        <div class="stat-sub">$14.2K spend · $118K pipeline</div>
+        <svg class="sparkline" viewBox="0 0 200 40" preserveAspectRatio="none">
+          <polyline points="0,36 25,30 50,34 75,24 100,20 125,22 150,14 175,10 200,6" fill="none" stroke="var(--primary-300)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polygon points="0,40 0,36 25,30 50,34 75,24 100,20 125,22 150,14 175,10 200,6 200,40" fill="var(--primary-100)" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  QUICK ACTIONS                          -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section fade-up delay-2">
+    <div class="section-label">Get started</div>
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="quick-actions-grid">
+      <a class="quick-action" href="#">
+        <div class="icon-frame icon-frame-md icon-frame-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <div class="quick-action-title">Add Listing</div>
+          <div class="quick-action-desc">Publish a new property to your portfolio and funnel pages.</div>
+        </div>
+        <div class="quick-action-arrow">
+          Start
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="quick-action" href="#">
+        <div class="icon-frame icon-frame-md icon-frame-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div>
+          <div class="quick-action-title">Launch Campaign</div>
+          <div class="quick-action-desc">Create a new Meta, Google, or YouTube ad campaign.</div>
+        </div>
+        <div class="quick-action-arrow">
+          Start
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="quick-action" href="#">
+        <div class="icon-frame icon-frame-md icon-frame-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div>
+          <div class="quick-action-title">AI Nurture</div>
+          <div class="quick-action-desc">Set up an automated lead nurture sequence.</div>
+        </div>
+        <div class="quick-action-arrow">
+          Start
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a class="quick-action" href="#">
+        <div class="icon-frame icon-frame-md icon-frame-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07M8.46 8.46a5 5 0 000 7.07"/></svg>
+        </div>
+        <div>
+          <div class="quick-action-title">SEO Report</div>
+          <div class="quick-action-desc">View your latest search visibility and content performance.</div>
+        </div>
+        <div class="quick-action-arrow">
+          View
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  PROPERTY PORTFOLIO                     -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="portfolio-header">
+      <div>
+        <div class="section-label">Your listings</div>
+        <h2 class="section-title" style="margin-bottom:0">Property Portfolio</h2>
+      </div>
+      <div class="portfolio-controls">
+        <div class="search-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Search properties…">
+        </div>
+        <button class="filter-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          Filter
+        </button>
+        <div class="view-toggle">
+          <button class="active">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </button>
+          <button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="property-grid">
+      <!-- Card 1 -->
+      <div class="property-card">
+        <div class="property-img prop-grad-6">
+          <div class="property-img-overlay"></div>
+          <div class="property-img-badges">
+            <span class="pill pill-dark">Active</span>
+            <span class="pill" style="background:var(--white-200);color:#fff;backdrop-filter:blur(8px)">Featured</span>
+          </div>
+          <div class="property-img-price">$4,850,000</div>
+          <div class="property-actions-hover">
+            <button class="prop-action-btn" title="Edit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button class="prop-action-btn" title="Share">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
+          </div>
+          <div class="prop-img-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+        </div>
+        <div class="property-body">
+          <div class="property-address">2847 Pacific Coast Hwy</div>
+          <div class="property-city">Malibu, CA 90265</div>
+          <div class="property-specs">
+            <div class="prop-spec">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              5 bd
+            </div>
+            <div class="prop-spec">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M4 6h16"/><path d="M4 18h7"/></svg>
+              4.5 ba
+            </div>
+            <div class="prop-spec">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              6,240 sf
+            </div>
+          </div>
+          <div class="property-footer">
+            <div class="property-footer-stat">
+              <span>Views</span>
+              4,820
+            </div>
+            <div class="property-footer-stat">
+              <span>Inquiries</span>
+              38
+            </div>
+            <div class="property-footer-stat">
+              <span>Days listed</span>
+              11
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="property-card">
+        <div class="property-img prop-grad-1">
+          <div class="property-img-overlay"></div>
+          <div class="property-img-badges">
+            <span class="pill pill-primary">Open House</span>
+          </div>
+          <div class="property-img-price">$2,195,000</div>
+          <div class="property-actions-hover">
+            <button class="prop-action-btn" title="Edit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button class="prop-action-btn" title="Share">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
+          </div>
+          <div class="prop-img-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+        </div>
+        <div class="property-body">
+          <div class="property-address">14 Seabreeze Court</div>
+          <div class="property-city">Newport Beach, CA 92663</div>
+          <div class="property-specs">
+            <div class="prop-spec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg> 4 bd</div>
+            <div class="prop-spec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M4 6h16"/><path d="M4 18h7"/></svg> 3 ba</div>
+            <div class="prop-spec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> 3,810 sf</div>
+          </div>
+          <div class="property-footer">
+            <div class="property-footer-stat"><span>Views</span>2,340</div>
+            <div class="property-footer-stat"><span>Inquiries</span>19</div>
+            <div class="property-footer-stat"><span>Days listed</span>8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="property-card">
+        <div class="property-img prop-grad-3">
+          <div class="property-img-overlay"></div>
+          <div class="property-img-badges">
+            <span class="pill" style="background:var(--white-200);color:#fff;backdrop-filter:blur(8px)">Under Contract</span>
+          </div>
+          <div class="property-img-price">$7,400,000</div>
+          <div class="property-actions-hover">
+            <button class="prop-action-btn" title="Edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+            <button class="prop-action-btn" title="Share"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+          </div>
+          <div class="prop-img-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+        </div>
+        <div class="property-body">
+          <div class="property-address">8901 Mulholland Drive</div>
+          <div class="property-city">Bel Air, CA 90210</div>
+          <div class="property-specs">
+            <div class="prop-spec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg> 7 bd</div>
+            <div class="prop-spec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M4 6h16"/><path d="M4 18h7"/></svg> 6 ba</div>
+            <div class="prop-spec"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> 9,600 sf</div>
+          </div>
+          <div class="property-footer">
+            <div class="property-footer-stat"><span>Views</span>11,240</div>
+            <div class="property-footer-stat"><span>Inquiries</span>62</div>
+            <div class="property-footer-stat"><span>Days listed</span>5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  PROPERTY DETAIL HERO                   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Property detail view</div>
+    <h2 class="section-title">Listing Overview</h2>
+    <div class="property-detail-hero">
+      <div>
+        <div class="hero-label">Active Listing · Malibu, CA</div>
+        <div class="hero-address">2847 Pacific<br>Coast Hwy</div>
+        <div class="hero-city">Malibu, CA 90265 · 6,240 sq ft</div>
+        <div class="hero-price">$4,850,000</div>
+        <div class="hero-price-sub">5 bd · 4.5 ba · Listed May 14, 2025</div>
+        <div class="hero-btns">
+          <button class="hero-btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit Listing
+          </button>
+          <button class="hero-btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Boost Campaign
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-img-block">
+          <div class="hero-img-inner">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+        </div>
+        <div class="hero-stats-row">
+          <div class="hero-stat">
+            <div class="hero-stat-label">Views</div>
+            <div class="hero-stat-value">4,820</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-label">Leads</div>
+            <div class="hero-stat-value">38</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-label">DOM</div>
+            <div class="hero-stat-value">11</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  CAMPAIGN MANAGER                       -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="flex-between" style="margin-bottom:clamp(20px,10.91px + 2.273vw,36px)">
+      <div>
+        <div class="section-label">Paid media</div>
+        <h2 class="section-title" style="margin-bottom:0">Campaign Manager</h2>
+      </div>
+      <button class="btn btn-primary btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Campaign
+      </button>
+    </div>
+
+    <!-- Table header row -->
+    <div class="campaign-row" style="background:transparent;border-color:transparent;cursor:default;padding-bottom:var(--sp-3)" id="campaign-header">
+      <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500)">Campaign</div>
+      <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500)" class="campaign-row-meta">Status</div>
+      <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500)" class="campaign-row-meta">Spend</div>
+      <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500)" class="campaign-row-meta">Leads</div>
+      <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--grey-500)" class="campaign-row-meta">ROI</div>
+      <div></div>
+    </div>
+
+    <div class="campaigns-list">
+      <div class="campaign-row">
+        <div class="campaign-name-block">
+          <div class="campaign-name">Malibu Coastal — Meta</div>
+          <div class="campaign-sub">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Meta Ads · 2847 Pacific Coast Hwy
+          </div>
+        </div>
+        <div class="campaign-row-meta"><span class="pill pill-success">Live</span></div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">Spend</div>
+          <div class="campaign-metric-value">$3,840</div>
+          <div class="campaign-metric-delta">of $5,000</div>
+        </div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">Leads</div>
+          <div class="campaign-metric-value">24</div>
+          <div class="campaign-metric-delta">↑ 8 this week</div>
+        </div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">ROI</div>
+          <div class="campaign-metric-value">9.4×</div>
+          <div class="campaign-metric-delta">↑ 1.2×</div>
+        </div>
+        <div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-track"><div class="progress-bar-fill" style="width:77%"></div></div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-6);text-transform:uppercase;color:var(--grey-500)">77% budget</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-row">
+        <div class="campaign-name-block">
+          <div class="campaign-name">Bel Air Brand — Google</div>
+          <div class="campaign-sub">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Google Search · 8901 Mulholland Drive
+          </div>
+        </div>
+        <div class="campaign-row-meta"><span class="pill pill-warn">Paused</span></div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">Spend</div>
+          <div class="campaign-metric-value">$6,200</div>
+          <div class="campaign-metric-delta">of $8,000</div>
+        </div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">Leads</div>
+          <div class="campaign-metric-value">41</div>
+          <div class="campaign-metric-delta">+3 pending review</div>
+        </div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">ROI</div>
+          <div class="campaign-metric-value">11.8×</div>
+          <div class="campaign-metric-delta">Top campaign</div>
+        </div>
+        <div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-track"><div class="progress-bar-fill warn" style="width:78%"></div></div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-6);text-transform:uppercase;color:var(--grey-500)">78% budget</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-row">
+        <div class="campaign-name-block">
+          <div class="campaign-name">Newport Lifestyle — YouTube</div>
+          <div class="campaign-sub">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            YouTube · 14 Seabreeze Court
+          </div>
+        </div>
+        <div class="campaign-row-meta"><span class="pill pill-success">Live</span></div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">Spend</div>
+          <div class="campaign-metric-value">$2,100</div>
+          <div class="campaign-metric-delta">of $6,000</div>
+        </div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">Leads</div>
+          <div class="campaign-metric-value">12</div>
+          <div class="campaign-metric-delta">↑ 5 this week</div>
+        </div>
+        <div class="campaign-metric campaign-row-meta">
+          <div class="campaign-metric-label">ROI</div>
+          <div class="campaign-metric-value">6.2×</div>
+          <div class="campaign-metric-delta">↑ 0.8×</div>
+        </div>
+        <div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-track"><div class="progress-bar-fill" style="width:35%"></div></div>
+            <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-6);text-transform:uppercase;color:var(--grey-500)">35% budget</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  PERFORMANCE (DARK SECTION)             -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-dark">
+    <div class="section-label">Growth metrics</div>
+    <div class="flex-between" style="margin-bottom:clamp(24px,13.09px + 2.727vw,48px)">
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--fs-7);letter-spacing:var(--ls-2);line-height:var(--lh-2);color:var(--white-900)">90-Day Performance</h2>
+      <div class="flex-center">
+        <button class="btn btn-ghost btn-sm" style="color:var(--white-500);border-bottom-color:transparent">Export</button>
+        <button class="btn btn-sm" style="background:var(--white-100);color:var(--white-800);border:1px solid var(--white-200);border-radius:var(--r-3)">Full Report</button>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div style="background:var(--white-100);border-radius:var(--r-4);padding:clamp(20px,10.91px + 2.273vw,32px);margin-bottom:clamp(24px,13.09px + 2.727vw,40px);border:1px solid var(--white-200)">
+      <div style="margin-bottom:var(--sp-6)">
+        <div style="font-family:var(--font-display);font-size:var(--fs-2);font-weight:700;letter-spacing:var(--ls-6);text-transform:uppercase;color:var(--white-400);margin-bottom:4px">Lead Volume</div>
+        <div style="font-family:var(--font-display);font-weight:800;font-size:var(--fs-7);letter-spacing:var(--ls-2);color:var(--white-900)">247 leads <span style="font-size:var(--fs-5);color:var(--primary-400);font-weight:700">↑ 38%</span></div>
+      </div>
+      <svg viewBox="0 0 600 120" style="width:100%;height:clamp(80px,40px+6vw,140px)" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5C9B93" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#5C9B93" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="0,100 0,80 50,72 100,68 150,60 200,55 250,48 300,42 350,38 400,30 450,24 500,18 550,10 600,6 600,100" fill="url(#chartGrad)"/>
+        <polyline points="0,80 50,72 100,68 150,60 200,55 250,48 300,42 350,38 400,30 450,24 500,18 550,10 600,6" fill="none" stroke="#5C9B93" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Dots -->
+        <circle cx="0" cy="80" r="4" fill="#5C9B93"/>
+        <circle cx="150" cy="60" r="4" fill="#5C9B93"/>
+        <circle cx="300" cy="42" r="4" fill="#5C9B93"/>
+        <circle cx="450" cy="24" r="4" fill="#5C9B93"/>
+        <circle cx="600" cy="6" r="4" fill="#5C9B93"/>
+        <!-- Month labels -->
+        <text x="0" y="116" fill="rgba(255,255,255,0.3)" font-family="Manrope" font-size="8" font-weight="700" letter-spacing="1">FEB</text>
+        <text x="140" y="116" fill="rgba(255,255,255,0.3)" font-family="Manrope" font-size="8" font-weight="700" letter-spacing="1">MAR</text>
+        <text x="290" y="116" fill="rgba(255,255,255,0.3)" font-family="Manrope" font-size="8" font-weight="700" letter-spacing="1">APR</text>
+        <text x="440" y="116" fill="rgba(255,255,255,0.3)" font-family="Manrope" font-size="8" font-weight="700" letter-spacing="1">MAY</text>
+      </svg>
+    </div>
+
+    <div class="metrics-dark-grid">
+      <div class="metric-dark-card">
+        <div class="metric-dark-label">Total Pipeline Value</div>
+        <div class="metric-dark-value">$118.4M</div>
+        <div class="metric-dark-sub">Across all active leads</div>
+        <div class="metric-dark-delta">↑ 24% vs prior period</div>
+      </div>
+      <div class="metric-dark-card">
+        <div class="metric-dark-label">Conversion Rate</div>
+        <div class="metric-dark-value">14.8%</div>
+        <div class="metric-dark-sub">Lead → showing</div>
+        <div class="metric-dark-delta">↑ 3.2pp improvement</div>
+      </div>
+      <div class="metric-dark-card">
+        <div class="metric-dark-label">Cost Per Lead</div>
+        <div class="metric-dark-value">$57</div>
+        <div class="metric-dark-sub">Blended, all channels</div>
+        <div class="metric-dark-delta">↓ 18% more efficient</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  LEAD PIPELINE KANBAN                   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">CRM</div>
+    <h2 class="section-title">Lead Pipeline</h2>
+    <div class="kanban-board">
+      <!-- New -->
+      <div class="kanban-col col-new">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title">New</div>
+          <div class="kanban-count">12</div>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-top">
+            <div class="lead-avatar">SR</div>
+            <div>
+              <div class="lead-name">Sarah R.</div>
+              <div class="lead-source">Via Meta Ad</div>
+            </div>
+          </div>
+          <div class="lead-property">Interested in: 2847 Pacific Coast Hwy</div>
+          <div class="lead-card-footer">
+            <div class="lead-budget">$5–6M budget</div>
+            <div class="lead-time">2h ago</div>
+          </div>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-top">
+            <div class="lead-avatar" style="background:var(--cream-400);color:var(--grey-700)">MT</div>
+            <div>
+              <div class="lead-name">Michael T.</div>
+              <div class="lead-source">Via Website</div>
+            </div>
+          </div>
+          <div class="lead-property">Browsing: Bel Air, Malibu areas</div>
+          <div class="lead-card-footer">
+            <div class="lead-budget">$3–4M budget</div>
+            <div class="lead-time">5h ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Qualified -->
+      <div class="kanban-col col-qualified">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title">Qualified</div>
+          <div class="kanban-count">8</div>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-top">
+            <div class="lead-avatar" style="background:var(--primary-200);color:var(--primary-800)">JL</div>
+            <div>
+              <div class="lead-name">Jennifer L.</div>
+              <div class="lead-source">Via Google Ad</div>
+            </div>
+          </div>
+          <div class="lead-property">8901 Mulholland Drive · Toured once</div>
+          <div class="lead-card-footer">
+            <div class="lead-budget">$8–10M budget</div>
+            <div class="lead-time">1d ago</div>
+          </div>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-top">
+            <div class="lead-avatar" style="background:var(--primary-100);color:var(--primary-700)">DK</div>
+            <div>
+              <div class="lead-name">David K.</div>
+              <div class="lead-source">Referral</div>
+            </div>
+          </div>
+          <div class="lead-property">14 Seabreeze Court · 2nd showing scheduled</div>
+          <div class="lead-card-footer">
+            <div class="lead-budget">$2.2–2.5M</div>
+            <div class="lead-time">2d ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active -->
+      <div class="kanban-col col-active">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title">Active</div>
+          <div class="kanban-count">5</div>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-top">
+            <div class="lead-avatar" style="background:#FEF3E2;color:#92610A">AM</div>
+            <div>
+              <div class="lead-name">Amanda M.</div>
+              <div class="lead-source">Via YouTube</div>
+            </div>
+          </div>
+          <div class="lead-property">8901 Mulholland · Offer pending review</div>
+          <div class="lead-card-footer">
+            <div class="lead-budget">Offer: $7.2M</div>
+            <div class="lead-time">Today</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Closed -->
+      <div class="kanban-col col-closed">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title">Closed</div>
+          <div class="kanban-count">3</div>
+        </div>
+        <div class="lead-card">
+          <div class="lead-card-top">
+            <div class="lead-avatar" style="background:#E6F4F0;color:#2D7A5C">RB</div>
+            <div>
+              <div class="lead-name">Robert B.</div>
+              <div class="lead-source">Via SEO</div>
+            </div>
+          </div>
+          <div class="lead-property">2847 Pacific Coast · Closed $4.85M</div>
+          <div class="lead-card-footer">
+            <div class="lead-budget" style="color:#2D7A5C">Sold ✓</div>
+            <div class="lead-time">3d ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  ACTIVITY FEED + AI NURTURE             -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Automation</div>
+    <h2 class="section-title">Activity & AI Nurture</h2>
+    <div class="two-col-layout">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Recent Activity</div>
+          <button class="btn btn-ghost btn-sm">View all</button>
+        </div>
+        <div class="panel-body" style="padding-top:0">
+          <div class="activity-feed">
+            <div class="activity-item">
+              <div class="activity-timeline">
+                <div class="activity-dot"></div>
+                <div class="activity-line"></div>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">AI sent follow-up to Jennifer L.</div>
+                <div class="activity-desc">Personalized email sequence triggered after 3-day silence. Included Mulholland Dr virtual tour link.</div>
+                <div class="activity-ai-badge">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M4.93 4.93a10 10 0 000 14.14"/></svg>
+                  AI Action
+                </div>
+                <div class="activity-time">2 minutes ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-timeline">
+                <div class="activity-dot green"></div>
+                <div class="activity-line"></div>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">New lead: Sarah R. submitted inquiry</div>
+                <div class="activity-desc">Pacific Coast Hwy listing. Budget $5–6M. Entered AI nurture sequence automatically.</div>
+                <div class="activity-time">2 hours ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-timeline">
+                <div class="activity-dot warn"></div>
+                <div class="activity-line"></div>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">Campaign budget 77% — Malibu Coastal Meta</div>
+                <div class="activity-desc">Recommend reviewing creative or expanding budget to maintain lead velocity.</div>
+                <div class="activity-time">4 hours ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-timeline">
+                <div class="activity-dot grey"></div>
+                <div class="activity-line"></div>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">SEO report published</div>
+                <div class="activity-desc">Your Malibu content ranked #3 for "luxury homes Malibu CA". 1,240 organic sessions this week.</div>
+                <div class="activity-time">Yesterday</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-timeline">
+                <div class="activity-dot green"></div>
+              </div>
+              <div class="activity-content">
+                <div class="activity-title">Listing published: 14 Seabreeze Court</div>
+                <div class="activity-desc">Went live on website, MLS sync complete, campaign connected.</div>
+                <div class="activity-time">2 days ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: AI Nurture Status -->
+      <div style="display:flex;flex-direction:column;gap:clamp(12px,5.45px + 1.636vw,20px)">
+        <div class="panel">
+          <div class="panel-header" style="padding:clamp(16px,8.73px + 1.818vw,24px)">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-frame icon-frame-sm icon-frame-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+              </div>
+              <div class="panel-title" style="font-size:var(--fs-5)">AI Nurture</div>
+            </div>
+            <span class="pill pill-success">Active</span>
+          </div>
+          <div class="panel-body" style="padding:clamp(16px,8.73px + 1.818vw,24px)">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-5)">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-600)">Sequences running</div>
+                <div style="font-family:var(--font-display);font-weight:700;font-size:var(--fs-5);letter-spacing:var(--ls-3);color:var(--dark-500)">84</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-600)">Emails sent this month</div>
+                <div style="font-family:var(--font-display);font-weight:700;font-size:var(--fs-5);letter-spacing:var(--ls-3);color:var(--dark-500)">1,248</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-600)">Avg open rate</div>
+                <div style="font-family:var(--font-display);font-weight:700;font-size:var(--fs-5);letter-spacing:var(--ls-3);color:var(--primary-600)">64%</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-family:var(--font-body);font-size:var(--fs-3);color:var(--grey-600)">Replies received</div>
+                <div style="font-family:var(--font-display);font-weight:700;font-size:var(--fs-5);letter-spacing:var(--ls-3);color:var(--dark-500)">38</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="panel">
+          <div class="panel-header" style="padding:clamp(16px,8.73px + 1.818vw,24px)">
+            <div class="panel-title" style="font-size:var(--fs-5)">Alerts</div>
+            <span class="pill pill-warn">3 new</span>
+          </div>
+          <div class="panel-body" style="padding:clamp(16px,8.73px + 1.818vw,24px)">
+            <div class="alert alert-warn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4963E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div class="alert-content">
+                <div class="alert-title">Budget Alert</div>
+                <div class="alert-desc">Malibu Coastal campaign at 77% spend with 11 days remaining.</div>
+              </div>
+            </div>
+            <div class="alert alert-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div class="alert-content">
+                <div class="alert-title">New Showing Request</div>
+                <div class="alert-desc">Jennifer L. requested a second showing for Mulholland Drive.</div>
+              </div>
+            </div>
+            <div class="alert alert-success" style="margin-bottom:0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D7A5C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><polyline points="20 6 9 17 4 12"/></svg>
+              <div class="alert-content">
+                <div class="alert-title">Offer Received</div>
+                <div class="alert-desc">Amanda M. submitted $7.2M offer on 8901 Mulholland Drive.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  CREATE CAMPAIGN FORM                   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">New Campaign</div>
+    <h2 class="section-title">Launch a Campaign</h2>
+    <div class="form-panel">
+      <div class="panel-header">
+        <div class="panel-title">Campaign Details</div>
+        <div class="flex-center" style="gap:var(--sp-3)">
+          <span class="pill pill-cream">Step 1 of 3</span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="form-section-title">Select Property & Platform</div>
+        <div class="form-grid" style="margin-bottom:var(--sp-8)">
+          <div class="form-group form-grid-full">
+            <label class="form-label">Property</label>
+            <select class="form-select">
+              <option>2847 Pacific Coast Hwy — Malibu, CA</option>
+              <option>14 Seabreeze Court — Newport Beach, CA</option>
+              <option>8901 Mulholland Drive — Bel Air, CA</option>
+            </select>
+          </div>
+          <div class="form-group form-grid-full">
+            <label class="form-label">Ad Platform</label>
+            <div class="form-toggle-group">
+              <button class="form-toggle active">Meta</button>
+              <button class="form-toggle">Google</button>
+              <button class="form-toggle">YouTube</button>
+              <button class="form-toggle">All Channels</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Campaign Name</label>
+            <input class="form-input" type="text" placeholder="e.g. Malibu Coastal Spring 2025">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Audience</label>
+            <select class="form-select">
+              <option>Luxury Buyers ($5M+)</option>
+              <option>Move-Up Buyers ($2–5M)</option>
+              <option>Investors</option>
+              <option>Custom Audience</option>
+            </select>
+          </div>
+          <div class="form-group form-grid-full">
+            <label class="form-label">Campaign Goal</label>
+            <div class="form-toggle-group">
+              <button class="form-toggle active">Lead Generation</button>
+              <button class="form-toggle">Brand Awareness</button>
+              <button class="form-toggle">Retargeting</button>
+            </div>
+          </div>
+          <div class="form-group form-grid-full">
+            <label class="form-label">Monthly Budget</label>
+            <div class="budget-slider-wrap">
+              <div class="budget-display">$5,000 / mo</div>
+              <input class="budget-slider" type="range" min="1000" max="20000" step="500" value="5000" oninput="this.previousElementSibling.textContent = '$' + Number(this.value).toLocaleString() + ' / mo'">
+              <div style="display:flex;justify-content:space-between;font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-6);text-transform:uppercase;color:var(--grey-400)">
+                <span>$1,000</span><span>$20,000</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group form-grid-full">
+            <label class="form-label">Campaign Brief <span style="color:var(--grey-400);font-weight:400;text-transform:none;letter-spacing:0"> — optional, AI uses this to write your ad copy</span></label>
+            <textarea class="form-textarea" placeholder="Describe the property's best features, target buyer, and any key selling points you want highlighted…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button class="btn btn-ghost btn-md">Save Draft</button>
+        <div class="flex-center" style="gap:var(--sp-4)">
+          <button class="btn btn-outline btn-md">Preview</button>
+          <button class="btn btn-primary btn-md">
+            Continue
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  LEAD TABLE                             -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">All Contacts</div>
+    <h2 class="section-title">Lead Directory</h2>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">247 Active Leads</div>
+        <div class="flex-center" style="gap:var(--sp-4)">
+          <div class="search-bar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search leads…">
+          </div>
+          <button class="btn btn-primary btn-sm">Export CSV</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Contact</th>
+              <th>Property Interest</th>
+              <th>Source</th>
+              <th>Budget</th>
+              <th>Stage</th>
+              <th>Last Touch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="table-name-cell">
+                  <div class="table-avatar">JL</div>
+                  <div><div class="table-name">Jennifer Lawrence</div><div class="table-sub">jennifer@example.com</div></div>
+                </div>
+              </td>
+              <td>8901 Mulholland Drive</td>
+              <td><span class="pill pill-primary">Google</span></td>
+              <td class="table-amount">$8–10M</td>
+              <td><span class="pill pill-warn">Qualified</span></td>
+              <td><span class="text-muted">1 day ago</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="table-name-cell">
+                  <div class="table-avatar" style="background:var(--cream-400);color:var(--grey-700)">SR</div>
+                  <div><div class="table-name">Sarah Reynolds</div><div class="table-sub">sarah.r@example.com</div></div>
+                </div>
+              </td>
+              <td>2847 Pacific Coast Hwy</td>
+              <td><span class="pill pill-primary">Meta</span></td>
+              <td class="table-amount">$5–6M</td>
+              <td><span class="pill" style="background:var(--grey-100);color:var(--grey-700)">New</span></td>
+              <td><span class="text-muted">2 hours ago</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="table-name-cell">
+                  <div class="table-avatar" style="background:#E6F4F0;color:#2D7A5C">RB</div>
+                  <div><div class="table-name">Robert Blake</div><div class="table-sub">rblake@example.com</div></div>
+                </div>
+              </td>
+              <td>2847 Pacific Coast Hwy</td>
+              <td><span class="pill" style="background:var(--cream-400);color:var(--grey-700)">SEO</span></td>
+              <td class="table-amount">$4.85M</td>
+              <td><span class="pill pill-success">Closed ✓</span></td>
+              <td><span class="text-muted">3 days ago</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="table-name-cell">
+                  <div class="table-avatar" style="background:var(--primary-200);color:var(--primary-800)">DK</div>
+                  <div><div class="table-name">David Kim</div><div class="table-sub">d.kim@example.com</div></div>
+                </div>
+              </td>
+              <td>14 Seabreeze Court</td>
+              <td><span class="pill" style="background:var(--cream-400);color:var(--grey-700)">Referral</span></td>
+              <td class="table-amount">$2.2–2.5M</td>
+              <td><span class="pill pill-warn">Qualified</span></td>
+              <td><span class="text-muted">2 days ago</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="table-name-cell">
+                  <div class="table-avatar" style="background:#FEF3E2;color:#92610A">AM</div>
+                  <div><div class="table-name">Amanda Martinez</div><div class="table-sub">a.martinez@example.com</div></div>
+                </div>
+              </td>
+              <td>8901 Mulholland Drive</td>
+              <td><span class="pill pill-primary">YouTube</span></td>
+              <td class="table-amount">$7.2M offer</td>
+              <td><span class="pill" style="background:#FEF3E2;color:#92610A">Active</span></td>
+              <td><span class="text-muted">Today</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  COMPONENT SHOWCASE: PILLS, BUTTONS     -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Design system</div>
+    <h2 class="section-title">Components</h2>
+
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Buttons</div></div>
+      <div class="panel-body">
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-5);align-items:center;margin-bottom:var(--sp-7)">
+          <button class="btn btn-primary btn-lg">
+            Primary Large
+            <svg width="14" height="14" class="btn-icon btn-icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <button class="btn btn-primary btn-md">Primary</button>
+          <button class="btn btn-primary btn-sm">Primary Sm</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-5);align-items:center;margin-bottom:var(--sp-7)">
+          <button class="btn btn-dark btn-lg">Dark Large</button>
+          <button class="btn btn-dark btn-md">Dark</button>
+          <button class="btn btn-dark btn-sm">Dark Sm</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-5);align-items:center;margin-bottom:var(--sp-7)">
+          <button class="btn btn-outline btn-lg">Outline Large</button>
+          <button class="btn btn-outline btn-md">Outline</button>
+          <button class="btn btn-outline btn-sm">Outline Sm</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-7);align-items:center">
+          <button class="btn btn-ghost btn-lg">Ghost Large</button>
+          <button class="btn btn-ghost btn-md">Ghost</button>
+          <button class="btn btn-ghost btn-sm">Ghost Sm</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:var(--sp-6)"></div>
+
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Pills & Status</div></div>
+      <div class="panel-body">
+        <div style="display:flex;flex-wrap:wrap;gap:var(--sp-4);align-items:center">
+          <span class="pill pill-primary">Primary</span>
+          <span class="pill pill-dark">Dark</span>
+          <span class="pill pill-cream">Neutral</span>
+          <span class="pill pill-success">Active</span>
+          <span class="pill pill-warn">Paused</span>
+          <span class="pill pill-danger">Expired</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:var(--sp-6)"></div>
+
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Alerts</div></div>
+      <div class="panel-body">
+        <div class="alert alert-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">Info Alert</div>
+            <div class="alert-desc">Your next SEO report is being generated and will be ready in 24 hours.</div>
+          </div>
+        </div>
+        <div class="alert alert-success">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D7A5C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><polyline points="20 6 9 17 4 12"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">Success Alert</div>
+            <div class="alert-desc">Campaign launched successfully. Ads will be reviewed within 24 hours.</div>
+          </div>
+        </div>
+        <div class="alert alert-warn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4963E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">Warning Alert</div>
+            <div class="alert-desc">Campaign budget running low. Increase budget to maintain lead volume.</div>
+          </div>
+        </div>
+        <div class="alert alert-neutral" style="margin-bottom:0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--grey-600)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div class="alert-content">
+            <div class="alert-title">Neutral Alert</div>
+            <div class="alert-desc">Your listing is scheduled to be reviewed by your strategist on May 28.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:var(--sp-6)"></div>
+
+    <!-- Typography showcase -->
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Typography Scale</div></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:var(--sp-6)">
+        <div>
+          <div class="section-label" style="margin-bottom:var(--sp-2)">Eyebrow / Label — fs-1, ls-7, Manrope 700</div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-1);font-weight:700;letter-spacing:var(--ls-7);text-transform:uppercase;color:var(--primary-500)">Premium Portfolio Management</div>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:var(--sp-2)">Display — fs-9, ls-1, lh-1, Manrope 900</div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-9);font-weight:900;letter-spacing:var(--ls-1);line-height:var(--lh-1);color:var(--dark-500)">Built for<br>the best.</div>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:var(--sp-2)">Headline — fs-8, ls-2, Manrope 800</div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-8);font-weight:800;letter-spacing:var(--ls-2);line-height:var(--lh-2);color:var(--dark-500)">Your competitive<br>advantage starts here.</div>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:var(--sp-2)">Title — fs-7, ls-3, Manrope 700</div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-7);font-weight:700;letter-spacing:var(--ls-3);line-height:var(--lh-3);color:var(--dark-500)">Property Portfolio Overview</div>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:var(--sp-2)">Subtitle — fs-6, ls-3, Manrope 600</div>
+          <div style="font-family:var(--font-display);font-size:var(--fs-6);font-weight:600;letter-spacing:var(--ls-3);color:var(--grey-700)">Active campaigns across Meta, Google & YouTube</div>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:var(--sp-2)">Body — fs-base, lh-6, DM Sans 400</div>
+          <div style="font-family:var(--font-body);font-size:var(--fs-base);line-height:var(--lh-6);color:var(--grey-700);max-width:560px">Property Kit is built for the top 10% of real estate producers. We combine premium design, AI-powered lead nurture, and managed ad campaigns so your digital presence matches your real-world reputation.</div>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:var(--sp-2)">Body SM — fs-3, lh-5, DM Sans 400</div>
+          <div style="font-family:var(--font-body);font-size:var(--fs-3);line-height:var(--lh-5);color:var(--grey-500)">Last updated May 14, 2025 · Managed by your Property Kit strategist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom padding -->
+  <div style="height:clamp(40px,19.64px + 5.091vw,80px)"></div>
+
+</div>
+
+<script>
+// Animate progress bars on scroll into view
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.dataset.width;
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.progress-bar-fill').forEach(bar => {
+  const w = bar.style.width;
+  bar.dataset.width = w;
+  bar.style.width = '0%';
+  bar.style.transition = 'width 1s cubic-bezier(0.22,1,0.36,1)';
+  observer.observe(bar);
+});
+
+// Form toggles
+document.querySelectorAll('.form-toggle-group').forEach(group => {
+  group.querySelectorAll('.form-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.form-toggle-group');
+      parent.querySelectorAll('.form-toggle').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+});
+
+// View toggle
+document.querySelectorAll('.view-toggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.view-toggle').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Campaign header grid style
+document.getElementById('campaign-header').style.cursor = 'default';
+document.getElementById('campaign-header').style.transform = 'none';
+document.getElementById('campaign-header').addEventListener('mouseenter', e => {
+  document.getElementById('campaign-header').style.transform = 'none';
+  document.getElementById('campaign-header').style.boxShadow = 'none';
+});
+</script>
+</body>
+</html>

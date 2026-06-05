@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Kit — Section Browser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'Manrope', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --fs-1:    clamp( 9px,  8.55px + 0.114vw,  10px);
+  --fs-2:    clamp(11px, 10.55px + 0.114vw,  12px);
+  --fs-3:    clamp(12px, 11.55px + 0.114vw,  13px);
+  --fs-4:    clamp(14px, 13.55px + 0.114vw,  15px);
+  --fs-base: var(--fs-4);
+  --fs-5:    clamp(15px, 14.55px + 0.114vw,  16px);
+  --fs-6:    clamp(18px, 14.36px + 0.909vw,  26px);
+  --fs-7:    clamp(22px, 15.64px + 1.591vw,  36px);
+  --fs-8:    clamp(32px, 19.27px + 3.182vw,  60px);
+  --ls-1: -0.05em; --ls-2: -0.04em; --ls-3: -0.03em; --ls-4: -0.01em;
+  --ls-5:  0.08em; --ls-6:  0.12em; --ls-7:  0.18em;
+  --lh-1: 0.92; --lh-2: 1.00; --lh-3: 1.10; --lh-4: 1.30; --lh-5: 1.60; --lh-6: 1.65;
+  --primary-100: #EBF2F1; --primary-200: #D4E7E5; --primary-300: #AECFCB;
+  --primary-400: #83B5AF; --primary-500: #5C9B93; --primary-600: #4A8079;
+  --primary-700: #3A6560; --primary-800: #2A4A46; --primary-900: #1A302E;
+  --cream-100: #FDFCFA; --cream-200: #F8F5F0; --cream-300: #F4F1EC;
+  --cream-400: #EAE6DE; --cream-500: #E0DBD1; --cream-600: #D4CEC3;
+  --cream-700: #C4BDB0; --cream-800: #A8A096; --cream-900: #8A8278;
+  --dark-100: #3D3D3D; --dark-200: #2C2C2C; --dark-300: #1A1A1A;
+  --dark-400: #141414; --dark-500: #0B0B0B;
+  --grey-100: #F5F5F5; --grey-200: #E8E8E8; --grey-300: #D4D4D4;
+  --grey-400: #BEBEBE; --grey-500: #9A9A9A; --grey-600: #7A7A7A;
+  --grey-700: #5A5A5A; --grey-800: #3A3A3A; --grey-900: #1A1A1A;
+  --white-100: rgba(255,255,255,0.05); --white-200: rgba(255,255,255,0.10);
+  --white-300: rgba(255,255,255,0.20); --white-400: rgba(255,255,255,0.35);
+  --white-500: rgba(255,255,255,0.50); --white-600: rgba(255,255,255,0.65);
+  --white-700: rgba(255,255,255,0.80); --white-800: rgba(255,255,255,0.92);
+  --white-900: rgba(255,255,255,1.00);
+  --border-col-1: rgba(11,11,11,0.06); --border-col-2: rgba(11,11,11,0.10);
+  --border-col-3: rgba(11,11,11,0.16); --border-col-4: rgba(11,11,11,0.24);
+  --r-1: 4px; --r-2: 8px; --r-3: 14px; --r-4: 20px;
+  --r-5: 28px; --r-6: 40px; --r-7: 999px;
+  --sp-1: 2px; --sp-2: 4px; --sp-3: 8px; --sp-4: 12px; --sp-5: 16px;
+  --sp-6: 20px; --sp-7: 24px; --sp-8: 32px; --sp-9: 40px; --sp-10: 48px;
+  --sp-11: 56px; --sp-12: 64px; --sp-13: 80px; --sp-14: 96px;
+  --sp-15: 120px; --sp-16: 160px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream-300);
+  color: var(--dark-500);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── DEMO LAYOUT ── */
+.demo-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding: clamp(32px, 3.6vw, 64px);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.demo-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  margin-bottom: var(--sp-5);
+}
+
+.demo-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-7);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: var(--dark-500);
+  margin-bottom: var(--sp-4);
+}
+
+.demo-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--grey-700);
+  line-height: var(--lh-6);
+  margin-bottom: var(--sp-10);
+  max-width: 560px;
+}
+
+/* ── SHARED PANEL CHROME ── */
+.panel-chrome {
+  background: var(--cream-100);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-5);
+  overflow: hidden;
+  box-shadow: 0 2px 40px rgba(11,11,11,0.07), 0 1px 3px rgba(11,11,11,0.04);
+  position: relative;
+}
+
+/* ─────────────────────────────────────────────────────
+   1. LEFT SLIDE-OUT  (280px wide)
+───────────────────────────────────────────────────── */
+.showcase-1 {
+  display: flex;
+  gap: 0;
+  height: 640px;
+  width: 100%;
+  max-width: 960px;
+}
+
+/* simulated page canvas */
+.canvas-bg {
+  flex: 1;
+  background: var(--cream-300);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-5) 0 0 var(--r-5);
+  border: 1px solid var(--border-col-2);
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+}
+
+.canvas-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--border-col-1) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-col-1) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.canvas-section-mock {
+  position: relative;
+  width: clamp(200px, 65%, 400px);
+  background: white;
+  border-radius: var(--r-4);
+  border: 1px solid var(--border-col-2);
+  padding: var(--sp-7) var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.mock-eyebrow {
+  height: 8px;
+  width: 60px;
+  background: var(--primary-300);
+  border-radius: var(--r-7);
+}
+
+.mock-headline {
+  height: 14px;
+  width: 85%;
+  background: var(--grey-200);
+  border-radius: var(--r-7);
+}
+
+.mock-headline.short {
+  width: 60%;
+  height: 10px;
+  background: var(--grey-100);
+}
+
+.mock-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+.mock-body-line {
+  height: 7px;
+  border-radius: var(--r-7);
+  background: var(--grey-100);
+}
+
+.mock-body-line:nth-child(1) { width: 100%; }
+.mock-body-line:nth-child(2) { width: 88%; }
+.mock-body-line:nth-child(3) { width: 72%; }
+
+.mock-btn {
+  height: 30px;
+  width: 100px;
+  background: var(--dark-500);
+  border-radius: var(--r-3);
+  margin-top: var(--sp-3);
+}
+
+/* LEFT PANEL */
+.left-panel {
+  width: 280px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 0 var(--r-5) var(--r-5) 0;
+  border: 1px solid var(--border-col-2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.left-panel-header {
+  padding: var(--sp-6) var(--sp-6) var(--sp-5);
+  border-bottom: 1px solid var(--border-col-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.left-panel-header-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  letter-spacing: var(--ls-3);
+  color: var(--dark-500);
+}
+
+.left-panel-search-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: var(--cream-300);
+  border: 1px solid var(--border-col-2);
+  border-radius: var(--r-7);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-600);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.left-panel-search-btn:hover {
+  background: var(--cream-400);
+  color: var(--dark-500);
+  border-color: var(--border-col-3);
+}
+
+.left-panel-search-btn svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* category tabs */
+.left-panel-tabs {
+  display: flex;
+  gap: 0;
+  padding: var(--sp-4) var(--sp-6) 0;
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.left-panel-tabs::-webkit-scrollbar { display: none; }
+
+.left-tab {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-500);
+  padding: 8px 12px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.left-tab.active {
+  color: var(--dark-500);
+  border-bottom-color: var(--primary-500);
+}
+
+.left-tab:hover:not(.active) {
+  color: var(--grey-700);
+}
+
+/* section list */
+.left-panel-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sp-5) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  scrollbar-width: thin;
+  scrollbar-color: var(--cream-500) transparent;
+}
+
+.left-panel-list::-webkit-scrollbar { width: 3px; }
+.left-panel-list::-webkit-scrollbar-thumb { background: var(--cream-600); border-radius: 99px; }
+
+.section-tile {
+  border-radius: var(--r-4);
+  border: 1.5px solid var(--border-col-1);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--cream-200);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.section-tile:hover {
+  border-color: var(--primary-400);
+  box-shadow: 0 4px 16px rgba(92,155,147,0.12);
+  transform: translateY(-1px);
+}
+
+.section-tile.selected {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+.section-tile-thumb {
+  width: 100%;
+  height: 80px;
+  background: var(--cream-300);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* mini wireframe inside thumb */
+.thumb-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 14px;
+  width: 100%;
+}
+
+.thumb-line {
+  height: 5px;
+  border-radius: 99px;
+  background: var(--grey-300);
+}
+.thumb-line.accent { background: var(--primary-300); width: 30%; }
+.thumb-line.dark { background: var(--grey-400); width: 70%; }
+.thumb-line.mid { background: var(--grey-200); width: 55%; }
+.thumb-line.short { background: var(--grey-200); width: 40%; }
+.thumb-block { height: 18px; border-radius: var(--r-2); background: var(--dark-500); width: 50px; margin-top: 2px; }
+.thumb-block.dark-bg { background: var(--dark-400); }
+.thumb-block.primary-bg { background: var(--primary-500); }
+.thumb-img { height: 30px; background: var(--grey-200); border-radius: var(--r-2); width: 60%; margin: 0 auto; }
+
+.section-tile-meta {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-top: 1px solid var(--border-col-1);
+}
+
+.section-tile-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--dark-300);
+  letter-spacing: var(--ls-4);
+}
+
+.section-tile-tag {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--grey-500);
+}
+
+.selected-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--primary-500);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: var(--r-7);
+}
+
+.selected-badge svg {
+  width: 9px; height: 9px;
+  stroke: white; stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* add badge */
+.add-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  background: var(--dark-500);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: var(--r-7);
+}
+
+.section-tile:hover .add-badge { display: flex; }
+.section-tile.selected .add-badge { display: none; }
+
+.add-badge svg {
+  width: 9px; height: 9px;
+  stroke: white; stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* left panel footer */
+.left-panel-footer {
+  padding: var(--sp-4) var(--sp-6);
+  border-top: 1px solid var(--border-col-1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-count {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+}
+
+.footer-count strong {
+  font-weight: 600;
+  color: var(--dark-300);
+}
+
+.browse-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.browse-all-btn:hover { color: var(--primary-700); }
+
+.browse-all-btn svg {
+  width: 11px; height: 11px;
+  stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: transform 0.2s ease;
+}
+
+.browse-all-btn:hover svg { transform: translateX(2px); }
+
+
+/* ─────────────────────────────────────────────────────
+   2. FULL SLIDE-OUT
+───────────────────────────────────────────────────── */
+.showcase-2 {
+  width: 100%;
+  max-width: 1160px;
+}
+
+.full-panel {
+  background: white;
+  border-radius: var(--r-5);
+  border: 1px solid var(--border-col-2);
+  overflow: hidden;
+  box-shadow: 0 4px 60px rgba(11,11,11,0.10), 0 1px 4px rgba(11,11,11,0.04);
+  display: flex;
+  flex-direction: column;
+  min-height: 700px;
+}
+
+.full-panel-header {
+  padding: clamp(20px, 2.5vw, 32px) clamp(20px, 3vw, 40px);
+  border-bottom: 1px solid var(--border-col-1);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-7);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.full-panel-header-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.full-panel-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-600);
+  margin-bottom: 6px;
+}
+
+.full-panel-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-6);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  color: var(--dark-500);
+  line-height: var(--lh-3);
+}
+
+.full-panel-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  background: var(--cream-200);
+  border: 1.5px solid var(--border-col-2);
+  border-radius: var(--r-3);
+  width: clamp(180px, 22vw, 280px);
+  transition: border-color 0.2s ease;
+  cursor: text;
+}
+
+.search-box:hover { border-color: var(--border-col-3); }
+.search-box:focus-within { border-color: var(--primary-400); background: white; }
+
+.search-box svg {
+  width: 15px; height: 15px;
+  stroke: var(--grey-500); stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--dark-500);
+  outline: none;
+  width: 100%;
+}
+
+.search-box input::placeholder { color: var(--grey-400); }
+
+.close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-2);
+  background: var(--cream-200);
+  border: 1px solid var(--border-col-2);
+  cursor: pointer;
+  color: var(--grey-600);
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--cream-300);
+  color: var(--dark-500);
+  border-color: var(--border-col-3);
+}
+
+.close-btn svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* full panel body = sidebar + grid */
+.full-panel-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* sidebar categories */
+.full-sidebar {
+  width: clamp(140px, 16vw, 192px);
+  border-right: 1px solid var(--border-col-1);
+  padding: var(--sp-6) 0;
+  overflow-y: auto;
+  flex-shrink: 0;
+  background: var(--cream-100);
+  scrollbar-width: none;
+}
+
+.full-sidebar::-webkit-scrollbar { display: none; }
+
+.sidebar-section-label {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--grey-400);
+  padding: var(--sp-5) var(--sp-6) var(--sp-3);
+}
+
+.sidebar-section-label:not(:first-child) {
+  margin-top: var(--sp-4);
+  border-top: 1px solid var(--border-col-1);
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px var(--sp-6);
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  letter-spacing: var(--ls-4);
+  color: var(--grey-600);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--primary-500);
+  border-radius: 0 var(--r-7) var(--r-7) 0;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.sidebar-item.active {
+  color: var(--dark-500);
+  background: var(--cream-200);
+}
+
+.sidebar-item.active::before { opacity: 1; }
+.sidebar-item:hover:not(.active) { color: var(--dark-300); background: var(--cream-200); }
+
+.sidebar-item-count {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  color: var(--grey-400);
+  background: var(--cream-300);
+  padding: 2px 7px;
+  border-radius: var(--r-7);
+}
+
+.sidebar-item.active .sidebar-item-count {
+  background: var(--primary-100);
+  color: var(--primary-600);
+}
+
+/* main grid area */
+.full-grid-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: clamp(20px, 2.5vw, 32px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--cream-500) transparent;
+}
+
+.full-grid-area::-webkit-scrollbar { width: 4px; }
+.full-grid-area::-webkit-scrollbar-thumb { background: var(--cream-600); border-radius: 99px; }
+
+.grid-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-5);
+  margin-top: var(--sp-7);
+}
+
+.grid-section-header:first-child { margin-top: 0; }
+
+.grid-section-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  color: var(--grey-500);
+}
+
+.grid-section-count {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-400);
+}
+
+.full-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-9);
+}
+
+/* full grid tile */
+.grid-tile {
+  border-radius: var(--r-4);
+  border: 1.5px solid var(--border-col-1);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--cream-100);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.grid-tile:hover {
+  border-color: var(--primary-400);
+  box-shadow: 0 6px 24px rgba(92,155,147,0.13);
+  transform: translateY(-2px);
+}
+
+.grid-tile.selected {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 4px var(--primary-100);
+}
+
+.grid-tile-thumb {
+  width: 100%;
+  height: 110px;
+  background: var(--cream-300);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* dark thumb */
+.grid-tile-thumb.dark {
+  background: var(--dark-400);
+}
+
+.gt-inner {
+  width: 100%;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.gt-line {
+  height: 5px;
+  border-radius: 99px;
+  background: var(--grey-300);
+}
+
+.gt-line.w-30 { width: 30%; }
+.gt-line.w-40 { width: 40%; }
+.gt-line.w-55 { width: 55%; }
+.gt-line.w-70 { width: 70%; }
+.gt-line.w-85 { width: 85%; }
+.gt-line.w-100 { width: 100%; }
+.gt-line.accent { background: var(--primary-400); }
+.gt-line.white-40 { background: rgba(255,255,255,0.4); }
+.gt-line.white-20 { background: rgba(255,255,255,0.2); }
+.gt-line.white-60 { background: rgba(255,255,255,0.6); }
+
+.gt-block { height: 24px; border-radius: var(--r-2); background: var(--grey-200); width: 100%; margin-top: 4px; }
+.gt-block.dark { background: var(--dark-400); }
+.gt-block.btn { width: 70px; height: 20px; border-radius: var(--r-3); background: var(--dark-500); }
+.gt-block.btn-white { width: 70px; height: 20px; border-radius: var(--r-3); background: rgba(255,255,255,0.8); }
+.gt-block.primary { background: var(--primary-500); width: 60px; height: 20px; border-radius: var(--r-3); }
+
+.gt-cols { display: flex; gap: 6px; }
+.gt-col { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.gt-img { height: 40px; background: var(--grey-200); border-radius: var(--r-2); width: 100%; }
+.gt-img.dark { background: rgba(255,255,255,0.1); }
+.gt-stat { text-align: center; display: flex; flex-direction: column; gap: 3px; align-items: center; }
+
+.gt-stat-num {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: var(--ls-3);
+  line-height: 1;
+}
+
+.gt-stat-label {
+  font-family: var(--font-body);
+  font-size: 7px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.grid-tile-meta {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-top: 1px solid var(--border-col-1);
+}
+
+.grid-tile-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  color: var(--dark-300);
+  letter-spacing: var(--ls-4);
+}
+
+.grid-tile-tag {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--ls-6);
+  text-transform: uppercase;
+  color: var(--grey-400);
+}
+
+.grid-tile .selected-badge,
+.grid-tile .add-badge {
+  top: 8px;
+  right: 8px;
+}
+
+.grid-tile:hover .add-badge { display: flex; }
+.grid-tile.selected .add-badge { display: none; }
+
+/* new badge */
+.new-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--primary-500);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--r-7);
+}
+
+/* full panel footer */
+.full-panel-footer {
+  padding: var(--sp-5) clamp(20px, 3vw, 40px);
+  border-top: 1px solid var(--border-col-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background: var(--cream-100);
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.footer-info {
+  font-family: var(--font-body);
+  font-size: var(--fs-3);
+  color: var(--grey-600);
+}
+
+.footer-info strong {
+  font-weight: 600;
+  color: var(--dark-300);
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--ls-5);
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.25s cubic-bezier(0.22,1,0.36,1),
+              transform  0.25s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.25s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.25s cubic-bezier(0.22,1,0.36,1),
+              color 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+
+.btn-primary { background: var(--primary-500); color: #fff; border-radius: var(--r-3); }
+.btn-primary:hover { background: var(--primary-400); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(92,155,147,.35); }
+
+.btn-outline {
+  background: transparent; color: var(--dark-500);
+  border: 1.5px solid var(--border-col-3);
+  border-radius: var(--r-3);
+}
+.btn-outline:hover { border-color: var(--dark-500); transform: translateY(-1px); }
+
+.btn-sm { padding: 10px 20px; font-size: var(--fs-1); }
+.btn-md { padding: 14px 28px; font-size: var(--fs-2); }
+
+/* page top label */
+.page-header {
+  background: var(--dark-500);
+  padding: clamp(32px, 4vw, 56px) clamp(32px, 3.6vw, 64px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  flex-wrap: wrap;
+}
+
+.page-header-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-8);
+  font-weight: 800;
+  letter-spacing: var(--ls-2);
+  line-height: var(--lh-2);
+  color: white;
+}
+
+.page-header-sub {
+  font-family: var(--font-body);
+  font-size: var(--fs-5);
+  color: var(--white-600);
+  line-height: var(--lh-6);
+  margin-top: var(--sp-4);
+  max-width: 540px;
+}
+
+.page-header-pk {
+  font-family: var(--font-display);
+  font-size: var(--fs-1);
+  font-weight: 700;
+  letter-spacing: var(--ls-7);
+  text-transform: uppercase;
+  color: var(--primary-400);
+  margin-bottom: var(--sp-4);
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <div class="page-header-pk">Property Kit</div>
+    <div class="page-header-title">Section Browser</div>
+    <div class="page-header-sub">Two states: a compact left panel for quick placement, and a full-screen drawer for deeper discovery.</div>
+  </div>
+</div>
+
+<div class="demo-wrapper">
+
+  <!-- ── 1. LEFT SLIDE-OUT ── -->
+  <div>
+    <div class="demo-label">State 01</div>
+    <div class="demo-title">Left Panel</div>
+    <div class="demo-desc">Compact, always-accessible. Browse and add sections without leaving the builder canvas. One tap opens the full library.</div>
+
+    <div class="showcase-1 panel-chrome">
+
+      <!-- Canvas -->
+      <div class="canvas-bg">
+        <div class="canvas-section-mock">
+          <div class="mock-eyebrow"></div>
+          <div class="mock-headline"></div>
+          <div class="mock-headline short"></div>
+          <div class="mock-body">
+            <div class="mock-body-line"></div>
+            <div class="mock-body-line"></div>
+            <div class="mock-body-line"></div>
+          </div>
+          <div class="mock-btn"></div>
+        </div>
+      </div>
+
+      <!-- Left Panel -->
+      <div class="left-panel">
+        <div class="left-panel-header">
+          <span class="left-panel-header-title">Sections</span>
+          <button class="left-panel-search-btn">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+            Browse all
+          </button>
+        </div>
+
+        <div class="left-panel-tabs">
+          <button class="left-tab active">All</button>
+          <button class="left-tab">Hero</button>
+          <button class="left-tab">Listings</button>
+          <button class="left-tab">About</button>
+          <button class="left-tab">Stats</button>
+        </div>
+
+        <div class="left-panel-list">
+
+          <!-- Tile 1 — selected -->
+          <div class="section-tile selected">
+            <div class="section-tile-thumb">
+              <div class="thumb-inner">
+                <div class="thumb-line accent" style="width:35%"></div>
+                <div class="thumb-line dark" style="width:75%"></div>
+                <div class="thumb-line mid" style="width:50%"></div>
+                <div class="thumb-block primary-bg" style="width:48px;height:14px;margin-top:4px;border-radius:var(--r-7)"></div>
+              </div>
+            </div>
+            <div class="section-tile-meta">
+              <span class="section-tile-name">Hero Light</span>
+              <span class="section-tile-tag">Hero</span>
+            </div>
+            <div class="selected-badge">
+              <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3"/></svg>
+              Added
+            </div>
+          </div>
+
+          <!-- Tile 2 -->
+          <div class="section-tile">
+            <div class="section-tile-thumb" style="background:var(--dark-400)">
+              <div class="thumb-inner">
+                <div class="thumb-line white-40" style="width:30%"></div>
+                <div class="thumb-line white-60" style="width:70%"></div>
+                <div class="thumb-line white-20" style="width:50%"></div>
+                <div class="thumb-block" style="width:48px;height:14px;border-radius:var(--r-7);background:rgba(255,255,255,0.8);margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="section-tile-meta">
+              <span class="section-tile-name">Hero Dark</span>
+              <span class="section-tile-tag">Hero</span>
+            </div>
+            <div class="add-badge">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>
+              Add
+            </div>
+          </div>
+
+          <!-- Tile 3 -->
+          <div class="section-tile">
+            <div class="section-tile-thumb">
+              <div class="thumb-inner">
+                <div style="display:flex;gap:5px;margin-top:4px">
+                  <div style="flex:1;height:40px;background:var(--grey-200);border-radius:var(--r-2)"></div>
+                  <div style="flex:1;height:40px;background:var(--grey-200);border-radius:var(--r-2)"></div>
+                </div>
+                <div class="thumb-line mid" style="width:60%;margin-top:4px"></div>
+                <div class="thumb-line short" style="width:35%"></div>
+              </div>
+            </div>
+            <div class="section-tile-meta">
+              <span class="section-tile-name">Listings 2-Col</span>
+              <span class="section-tile-tag">Listings</span>
+            </div>
+            <div class="add-badge">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>
+              Add
+            </div>
+          </div>
+
+          <!-- Tile 4 — selected -->
+          <div class="section-tile selected">
+            <div class="section-tile-thumb">
+              <div class="thumb-inner">
+                <div style="display:flex;gap:5px;margin-top:2px">
+                  <div style="flex:1;height:36px;background:var(--grey-200);border-radius:var(--r-2)"></div>
+                  <div style="flex:1;height:36px;background:var(--grey-200);border-radius:var(--r-2)"></div>
+                  <div style="flex:1;height:36px;background:var(--grey-200);border-radius:var(--r-2)"></div>
+                </div>
+                <div class="thumb-line mid" style="width:55%;margin-top:5px"></div>
+              </div>
+            </div>
+            <div class="section-tile-meta">
+              <span class="section-tile-name">Listings 3-Col</span>
+              <span class="section-tile-tag">Listings</span>
+            </div>
+            <div class="selected-badge">
+              <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3"/></svg>
+              Added
+            </div>
+          </div>
+
+          <!-- Tile 5 -->
+          <div class="section-tile">
+            <div class="section-tile-thumb" style="background:var(--dark-400)">
+              <div class="thumb-inner" style="flex-direction:row;align-items:center;gap:10px;padding:12px 14px">
+                <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+                  <div class="thumb-line white-60" style="width:60%"></div>
+                  <div class="thumb-line white-40" style="width:40%"></div>
+                  <div class="thumb-line white-40" style="width:45%"></div>
+                </div>
+                <div style="width:36px;height:36px;background:rgba(255,255,255,0.1);border-radius:var(--r-2);flex-shrink:0"></div>
+              </div>
+            </div>
+            <div class="section-tile-meta">
+              <span class="section-tile-name">Stats Dark</span>
+              <span class="section-tile-tag">Stats</span>
+            </div>
+            <div class="add-badge">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>
+              Add
+            </div>
+          </div>
+
+          <!-- Tile 6 -->
+          <div class="section-tile">
+            <div class="section-tile-thumb">
+              <div class="thumb-inner" style="flex-direction:row;gap:10px;align-items:center;padding:12px 14px">
+                <div style="width:36px;height:36px;background:var(--primary-200);border-radius:var(--r-7);flex-shrink:0"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+                  <div class="thumb-line dark" style="width:70%"></div>
+                  <div class="thumb-line mid" style="width:50%"></div>
+                  <div class="thumb-line short" style="width:35%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="section-tile-meta">
+              <span class="section-tile-name">About + Photo</span>
+              <span class="section-tile-tag">About</span>
+            </div>
+            <div class="add-badge">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>
+              Add
+            </div>
+          </div>
+
+        </div>
+
+        <div class="left-panel-footer">
+          <span class="footer-count"><strong>2</strong> added</span>
+          <button class="browse-all-btn">
+            Browse all
+            <svg viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── 2. FULL SLIDE-OUT ── -->
+  <div>
+    <div class="demo-label">State 02</div>
+    <div class="demo-title">Full Library</div>
+    <div class="demo-desc">The complete section library — filterable by category, searchable by name. Every section at a glance, nothing hidden.</div>
+
+    <div class="showcase-2">
+      <div class="full-panel">
+
+        <!-- Header -->
+        <div class="full-panel-header">
+          <div class="full-panel-header-left">
+            <div class="full-panel-eyebrow">Property Kit</div>
+            <div class="full-panel-title">Section Library</div>
+          </div>
+          <div class="full-panel-header-right">
+            <div class="search-box">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+              <input type="text" placeholder="Search sections…" />
+            </div>
+            <button class="close-btn">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="full-panel-body">
+
+          <!-- Sidebar -->
+          <div class="full-sidebar">
+            <div class="sidebar-section-label">Sections</div>
+            <div class="sidebar-item active">
+              All Sections
+              <span class="sidebar-item-count">42</span>
+            </div>
+            <div class="sidebar-item">
+              Hero
+              <span class="sidebar-item-count">6</span>
+            </div>
+            <div class="sidebar-item">
+              Listings
+              <span class="sidebar-item-count">8</span>
+            </div>
+            <div class="sidebar-item">
+              About
+              <span class="sidebar-item-count">5</span>
+            </div>
+            <div class="sidebar-item">
+              Stats
+              <span class="sidebar-item-count">4</span>
+            </div>
+            <div class="sidebar-item">
+              Testimonials
+              <span class="sidebar-item-count">5</span>
+            </div>
+            <div class="sidebar-item">
+              CTA
+              <span class="sidebar-item-count">6</span>
+            </div>
+            <div class="sidebar-item">
+              Contact
+              <span class="sidebar-item-count">4</span>
+            </div>
+            <div class="sidebar-section-label">More</div>
+            <div class="sidebar-item">
+              Market Data
+              <span class="sidebar-item-count">4</span>
+            </div>
+          </div>
+
+          <!-- Grid -->
+          <div class="full-grid-area">
+
+            <!-- Hero -->
+            <div class="grid-section-header">
+              <span class="grid-section-name">Hero</span>
+              <span class="grid-section-count">6 sections</span>
+            </div>
+            <div class="full-grid">
+
+              <div class="grid-tile selected">
+                <div class="grid-tile-thumb">
+                  <div class="gt-inner">
+                    <div class="gt-line accent w-30"></div>
+                    <div class="gt-line w-85" style="background:var(--grey-400)"></div>
+                    <div class="gt-line w-55" style="background:var(--grey-400)"></div>
+                    <div class="gt-line w-70" style="height:6px;background:var(--grey-200);margin-top:2px"></div>
+                    <div class="gt-line w-55" style="height:6px;background:var(--grey-200)"></div>
+                    <div class="gt-block btn" style="margin-top:6px"></div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Hero Light</span>
+                  <span class="grid-tile-tag">Hero</span>
+                </div>
+                <div class="selected-badge">
+                  <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3"/></svg>
+                  Added
+                </div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb dark">
+                  <div class="gt-inner">
+                    <div class="gt-line white-40 w-30"></div>
+                    <div class="gt-line white-60 w-85"></div>
+                    <div class="gt-line white-40 w-55"></div>
+                    <div class="gt-line white-20 w-70" style="height:6px;margin-top:2px"></div>
+                    <div class="gt-line white-20 w-55" style="height:6px"></div>
+                    <div class="gt-block btn-white" style="margin-top:6px"></div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Hero Dark</span>
+                  <span class="grid-tile-tag">Hero</span>
+                </div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb">
+                  <div class="gt-inner">
+                    <div class="gt-cols" style="gap:8px">
+                      <div class="gt-col">
+                        <div class="gt-line accent w-40"></div>
+                        <div class="gt-line w-85" style="background:var(--grey-400)"></div>
+                        <div class="gt-line w-55" style="background:var(--grey-300)"></div>
+                        <div class="gt-block btn" style="margin-top:4px"></div>
+                      </div>
+                      <div class="gt-img" style="flex-shrink:0;width:70px;height:70px;align-self:center"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Hero + Photo</span>
+                  <span class="grid-tile-tag">Hero</span>
+                </div>
+                <div class="new-badge">New</div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb" style="background:var(--primary-800)">
+                  <div class="gt-inner" style="align-items:center;text-align:center;padding:16px">
+                    <div class="gt-line white-40 w-30" style="margin:0 auto"></div>
+                    <div class="gt-line white-60 w-85" style="height:7px;margin:4px auto 0"></div>
+                    <div class="gt-line white-40 w-55" style="height:7px;margin:4px auto 0"></div>
+                    <div style="display:flex;gap:6px;justify-content:center;margin-top:8px">
+                      <div class="gt-block btn-white" style="width:55px;height:18px"></div>
+                      <div class="gt-block" style="width:55px;height:18px;background:rgba(255,255,255,0.2);border-radius:var(--r-3)"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Hero Teal</span>
+                  <span class="grid-tile-tag">Hero</span>
+                </div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+            </div>
+
+            <!-- Listings -->
+            <div class="grid-section-header">
+              <span class="grid-section-name">Listings</span>
+              <span class="grid-section-count">8 sections</span>
+            </div>
+            <div class="full-grid">
+
+              <div class="grid-tile selected">
+                <div class="grid-tile-thumb">
+                  <div class="gt-inner">
+                    <div class="gt-line accent w-30"></div>
+                    <div class="gt-line w-70" style="background:var(--grey-400);height:6px"></div>
+                    <div class="gt-cols" style="margin-top:8px">
+                      <div class="gt-col"><div class="gt-img"></div><div class="gt-line w-85" style="height:5px;background:var(--grey-300);margin-top:4px"></div><div class="gt-line w-55" style="height:4px;margin-top:3px"></div></div>
+                      <div class="gt-col"><div class="gt-img"></div><div class="gt-line w-85" style="height:5px;background:var(--grey-300);margin-top:4px"></div><div class="gt-line w-55" style="height:4px;margin-top:3px"></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Listings 2-Col</span>
+                  <span class="grid-tile-tag">Listings</span>
+                </div>
+                <div class="selected-badge">
+                  <svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3"/></svg>
+                  Added
+                </div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb">
+                  <div class="gt-inner">
+                    <div class="gt-line accent w-30"></div>
+                    <div class="gt-line w-70" style="background:var(--grey-400);height:6px"></div>
+                    <div class="gt-cols" style="margin-top:8px;gap:4px">
+                      <div class="gt-col"><div class="gt-img" style="height:32px"></div><div class="gt-line w-85" style="height:4px;background:var(--grey-300);margin-top:3px"></div></div>
+                      <div class="gt-col"><div class="gt-img" style="height:32px"></div><div class="gt-line w-55" style="height:4px;margin-top:3px"></div></div>
+                      <div class="gt-col"><div class="gt-img" style="height:32px"></div><div class="gt-line w-70" style="height:4px;background:var(--grey-300);margin-top:3px"></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Listings 3-Col</span>
+                  <span class="grid-tile-tag">Listings</span>
+                </div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb">
+                  <div class="gt-inner" style="padding:10px 12px">
+                    <div class="gt-img" style="height:55px"></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:6px;align-items:center">
+                      <div style="display:flex;flex-direction:column;gap:3px">
+                        <div class="gt-line w-85" style="height:5px;background:var(--grey-400)"></div>
+                        <div class="gt-line w-55" style="height:4px"></div>
+                      </div>
+                      <div style="width:28px;height:20px;background:var(--primary-200);border-radius:var(--r-2)"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Featured Listing</span>
+                  <span class="grid-tile-tag">Listings</span>
+                </div>
+                <div class="new-badge">New</div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb" style="background:var(--cream-400)">
+                  <div class="gt-inner">
+                    <div class="gt-line w-30" style="background:var(--primary-300)"></div>
+                    <div class="gt-cols" style="margin-top:6px;gap:4px">
+                      <div class="gt-col" style="gap:3px">
+                        <div class="gt-img" style="height:28px;background:var(--grey-300)"></div>
+                        <div class="gt-img" style="height:28px;background:var(--grey-300)"></div>
+                      </div>
+                      <div class="gt-col" style="gap:3px">
+                        <div class="gt-img" style="height:28px;background:var(--grey-300)"></div>
+                        <div class="gt-img" style="height:28px;background:var(--grey-300)"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Listings Grid</span>
+                  <span class="grid-tile-tag">Listings</span>
+                </div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+            </div>
+
+            <!-- Stats -->
+            <div class="grid-section-header">
+              <span class="grid-section-name">Stats</span>
+              <span class="grid-section-count">4 sections</span>
+            </div>
+            <div class="full-grid">
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb dark">
+                  <div class="gt-inner" style="flex-direction:row;justify-content:space-around;align-items:center;padding:16px">
+                    <div class="gt-stat"><div class="gt-stat-num">340+</div><div class="gt-stat-label">Sold</div></div>
+                    <div class="gt-stat"><div class="gt-stat-num">98%</div><div class="gt-stat-label">List-to-Sale</div></div>
+                    <div class="gt-stat"><div class="gt-stat-num">14d</div><div class="gt-stat-label">Avg DOM</div></div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Stats Dark</span>
+                  <span class="grid-tile-tag">Stats</span>
+                </div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb">
+                  <div class="gt-inner" style="flex-direction:row;justify-content:space-around;align-items:center;padding:16px">
+                    <div class="gt-stat">
+                      <div class="gt-stat-num" style="color:var(--dark-400)">340+</div>
+                      <div class="gt-stat-label" style="color:var(--grey-500)">Sold</div>
+                    </div>
+                    <div class="gt-stat">
+                      <div class="gt-stat-num" style="color:var(--dark-400)">98%</div>
+                      <div class="gt-stat-label" style="color:var(--grey-500)">List-to-Sale</div>
+                    </div>
+                    <div class="gt-stat">
+                      <div class="gt-stat-num" style="color:var(--dark-400)">14d</div>
+                      <div class="gt-stat-label" style="color:var(--grey-500)">Avg DOM</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Stats Light</span>
+                  <span class="grid-tile-tag">Stats</span>
+                </div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb" style="background:var(--primary-900)">
+                  <div class="gt-inner" style="justify-content:center;align-items:flex-start;padding:14px 16px;gap:6px">
+                    <div class="gt-line white-40 w-40"></div>
+                    <div class="gt-line white-60 w-85" style="height:7px"></div>
+                    <div class="gt-cols" style="margin-top:4px;gap:8px">
+                      <div class="gt-stat"><div class="gt-stat-num" style="font-size:13px">$2.4M</div><div class="gt-stat-label">Avg Sale</div></div>
+                      <div class="gt-stat"><div class="gt-stat-num" style="font-size:13px">127</div><div class="gt-stat-label">Closed</div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Stats + Copy</span>
+                  <span class="grid-tile-tag">Stats</span>
+                </div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+              <div class="grid-tile">
+                <div class="grid-tile-thumb">
+                  <div class="gt-inner" style="gap:6px;padding:12px 14px">
+                    <div class="gt-line accent w-30"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px">
+                      <div style="background:var(--cream-300);border-radius:var(--r-2);padding:6px;display:flex;flex-direction:column;gap:3px">
+                        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;color:var(--dark-400);letter-spacing:var(--ls-3)">$5.2B</div>
+                        <div style="height:4px;border-radius:99px;background:var(--grey-200);width:80%"></div>
+                      </div>
+                      <div style="background:var(--cream-300);border-radius:var(--r-2);padding:6px;display:flex;flex-direction:column;gap:3px">
+                        <div style="font-family:var(--font-display);font-size:12px;font-weight:800;color:var(--dark-400);letter-spacing:var(--ls-3)">720+</div>
+                        <div style="height:4px;border-radius:99px;background:var(--grey-200);width:60%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-tile-meta">
+                  <span class="grid-tile-name">Stats Card Grid</span>
+                  <span class="grid-tile-tag">Stats</span>
+                </div>
+                <div class="new-badge">New</div>
+                <div class="add-badge"><svg viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8"/></svg>Add</div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="full-panel-footer">
+          <div class="footer-info"><strong>3</strong> sections added to your page</div>
+          <div class="footer-actions">
+            <button class="btn btn-outline btn-sm">Clear All</button>
+            <button class="btn btn-primary btn-md">
+              Done
+              <svg style="width:13px;height:13px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 14 14" fill="none"><polyline points="2,7 5.5,10.5 12,3.5"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
