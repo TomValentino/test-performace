@@ -14,7 +14,7 @@ export const getStore = unstable_cache(
     return data ?? null
   },
   ['get-store'],
-  { tags: ['stores'], revalidate: false }
+  { tags: ['stores'], revalidate: 86400 }
 )
 
 export const getProfile = unstable_cache(
@@ -26,7 +26,7 @@ export const getProfile = unstable_cache(
     return data ?? null
   },
   ['get-profile'],
-  { tags: ['profiles'], revalidate: false }
+  { tags: ['profiles'], revalidate: 86400 }
 )
 
 export const getProperty = unstable_cache(
@@ -38,7 +38,7 @@ export const getProperty = unstable_cache(
     return data ?? null
   },
   ['get-property'],
-  { tags: ['properties'], revalidate: false }
+  { tags: ['properties'], revalidate: 86400 }
 )
 
 export const getCollection = unstable_cache(
@@ -52,7 +52,7 @@ export const getCollection = unstable_cache(
     return { ...data, properties: data.collection_properties.map((cp) => cp.property) }
   },
   ['get-collection'],
-  { tags: ['collections'], revalidate: false }
+  { tags: ['collections'], revalidate: 86400 }
 )
 
 export const getPropertiesByIds = unstable_cache(
@@ -64,7 +64,7 @@ export const getPropertiesByIds = unstable_cache(
     return data ?? []
   },
   ['get-properties-by-ids'],
-  { tags: ['properties'], revalidate: false }
+  { tags: ['properties'], revalidate: 86400 }
 )
 
 export const getCollectionsByIds = unstable_cache(
@@ -80,5 +80,5 @@ export const getCollectionsByIds = unstable_cache(
     return data.map((c) => ({ ...c, properties: c.collection_properties.map((cp) => cp.property) }))
   },
   ['get-collections-by-ids'],
-  { tags: ['collections'], revalidate: false }
+  { tags: ['collections'], revalidate: 86400 }
 )
