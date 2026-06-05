@@ -78,3 +78,6 @@ export async function generateMetadata({ params }) {
     openGraph:   { images: property.photos?.[0] ? [property.photos[0]] : [] },
   }
 }
+
+
+
