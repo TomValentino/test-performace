@@ -46,7 +46,7 @@ export function FooterSimple({ bg = '#f9f9f9', color = '#999', text, store, prof
 // Full-bleed background image.
 // priority=true → preloads as LCP image (above the fold)
 // ---------------------------------------------------------------------------
-export function PropertyHero({ overlayOpacity = 0.45, accentColor = '#fff', property }) {
+export function PropertyHero({   headingFont = 'plus_jakarta_sans', overlayOpacity = 0.45, accentColor = '#fff', property }) {
   if (!property) return null
 
   const photo = property.photos?.[0] ?? null
@@ -89,7 +89,7 @@ export function PropertyHero({ overlayOpacity = 0.45, accentColor = '#fff', prop
             {property.sale_status}
           </span>
         )}
-        <h1 style={{ fontSize: 'clamp(24px, 4vw, 48px)', fontWeight: 700, margin: '8px 0 4px' }}>
+        <h1 style={{ fontFamily: `var(--font-${headingFont})`, fontSize: 'clamp(24px, 4vw, 48px)', fontWeight: 700, margin: '8px 0 4px' }}>
           {property.title}
         </h1>
         {line && <p style={{ opacity: 0.75, margin: '0 0 20px', fontSize: '15px' }}>{line}</p>}
