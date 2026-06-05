@@ -3,7 +3,7 @@ import { getStore, getProfile, getProperty } from '@/_db/read'
 import { renderSections }                    from '@/lib/render'
 import { fetchSectionData } from '@/lib/fetch-section-data'
 
-// export const revalidate = 86400
+export const revalidate = 86400
 
 export default async function PropertyPage({ params }) {
   const { username, handle } = await params
