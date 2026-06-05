@@ -3,8 +3,8 @@ import { getStore, getProfile } from '@/_db/read'
 import { renderSections }       from '@/lib/render'
 import { getFontVariables }     from '@/lib/fonts'
 
-export const dynamic    = 'force-static'
-export const revalidate = false
+// export const dynamic    = 'force-static'
+// export const revalidate = false
 
 const DEFAULT_HEADER = { sections: [{ id: 'nav-simple',    scope: null, scope_id: null, props: {} }] }
 const DEFAULT_FOOTER = { sections: [{ id: 'footer-simple', scope: null, scope_id: null, props: {} }] }
