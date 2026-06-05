@@ -4,8 +4,8 @@ import { renderSections }                    from '@/lib/render'
 import { fetchSectionData }                  from '@/lib/fetch-section-data'
 import { createClient }                      from '@supabase/supabase-js'
 
-// export const dynamic    = 'force-static'
-// export const revalidate = false
+export const dynamic    = 'force-static'
+export const revalidate = false
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -43,7 +43,6 @@ export default async function PropertyPage({ params }) {
   ])
   if (!property) return notFound()
 
-    console.log('property', property)
   const template = property.content_published
   if (!template?.sections?.length) {
     return <main><p>No content published yet.</p></main>
