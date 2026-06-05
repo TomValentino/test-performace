@@ -125,8 +125,9 @@ function Spec({ label, value }) {
 // ---------------------------------------------------------------------------
 // COLLECTION GRID
 // ---------------------------------------------------------------------------
-export function CollectionGrid({ bg = '#f9f8f6', accentColor = '#1a1a1a', columns = 2, collection }) {
+export function CollectionGrid({  headingFont = 'libre-baskerville',  bg = '#f9f8f6', accentColor = '#1a1a1a', columns = 2, collection }) {
   if (!collection) return null
+  const fontVars = getFontVariables([headingFont])
 
   const properties =
     collection.properties ??
