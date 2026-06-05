@@ -135,10 +135,10 @@ export function CollectionGrid({  headingFont = 'libre-baskerville',  bg = '#f9f
     []
 
   return (
-    <section style={{ background: bg, padding: '64px 32px' }}>
+    <section className={fontVars} style={{ background: bg, padding: '64px 32px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ marginBottom: '48px' }}>
-          <h1 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: accentColor, margin: '0 0 8px' }}>
+          <h1 style={{ fontFamily: `var(--font-${headingFont})`,  fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: accentColor, margin: '0 0 8px' }}>
             {collection.name}
           </h1>
           <p style={{ color: '#888', fontSize: '14px', margin: 0 }}>
