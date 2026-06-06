@@ -9,6 +9,9 @@
 //   scope    — PROPERTY | COLLECTION | null
 //   scope_id — uuid of the specific record, or '' if driven by route context
 // --------------------------------------------------
+export function resolveFonts(prop, storeFont, fallback) {
+  return prop === false ? fallback : (prop ?? storeFont ?? fallback)
+}
 
 export const templateLibrary = [
 

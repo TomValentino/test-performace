@@ -1,166 +1,142 @@
 import { getFontVariables } from '@/lib/fonts'
-import { PropImage } from '@/components/img'
 import styles from './_styles/sections.module.css'
+import { resolveFonts } from './section-library'
+import Link from 'next/link'
 
 
-// ---------------------------------------------------------------------------
-// PROPERTY HERO
-// ---------------------------------------------------------------------------
+// ─── PropertyHero ────────────────────────────────────────────────────────────
 export function PropertyHero({
-  headingFont = 'plus-jakarta-sans',
-  overlayOpacity = 0.45,
-  accentColor = '#fff',
+  headingFont   = null,
+  headingWeight = null,
+  bodyFont      = null,
+  bodyWeight    = null,
+  color         = '#ffffff',
+  overlayOpacity = 0.5,
   property,
+  store,
+  profile,
 }) {
   if (!property) return null
-  const fontVars = getFontVariables([headingFont])
+
+  const hFont = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
+  const bFont = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
+  const hWght = headingWeight ?? store?.fonts?.headingWeight ?? 600
+  const bWght = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
+
+  const fontVars     = getFontVariables([hFont, bFont])
+  const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
+  const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
+
   const photo = property.photos?.[0] ?? null
   const price = property.price ? `$${Number(property.price).toLocaleString()}` : null
   const addr  = property.address ?? {}
   const line  = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
   const specs = property.specs ?? {}
+
   return (
     <section className={`${fontVars} ${styles.hero}`}>
+
       {photo && (
-        <PropImage
-          src={photo}
-          alt={property.title ?? ''}
-          fill
-          priority
-          sizes="100vw"
-          style={{ opacity: overlayOpacity }}
-        />
+        <img src={photo} alt={property.title ?? ''} className={styles.heroImage} />
       )}
-      <div className={styles.heroOverlay} />
-      <div className={styles.heroContent} style={{ color: accentColor }}>
+      <div className={styles.heroOverlay} style={{ opacity: overlayOpacity }} />
+
+      <div className={styles.heroContent}>
         {property.sale_status && (
-          <span
-            className={styles.heroStatusBadge}
-            style={{ background: accentColor, color: '#111' }}
-          >
-            {property.sale_status}
-          </span>
+          <span className={styles.heroBadge} style={bodyStyle}>{property.sale_status}</span>
         )}
-        <h1
-          className={styles.heroTitle}
-          style={{ fontFamily: `var(--font-${headingFont})` }}
-        >
-          {property.title}
-        </h1>
-        {line && <p className={styles.heroAddress}>{line}</p>}
-        {(specs.bedrooms != null || specs.bathrooms != null || specs.floor_size != null) && (
-          <div className={styles.heroSpecs}>
-            {specs.bedrooms   != null && <Spec label="Beds"   value={specs.bedrooms} />}
-            {specs.bathrooms  != null && <Spec label="Baths"  value={specs.bathrooms} />}
-            {specs.garages    != null && <Spec label="Garage" value={specs.garages} />}
-            {specs.floor_size != null && <Spec label="Floor"  value={`${specs.floor_size}m²`} />}
-            {specs.land_size  != null && <Spec label="Land"   value={`${specs.land_size}m²`} />}
-          </div>
-        )}
-        {price && <p className={styles.heroPrice}>{price}</p>}
+        <h1 className={styles.heroTitle} style={headingStyle}>{property.title}</h1>
+        {line && <p className={styles.heroLine} style={bodyStyle}>{line}</p>}
+
+        <div className={styles.heroSpecs}>
+          {specs.bedrooms   != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.bedrooms} bed</span>}
+          {specs.bathrooms  != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.bathrooms} bath</span>}
+          {specs.garages    != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.garages} garage</span>}
+          {specs.floor_size != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.floor_size}m²</span>}
+          {specs.land_size  != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.land_size}m² land</span>}
+        </div>
+
+        {price && <p className={styles.heroPrice} style={headingStyle}>{price}</p>}
       </div>
+
     </section>
   )
 }
 
-function Spec({ label, value }) {
-  return (
-    <div className={styles.spec}>
-      <div className={styles.specValue}>{value}</div>
-      <div className={styles.specLabel}>{label}</div>
-    </div>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// COLLECTION GRID
-// ---------------------------------------------------------------------------
+// ─── CollectionGrid ───────────────────────────────────────────────────────────
 export function CollectionGrid({
-  headingFont  = 'libre-baskerville',
-  bodyFont     = 'josefin-sans',
-  bg           = '#f9f8f6',
-  accentColor  = '#1a1a1a',
-  columns      = 2,
+  headingFont   = null,
+  headingWeight = null,
+  bodyFont      = null,
+  bodyWeight    = null,
+  bg            = '#f9f8f6',
+  color         = '#1a1a1a',
+  columns       = 2,
   collection,
+  store,
+  profile,
 }) {
   if (!collection) return null
-  const fontVars = getFontVariables([headingFont, bodyFont])
-  const properties =
-    collection.properties ??
-    collection.collection_properties?.map((cp) => cp.property).filter(Boolean) ??
-    []
+
+  const hFont = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
+  const bFont = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
+  const hWght = headingWeight ?? store?.fonts?.headingWeight ?? 600
+  const bWght = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
+
+  const fontVars     = getFontVariables([hFont, bFont])
+  const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
+  const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
+
+  const properties = collection.properties ?? []
+
   return (
     <section className={`${fontVars} ${styles.collection}`} style={{ background: bg }}>
-      <div className={styles.collectionInner}>
-        <div className={styles.collectionHeader}>
-          <h1
-            className={styles.collectionTitle}
-            style={{ fontFamily: `var(--font-${headingFont})`, color: accentColor }}
-          >
-            {collection.name}
-          </h1>
-          <p className={styles.collectionCount} style={{ fontFamily: `var(--font-${bodyFont})` }}>
-            {properties.length} {properties.length === 1 ? 'property' : 'properties'}
-          </p>
-        </div>
-        {properties.length === 0 ? (
-          <div className={styles.collectionEmpty}>No properties yet.</div>
-        ) : (
-          <div
-            className={styles.collectionGrid}
-            style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
-          >
-            {properties.map((p) => (
-              <PropertyCard key={p.id} property={p} accentColor={accentColor} />
-            ))}
-          </div>
-        )}
+
+      <h2 className={styles.collectionTitle} style={headingStyle}>{collection.name}</h2>
+      <p  className={styles.collectionCount} style={bodyStyle}>
+        {properties.length} {properties.length === 1 ? 'property' : 'properties'}
+      </p>
+
+      {properties.length === 0 && (
+        <p className={styles.collectionEmpty} style={bodyStyle}>No properties yet.</p>
+      )}
+
+      <div className={styles.collectionGrid} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
+        {properties.map(p => {
+          const photo  = p.photos?.[0] ?? null
+          const price  = p.price ? `$${Number(p.price).toLocaleString()}` : null
+          const addr   = p.address ?? {}
+          const line   = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
+          const specs  = p.specs ?? {}
+          return (
+            <Link 
+              key={p.id} 
+              prefetch={true} 
+              href={`/${store.username}/property/${p.meta_handle}`} 
+              className={styles.card}
+            >
+
+              {photo && (
+                <div className={styles.cardImageWrap}>
+                  <img src={photo} alt={p.title ?? ''} className={styles.cardImage} />
+                </div>
+              )}
+              <div className={styles.cardBody}>
+                {p.sale_status && <span className={styles.cardStatus} style={bodyStyle}>{p.sale_status}</span>}
+                <h3 className={styles.cardTitle} style={headingStyle}>{p.title}</h3>
+                {line && <p className={styles.cardAddress} style={bodyStyle}>{line}</p>}
+                <div className={styles.cardSpecs}>
+                  {specs.bedrooms   != null && <span className={styles.cardSpec} style={bodyStyle}>{specs.bedrooms} bed</span>}
+                  {specs.bathrooms  != null && <span className={styles.cardSpec} style={bodyStyle}>{specs.bathrooms} bath</span>}
+                  {specs.floor_size != null && <span className={styles.cardSpec} style={bodyStyle}>{specs.floor_size}m²</span>}
+                </div>
+                {price && <p className={styles.cardPrice} style={headingStyle}>{price}</p>}
+              </div>
+            </Link>
+          )
+        })}
       </div>
+
     </section>
   )
-}
-
-function PropertyCard({ property, accentColor }) {
-  const photo = property.photos?.[0] ?? null
-  const price = property.price ? `$${Number(property.price).toLocaleString()}` : null
-  const addr  = property.address ?? {}
-  const line  = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
-  const specs = property.specs ?? {}
-  return (
-    <div className={styles.card}>
-      {photo && (
-        <div className={styles.cardImageWrap}>
-          <PropImage
-            src={photo}
-            alt={property.title ?? ''}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
-      )}
-      <div className={styles.cardBody}>
-        {property.sale_status && (
-          <span className={styles.cardStatus} style={{ color: accentColor }}>
-            {property.sale_status}
-          </span>
-        )}
-        <h3 className={styles.cardTitle}>{property.title}</h3>
-        {line && <p className={styles.cardAddress}>{line}</p>}
-        <div className={styles.cardChips}>
-          {specs.bedrooms   != null && <Chip label={`${specs.bedrooms} bed`} />}
-          {specs.bathrooms  != null && <Chip label={`${specs.bathrooms} bath`} />}
-          {specs.floor_size != null && <Chip label={`${specs.floor_size}m²`} />}
-        </div>
-        {price && (
-          <p className={styles.cardPrice} style={{ color: accentColor }}>
-            {price}
-          </p>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function Chip({ label }) {
-  return <span className={styles.chip}>{label}</span>
 }

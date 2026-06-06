@@ -4,20 +4,14 @@
 import styles from './_styles/layout.module.css'
 
 import { getFontVariables } from "@/lib/fonts"
+import { resolveFonts } from './section-library'
 
-// ---------------------------------------------------------------------------
-const FONT_DEFAULTS = {
-  headingFont   : 'plus-jakarta-sans',
-  bodyFont      : 'plus-jakarta-sans',
-  headingWeight : 600,
-  bodyWeight    : 400,
-}
 
 export function NavSimple({
   // null means "not set" — triggers cascade below
   headingFont   = null,
-  bodyFont      = null,
   headingWeight = null,
+  bodyFont      = null,
   bodyWeight    = null,
   // colours
   bg       = '#ffffff',
@@ -33,10 +27,10 @@ export function NavSimple({
   profile,
 }) {
   // cascade: section prop → store global → component fallback
-  const hFont = headingFont === false ? FONT_DEFAULTS.headingFont : (headingFont ?? store?.fonts?.heading ?? FONT_DEFAULTS.headingFont)
-  const bFont = bodyFont    === false ? FONT_DEFAULTS.bodyFont    : (bodyFont    ?? store?.fonts?.body    ?? FONT_DEFAULTS.bodyFont)
-  const hWght  = headingWeight ?? store?.fonts?.headingWeight ?? FONT_DEFAULTS.headingWeight
-  const bWght  = bodyWeight    ?? store?.fonts?.bodyWeight    ?? FONT_DEFAULTS.bodyWeight
+  const hFont = headingFont === false ? 'plus-jakarta-sans' : (headingFont ?? store?.fonts?.heading ?? 'plus-jakarta-sans')
+  const bFont = bodyFont    === false ? 'plus-jakarta-sans'    : (bodyFont    ?? store?.fonts?.body    ?? 'plus-jakarta-sans')
+  const hWght  = headingWeight ?? store?.fonts?.headingWeight ?? 600
+  const bWght  = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
 
   const fontVars     = getFontVariables([hFont, bFont])
   const brand        = store?.name ?? store?.username ?? 'Brand'
@@ -66,12 +60,27 @@ export function NavSimple({
 // ---------------------------------------------------------------------------
 // FOOTER
 // ---------------------------------------------------------------------------
-export function FooterSimple({ bg = '#f9f9f9', color = '#999', text, store, profile }) {
+export function FooterSimple({
+  bodyFont   = null,
+  bodyWeight = null,
+  bg         = '#f9f9f9',
+  color      = '#999',
+  text       = null,
+  store,
+  profile,
+}) {
+  const bFont    = resolveFonts(bodyFont, store?.fonts?.body, 'dm-sans')
+  const bWght    = bodyWeight ?? store?.fonts?.bodyWeight ?? 400
+  const fontVars = getFontVariables([bFont])
   const fallback = [profile?.name ?? store?.username, profile?.email, profile?.phone]
     .filter(Boolean)
     .join('  ·  ')
+
   return (
-    <footer className={styles.footer} style={{ background: bg, color }}>
+    <footer
+      className={`${fontVars} ${styles.footer}`}
+      style={{ background: bg, color, fontFamily: `var(--font-${bFont})`, fontWeight: bWght }}
+    >
       {text ?? fallback}
     </footer>
   )
