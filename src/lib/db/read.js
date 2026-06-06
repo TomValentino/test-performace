@@ -6,7 +6,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 )
 
-const cache = process.env.DISABLE_CACHE === 'development'
+const cache = process.env.NODE_ENV === 'development'
   ? (fn) => fn
   : unstable_cache
 
