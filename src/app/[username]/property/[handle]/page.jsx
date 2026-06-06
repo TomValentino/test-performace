@@ -4,8 +4,8 @@ import { renderSections }                    from '@/lib/render'
 import { fetchSectionData }                  from '@/lib/fetch-section-data'
 import { createClient }                      from '@supabase/supabase-js'
 
-// export const dynamic    = 'force-static'
-// export const revalidate = false
+export const dynamic    = 'force-static'
+export const revalidate = 86400
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,

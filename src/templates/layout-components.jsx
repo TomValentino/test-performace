@@ -6,26 +6,68 @@ import styles from './_styles/layout.module.css'
 import { getFontVariables } from "@/lib/fonts"
 
 // ---------------------------------------------------------------------------
+// ─── Shared font defaults ────────────────────────────────────────────────────
+const FONT_DEFAULTS = {
+  headingFont   : 'plus-jakarta-sans',
+  bodyFont      : 'dm-sans',
+  headingWeight : 600,
+  bodyWeight    : 400,
+}
+
+// ─── NavSimple ───────────────────────────────────────────────────────────────
 export function NavSimple({
-  headingFont = 'plus-jakarta-sans',
-  headlineWeight = 300,
-  bodyFont = 'dm_sans',
+  // fonts (fall back to shared defaults)
+  headingFont   = FONT_DEFAULTS.headingFont,
+  bodyFont      = FONT_DEFAULTS.bodyFont,
+  headingWeight = FONT_DEFAULTS.headingWeight,
+  bodyWeight    = FONT_DEFAULTS.bodyWeight,
+  // colours
+  bg       = '#ffffff',
+  color    = '#111111',
+  ctaBg    = '#111111',
+  ctaColor = '#ffffff',
+  // content
+  links   = [],
+  ctaText = null,
+  ctaHref = '/',
+  // injected
   store,
   profile,
 }) {
   const fontVars = getFontVariables([headingFont, bodyFont])
+  const brand    = store?.name ?? store?.username ?? 'Brand'
+
+  // resolved CSS values — keeps JSX clean
+  const headingStyle = { fontFamily: `var(--font-${headingFont})`, fontWeight: headingWeight, color }
+  const bodyStyle    = { fontFamily: `var(--font-${bodyFont})`,    fontWeight: bodyWeight,    color }
+
   return (
-    <section className={`${fontVars} ${styles.nav}`}>
-      <h1
-        className={styles.navHeading}
-        style={{ fontFamily: `var(--font-${headingFont})`, fontWeight: headlineWeight }}
-      >
-        Luxury Living, by {store.username ?? 'No username'}
-      </h1>
-      <p className={styles.navBody} style={{ fontFamily: `var(--font-${bodyFont})` }}>
-        Discover premium properties — {profile.title ?? 'Unknown person'}
-      </p>
-    </section>
+    <nav className={`${fontVars} ${styles.nav}`} style={{ background: bg }}>
+
+      <a href="/" className={styles.brand} style={headingStyle}>
+        {brand}
+      </a>
+
+      {links.length > 0 && (
+        <ul className={styles.links}>
+          {links.map((link, i) => (
+            <li key={i}>
+              <a href={link.href} className={styles.link} style={bodyStyle}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {ctaText && (
+        <a href={ctaHref} className={styles.cta}
+          style={{ ...bodyStyle, background: ctaBg, color: ctaColor }}>
+          {ctaText}
+        </a>
+      )}
+
+    </nav>
   )
 }
 
