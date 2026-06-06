@@ -60,9 +60,16 @@ export async function generateMetadata({ params }) {
   if (!store) return {}
   const collection = await getCollection(handle, store.id)
   if (!collection) return {}
+
+  const image = collection.photos?.[0]?.trim() ?? store.image?.trim() ?? null
+
   return {
     title:       collection.name,
     description: collection.description?.slice(0, 160) ?? null,
-    openGraph:   { images: collection.photos?.[0] ? [collection.photos[0]] : [] },
+    openGraph: {
+      title:       collection.name,
+      description: collection.description?.slice(0, 160) ?? null,
+      images:      image ? [{ url: image, width: 1200, height: 630 }] : [],
+    },
   }
 }

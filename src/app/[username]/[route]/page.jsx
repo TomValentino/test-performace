@@ -65,16 +65,22 @@ console.log('>>> page', page)
     </main>
   )
 }
-
 export async function generateMetadata({ params }) {
   const { username, route } = await params
   const store = await getStore(username)
   if (!store) return {}
   const page  = await getPage(route, store.id)
   if (!page) return {}
+
+  const image = page.meta_image?.trim() ?? store.image?.trim() ?? null
+
   return {
-    title:       page.meta_title       ?? store.username,
-    description: page.meta_description ?? null,
-    openGraph:   { images: page.meta_image ? [page.meta_image] : [] },
+    title:       page.meta_title       ?? store.title ?? username,
+    description: page.meta_description ?? store.description ?? null,
+    openGraph: {
+      title:       page.meta_title       ?? store.title ?? username,
+      description: page.meta_description ?? store.description ?? null,
+      images:      image ? [{ url: image, width: 1200, height: 630 }] : [],
+    },
   }
 }
