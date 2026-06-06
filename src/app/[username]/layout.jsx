@@ -20,24 +20,18 @@ export async function generateMetadata({ params }) {
   const description = store.description ?? profile?.bio     ?? null
   const image       = store.og_image    ?? profile?.logo    ?? null
 
-  return {
+ return {
+  title,
+  description,
+  icons: {
+    icon: store.favicon ?? profile?.logo ?? '/favicon.ico',
+  },
+  openGraph: {
     title,
     description,
-    icons: {
-      icon: store.favicon ?? profile?.logo ?? '/favicon.ico',
-    },
-    openGraph: {
-      title,
-      description,
-      images: image ? [image] : [],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: image ? [image] : [],
-    },
-  }
+    images: image ? [image] : [],
+  },
+}
 }
 
 export default async function RootLayout({ children, params }) {
