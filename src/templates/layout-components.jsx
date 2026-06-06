@@ -6,21 +6,19 @@ import styles from './_styles/layout.module.css'
 import { getFontVariables } from "@/lib/fonts"
 
 // ---------------------------------------------------------------------------
-// ─── Shared font defaults ────────────────────────────────────────────────────
 const FONT_DEFAULTS = {
   headingFont   : 'plus-jakarta-sans',
-  bodyFont      : 'dm-sans',
+  bodyFont      : 'plus-jakarta-sans',
   headingWeight : 600,
   bodyWeight    : 400,
 }
 
-// ─── NavSimple ───────────────────────────────────────────────────────────────
 export function NavSimple({
-  // fonts (fall back to shared defaults)
-  headingFont   = FONT_DEFAULTS.headingFont,
-  bodyFont      = FONT_DEFAULTS.bodyFont,
-  headingWeight = FONT_DEFAULTS.headingWeight,
-  bodyWeight    = FONT_DEFAULTS.bodyWeight,
+  // null means "not set" — triggers cascade below
+  headingFont   = null,
+  bodyFont      = null,
+  headingWeight = null,
+  bodyWeight    = null,
   // colours
   bg       = '#ffffff',
   color    = '#111111',
@@ -34,43 +32,37 @@ export function NavSimple({
   store,
   profile,
 }) {
-  const fontVars = getFontVariables([headingFont, bodyFont])
-  const brand    = store?.name ?? store?.username ?? 'Brand'
+  // cascade: section prop → store global → component fallback
+  const hFont = headingFont === false ? FONT_DEFAULTS.headingFont : (headingFont ?? store?.fonts?.heading ?? FONT_DEFAULTS.headingFont)
+  const bFont = bodyFont    === false ? FONT_DEFAULTS.bodyFont    : (bodyFont    ?? store?.fonts?.body    ?? FONT_DEFAULTS.bodyFont)
+  const hWght  = headingWeight ?? store?.fonts?.headingWeight ?? FONT_DEFAULTS.headingWeight
+  const bWght  = bodyWeight    ?? store?.fonts?.bodyWeight    ?? FONT_DEFAULTS.bodyWeight
 
-  // resolved CSS values — keeps JSX clean
-  const headingStyle = { fontFamily: `var(--font-${headingFont})`, fontWeight: headingWeight, color }
-  const bodyStyle    = { fontFamily: `var(--font-${bodyFont})`,    fontWeight: bodyWeight,    color }
+  const fontVars     = getFontVariables([hFont, bFont])
+  const brand        = store?.name ?? store?.username ?? 'Brand'
+  const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
+  const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
 
   return (
     <nav className={`${fontVars} ${styles.nav}`} style={{ background: bg }}>
-
-      <a href="/" className={styles.brand} style={headingStyle}>
-        {brand}
-      </a>
-
+      <a href="/" className={styles.brand} style={headingStyle}>{brand}</a>
       {links.length > 0 && (
         <ul className={styles.links}>
           {links.map((link, i) => (
             <li key={i}>
-              <a href={link.href} className={styles.link} style={bodyStyle}>
-                {link.label}
-              </a>
+              <a href={link.href} className={styles.link} style={bodyStyle}>{link.label}</a>
             </li>
           ))}
         </ul>
       )}
-
       {ctaText && (
-        <a href={ctaHref} className={styles.cta}
-          style={{ ...bodyStyle, background: ctaBg, color: ctaColor }}>
+        <a href={ctaHref} className={styles.cta} style={{ ...bodyStyle, background: ctaBg, color: ctaColor }}>
           {ctaText}
         </a>
       )}
-
     </nav>
   )
 }
-
 // ---------------------------------------------------------------------------
 // FOOTER
 // ---------------------------------------------------------------------------

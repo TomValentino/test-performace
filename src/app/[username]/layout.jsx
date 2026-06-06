@@ -20,7 +20,8 @@ export default async function RootLayout({ children, params }) {
   const header = store.layout_header ?? DEFAULT_HEADER
   const footer = store.layout_footer ?? DEFAULT_FOOTER
 
-  const fontVariables = getFontVariables(store.fonts ?? [])
+const fonts = store?.fonts ?? {}
+const fontVariables = getFontVariables([fonts.heading, fonts.body].filter(Boolean))
   const ctx = { store, profile }
 
   return (
