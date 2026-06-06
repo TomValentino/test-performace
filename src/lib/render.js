@@ -1,5 +1,5 @@
 import { FooterSimple, NavSimple } from "@/templates/layout-components"
-import { CollectionGrid, HeroHome, PropertyHero } from "@/templates/section-components"
+import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero } from "@/templates/section-components"
 
 const SECTIONS = {
   'nav-simple':      NavSimple,
@@ -7,6 +7,8 @@ const SECTIONS = {
   'property-hero':   PropertyHero,
   'collection-grid': CollectionGrid,
   'hero-home':       HeroHome,
+  'property-featured': PropertyFeatured,
+  'agent-card':        AgentCard,
 }
 
 export function resolveTokens(str, ctx) {

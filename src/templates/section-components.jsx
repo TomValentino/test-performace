@@ -194,3 +194,150 @@ export function HeroHome({
     </section>
   )
 }
+
+
+
+
+
+// ─── PropertyFeatured ────────────────────────────────────────────────────────
+// Single featured property — clean horizontal card layout
+// Scope: PROPERTY
+// Props: label, ctaText, bg, color, accentColor
+
+export function PropertyFeatured({
+  headingFont   = null,
+  headingWeight = null,
+  bodyFont      = null,
+  bodyWeight    = null,
+  bg            = '#ffffff',
+  color         = '#111111',
+  accentColor   = '#111111',
+  label         = 'Featured Property',
+  ctaText       = 'View Property',
+  property,
+  store,
+  profile,
+}) {
+  if (!property) return null
+
+  const hFont    = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
+  const bFont    = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
+  const hWght    = headingWeight ?? store?.fonts?.headingWeight ?? 600
+  const bWght    = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
+  const fontVars = getFontVariables([hFont, bFont])
+
+  const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
+  const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
+
+  const photo  = property.photos?.[0] ?? null
+  const price  = property.price ? `$${Number(property.price).toLocaleString()}` : null
+  const addr   = property.address ?? {}
+  const line   = [addr.suburb, addr.state].filter(Boolean).join(', ')
+  const specs  = property.specs ?? {}
+
+  return (
+    <section className={`${fontVars} ${styles.featured}`} style={{ background: bg }}>
+      <p className={styles.featuredLabel} style={{ ...bodyStyle, color: accentColor }}>{label}</p>
+      <div className={styles.featuredInner}>
+        {photo && (
+          <SmartLink href={`property/${property.meta_handle}`} username={store?.username} className={styles.featuredImageWrap}>
+            <img src={photo} alt={property.title ?? ''} className={styles.featuredImage} />
+          </SmartLink>
+        )}
+        <div className={styles.featuredBody}>
+          {property.sale_status && (
+            <span className={styles.featuredBadge} style={bodyStyle}>{property.sale_status}</span>
+          )}
+          <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
+          {line && <p className={styles.featuredAddress} style={bodyStyle}>{line}</p>}
+          <div className={styles.featuredSpecs}>
+            {specs.bedrooms   != null && <span className={styles.featuredSpec} style={bodyStyle}>{specs.bedrooms} bed</span>}
+            {specs.bathrooms  != null && <span className={styles.featuredSpec} style={bodyStyle}>{specs.bathrooms} bath</span>}
+            {specs.floor_size != null && <span className={styles.featuredSpec} style={bodyStyle}>{specs.floor_size}m²</span>}
+          </div>
+          {price && <p className={styles.featuredPrice} style={headingStyle}>{price}</p>}
+          {ctaText && (
+            <SmartLink
+              href={`property/${property.meta_handle}`}
+              username={store?.username}
+              className={styles.featuredCta}
+              style={{ ...bodyStyle, background: accentColor, color: bg }}
+            >
+              {ctaText}
+            </SmartLink>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── AgentCard ───────────────────────────────────────────────────────────────
+// Agent bio + contact — simple clean card
+// Scope: none (uses profile directly)
+// Props: heading, subheading, ctaText, ctaHref, bg, color, accentColor
+
+export function AgentCard({
+  headingFont   = null,
+  headingWeight = null,
+  bodyFont      = null,
+  bodyWeight    = null,
+  bg            = '#f9f8f6',
+  color         = '#111111',
+  accentColor   = '#111111',
+  heading       = null,
+  subheading    = null,
+  ctaText       = 'Get in Touch',
+  ctaHref       = null,
+  store,
+  profile,
+}) {
+  const hFont    = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
+  const bFont    = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
+  const hWght    = headingWeight ?? store?.fonts?.headingWeight ?? 600
+  const bWght    = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
+  const fontVars = getFontVariables([hFont, bFont])
+
+  const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
+  const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
+
+  const resolvedHeading    = heading    ?? profile?.name    ?? store?.username
+  const resolvedSubheading = subheading ?? profile?.title   ?? null
+  const resolvedCta        = ctaHref    ?? (profile?.email ? `mailto:${profile.email}` : null)
+
+  return (
+    <section className={`${fontVars} ${styles.agent}`} style={{ background: bg }}>
+      <div className={styles.agentInner}>
+        {profile?.photo && (
+          <img src={profile.photo} alt={resolvedHeading ?? ''} className={styles.agentPhoto} />
+        )}
+        <div className={styles.agentBody}>
+          <h2 className={styles.agentName} style={headingStyle}>{resolvedHeading}</h2>
+          {resolvedSubheading && (
+            <p className={styles.agentTitle} style={{ ...bodyStyle, opacity: 0.6 }}>{resolvedSubheading}</p>
+          )}
+          {profile?.about && (
+            <p className={styles.agentAbout} style={bodyStyle}>{profile.about}</p>
+          )}
+          <div className={styles.agentContact}>
+            {profile?.phone && (
+              <a href={`tel:${profile.phone}`} className={styles.agentContactItem} style={bodyStyle}>{profile.phone}</a>
+            )}
+            {profile?.email && (
+              <a href={`mailto:${profile.email}`} className={styles.agentContactItem} style={bodyStyle}>{profile.email}</a>
+            )}
+          </div>
+          {ctaText && resolvedCta && (
+            <a
+              href={resolvedCta}
+              className={styles.agentCta}
+              style={{ ...bodyStyle, background: accentColor, color: bg }}
+            >
+              {ctaText}
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
