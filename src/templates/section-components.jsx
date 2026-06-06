@@ -2,6 +2,7 @@ import { getFontVariables } from '@/lib/fonts'
 import styles from './_styles/sections.module.css'
 import { resolveFonts } from './section-library'
 import Link from 'next/link'
+import { SmartLink } from './layout-components'
 
 
 // ─── PropertyHero ────────────────────────────────────────────────────────────
@@ -137,6 +138,62 @@ export function CollectionGrid({
         })}
       </div>
 
+    </section>
+  )
+}
+
+
+
+
+export function HeroHome({
+  headingFont   = null,
+  headingWeight = null,
+  bodyFont      = null,
+  bodyWeight    = null,
+  color         = '#111111',
+  bg            = '#f9f8f6',
+  heading       = null,
+  subheading    = null,
+  ctaText       = null,
+  ctaHref       = '/',
+  store,
+  profile,
+}) {
+  const hFont    = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
+  const bFont    = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
+  const hWght    = headingWeight ?? store?.fonts?.headingWeight ?? 600
+  const bWght    = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
+  const fontVars = getFontVariables([hFont, bFont])
+
+  const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
+  const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
+
+  const resolvedHeading    = heading    ?? `Welcome to ${store?.name ?? store?.username}`
+  const resolvedSubheading = subheading ?? profile?.title ?? null
+
+  return (
+    <section className={fontVars} style={{ background: bg, padding: 'clamp(80px, 12vw, 160px) 40px', textAlign: 'center' }}>
+      <h1 style={{ ...headingStyle, fontSize: 'clamp(36px, 6vw, 80px)', marginBottom: '20px' }}>
+        {resolvedHeading}
+      </h1>
+      {resolvedSubheading && (
+        <p style={{ ...bodyStyle, fontSize: 'clamp(16px, 2vw, 22px)', opacity: 0.6, marginBottom: '40px' }}>
+          {resolvedSubheading}
+        </p>
+      )}
+      {ctaText && (
+        <SmartLink href={ctaHref} username={store?.username} style={{
+          ...bodyStyle,
+          display: 'inline-block',
+          padding: '14px 32px',
+          borderRadius: '8px',
+          background: color,
+          color: bg,
+          fontWeight: 500,
+        }}>
+          {ctaText}
+        </SmartLink>
+      )}
     </section>
   )
 }

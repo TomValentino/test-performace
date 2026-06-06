@@ -26,12 +26,4 @@ const nextConfig = {
   },
 }
 
-let warmed = false
-if (!warmed && process.env.NODE_ENV !== 'production') {
-  warmed = true
-  setTimeout(() => {
-    fetch('http://localhost:3000/preview/draft/warmup').catch(() => {})
-  }, 2000)
-}
-
 export default nextConfig

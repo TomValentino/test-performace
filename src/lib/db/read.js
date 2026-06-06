@@ -13,7 +13,7 @@ const cache = process.env.NODE_ENV === 'development'
 export const getStore = cache(
   async (username) => {
     const { data, error } = await supabase
-      .from('stores').select('*').eq('username', username).single()
+      .from('stores').select('*').eq('username', username).maybeSingle()
     if (error) console.error('[getStore]', error.message, { username })
     return data ?? null
   },
@@ -25,7 +25,7 @@ export const getProfile = cache(
   async (profileId) => {
     if (!profileId) return null
     const { data, error } = await supabase
-      .from('profiles').select('*').eq('id', profileId).single()
+      .from('profiles').select('*').eq('id', profileId).maybeSingle()
     if (error) console.error('[getProfile]', error.message, { profileId })
     return data ?? null
   },
@@ -37,7 +37,7 @@ export const getProperty = cache(
   async (handle, accountId) => {
     const { data, error } = await supabase
       .from('properties').select('*')
-      .eq('meta_handle', handle).eq('account_id', accountId).eq('status', 'published').single()
+      .eq('meta_handle', handle).eq('account_id', accountId).eq('status', 'published').maybeSingle()
     if (error) console.error('[getProperty]', error.message, { handle, accountId })
     return data ?? null
   },
@@ -50,7 +50,7 @@ export const getCollection = cache(
     const { data, error } = await supabase
       .from('collections')
       .select(`*, collection_properties ( property:properties (*) )`)
-      .eq('meta_handle', handle).eq('store_id', storeId).eq('status', 'published').single()
+      .eq('meta_handle', handle).eq('store_id', storeId).eq('status', 'published').maybeSingle()
     if (error) console.error('[getCollection]', error.message, { handle, storeId })
     if (!data) return null
     return { ...data, properties: data.collection_properties.map((cp) => cp.property) }
@@ -85,4 +85,18 @@ export const getCollectionsByIds = cache(
   },
   ['get-collections-by-ids'],
   { tags: ['collections'], revalidate: 86400 }
+)
+
+
+export const getPage = cache(
+  async (handle, storeId) => {
+    const { data, error } = await supabase
+      .from('pages').select('*')
+      .eq('meta_handle', handle).eq('store_id', storeId).eq('status', 'published').maybeSingle()
+    console.log('[getPage]', { handle, storeId, data, error })
+    if (error) console.error('[getPage]', error.message, { handle, storeId })
+    return data ?? null
+  },
+  ['get-page'],
+  { tags: ['pages'], revalidate: 86400 }
 )

@@ -5,7 +5,26 @@ import styles from './_styles/layout.module.css'
 
 import { getFontVariables } from "@/lib/fonts"
 import { resolveFonts } from './section-library'
+import Link from 'next/link'
 
+
+export function resolveHref(href, username) {
+  if (!href) return '/'
+  const isExternal = href.startsWith('http') || href.startsWith('//')
+  if (isExternal) return href
+  return `/${username}${href.startsWith('/') ? href : `/${href}`}`
+}
+
+
+export function SmartLink({ href, username, children, ...props }) {
+  const isExternal = href?.startsWith('http') || href?.startsWith('//')
+  const resolved   = resolveHref(href, username)
+
+  if (isExternal) {
+    return <a href={resolved} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>
+  }
+  return <Link href={resolved} {...props}>{children}</Link>
+}
 
 export function NavSimple({
   // null means "not set" — triggers cascade below
@@ -39,12 +58,21 @@ export function NavSimple({
 
   return (
     <nav className={`${fontVars} ${styles.nav}`} style={{ background: bg }}>
-      <a href="/" className={styles.brand} style={headingStyle}>{brand}</a>
+    <SmartLink href="home" username={store?.username} className={styles.brand} style={headingStyle}>
+      {brand}
+    </SmartLink>
       {links.length > 0 && (
         <ul className={styles.links}>
           {links.map((link, i) => (
             <li key={i}>
-              <a href={link.href} className={styles.link} style={bodyStyle}>{link.label}</a>
+             <SmartLink
+      href={link.href}
+      username={store?.username}
+      className={styles.link}
+      style={bodyStyle}
+    >
+      {link.label}
+    </SmartLink>
             </li>
           ))}
         </ul>

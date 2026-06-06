@@ -1,5 +1,5 @@
 import { FooterSimple, NavSimple } from "@/templates/layout-components"
-import { CollectionGrid, PropertyHero } from "@/templates/section-components"
+import { CollectionGrid, HeroHome, PropertyHero } from "@/templates/section-components"
 
 
 
@@ -8,6 +8,8 @@ const SECTIONS = {
   'footer-simple':   FooterSimple,
   'property-hero':   PropertyHero,
   'collection-grid': CollectionGrid,
+    'hero-home'       : HeroHome,       // ← add
+
 }
 
 
