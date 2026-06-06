@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { SmartLink } from './layout-components'
 
 
+
 // ─── PropertyHero ────────────────────────────────────────────────────────────
 export function PropertyHero({
   headingFont    = null,

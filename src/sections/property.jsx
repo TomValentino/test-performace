@@ -34,7 +34,7 @@ export function PropertyDescription({
 
   const hFont = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
   const bFont = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
-  const hWght = headingWeight ?? store?.fonts?.headingWeight ?? 700
+  const hWght = headingWeight ?? store?.fonts?.headingWeight ?? 500
   const bWght = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
   const fontVars = getFontVariables([hFont, bFont])
 
