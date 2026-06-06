@@ -1,5 +1,5 @@
 export const metadata = {
-  title: '404 — Page Not Found',
+  title: 'Page Not Found',
   description: "This page doesn't exist or may have been removed.",
   robots: { index: false, follow: false },
 }
