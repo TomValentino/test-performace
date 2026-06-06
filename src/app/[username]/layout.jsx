@@ -2,6 +2,7 @@ import { notFound }             from 'next/navigation'
 import { getStore, getProfile } from '@/lib/db/read'
 import { renderSections }       from '@/lib/render'
 import { getFontVariables }     from '@/lib/fonts'
+import "@/_styles/global.css"
 
 export const dynamic    = 'force-static'
 export const revalidate = 86400
