@@ -3,8 +3,7 @@
 // NAV
 import styles from './_styles/layout.module.css'
 
-import { getFontVariables } from "@/lib/fonts"
-import { resolveFonts } from './section-library'
+import { getFontVariables, resolveFonts } from "@/lib/fonts"
 import Link from 'next/link'
 
 

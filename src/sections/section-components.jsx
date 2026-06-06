@@ -1,6 +1,5 @@
-import { getFontVariables } from '@/lib/fonts'
+import { getFontVariables, resolveFonts } from '@/lib/fonts'
 import styles from './_styles/sections.module.css'
-import { resolveFonts } from './section-library'
 import Link from 'next/link'
 import { SmartLink } from './layout-components'
 

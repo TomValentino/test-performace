@@ -1,5 +1,5 @@
 import { notFound }             from 'next/navigation'
-import { getStore, getProfile } from '@/lib/db/read'
+import { getStore, getProfile } from '@/db/read'
 import { renderSections }       from '@/lib/render'
 import { getFontVariables }     from '@/lib/fonts'
 import "@/_styles/global.css"

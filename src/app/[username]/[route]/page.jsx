@@ -1,7 +1,6 @@
 import { notFound }                          from 'next/navigation'
-import { getStore, getProfile, getPage }     from '@/lib/db/read'
+import { getStore, getProfile, getPage, fetchSectionData }     from '@/db/read'
 import { renderSections }                    from '@/lib/render'
-import { fetchSectionData }                  from '@/lib/fetch-section-data'
 import { createClient }                      from '@supabase/supabase-js'
 
 export const dynamic    = 'force-static'

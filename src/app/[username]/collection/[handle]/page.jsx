@@ -1,16 +1,10 @@
 import { notFound }                              from 'next/navigation'
-import { getStore, getProfile, getCollection }   from '@/lib/db/read'
+import { getStore, getProfile, getCollection, supabase, fetchSectionData }   from '@/db/read'
 import { renderSections }                        from '@/lib/render'
-import { createClient }                          from '@supabase/supabase-js'
-import { fetchSectionData } from '@/lib/fetch-section-data'
 
 export const dynamic    = 'force-static'
 export const revalidate = 86400
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
-)
 
 export async function generateStaticParams() {
   const { data: stores }      = await supabase.from('stores').select('username, id')

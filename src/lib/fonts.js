@@ -59,3 +59,7 @@ export function getFontVariables(fonts = []) {
     .map(f => f.variable)
     .join(' ')
 }
+
+export function resolveFonts(prop, storeFont, fallback) {
+  return prop === false ? fallback : (prop ?? storeFont ?? fallback)
+}

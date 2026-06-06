@@ -1,15 +1,28 @@
-import { FooterSimple, NavSimple } from "@/templates/layout-components"
-import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero } from "@/templates/section-components"
+import { FooterSimple, NavSimple } from "@/sections/layout-components"
+import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero } from "@/sections/section-components"
 
-const SECTIONS = {
-  'nav-simple':      NavSimple,
-  'footer-simple':   FooterSimple,
-  'property-hero':   PropertyHero,
-  'collection-grid': CollectionGrid,
-  'hero-home':       HeroHome,
-  'property-featured': PropertyFeatured,
-  'agent-card':        AgentCard,
-}
+// --------------------------------------------------
+// SECTION REGISTRY
+// category: NAVS | HEROES | PROPERTY | COLLECTION | FOOTERS | AGENTS
+// required_scopes: PROPERTY | COLLECTION | null
+// --------------------------------------------------
+
+export const sectionRegistry = [
+  { id: 'nav-simple',        title: 'Simple Nav',        category: 'NAVS',       required_scopes: null,         component: NavSimple        },
+  { id: 'footer-simple',     title: 'Simple Footer',     category: 'FOOTERS',    required_scopes: null,         component: FooterSimple     },
+  { id: 'hero-home',         title: 'Home Hero',         category: 'HEROES',     required_scopes: null,         component: HeroHome         },
+  { id: 'property-hero',     title: 'Property Hero',     category: 'PROPERTY',   required_scopes: 'PROPERTY',   component: PropertyHero     },
+  { id: 'property-featured', title: 'Property Featured', category: 'PROPERTY',   required_scopes: 'PROPERTY',   component: PropertyFeatured },
+  { id: 'collection-grid',   title: 'Collection Grid',   category: 'COLLECTION', required_scopes: 'COLLECTION', component: CollectionGrid   },
+  { id: 'agent-card',        title: 'Agent Card',        category: 'AGENTS',     required_scopes: null,         component: AgentCard        },
+]
+
+export const getSectionById        = (id)       => sectionRegistry.find(s => s.id === id) ?? null
+export const getSectionsByCategory = (category) => sectionRegistry.filter(s => s.category === category)
+
+// --------------------------------------------------
+// RENDER — live (scoped, for real pages)
+// --------------------------------------------------
 
 export function resolveTokens(str, ctx) {
   if (!str || typeof str !== 'string') return str
@@ -39,7 +52,7 @@ export function renderSections(sections = [], ctx = {}) {
   } = ctx
 
   return sections.map((s, i) => {
-    const Component = SECTIONS[s.id]
+    const Component = getSectionById(s.id)?.component
     if (!Component) return null
 
     const scoped = {}
@@ -54,7 +67,7 @@ export function renderSections(sections = [], ctx = {}) {
       scoped.collection = id ? (collectionsMap[id] ?? null) : null
     }
 
-const resolvedProps = resolveProps(s.props, { store, profile, ...scoped })
+    const resolvedProps = resolveProps(s.props, { store, profile, ...scoped })
 
     return (
       <Component
@@ -65,5 +78,17 @@ const resolvedProps = resolveProps(s.props, { store, profile, ...scoped })
         profile={profile}
       />
     )
+  })
+}
+
+// --------------------------------------------------
+// RENDER — preview (no scope, for picker UI)
+// --------------------------------------------------
+
+export function renderPreview(sections = []) {
+  return sections.map((s, i) => {
+    const Component = getSectionById(s.id)?.component
+    if (!Component) return null
+    return <Component key={`${s.id}-${i}`} {...s.props} />
   })
 }
