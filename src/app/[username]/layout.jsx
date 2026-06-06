@@ -10,6 +10,36 @@ export const revalidate = 86400
 const DEFAULT_HEADER = { sections: [{ id: 'nav-simple',    scope: null, scope_id: null, props: {} }] }
 const DEFAULT_FOOTER = { sections: [{ id: 'footer-simple', scope: null, scope_id: null, props: {} }] }
 
+export async function generateMetadata({ params }) {
+  const { username } = await params
+  const store = await getStore(username)
+  if (!store) return {}
+  const profile = await getProfile(store.profile_id)
+
+  const title       = store.title       ?? profile?.name    ?? username
+  const description = store.description ?? profile?.bio     ?? null
+  const image       = store.og_image    ?? profile?.logo    ?? null
+
+  return {
+    title,
+    description,
+    icons: {
+      icon: store.favicon ?? profile?.logo ?? '/favicon.ico',
+    },
+    openGraph: {
+      title,
+      description,
+      images: image ? [image] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: image ? [image] : [],
+    },
+  }
+}
+
 export default async function RootLayout({ children, params }) {
   const { username } = await params
 
