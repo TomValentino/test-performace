@@ -110,12 +110,13 @@ export function CollectionGrid({
           const line   = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
           const specs  = p.specs ?? {}
           return (
-            <Link 
-              key={p.id} 
-              prefetch={true} 
-              href={`/${store.username}/property/${p.meta_handle}`} 
-              className={styles.card}
-            >
+           <SmartLink
+  key={p.id}
+  prefetch={true}
+  href={`property/${p.meta_handle}`}
+  username={store.username}
+  className={styles.card}
+>
 
               {photo && (
                 <div className={styles.cardImageWrap}>
@@ -133,7 +134,7 @@ export function CollectionGrid({
                 </div>
                 {price && <p className={styles.cardPrice} style={headingStyle}>{price}</p>}
               </div>
-            </Link>
+            </SmartLink>
           )
         })}
       </div>
