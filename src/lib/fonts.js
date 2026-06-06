@@ -63,3 +63,14 @@ export function getFontVariables(fonts = []) {
 export function resolveFonts(prop, storeFont, fallback) {
   return prop === false ? fallback : (prop ?? storeFont ?? fallback)
 }
+
+export function getFontStyle(fonts = {}) {
+  const style = {}
+  if (fonts.heading && FONT_MAP[fonts.heading]) {
+    style['--font-heading'] = `var(--font-${fonts.heading})`
+  }
+  if (fonts.body && FONT_MAP[fonts.body]) {
+    style['--font-body'] = `var(--font-${fonts.body})`
+  }
+  return style
+}

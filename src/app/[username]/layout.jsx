@@ -1,7 +1,7 @@
 import { notFound }             from 'next/navigation'
 import { getStore, getProfile } from '@/db/read'
 import { renderSections }       from '@/lib/render'
-import { getFontVariables }     from '@/lib/fonts'
+import { getFontStyle, getFontVariables }     from '@/lib/fonts'
 import "@/_styles/global.css"
 
 export const dynamic    = 'force-static'
@@ -23,10 +23,13 @@ export default async function RootLayout({ children, params }) {
 
 const fonts = store?.fonts ?? {}
 const fontVariables = getFontVariables([fonts.heading, fonts.body].filter(Boolean))
+
+const fontStyle     = getFontStyle(fonts)
+
   const ctx = { store, profile }
 
   return (
-    <html lang="en" className={fontVariables}>
+  <html lang="en" className={fontVariables} style={fontStyle}>
       <body>
         {renderSections(header.sections, ctx)}
         {children}
