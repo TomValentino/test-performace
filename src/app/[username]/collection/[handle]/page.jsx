@@ -2,6 +2,7 @@ import { notFound }                              from 'next/navigation'
 import { getStore, getProfile, getCollection }   from '@/lib/db/read'
 import { renderSections }                        from '@/lib/render'
 import { createClient }                          from '@supabase/supabase-js'
+import { fetchSectionData } from '@/lib/fetch-section-data'
 
 export const dynamic    = 'force-static'
 export const revalidate = 86400
@@ -36,16 +37,25 @@ export default async function CollectionPage({ params }) {
   ])
   if (!collection) return notFound()
 
+  // default template if no custom layout set on collection
+  const template = collection.content_published 
+   if (!template?.sections?.length) {
+    return <main><p>No content published yet.</p></main>
+  }
+
+  const { propertiesMap, collectionsMap } = await fetchSectionData(
+    template.sections,
+    { currentCollectionId: collection.id }
+  )
+
+
 const ctx = {
   store,
   profile,
-  collectionsMap:      { [collection.id]: collection },
-  currentCollectionId: collection.id,   // ← this was missing
+  propertiesMap,
+  collectionsMap,
+  currentCollectionId: collection.id, 
 }
-  // default template if no custom layout set on collection
-  const template = collection.content_published ?? {
-    sections: [{ id: 'collection-grid', scope: 'COLLECTION', scope_id: collection.id, props: {} }]
-  }
 
   return renderSections(template.sections, ctx)
 }
