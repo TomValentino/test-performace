@@ -1,4 +1,15 @@
-import { SECTIONS } from '@/lib/sections'
+import { FooterSimple, NavSimple } from "@/templates/layout-components"
+import { CollectionGrid, PropertyHero } from "@/templates/section-components"
+
+
+
+const SECTIONS = {
+  'nav-simple':      NavSimple,
+  'footer-simple':   FooterSimple,
+  'property-hero':   PropertyHero,
+  'collection-grid': CollectionGrid,
+}
+
 
 export function renderSections(sections = [], ctx = {}) {
   const {

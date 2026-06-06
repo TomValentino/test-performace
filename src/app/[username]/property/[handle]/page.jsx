@@ -1,11 +1,11 @@
 import { notFound }                          from 'next/navigation'
-import { getStore, getProfile, getProperty } from '@/_db/read'
+import { getStore, getProfile, getProperty } from '@/lib/db/read'
 import { renderSections }                    from '@/lib/render'
 import { fetchSectionData }                  from '@/lib/fetch-section-data'
 import { createClient }                      from '@supabase/supabase-js'
 
-export const dynamic    = 'force-static'
-export const revalidate = false
+// export const dynamic    = 'force-static'
+// export const revalidate = false
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,

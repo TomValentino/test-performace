@@ -1,0 +1,20 @@
+/* ── NAV ─────────────────────────────────────────────────────────────────── */
+.nav {
+  padding: 80px 32px;
+}
+.navHeading {
+  font-size: 48px;
+  font-weight: 300; /* overridden inline via style prop when needed */
+}
+.navBody {
+  font-size: 16px;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.footer {
+  padding: 40px 32px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-size: 13px;
+  /* background + color set inline – they're dynamic props */
+}

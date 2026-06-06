@@ -1,4 +1,4 @@
-import { getPropertiesByIds, getCollectionsByIds } from '@/_db/read'
+import { getPropertiesByIds, getCollectionsByIds } from '@/lib/db/read'
 
 export async function fetchSectionData(sections = [], ctx = {}) {
   const { currentPropertyId = null, currentCollectionId = null } = ctx

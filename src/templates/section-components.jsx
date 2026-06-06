@@ -1,46 +1,7 @@
 import { getFontVariables } from '@/lib/fonts'
 import { PropImage } from '@/components/img'
-import styles from './sections.module.css'
+import styles from './_styles/sections.module.css'
 
-// ---------------------------------------------------------------------------
-// NAV
-// ---------------------------------------------------------------------------
-export function NavSimple({
-  headingFont = 'plus-jakarta-sans',
-  headlineWeight = 300,
-  bodyFont = 'dm_sans',
-  store,
-  profile,
-}) {
-  const fontVars = getFontVariables([headingFont, bodyFont])
-  return (
-    <section className={`${fontVars} ${styles.nav}`}>
-      <h1
-        className={styles.navHeading}
-        style={{ fontFamily: `var(--font-${headingFont})`, fontWeight: headlineWeight }}
-      >
-        Luxury Living, by {store.username ?? 'No username'}
-      </h1>
-      <p className={styles.navBody} style={{ fontFamily: `var(--font-${bodyFont})` }}>
-        Discover premium properties — {profile.title ?? 'Unknown person'}
-      </p>
-    </section>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// FOOTER
-// ---------------------------------------------------------------------------
-export function FooterSimple({ bg = '#f9f9f9', color = '#999', text, store, profile }) {
-  const fallback = [profile?.name ?? store?.username, profile?.email, profile?.phone]
-    .filter(Boolean)
-    .join('  ·  ')
-  return (
-    <footer className={styles.footer} style={{ background: bg, color }}>
-      {text ?? fallback}
-    </footer>
-  )
-}
 
 // ---------------------------------------------------------------------------
 // PROPERTY HERO
@@ -202,11 +163,4 @@ function PropertyCard({ property, accentColor }) {
 
 function Chip({ label }) {
   return <span className={styles.chip}>{label}</span>
-}
-
-export const SECTIONS = {
-  'nav-simple':      NavSimple,
-  'footer-simple':   FooterSimple,
-  'property-hero':   PropertyHero,
-  'collection-grid': CollectionGrid,
 }
