@@ -1,4 +1,5 @@
 import { FooterSimple, NavSimple } from "@/sections/layout-components"
+import { PropertyDescription } from "@/sections/property"
 import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero } from "@/sections/section-components"
 
 // --------------------------------------------------
@@ -12,6 +13,7 @@ export const sectionRegistry = [
   { id: 'footer-simple',     title: 'Simple Footer',     category: 'FOOTERS',    required_scopes: null,         component: FooterSimple     },
   { id: 'hero-home',         title: 'Home Hero',         category: 'HEROES',     required_scopes: null,         component: HeroHome         },
   { id: 'property-hero',     title: 'Property Hero',     category: 'PROPERTY',   required_scopes: 'PROPERTY',   component: PropertyHero     },
+  { id: 'property-description', title: 'Property Description', category: 'PROPERTY',   required_scopes: 'PROPERTY',   component: PropertyDescription },
   { id: 'property-featured', title: 'Property Featured', category: 'PROPERTY',   required_scopes: 'PROPERTY',   component: PropertyFeatured },
   { id: 'collection-grid',   title: 'Collection Grid',   category: 'COLLECTION', required_scopes: 'COLLECTION', component: CollectionGrid   },
   { id: 'agent-card',        title: 'Agent Card',        category: 'AGENTS',     required_scopes: null,         component: AgentCard        },

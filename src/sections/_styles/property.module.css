@@ -1,0 +1,291 @@
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PROPERTY DESCRIPTION
+───────────────────────────────────────────────────────────────────────────── */
+
+.desc {
+  /* background set inline */
+}
+
+.descInner {
+  display: grid;
+  grid-template-columns: 1fr clamp(280px, 30%, 360px);
+  gap: clamp(48px, 6vw, 96px);
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(64px, 9vw, 120px) clamp(24px, 5vw, 80px);
+}
+
+@media (max-width: 860px) {
+  .descInner {
+    grid-template-columns: 1fr;
+    gap: clamp(40px, 6vw, 64px);
+  }
+}
+
+/* ── Left: main copy ── */
+.descMain {
+  /* flow naturally */
+}
+
+.descEyebrow {
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(12px, 1.5vw, 20px);
+  /* color set inline via accentColor */
+}
+
+.descHeading {
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 0.97;
+  letter-spacing: -0.03em;
+  margin: 0 0 clamp(14px, 1.8vw, 22px);
+}
+
+.descTagline {
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  opacity: 0.6;
+  margin: 0;
+}
+
+.descDivider {
+  width: clamp(32px, 4vw, 48px);
+  height: 2px;
+  border-radius: 2px;
+  margin: clamp(24px, 3vw, 40px) 0;
+  /* background set inline via accentColor */
+}
+
+.descBody {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.8vw, 22px);
+}
+
+.descBody p {
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.75;
+  margin: 0;
+  opacity: 0.78;
+}
+
+/* ── Amenities ── */
+.descAmenities {
+  margin-top: clamp(36px, 4.5vw, 56px);
+}
+
+.descSectionLabel {
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(16px, 2vw, 24px);
+}
+
+.descAmenityList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: clamp(10px, 1.2vw, 14px);
+}
+
+.descAmenityItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(13px, 1.3vw, 15px);
+  opacity: 0.75;
+}
+
+.descAmenityDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* ── Right: Sidebar ── */
+.descSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+  position: sticky;
+  top: clamp(20px, 3vw, 40px);
+}
+
+/* ── Side cards (specs, financials) ── */
+.sideCard {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid;
+  /* borderColor set inline via accentColor with opacity */
+  padding: clamp(20px, 2.5vw, 32px);
+}
+
+.sideCardLabel {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(14px, 1.8vw, 20px);
+}
+
+.specList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: clamp(8px, 1vw, 12px) 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.specRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.specRow:first-child {
+  padding-top: 0;
+}
+
+.specLabel {
+  font-size: clamp(12px, 1.2vw, 14px);
+  opacity: 0.5;
+  letter-spacing: 0.01em;
+}
+
+.specValue {
+  font-size: clamp(14px, 1.4vw, 16px);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* ── Agent card ── */
+.agentCard {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid;
+  /* borderColor set inline */
+  overflow: hidden;
+}
+
+.agentPhoto {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.agentInfo {
+  padding: clamp(20px, 2.5vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agentName {
+  font-size: clamp(16px, 1.8vw, 20px);
+  letter-spacing: -0.02em;
+  margin: 0 0 2px;
+}
+
+.agentTitle {
+  font-size: clamp(12px, 1.2vw, 14px);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.agentLicense {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 6px 0 0;
+}
+
+.agentContacts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: clamp(12px, 1.5vw, 18px);
+}
+
+.agentContact {
+  font-size: clamp(12px, 1.3vw, 14px);
+  opacity: 0.65;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: opacity 0.2s;
+}
+
+.agentContact:hover {
+  opacity: 1;
+}
+
+.agentCta {
+  display: block;
+  text-align: center;
+  padding: clamp(13px, 1.6vw, 16px) 24px;
+  font-size: clamp(12px, 1.2vw, 14px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  /* background + color set inline */
+}
+
+.agentCta:hover {
+  opacity: 0.85;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUpSm {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Hero */
+  .heroImage   { animation: fadeIn  1s   ease        both; }
+  .heroContent { animation: fadeUp  0.7s ease 0.1s   both; }
+  .heroThumbs  { animation: fadeUp  0.5s ease 0.35s  both; }
+
+  /* Description — stagger */
+  .descEyebrow   { animation: fadeUp 0.55s ease        both; }
+  .descHeading   { animation: fadeUp 0.6s  ease 0.06s  both; }
+  .descTagline   { animation: fadeUp 0.6s  ease 0.12s  both; }
+  .descDivider   { animation: fadeUp 0.5s  ease 0.18s  both; }
+  .descBody      { animation: fadeUp 0.6s  ease 0.24s  both; }
+  .descAmenities { animation: fadeUp 0.6s  ease 0.3s   both; }
+  .sideCard      { animation: fadeUpSm 0.6s ease 0.2s  both; }
+  .agentCard     { animation: fadeUpSm 0.6s ease 0.3s  both; }
+
+}
