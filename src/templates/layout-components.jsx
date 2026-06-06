@@ -11,14 +11,11 @@ import Link from 'next/link'
 export function resolveHref(href, username) {
   if (!href) return '/'
   if (href.startsWith('http') || href.startsWith('//')) return href
-  
-  const isSubdomain = typeof window !== 'undefined' && 
-    window.location.hostname.includes(`.`) &&
-    !window.location.hostname.startsWith('localhost')
-
   const path = href.startsWith('/') ? href : `/${href}`
-  return isSubdomain ? path : `/${username}${path}`
+  if (process.env.NODE_ENV === 'development') return `/${username}${path}`
+  return path
 }
+
 
 export function SmartLink({ href, username, children, ...props }) {
   const isExternal = href?.startsWith('http') || href?.startsWith('//')
