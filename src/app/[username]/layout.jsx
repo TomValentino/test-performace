@@ -9,20 +9,18 @@ export const revalidate = 86400
 
 const DEFAULT_HEADER = { sections: [{ id: 'nav-simple',    scope: null, scope_id: null, props: {} }] }
 const DEFAULT_FOOTER = { sections: [{ id: 'footer-simple', scope: null, scope_id: null, props: {} }] }
-
 export async function generateMetadata({ params }) {
   const { username } = await params
   const store = await getStore(username)
   if (!store) return {}
   const profile = await getProfile(store.profile_id)
 
-  const title       = store.title       ?? profile?.name    ?? username
-  const description = store.description ?? profile?.bio     ?? null
+  const title       = store.title       ?? profile?.name ?? username
+  const description = store.description ?? profile?.bio  ?? null
   const image       = store.image?.trim() ?? profile?.logo ?? null
 
-  console.log('metadata image:', image)  // <-- add this
-
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buildsite.pro'),
     title,
     description,
     icons: {
@@ -35,7 +33,6 @@ export async function generateMetadata({ params }) {
     },
   }
 }
-
 export default async function RootLayout({ children, params }) {
   const { username } = await params
 

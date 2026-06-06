@@ -66,14 +66,17 @@ export async function generateMetadata({ params }) {
   if (!store) return {}
   const property = await getProperty(handle, store.account_id)
   if (!property) return {}
+
+  const image = property.photos?.[0]?.trim() ?? store.image?.trim() ?? null
+
   return {
     title:       property.title,
     description: property.description_short ?? property.description?.slice(0, 160),
-    openGraph:   { images: property.photos?.[0] ? [property.photos[0]] : [] },
+    openGraph: {
+      title:       property.title,
+      description: property.description_short ?? property.description?.slice(0, 160),
+      images:      image ? [{ url: image, width: 1200, height: 630 }] : [],
+    },
   }
 }
-
-
-
-
 
