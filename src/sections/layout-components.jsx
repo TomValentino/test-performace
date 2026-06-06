@@ -58,7 +58,7 @@ export function NavSimple({
 
   return (
     <nav className={`${fontVars} ${styles.nav}`} style={{ background: bg }}>
-    <SmartLink href="home" username={store?.username} className={styles.brand} style={headingStyle}>
+    <SmartLink href="/" username={store?.username} className={styles.brand} style={headingStyle}>
       {brand}
     </SmartLink>
       {links.length > 0 && (
