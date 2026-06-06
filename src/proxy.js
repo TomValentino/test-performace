@@ -28,5 +28,5 @@ export function proxy(request) {
 }
 
 export const config = {
-  matcher: ['/:username', '/:username/:path*'],
+  matcher: ['/(.*)',],
 }
