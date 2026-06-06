@@ -7,48 +7,49 @@ import { SmartLink } from './layout-components'
 
 // ─── PropertyHero ────────────────────────────────────────────────────────────
 export function PropertyHero({
-  headingFont   = null,
-  headingWeight = null,
-  bodyFont      = null,
-  bodyWeight    = null,
-  color         = '#ffffff',
+  headingFont    = null,
+  headingWeight  = null,
+  bodyFont       = null,
+  bodyWeight     = null,
+  color          = '#ffffff',
   overlayOpacity = 0.5,
+  // overridable text props
+  heading        = null,
+  subheading     = null,
+  badgeText      = null,
+  priceText      = null,
   property,
   store,
   profile,
 }) {
   if (!property) return null
-
   const hFont = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
   const bFont = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
   const hWght = headingWeight ?? store?.fonts?.headingWeight ?? 600
   const bWght = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
-
   const fontVars     = getFontVariables([hFont, bFont])
   const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
   const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
-
   const photo = property.photos?.[0] ?? null
-  const price = property.price ? `$${Number(property.price).toLocaleString()}` : null
+  const price = priceText ?? (property.price ? `$${Number(property.price).toLocaleString()}` : null)
   const addr  = property.address ?? {}
-  const line  = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
+  const line  = subheading ?? [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
   const specs = property.specs ?? {}
+  const resolvedHeading = heading ?? property.title
+  const resolvedBadge   = badgeText ?? property.sale_status
 
   return (
     <section className={`${fontVars} ${styles.hero}`}>
-
       {photo && (
         <img src={photo} alt={property.title ?? ''} className={styles.heroImage} />
       )}
       <div className={styles.heroOverlay} style={{ opacity: overlayOpacity }} />
-
       <div className={styles.heroContent}>
-        {property.sale_status && (
-          <span className={styles.heroBadge} style={bodyStyle}>{property.sale_status}</span>
+        {resolvedBadge && (
+          <span className={styles.heroBadge} style={bodyStyle}>{resolvedBadge}</span>
         )}
-        <h1 className={styles.heroTitle} style={headingStyle}>{property.title}</h1>
+        <h1 className={styles.heroTitle} style={headingStyle}>{resolvedHeading}</h1>
         {line && <p className={styles.heroLine} style={bodyStyle}>{line}</p>}
-
         <div className={styles.heroSpecs}>
           {specs.bedrooms   != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.bedrooms} bed</span>}
           {specs.bathrooms  != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.bathrooms} bath</span>}
@@ -56,14 +57,11 @@ export function PropertyHero({
           {specs.floor_size != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.floor_size}m²</span>}
           {specs.land_size  != null && <span className={styles.heroSpec} style={bodyStyle}>{specs.land_size}m² land</span>}
         </div>
-
         {price && <p className={styles.heroPrice} style={headingStyle}>{price}</p>}
       </div>
-
     </section>
   )
 }
-
 // ─── CollectionGrid ───────────────────────────────────────────────────────────
 export function CollectionGrid({
   headingFont   = null,
@@ -73,51 +71,50 @@ export function CollectionGrid({
   bg            = '#f9f8f6',
   color         = '#1a1a1a',
   columns       = 2,
+  // overridable text
+  title         = null,
+  subtitle      = null,
+  emptyText     = null,
   collection,
   store,
   profile,
 }) {
   if (!collection) return null
-
   const hFont = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
   const bFont = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
   const hWght = headingWeight ?? store?.fonts?.headingWeight ?? 600
   const bWght = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
-
   const fontVars     = getFontVariables([hFont, bFont])
   const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
   const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
-
   const properties = collection.properties ?? []
+
+  const resolvedTitle    = title    ?? collection.name
+  const resolvedSubtitle = subtitle ?? `${properties.length} ${properties.length === 1 ? 'property' : 'properties'}`
+  const resolvedEmpty    = emptyText ?? 'No properties yet.'
 
   return (
     <section className={`${fontVars} ${styles.collection}`} style={{ background: bg }}>
-
-      <h2 className={styles.collectionTitle} style={headingStyle}>{collection.name}</h2>
-      <p  className={styles.collectionCount} style={bodyStyle}>
-        {properties.length} {properties.length === 1 ? 'property' : 'properties'}
-      </p>
-
+      <h2 className={styles.collectionTitle} style={headingStyle}>{resolvedTitle}</h2>
+      <p  className={styles.collectionCount} style={bodyStyle}>{resolvedSubtitle}</p>
       {properties.length === 0 && (
-        <p className={styles.collectionEmpty} style={bodyStyle}>No properties yet.</p>
+        <p className={styles.collectionEmpty} style={bodyStyle}>{resolvedEmpty}</p>
       )}
-
       <div className={styles.collectionGrid} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
         {properties.map(p => {
-          const photo  = p.photos?.[0] ?? null
-          const price  = p.price ? `$${Number(p.price).toLocaleString()}` : null
-          const addr   = p.address ?? {}
-          const line   = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
-          const specs  = p.specs ?? {}
+          const photo = p.photos?.[0] ?? null
+          const price = p.price ? `$${Number(p.price).toLocaleString()}` : null
+          const addr  = p.address ?? {}
+          const line  = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
+          const specs = p.specs ?? {}
           return (
-           <SmartLink
-  key={p.id}
-  prefetch={true}
-  href={`property/${p.meta_handle}`}
-  username={store.username}
-  className={styles.card}
->
-
+            <SmartLink
+              key={p.id}
+              prefetch={true}
+              href={`property/${p.meta_handle}`}
+              username={store.username}
+              className={styles.card}
+            >
               {photo && (
                 <div className={styles.cardImageWrap}>
                   <img src={photo} alt={p.title ?? ''} className={styles.cardImage} />
@@ -138,7 +135,6 @@ export function CollectionGrid({
           )
         })}
       </div>
-
     </section>
   )
 }

@@ -1,17 +1,30 @@
 import { FooterSimple, NavSimple } from "@/templates/layout-components"
 import { CollectionGrid, HeroHome, PropertyHero } from "@/templates/section-components"
 
-
-
 const SECTIONS = {
   'nav-simple':      NavSimple,
   'footer-simple':   FooterSimple,
   'property-hero':   PropertyHero,
   'collection-grid': CollectionGrid,
-    'hero-home'       : HeroHome,       // ← add
-
+  'hero-home':       HeroHome,
 }
 
+export function resolveTokens(str, ctx) {
+  if (!str || typeof str !== 'string') return str
+  return str.replace(/\{\{\s*([\w.]+)\s*\}\}/g, (_, path) => {
+    const value = path.split('.').reduce((obj, key) => obj?.[key], ctx)
+    return value ?? ''
+  })
+}
+
+function resolveProps(props, ctx) {
+  return Object.fromEntries(
+    Object.entries(props ?? {}).map(([k, v]) => [
+      k,
+      typeof v === 'string' ? resolveTokens(v, ctx) : v
+    ])
+  )
+}
 
 export function renderSections(sections = [], ctx = {}) {
   const {
@@ -36,14 +49,15 @@ export function renderSections(sections = [], ctx = {}) {
 
     if (s.scope === 'COLLECTION') {
       const id = s.scope_id ?? currentCollectionId
-      console.warn('id', id, collectionsMap)
       scoped.collection = id ? (collectionsMap[id] ?? null) : null
     }
+
+const resolvedProps = resolveProps(s.props, { store, profile, ...scoped })
 
     return (
       <Component
         key={`${s.id}-${i}`}
-        {...(s.props ?? {})}
+        {...resolvedProps}
         {...scoped}
         store={store}
         profile={profile}
