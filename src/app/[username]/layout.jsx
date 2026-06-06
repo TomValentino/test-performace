@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
 
   const title       = store.title       ?? profile?.name    ?? username
   const description = store.description ?? profile?.bio     ?? null
-  const image       = store.og_image    ?? profile?.logo    ?? null
+  const image       = store.image    ?? profile?.logo    ?? null
 
  return {
   title,
