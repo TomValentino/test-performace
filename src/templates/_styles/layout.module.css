@@ -5,30 +5,27 @@
   padding: 0 32px;
   height: 64px;
   border-bottom: 1px solid #eee;
-  background: var(--theme-color-bg, #fff);
-  color: var(--theme-color-primary, #111);
+  /* bg + color set inline */
 }
 .brand {
   margin-right: auto;
   font-size: 18px;
   text-decoration: none;
-  font-family: var(--section-font-heading, var(--theme-font-heading, sans-serif));
-  font-weight: var(--section-weight-heading, var(--theme-weight-heading, 600));
-  color: inherit;
+  /* font-family, font-weight, color set inline */
 }
 .links {
   display: flex;
   gap: 32px;
   list-style: none;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
 }
 .link {
   font-size: 14px;
   text-decoration: none;
   opacity: 0.65;
-  font-family: var(--section-font-body, var(--theme-font-body, sans-serif));
-  color: inherit;
   transition: opacity 0.15s;
+  /* font-family, color set inline */
 }
 .link:hover { opacity: 1; }
 .cta {
@@ -38,9 +35,7 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  font-family: var(--section-font-body, var(--theme-font-body, sans-serif));
-  background: var(--theme-color-primary, #111);
-  color: var(--theme-color-bg, #fff);
+  /* font-family, background, color set inline */
 }
 
 /* ── FOOTER ──────────────────────────────────────────────────────────────── */
@@ -49,5 +44,5 @@
   border-top: 1px solid #eee;
   text-align: center;
   font-size: 13px;
-  /* background + color set inline – they're dynamic props */
+  /* background + color set inline */
 }
