@@ -1,6 +1,6 @@
 import { notFound }                              from 'next/navigation'
 import { getStore, getProfile, getCollection, supabase, fetchSectionData }   from '@/db/read'
-import { renderSections }                        from '@/lib/render'
+import { renderPage, renderSections }                        from '@/lib/render'
 
 export const dynamic    = 'force-static'
 export const revalidate = 86400
@@ -33,12 +33,15 @@ export default async function CollectionPage({ params }) {
 
   // default template if no custom layout set on collection
   const template = collection.content_published 
-   if (!template?.sections?.length) {
+
+  // Support both new { items: [] } and legacy { sections: [] } shapes
+  const components = template?.components ?? []
+  if (!components.length) {
     return <main><p>No content published yet.</p></main>
   }
+  console.log('itme', components)
 
-  const { propertiesMap, collectionsMap } = await fetchSectionData(
-    template.sections,
+  const { propertiesMap, collectionsMap } = await fetchSectionData(components,
     { currentCollectionId: collection.id }
   )
 
@@ -51,7 +54,7 @@ const ctx = {
   currentCollectionId: collection.id, 
 }
 
-  return renderSections(template.sections, ctx)
+  return renderPage(components, ctx)
 }
 
 export async function generateMetadata({ params }) {

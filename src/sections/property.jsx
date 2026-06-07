@@ -1,6 +1,7 @@
 import { getFontVariables, resolveFonts } from '@/lib/fonts'
 import styles from './_styles/property.module.css'
 import { SmartLink } from './layout-components'
+import { formatPrice } from '@/lib/format'
 
 
 // ─── PropertyDescription ──────────────────────────────────────────────────────
@@ -160,14 +161,14 @@ export function PropertyDescription({
                   <div className={styles.specRow}>
                     <dt className={styles.specLabel} style={bodyStyle}>Asking price</dt>
                     <dd className={styles.specValue} style={headingStyle}>
-                      ${Number(property.price).toLocaleString()}
+                      {formatPrice(property.price, store.currency)}
                     </dd>
                   </div>
                 )}
                 <div className={styles.specRow}>
                   <dt className={styles.specLabel} style={bodyStyle}>Property tax</dt>
                   <dd className={styles.specValue} style={headingStyle}>
-                    ${Number(property.property_tax).toLocaleString()}/yr
+                   {formatPrice(property.property_tax, store.currency)}/yr
                   </dd>
                 </div>
               </dl>

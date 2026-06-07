@@ -1,6 +1,6 @@
 import { notFound }                          from 'next/navigation'
 import { getStore, getProfile, getPage, fetchSectionData }     from '@/db/read'
-import { renderSections }                    from '@/lib/render'
+import { renderPage, renderSections }                    from '@/lib/render'
 import { createClient }                      from '@supabase/supabase-js'
 
 export const dynamic    = 'force-static'
@@ -47,16 +47,19 @@ console.log('>>> page', page)
   if (!page) return notFound()
 
   const template = page.content_published
-  if (!template?.sections?.length) {
+
+    // Support both new { items: [] } and legacy { sections: [] } shapes
+  const components = template?.components ?? []
+  if (!components.length) {
     return <main><p>No content published yet.</p></main>
   }
 
   // Reuse fetchSectionData so any property/collection sections are hydrated
-  const { propertiesMap, collectionsMap } = await fetchSectionData(template.sections, {})
+  const { propertiesMap, collectionsMap } = await fetchSectionData(components, {})
 
   return (
     <main>
-      {renderSections(template.sections, {
+      {renderPage(components, {
         store,
         profile,
         propertiesMap,

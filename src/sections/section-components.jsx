@@ -2,6 +2,7 @@ import { getFontVariables, resolveFonts } from '@/lib/fonts'
 import styles from './_styles/sections.module.css'
 import Link from 'next/link'
 import { SmartLink } from './layout-components'
+import {  formatPrice } from '@/lib/format'
 
 
 
@@ -31,12 +32,12 @@ export function PropertyHero({
   const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
   const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
 const photo = property.photos?.[0]?.url ?? null
-  const price = priceText ?? (property.price ? `$${Number(property.price).toLocaleString()}` : null)
+  const price = priceText ?? (property.price ? `${formatPrice(property.price, store.currency)}` : null)
   const addr  = property.address ?? {}
   const line  = subheading ?? [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
   const specs = property.specs ?? {}
   const resolvedHeading = heading ?? property.title
-  const resolvedBadge   = badgeText ?? property.sale_status
+  const resolvedBadge   = badgeText ?? property.sale_status.replace(/_/g, ' ')
 
   return (
     <section className={`${fontVars} ${styles.hero}`}>
@@ -103,7 +104,7 @@ export function CollectionGrid({
       <div className={styles.collectionGrid} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
         {properties.map(p => {
           const photo = p.photos?.[0]?.url ?? null
-          const price = p.price ? `$${Number(p.price).toLocaleString()}` : null
+          const price = p.price ? `${formatPrice(p.price, store.currency)}`  : null
           const addr  = p.address ?? {}
           const line  = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
           const specs = p.specs ?? {}
@@ -121,7 +122,7 @@ export function CollectionGrid({
                 </div>
               )}
               <div className={styles.cardBody}>
-                {p.sale_status && <span className={styles.cardStatus} style={bodyStyle}>{p.sale_status}</span>}
+                {p.sale_status && <span className={styles.cardStatus} style={bodyStyle}>{p.sale_status.replace(/_/g, ' ')}</span>}
                 <h3 className={styles.cardTitle} style={headingStyle}>{p.title}</h3>
                 {line && <p className={styles.cardAddress} style={bodyStyle}>{line}</p>}
                 <div className={styles.cardSpecs}>
@@ -230,7 +231,7 @@ export function PropertyFeatured({
   const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
 
   const photo = property.photos?.[0]?.url ?? null
-  const price  = property.price ? `$${Number(property.price).toLocaleString()}` : null
+  const price  = property.price ? `${formatPrice(property.price, store.currency)}` : null
   const addr   = property.address ?? {}
   const line   = [addr.suburb, addr.state].filter(Boolean).join(', ')
   const specs  = property.specs ?? {}
@@ -246,7 +247,7 @@ export function PropertyFeatured({
         )}
         <div className={styles.featuredBody}>
           {property.sale_status && (
-            <span className={styles.featuredBadge} style={bodyStyle}>{property.sale_status}</span>
+            <span className={styles.featuredBadge} style={bodyStyle}>{property.sale_status.replace(/_/g, ' ')}</span>
           )}
           <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
           {line && <p className={styles.featuredAddress} style={bodyStyle}>{line}</p>}

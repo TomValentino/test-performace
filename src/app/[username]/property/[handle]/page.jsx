@@ -38,18 +38,18 @@ export default async function PropertyPage({ params }) {
   const template = property.content_published
 
   // Support both new { items: [] } and legacy { sections: [] } shapes
-  const items = template?.items ?? template?.sections ?? []
-  if (!items.length) {
+  const components = template?.components ?? template?.sections ?? []
+  if (!components.length) {
     return <main><p>No content published yet.</p></main>
   }
 
-  const { propertiesMap, collectionsMap } = await fetchSectionData(items, {
+  const { propertiesMap, collectionsMap } = await fetchSectionData(components, {
     currentPropertyId: property.id,
   })
 
   return (
     <main>
-      {renderPage(items, {
+      {renderPage(components, {
         store,
         profile,
         propertiesMap,

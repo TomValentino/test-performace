@@ -50,41 +50,81 @@ export function StatBlock({ label = 'Stat', value = '—', accentColor = '#1a7a5
 // ─────────────────────────────────────────────────────────────────────────────
 // REGISTRY
 // ─────────────────────────────────────────────────────────────────────────────
-export function ColumnsLayout({
+export function withLayoutProps(Component) {
+  return function({ bg, padding, margin, maxWidth, style = {}, ...props }) {
+    return (
+      <Component
+        {...props}
+        style={{ background: bg, padding, margin, maxWidth, ...style }}
+      />
+    )
+  }
+}
+
+export const Row = withLayoutProps(function Row({
+  style,
   slots = [],
-  columns = 2,
-  columnsTablet,
-  columnsMobile = 1,
-  gap = '2rem',
-  breakpointTablet = '1024px',
-  breakpointMobile = '768px',
-  maxWidth = '1280px',
-  bg = 'transparent',
-  paddingX = '2rem',
-  paddingY = '4rem',
+  gap = '1rem',
+  wrap = false,
+  overflow = 'visible',
+  align = 'stretch',
+  justify = 'flex-start',
 }) {
-  const uid = `cols-${Math.random().toString(36).slice(2, 7)}`
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: wrap ? 'wrap' : 'nowrap',
+      overflowX: overflow,
+      gap,
+      alignItems: align,
+      justifyContent: justify,
+      ...style,
+    }}>
+      {slots.map((slot, i) => <div key={i}>{slot}</div>)}
+    </div>
+  )
+})
+
+export const Column = withLayoutProps(function Column({
+  style,
+  slots = [],
+  widths = [],
+  breakpoints = [],
+  gap = '1rem',
+  overflow = 'visible',
+  align = 'stretch',
+  justify = 'start',
+}) {
+  const uid = `col-${Math.random().toString(36).slice(2, 7)}`
+  const templateColumns = widths.length ? widths.join(' ') : `repeat(${slots.length}, 1fr)`
+
   return (
     <>
-      <style>{`
-        .${uid}-grid { display: grid; grid-template-columns: repeat(${columns}, minmax(0, 1fr)); gap: ${gap}; }
-        @media (max-width: ${breakpointTablet}) {
-          .${uid}-grid { grid-template-columns: repeat(${columnsTablet ?? columns}, minmax(0, 1fr)); }
-        }
-        @media (max-width: ${breakpointMobile}) {
-          .${uid}-grid { grid-template-columns: repeat(${columnsMobile}, minmax(0, 1fr)); }
-        }
-      `}</style>
-      <section style={{ background: bg, padding: `${paddingY} ${paddingX}` }}>
-        <div style={{ maxWidth: maxWidth ?? 'none', margin: '0 auto' }}>
-          <div className={`${uid}-grid`}>
-            {slots.map((slotChildren, i) => <div key={i}>{slotChildren}</div>)}
-          </div>
-        </div>
-      </section>
+      {breakpoints.length > 0 && (
+        <style>{breakpoints
+          .map(({ screen, widths }) =>
+            `@media (max-width: ${screen}) { .${uid} { grid-template-columns: ${widths.join(' ')} !important; } }`
+          ).join('\n')}
+        </style>
+      )}
+      <div
+        className={uid}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: templateColumns,
+          overflowX: overflow,
+          gap,
+          alignItems: align,
+          justifyContent: justify,
+          ...style,
+        }}
+      >
+{slots.flat().map((child, i) => child)}      </div>
     </>
   )
-}
+})
+
 export const componentRegistry = [
   { id: 'nav-simple',           title: 'Simple Nav',          category: 'NAVS',       required_scopes: null,         component: NavSimple           },
   { id: 'footer-simple',        title: 'Simple Footer',       category: 'FOOTERS',    required_scopes: null,         component: FooterSimple        },
@@ -95,7 +135,9 @@ export const componentRegistry = [
   { id: 'collection-grid',      title: 'Collection Grid',     category: 'COLLECTION', required_scopes: 'COLLECTION', component: CollectionGrid      },
   { id: 'agent-card',           title: 'Agent Card',          category: 'AGENTS',     required_scopes: null,         component: AgentCard           },
   // ColumnsLayout is just a component — the only one that accepts slots as children
-  { id: 'columns',              title: 'Columns',             category: 'LAYOUT',     required_scopes: null,         component: ColumnsLayout       },
+  { id: 'columns',              title: 'Columns',             category: 'LAYOUT',     required_scopes: null,         component: Column       },
+  { id: 'row',    title: 'Row',    category: 'LAYOUT', required_scopes: null, component: Row    },
+{ id: 'column', title: 'Column', category: 'LAYOUT', required_scopes: null, component: Column },
   { id: 'info-card',   title: 'Info Card',   category: 'TEST', required_scopes: null, component: InfoCard   },
 { id: 'stat-block',  title: 'Stat Block',  category: 'TEST', required_scopes: null, component: StatBlock  },
 ]

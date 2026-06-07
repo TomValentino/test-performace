@@ -59,3 +59,9 @@ iframe {
   display: none;
 }
 
+
+
+
+
+
+[class^="col-"] { grid-template-columns: var(--col-template); }
