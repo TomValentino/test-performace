@@ -30,7 +30,7 @@ export function PropertyHero({
   const fontVars     = getFontVariables([hFont, bFont])
   const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
   const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
-  const photo = property.photos?.[0] ?? null
+const photo = property.photos?.[0]?.url ?? null
   const price = priceText ?? (property.price ? `$${Number(property.price).toLocaleString()}` : null)
   const addr  = property.address ?? {}
   const line  = subheading ?? [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
@@ -41,7 +41,7 @@ export function PropertyHero({
   return (
     <section className={`${fontVars} ${styles.hero}`}>
       {photo && (
-        <img src={photo} alt={property.title ?? ''} className={styles.heroImage} />
+        <img src={photo} alt={property.photos?.[0]?.alt ?? property.title ?? ''}  className={styles.heroImage} />
       )}
       <div className={styles.heroOverlay} style={{ opacity: overlayOpacity }} />
       <div className={styles.heroContent}>
@@ -102,7 +102,7 @@ export function CollectionGrid({
       )}
       <div className={styles.collectionGrid} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
         {properties.map(p => {
-          const photo = p.photos?.[0] ?? null
+          const photo = p.photos?.[0]?.url ?? null
           const price = p.price ? `$${Number(p.price).toLocaleString()}` : null
           const addr  = p.address ?? {}
           const line  = [addr.street, addr.suburb, addr.state].filter(Boolean).join(', ')
@@ -117,7 +117,7 @@ export function CollectionGrid({
             >
               {photo && (
                 <div className={styles.cardImageWrap}>
-                  <img src={photo} alt={p.title ?? ''} className={styles.cardImage} />
+                  <img src={photo} alt={p.photos?.[0]?.alt ?? p.title ?? ''} className={styles.cardImage} />
                 </div>
               )}
               <div className={styles.cardBody}>
@@ -229,7 +229,7 @@ export function PropertyFeatured({
   const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
   const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
 
-  const photo  = property.photos?.[0] ?? null
+  const photo = property.photos?.[0]?.url ?? null
   const price  = property.price ? `$${Number(property.price).toLocaleString()}` : null
   const addr   = property.address ?? {}
   const line   = [addr.suburb, addr.state].filter(Boolean).join(', ')
@@ -241,7 +241,7 @@ export function PropertyFeatured({
       <div className={styles.featuredInner}>
         {photo && (
           <SmartLink href={`property/${property.meta_handle}`} username={store?.username} className={styles.featuredImageWrap}>
-            <img src={photo} alt={property.title ?? ''} className={styles.featuredImage} />
+            <img src={photo} alt={property.photos?.[0]?.alt ?? property.title ?? ''}  className={styles.featuredImage} />
           </SmartLink>
         )}
         <div className={styles.featuredBody}>

@@ -78,9 +78,9 @@ export function NavSimple({
         </ul>
       )}
       {ctaText && (
-        <a href={ctaHref} className={styles.cta} style={{ ...bodyStyle, background: ctaBg, color: ctaColor }}>
+        <SmartLink href={ctaHref} username={store?.username} className={styles.cta} style={{ ...bodyStyle, background: ctaBg, color: ctaColor }}>
           {ctaText}
-        </a>
+        </SmartLink>
       )}
     </nav>
   )

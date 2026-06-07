@@ -67,8 +67,7 @@ export async function generateMetadata({ params }) {
   const property = await getProperty(handle, store.account_id)
   if (!property) return {}
 
-  const image = property.photos?.[0]?.trim() ?? store.image?.trim() ?? null
-
+const image = property.photos?.[0]?.url?.trim() ?? store.image?.trim() ?? null
   return {
     title:       property.title,
     description: property.description_short ?? property.description?.slice(0, 160),

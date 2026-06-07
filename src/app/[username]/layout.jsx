@@ -41,8 +41,8 @@ export default async function RootLayout({ children, params }) {
 
   const profile = await getProfile(store.profile_id)
 
-  const header = store.layout_header ?? DEFAULT_HEADER
-  const footer = store.layout_footer ?? DEFAULT_FOOTER
+  const header = store.content_header ?? DEFAULT_HEADER
+  const footer = store.content_footer ?? DEFAULT_FOOTER
 
 const fonts = store?.fonts ?? {}
 const fontVariables = getFontVariables([fonts.heading, fonts.body].filter(Boolean))
