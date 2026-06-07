@@ -224,6 +224,8 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
   buttonColor      = '#111111',
   buttonTextColor  = '#FFFFFF',
   buttonRadius     = '4px',
+  photoAspectRatio = '4/3',
+  photoBorderRadius = '8px',
   addressColor     = '#888888',
   specsColor       = '#636262',
   iconColor        = '#636262',
@@ -276,15 +278,17 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
             data-hover-duration={hovers.image.duration}
           >
             <PropImage
-  src={photo}
-  alt={property.photos?.[0]?.alt ?? property.title ?? ''}
-  fill
-  priority          // hero image — preload it
-  sizes="(max-width: 768px) 100vw, 50vw"
-  className={styles.featuredImage}
-/>
+              src={photo}
+              aspectRatio={photoAspectRatio}
+              alt={property.photos?.[0]?.alt ?? property.title ?? ''}
+              fill
+              priority          // hero image — preload it
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className={styles.featuredImage}
+              style={{borderRadius: photoBorderRadius}}
+            />
           </SmartLink>
-        )}
+        )} 
 
         <div
           className={styles.featuredBody}

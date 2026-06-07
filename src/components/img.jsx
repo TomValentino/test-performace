@@ -56,6 +56,7 @@ export function PropImage({
   sizes,
   width,
   height,
+  aspectRatio = '16 / 10',
   style,
   className,
 }) {
@@ -65,17 +66,19 @@ export function PropImage({
 
   if (fill) {
     return (
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes={sizes ?? '100vw'}
-        priority={priority}
-        placeholder="blur"
-        blurDataURL={blur}
-        style={{ objectFit: 'cover', ...style }}
-        className={className}
-      />
+      <div style={{ position: 'relative', width: '100%', aspectRatio }}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={sizes ?? '100vw'}
+          priority={priority}
+          placeholder="blur"
+          blurDataURL={blur}
+          style={{ objectFit: 'cover', ...style }}
+          className={className}
+        />
+      </div>
     )
   }
 

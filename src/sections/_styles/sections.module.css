@@ -156,8 +156,6 @@
 .featuredImageWrap {
   display: block;
   overflow: hidden;
-  border-radius: clamp(2px, 0.4vw, 6px);
-  aspect-ratio: 4/3;
 }
 .featuredImage {
   width: 100%;
