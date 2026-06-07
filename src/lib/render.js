@@ -81,7 +81,7 @@ export const Row = withLayoutProps(function Row({
       justifyContent: justify,
       ...style,
     }}>
-      {slots.map((slot, i) => <div key={i}>{slot}</div>)}
+{slots.flat().map((child, i) => child)}
     </div>
   )
 })
@@ -96,7 +96,8 @@ export const Column = withLayoutProps(function Column({
   align = 'stretch',
   justify = 'start',
 }) {
-  const uid = `col-${Math.random().toString(36).slice(2, 7)}`
+  const uid = `col-${widths.join('-').replace(/[^a-z0-9]/gi, '')}-${slots.length}`
+
   const templateColumns = widths.length ? widths.join(' ') : `repeat(${slots.length}, 1fr)`
 
   return (
@@ -135,7 +136,6 @@ export const componentRegistry = [
   { id: 'collection-grid',      title: 'Collection Grid',     category: 'COLLECTION', required_scopes: 'COLLECTION', component: CollectionGrid      },
   { id: 'agent-card',           title: 'Agent Card',          category: 'AGENTS',     required_scopes: null,         component: AgentCard           },
   // ColumnsLayout is just a component — the only one that accepts slots as children
-  { id: 'columns',              title: 'Columns',             category: 'LAYOUT',     required_scopes: null,         component: Column       },
   { id: 'row',    title: 'Row',    category: 'LAYOUT', required_scopes: null, component: Row    },
 { id: 'column', title: 'Column', category: 'LAYOUT', required_scopes: null, component: Column },
   { id: 'info-card',   title: 'Info Card',   category: 'TEST', required_scopes: null, component: InfoCard   },
