@@ -1,16 +1,14 @@
-import { notFound }                          from 'next/navigation'
-import { getStore, getProfile, getProperty, supabase, fetchSectionData } from '@/db/read'
-import { renderSections }                    from '@/lib/render'
+import { notFound }                                                        from 'next/navigation'
+import { getStore, getProfile, getProperty, supabase, fetchSectionData }  from '@/db/read'
+import { renderPage }                                                       from '@/lib/render'
 
 export const dynamic    = 'force-static'
 export const revalidate = 86400
-
 
 export async function generateStaticParams() {
   const { data: stores } = await supabase
     .from('stores')
     .select('username, account_id')
-
   const { data: props } = await supabase
     .from('properties')
     .select('meta_handle, account_id')
@@ -38,18 +36,20 @@ export default async function PropertyPage({ params }) {
   if (!property) return notFound()
 
   const template = property.content_published
-  if (!template?.sections?.length) {
+
+  // Support both new { items: [] } and legacy { sections: [] } shapes
+  const items = template?.items ?? template?.sections ?? []
+  if (!items.length) {
     return <main><p>No content published yet.</p></main>
   }
 
-  const { propertiesMap, collectionsMap } = await fetchSectionData(
-    template.sections,
-    { currentPropertyId: property.id }
-  )
+  const { propertiesMap, collectionsMap } = await fetchSectionData(items, {
+    currentPropertyId: property.id,
+  })
 
   return (
     <main>
-      {renderSections(template.sections, {
+      {renderPage(items, {
         store,
         profile,
         propertiesMap,
@@ -62,12 +62,15 @@ export default async function PropertyPage({ params }) {
 
 export async function generateMetadata({ params }) {
   const { username, handle } = await params
-  const store    = await getStore(username)
+
+  const store = await getStore(username)
   if (!store) return {}
+
   const property = await getProperty(handle, store.account_id)
   if (!property) return {}
 
-const image = property.photos?.[0]?.url?.trim() ?? store.image?.trim() ?? null
+  const image = property.photos?.[0]?.url?.trim() ?? store.image?.trim() ?? null
+
   return {
     title:       property.title,
     description: property.description_short ?? property.description?.slice(0, 160),
@@ -78,4 +81,3 @@ const image = property.photos?.[0]?.url?.trim() ?? store.image?.trim() ?? null
     },
   }
 }
-

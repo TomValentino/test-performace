@@ -1,13 +1,19 @@
 /* ── NAV ─────────────────────────────────────────────────────────────────── */
-.nav {
+
+
+.navWrapper {
   position: sticky;
   top: 0px;
   z-index: 100;
+}
+.nav {
+
   display: flex;
   align-items: center;
-  padding: 0 32px;
+  padding: 0 2rem;
   height: 64px;
-  border-bottom: 1px solid #eee;
+  max-width: var(--max-width-3);
+  margin: 0 auto;
   /* bg + color set inline */
 }
 .brand {

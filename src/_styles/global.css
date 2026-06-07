@@ -1,3 +1,9 @@
+:root {
+  --max-width-1: 1220px;
+  --max-width-2: 1320px;
+  --max-width-3: 1480px;
+}
+
 /* ── Reset ───────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -52,3 +58,4 @@ iframe {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+

@@ -26,6 +26,7 @@ export function SmartLink({ href, username, children, ...props }) {
   return <Link href={resolved} {...props}>{children}</Link>
 }
 
+
 export function NavSimple({
   // null means "not set" — triggers cascade below
   headingFont   = null,
@@ -37,6 +38,7 @@ export function NavSimple({
   color    = '#111111',
   ctaBg    = '#111111',
   ctaColor = '#ffffff',
+  // dimensions etc
   // content
   links   = [],
   ctaText = null,
@@ -57,31 +59,35 @@ export function NavSimple({
   const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
 
   return (
-    <nav className={`${fontVars} ${styles.nav}`} style={{ background: bg }}>
-    <SmartLink href="/" username={store?.username} className={styles.brand} style={headingStyle}>
-      {brand}
-    </SmartLink>
-      {links.length > 0 && (
-        <ul className={styles.links}>
-          {links.map((link, i) => (
-            <li key={i}>
-             <SmartLink
-      href={link.href}
-      username={store?.username}
-      className={styles.link}
-      style={bodyStyle}
-    >
-      {link.label}
-    </SmartLink>
-            </li>
-          ))}
-        </ul>
-      )}
-      {ctaText && (
-        <SmartLink href={ctaHref} username={store?.username} className={styles.cta} style={{ ...bodyStyle, background: ctaBg, color: ctaColor }}>
-          {ctaText}
+    <nav className={`${fontVars} ${styles.navWrapper}` } style={{ background: bg , borderBottom: '1px solid #eee'
+    }}>
+      <div className={`${styles.nav}`} >
+
+        <SmartLink href="/" username={store?.username} className={styles.brand} style={headingStyle}>
+          {brand}
         </SmartLink>
-      )}
+          {links.length > 0 && (
+            <ul className={styles.links}>
+              {links.map((link, i) => (
+                <li key={i}>
+                <SmartLink
+          href={link.href}
+          username={store?.username}
+          className={styles.link}
+          style={bodyStyle}
+        >
+          {link.label}
+        </SmartLink>
+                </li>
+              ))}
+            </ul>
+          )}
+          {ctaText && (
+            <SmartLink href={ctaHref} username={store?.username} className={styles.cta} style={{ ...bodyStyle, background: ctaBg, color: ctaColor }}>
+              {ctaText}
+            </SmartLink>
+          )}
+      </div>
     </nav>
   )
 }
