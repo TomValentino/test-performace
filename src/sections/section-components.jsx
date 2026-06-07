@@ -202,13 +202,12 @@ export function HeroHome({
 
 
 
-// ─── PropertyFeatured ────────────────────────────────────────────────────────
-// Single featured property — clean horizontal card layout
-// Scope: PROPERTY
-// Props: label, ctaText, bg, color, accentColor
-
-// getAnimClass.js — maps an animation prop to its CSS class
-// Import this wherever you need to resolve animation props to classes.
+// getAnimClass.js — maps animation prop to its CSS class.
+// Delay + duration are inline style vars, not utility classes.
+//
+// Usage:
+//   className={getAnimClass('fade-up')}
+//   style={{ '--anim-delay': '0.2s', '--anim-duration': '0.7s' }}
 
 export const ANIM_MAP = {
   'fade-up':    'anim-fade-up',
@@ -220,33 +219,21 @@ export const ANIM_MAP = {
   'none':       '',
 }
 
-export const DELAY_MAP = {
-  1: 'anim-delay-1',
-  2: 'anim-delay-2',
-  3: 'anim-delay-3',
-  4: 'anim-delay-4',
-  5: 'anim-delay-5',
-  6: 'anim-delay-6',
-}
-
-// Returns a string of classes to spread onto className
-// e.g. getAnimClass('fade-up', 2) → 'anim-fade-up anim-delay-2'
-export function getAnimClass(anim, delay) {
-  const animClass  = ANIM_MAP[anim] ?? ''
-  const delayClass = delay ? (DELAY_MAP[delay] ?? '') : ''
-  return [animClass, delayClass].filter(Boolean).join(' ')
+export function getAnimClass(anim) {
+  return ANIM_MAP[anim] ?? ''
 }
 
 
-// ─── PropertyFeatured — updated with animation props ─────────────────────────
+// ─── PropertyFeatured ────────────────────────────────────────────────────────
 //
-// New props:
-//   labelAnim       = 'fade-up'   animation for the label
-//   imageAnim       = 'fade-up'   animation for the image
-//   bodyAnim        = 'fade-up'   animation for the body
-//   imageAnimDelay  = 1           delay step (1–6) for image
-//   bodyAnimDelay   = 2           delay step (1–6) for body
-//   Pass 'none' to any to disable individually.
+// Animation props:
+//   labelAnim      = 'fade-up'   — animation name or 'none'
+//   imageAnim      = 'fade-up'
+//   bodyAnim       = 'fade-up'
+//   labelAnimDelay = '0s'        — any CSS time value e.g. '0.2s'
+//   imageAnimDelay = '0.1s'
+//   bodyAnimDelay  = '0.22s'
+//   labelAnimDuration / imageAnimDuration / bodyAnimDuration — optional overrides
 
 export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
 
@@ -270,11 +257,15 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
   iconColor     = null,
 
   // ── animation props ──────────────────────────────
-  labelAnim      = 'fade-right',
-  imageAnim      = 'fade-up',
-  bodyAnim       = 'scale-up',
-  imageAnimDelay = 1,
-  bodyAnimDelay  = 2,
+  labelAnim         = 'fade-up',
+  imageAnim         = 'fade-right',
+  bodyAnim          = 'scale-up',
+  labelAnimDelay    = '0s',
+  imageAnimDelay    = '0.1s',
+  bodyAnimDelay     = '0.22s',
+  labelAnimDuration = '1s',   // null = use CSS default
+  imageAnimDuration = '2s',
+  bodyAnimDuration  = '3s',
   // ─────────────────────────────────────────────────
 
   property,
@@ -309,7 +300,15 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
   return (
     <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`} style={{ ...style }}>
 
-      <p className={`${styles.featuredLabel} ${getAnimClass(labelAnim)}`} style={{ ...bodyStyle, color: accentColor }}>
+      <p
+        className={`${styles.featuredLabel} ${getAnimClass(labelAnim)}`}
+        style={{
+          ...bodyStyle,
+          color: accentColor,
+          '--anim-delay':    labelAnimDelay,
+          ...(labelAnimDuration && { '--anim-duration': labelAnimDuration }),
+        }}
+      >
         {label}
       </p>
 
@@ -319,7 +318,11 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
           <SmartLink
             href={`property/${property.meta_handle}`}
             username={store?.username}
-            className={`${styles.featuredImageWrap} ${getAnimClass(imageAnim, imageAnimDelay)}`}
+            className={`${styles.featuredImageWrap} ${getAnimClass(imageAnim)}`}
+            style={{
+              '--anim-delay':    imageAnimDelay,
+              ...(imageAnimDuration && { '--anim-duration': imageAnimDuration }),
+            }}
           >
             <img
               src={photo}
@@ -329,7 +332,13 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
           </SmartLink>
         )}
 
-        <div className={`${styles.featuredBody} ${getAnimClass(bodyAnim, bodyAnimDelay)}`}>
+        <div
+          className={`${styles.featuredBody} ${getAnimClass(bodyAnim)}`}
+          style={{
+            '--anim-delay':    bodyAnimDelay,
+            ...(bodyAnimDuration && { '--anim-duration': bodyAnimDuration }),
+          }}
+        >
           {property.sale_status && (
             <span className={styles.featuredBadge} style={bodyStyle}>
               {property.sale_status.replace(/_/g, ' ')}
@@ -389,7 +398,6 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
     </section>
   )
 })
- 
 // ─── AgentCard ───────────────────────────────────────────────────────────────
 // Agent bio + contact — simple clean card
 // Scope: none (uses profile directly)
