@@ -229,14 +229,14 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
   addressColor     = '#888888',
   specsColor       = '#636262',
   iconColor        = '#636262',
-  animations = {
-    label: { name: 'scale-up',   delay: '0',    duration: '1' },
-    image: { name: 'fade-right', delay: '0.1',  duration: '2' },
-    body:  { name: 'fade-up',    delay: '0.22', duration: '3' },
-  },
+animations = {
+  label: { name: 'fade-up',    delay: '0',    duration: '0.4' },
+  image: { name: 'fade-right', delay: '0.15', duration: '0.6' },
+  body:  { name: 'fade-up',    delay: '0.3',  duration: '0.5' },
+},
   hovers = {
-    image: { name: 'lift', duration: '1' },
-    cta:   { name: 'glow', duration: '1' },
+    image: { name: 'lift', duration: '0.2' },
+    cta:   { name: 'scale', duration: '0.2' },
   },
   property, store, profile,
 }) {
