@@ -2,7 +2,9 @@ import { getFontVariables, resolveFonts } from '@/lib/fonts'
 import styles from './_styles/sections.module.css'
 import Link from 'next/link'
 import { SmartLink } from './layout-components'
-import {  formatPrice } from '@/lib/format'
+import {  formatAddress, formatPrice } from '@/lib/format'
+import { withLayoutProps } from '@/lib/render'
+import { Icon } from '@/components/icons'
 
 
 
@@ -205,74 +207,132 @@ export function HeroHome({
 // Scope: PROPERTY
 // Props: label, ctaText, bg, color, accentColor
 
-export function PropertyFeatured({
-  headingFont   = null,
-  headingWeight = null,
-  bodyFont      = null,
-  bodyWeight    = null,
-  bg            = '#ffffff',
-  color         = '#111111',
-  accentColor   = '#111111',
-  label         = 'Featured Property',
-  ctaText       = 'View Property',
+export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
+ 
+  primaryFont         = null,
+  primaryFontWeight   = null,
+  secondaryFont       = null,
+  secondaryFontWeight = null,
+ 
+  style,
+  primaryTextColor = '#111111',
+  textColor        = '#111111',
+  accentColor      = '#111111',
+ 
+  label           = 'Featured Property',
+  ctaText         = 'View Property',
+  buttonColor     = '#FFFFFF',
+  buttonTextColor = '#111111',
+ 
+  addressFormat = 'default',
+  specsColor    = null,  // null → textColor at 0.65 opacity
+  iconColor     = null,  // null → accentColor
+ 
   property,
   store,
   profile,
+ 
 }) {
   if (!property) return null
-
-  const hFont    = resolveFonts(headingFont, store?.fonts?.heading, 'plus-jakarta-sans')
-  const bFont    = resolveFonts(bodyFont,    store?.fonts?.body,    'dm-sans')
-  const hWght    = headingWeight ?? store?.fonts?.headingWeight ?? 600
-  const bWght    = bodyWeight    ?? store?.fonts?.bodyWeight    ?? 400
-  const fontVars = getFontVariables([hFont, bFont])
-
-  const headingStyle = { fontFamily: `var(--font-${hFont})`, fontWeight: hWght, color }
-  const bodyStyle    = { fontFamily: `var(--font-${bFont})`, fontWeight: bWght, color }
-
-  const photo = property.photos?.[0]?.url ?? null
-  const price  = property.price ? `${formatPrice(property.price, store.currency)}` : null
-  const addr   = property.address ?? {}
-  const line   = [addr.suburb, addr.state].filter(Boolean).join(', ')
-  const specs  = property.specs ?? {}
-
+ 
+  const fontPrimary   = resolveFonts(primaryFont,   store?.fonts?.heading, 'plus-jakarta-sans')
+  const fontSecondary = resolveFonts(secondaryFont, store?.fonts?.body,    'dm-sans')
+ 
+  const headingStyle = {
+    fontFamily: `var(--font-${fontPrimary})`,
+    fontWeight: primaryFontWeight   ?? store?.fonts?.heading_weight ?? 600,
+    color:      primaryTextColor,
+  }
+  const bodyStyle = {
+    fontFamily: `var(--font-${fontSecondary})`,
+    fontWeight: secondaryFontWeight ?? store?.fonts?.body_weight    ?? 400,
+    color:      textColor,
+  }
+ 
+  const resolvedIconColor = iconColor ?? accentColor
+  const specStyle = { ...bodyStyle, color: specsColor ?? textColor, opacity: specsColor ? 1 : 0.65 }
+ 
+  const photo   = property.photos?.[0]?.url ?? null
+  const price   = property.price ? `${formatPrice(property.price, store.currency)}` : null
+  const address = formatAddress(property.address, addressFormat)
+  const specs   = property.specs ?? {}
+ 
   return (
-    <section className={`${fontVars} ${styles.featured}`} style={{ background: bg }}>
+    <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`} style={{ ...style }}>
       <p className={styles.featuredLabel} style={{ ...bodyStyle, color: accentColor }}>{label}</p>
       <div className={styles.featuredInner}>
+ 
         {photo && (
           <SmartLink href={`property/${property.meta_handle}`} username={store?.username} className={styles.featuredImageWrap}>
-            <img src={photo} alt={property.photos?.[0]?.alt ?? property.title ?? ''}  className={styles.featuredImage} />
+            <img
+              src={photo}
+              alt={property.photos?.[0]?.alt ?? property.title ?? ''}
+              className={styles.featuredImage}
+            />
           </SmartLink>
         )}
+ 
         <div className={styles.featuredBody}>
           {property.sale_status && (
-            <span className={styles.featuredBadge} style={bodyStyle}>{property.sale_status.replace(/_/g, ' ')}</span>
+            <span className={styles.featuredBadge} style={bodyStyle}>
+              {property.sale_status.replace(/_/g, ' ')}
+            </span>
           )}
+ 
           <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
-          {line && <p className={styles.featuredAddress} style={bodyStyle}>{line}</p>}
+ 
+          {address && (
+            <p className={styles.featuredAddress} style={{ ...bodyStyle, opacity: 0.55 }}>
+              {address}
+            </p>
+          )}
+ 
           <div className={styles.featuredSpecs}>
-            {specs.bedrooms   != null && <span className={styles.featuredSpec} style={bodyStyle}>{specs.bedrooms} bed</span>}
-            {specs.bathrooms  != null && <span className={styles.featuredSpec} style={bodyStyle}>{specs.bathrooms} bath</span>}
-            {specs.floor_size != null && <span className={styles.featuredSpec} style={bodyStyle}>{specs.floor_size}m²</span>}
+            {specs.beds    != null && (
+              <span className={styles.featuredSpec} style={specStyle}>
+                <Icon name="bed"    size={15} color={resolvedIconColor} />
+                {specs.beds} bed
+              </span>
+            )}
+            {specs.baths   != null && (
+              <span className={styles.featuredSpec} style={specStyle}>
+                <Icon name="bath"   size={15} color={resolvedIconColor} />
+                {specs.baths} bath
+              </span>
+            )}
+            {specs.garages != null && (
+              <span className={styles.featuredSpec} style={specStyle}>
+                <Icon name="garage" size={15} color={resolvedIconColor} />
+                {specs.garages} garage
+              </span>
+            )}
+            {specs.area    != null && (
+              <span className={styles.featuredSpec} style={specStyle}>
+                <Icon name="area"   size={15} color={resolvedIconColor} />
+                {specs.area}m²
+              </span>
+            )}
           </div>
+ 
           {price && <p className={styles.featuredPrice} style={headingStyle}>{price}</p>}
+ 
           {ctaText && (
             <SmartLink
               href={`property/${property.meta_handle}`}
               username={store?.username}
               className={styles.featuredCta}
-              style={{ ...bodyStyle, background: accentColor, color: bg }}
+              style={{ ...bodyStyle, background: buttonColor, color: buttonTextColor }}
             >
               {ctaText}
             </SmartLink>
           )}
         </div>
+ 
       </div>
     </section>
   )
-}
-
+})
+ 
 // ─── AgentCard ───────────────────────────────────────────────────────────────
 // Agent bio + contact — simple clean card
 // Scope: none (uses profile directly)

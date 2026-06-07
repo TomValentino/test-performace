@@ -51,11 +51,11 @@ export function StatBlock({ label = 'Stat', value = '—', accentColor = '#1a7a5
 // REGISTRY
 // ─────────────────────────────────────────────────────────────────────────────
 export function withLayoutProps(Component) {
-  return function({ bg, padding, margin, maxWidth, style = {}, ...props }) {
+  return function({ background, padding, margin, maxWidth, style = {}, ...props }) {
     return (
       <Component
         {...props}
-        style={{ background: bg, padding, margin, maxWidth, ...style }}
+        style={{ background, padding, margin, maxWidth, ...style }}
       />
     )
   }
@@ -64,31 +64,32 @@ export function withLayoutProps(Component) {
 export const Row = withLayoutProps(function Row({
   style,
   slots = [],
-  gap = '1rem',
-  wrap = false,
-  overflow = 'visible',
-  align = 'stretch',
-  justify = 'flex-start',
+  count = 1,
+  gap,
+  align,
+  justify,
 }) {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: wrap ? 'wrap' : 'nowrap',
-      overflowX: overflow,
-      gap,
-      alignItems: align,
-      justifyContent: justify,
-      ...style,
-    }}>
-{slots.flat().map((child, i) => child)}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        ...(gap && { gap }),
+        ...(align && { alignItems: align }),
+        ...(justify && { justifyContent: justify }),
+        ...style,
+      }}
+    >
+      {Array.from({ length: count }).map((_, i) => slots[i] ?? null)}
     </div>
   )
 })
 
+
 export const Column = withLayoutProps(function Column({
   style,
   slots = [],
+  count = 1,
   widths = [],
   breakpoints = [],
   gap = '1rem',
@@ -96,9 +97,8 @@ export const Column = withLayoutProps(function Column({
   align = 'stretch',
   justify = 'start',
 }) {
-  const uid = `col-${widths.join('-').replace(/[^a-z0-9]/gi, '')}-${slots.length}`
-
-  const templateColumns = widths.length ? widths.join(' ') : `repeat(${slots.length}, 1fr)`
+  const uid = `col-${widths.join('-').replace(/[^a-z0-9]/gi, '')}-${count}`
+  const templateColumns = widths.length ? widths.join(' ') : `repeat(${count}, 1fr)`
 
   return (
     <>
@@ -121,7 +121,8 @@ export const Column = withLayoutProps(function Column({
           ...style,
         }}
       >
-{slots.flat().map((child, i) => child)}      </div>
+        {Array.from({ length: count }).map((_, i) => slots[i] ?? null)}
+      </div>
     </>
   )
 })
