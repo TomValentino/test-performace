@@ -166,7 +166,7 @@
   transition: transform 0.4s ease;
 }
 .featuredImageWrap:hover .featuredImage {
-  transform: scale(1.03);
+  /* transform: scale(1.03); */
 }
 .featuredBody {
   display: flex;

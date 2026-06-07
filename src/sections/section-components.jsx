@@ -5,6 +5,7 @@ import { SmartLink } from './layout-components'
 import {  formatAddress, formatPrice } from '@/lib/format'
 import { withLayoutProps } from '@/lib/render'
 import { Icon } from '@/components/icons'
+import { PropImage } from '@/components/img'
 
 
 
@@ -206,212 +207,121 @@ export function HeroHome({
 //   className={getAnimClass('fade-up')}
 //   style={{ '--anim-delay': '0.2s', '--anim-duration': '0.7s' }}
 
-export const ANIM_MAP = {
-  'fade-up':    'anim-fade-up',
-  'fade-down':  'anim-fade-down',
-  'fade-in':    'anim-fade-in',
-  'fade-left':  'anim-fade-left',
-  'fade-right': 'anim-fade-right',
-  'scale-up':   'anim-scale-up',
-  'none':       '',
-}
 
-export const HOVER_MAP = {
-  'lift':          'hover-lift',
-  'lift-sm':       'hover-lift-sm',
-  'scale':         'hover-scale',
-  'scale-sm':      'hover-scale-sm',
-  'fade':          'hover-fade',
-  'brighten':      'hover-brighten',
-  'dim':           'hover-dim',
-  'glow':          'hover-glow',
-  'glow-inset':    'hover-glow-inset',
-  'underline':     'hover-underline',
-  'bg-tint':       'hover-bg-tint',
-  'border-reveal': 'hover-border-reveal',
-  'none':          '',
-}
-export function resolveAnim(config) {
-  if (!config || config.name === 'none') return { className: '', style: {} }
-  return {
-    className: ANIM_MAP[config.name] ?? '',
-    style: {
-      '--anim-delay':    config.delay    ?? '0s',
-      ...(config.duration && { '--anim-duration': config.duration }),
-      ...(config.easing   && { '--anim-easing':   config.easing }),
-    },
-  }
-}
-
-export function resolveHover(config) {
-  if (!config || config.name === 'none') return { className: '', style: {} }
-  const style = {}
-  if (config.duration) style['--hover-duration'] = config.duration
-  if (config.easing)   style['--hover-easing']   = config.easing
-  if (config.scale)    style['--hover-scale']     = config.scale
-  if (config.lift)     style['--hover-lift']      = config.lift
-  if (config.opacity)  style['--hover-opacity']   = config.opacity
-  return { className: HOVER_MAP[config.name] ?? '', style }
-}
+// animations.js
+export const ANIM_MAP  = { 'fade-up': 'fade-up', 'fade-down': 'fade-down', 'fade-in': 'fade-in', 'fade-left': 'fade-left', 'fade-right': 'fade-right', 'scale-up': 'scale-up', 'scale-down': 'scale-down', 'slide-up': 'slide-up', 'slide-down': 'slide-down', 'blur-in': 'blur-in', 'pop-in': 'pop-in', 'flip-x': 'flip-x', 'none': null }
+export const HOVER_MAP = { 'lift': 'lift', 'lift-sm': 'lift-sm', 'scale': 'scale', 'scale-sm': 'scale-sm', 'fade': 'fade', 'brighten': 'brighten', 'dim': 'dim', 'glow': 'glow', 'glow-inset': 'glow-inset', 'underline': 'underline', 'bg-tint': 'bg-tint', 'border-reveal': 'border-reveal', 'none': null }
 
 
-// ─── PropertyFeatured ────────────────────────────────────────────────────────
-//
-// Animation props:
-//   labelAnim      = 'fade-up'   — animation name or 'none'
-//   imageAnim      = 'fade-up'
-//   bodyAnim       = 'fade-up'
-//   labelAnimDelay = '0s'        — any CSS time value e.g. '0.2s'
-//   imageAnimDelay = '0.1s'
-//   bodyAnimDelay  = '0.22s'
-//   labelAnimDuration / imageAnimDuration / bodyAnimDuration — optional overrides
-//
-// Hover props:
-//   hovers.image = { name: 'lift' }
-//   hovers.cta   = { name: 'scale' }
-
+// PropertyFeatured.jsx
 export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
-  primaryFont         = null,
-  primaryFontWeight   = null,
-  secondaryFont       = null,
-  secondaryFontWeight = null,
-
+  primaryFont, primaryFontWeight, secondaryFont, secondaryFontWeight,
   primaryTextColor = '#111111',
   textColor        = '#111111',
-
-  labelColor      = '#111111',
+  labelColor       = '#111111',
   label            = 'Featured Property',
-
-  buttonText         = 'View Property',
-  buttonColor     = '#111111',
-  buttonTextColor = '#FFFFFF',
-  buttonRadius = '4px',
-
-  addressColor  = '#888888',
-
-  specsColor    = '#636262',
-  iconColor     = '#636262',
-
+  buttonText       = 'View Property',
+  buttonColor      = '#111111',
+  buttonTextColor  = '#FFFFFF',
+  buttonRadius     = '4px',
+  addressColor     = '#888888',
+  specsColor       = '#636262',
+  iconColor        = '#636262',
   animations = {
-    label: { name: 'scale-up',   delay: '0s',    duration: '1s' },
-    image: { name: 'fade-right', delay: '0.1s',  duration: '2s' },
-    body:  { name: 'fade-up',    delay: '0.22s', duration: '3s' },
+    label: { name: 'scale-up',   delay: '0',    duration: '1' },
+    image: { name: 'fade-right', delay: '0.1',  duration: '2' },
+    body:  { name: 'fade-up',    delay: '0.22', duration: '3' },
   },
-
   hovers = {
-    image: { name: 'lift' },
-    cta:   { name: 'glow' },
+    image: { name: 'lift', duration: '1' },
+    cta:   { name: 'glow', duration: '1' },
   },
-
-  property,
-  store,
-  profile,
-}){
+  property, store, profile,
+}) {
   if (!property) return null
-
-  const labelAnim = resolveAnim(animations.label)
-  const imageAnim = resolveAnim(animations.image)
-  const bodyAnim  = resolveAnim(animations.body)
-
-  const imageHover = resolveHover(hovers.image)
-  const ctaHover   = resolveHover(hovers.cta)
 
   const fontPrimary   = resolveFonts(primaryFont,   store?.fonts?.heading, 'plus-jakarta-sans')
   const fontSecondary = resolveFonts(secondaryFont, store?.fonts?.body,    'dm-sans')
+  const headingStyle  = { fontFamily: `var(--font-${fontPrimary})`,   fontWeight: primaryFontWeight   ?? store?.fonts?.heading_weight ?? 600, color: primaryTextColor }
+  const bodyStyle     = { fontFamily: `var(--font-${fontSecondary})`, fontWeight: secondaryFontWeight ?? store?.fonts?.body_weight    ?? 400, color: textColor }
 
-  const headingStyle = {
-    fontFamily: `var(--font-${fontPrimary})`,
-    fontWeight: primaryFontWeight   ?? store?.fonts?.heading_weight ?? 600,
-    color:      primaryTextColor,
-  }
-
-  const bodyStyle = {
-    fontFamily: `var(--font-${fontSecondary})`,
-    fontWeight: secondaryFontWeight ?? store?.fonts?.body_weight    ?? 400,
-    color:      textColor,
-  }
-
-  const specStyle = { ...bodyStyle, color: specsColor }
   const photo   = property.photos?.[0]?.url ?? null
-  const price   = property.price ? `${formatPrice(property.price, store.currency)}` : null
+  const price   = property.price ? formatPrice(property.price, store.currency) : null
   const address = formatAddress(property.address, 'default')
-  const specs   = property.specs ?? {}
+  const { specs = {} } = property
 
   return (
-    <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`} >
+    <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`}>
+
       <p
-        className={`${styles.featuredLabel} ${labelAnim.className}`}
-        style={{ ...bodyStyle, color: labelColor, ...labelAnim.style }}
+        className={styles.featuredLabel}
+        style={{ ...bodyStyle, color: labelColor }}
+        data-anim={animations.label.name}
+        data-delay={animations.label.delay}
+        data-duration={animations.label.duration}
       >
         {label}
       </p>
+
       <div className={styles.featuredInner}>
         {photo && (
           <SmartLink
             href={`property/${property.meta_handle}`}
             username={store?.username}
-            className={`${styles.featuredImageWrap} ${imageAnim.className} ${imageHover.className}`}
-            style={{ ...imageAnim.style, ...imageHover.style }}
+            className={styles.featuredImageWrap}
+            data-anim={animations.image.name}
+            data-delay={animations.image.delay}
+            data-duration={animations.image.duration}
+            data-hover={hovers.image.name}
+            data-hover-duration={hovers.image.duration}
           >
-            <img
-              src={photo}
-              alt={property.photos?.[0]?.alt ?? property.title ?? ''}
-              className={styles.featuredImage}
-            />
+            <PropImage
+  src={photo}
+  alt={property.photos?.[0]?.alt ?? property.title ?? ''}
+  fill
+  priority          // hero image — preload it
+  sizes="(max-width: 768px) 100vw, 50vw"
+  className={styles.featuredImage}
+/>
           </SmartLink>
         )}
-        <div className={`${styles.featuredBody} ${bodyAnim.className}`} style={bodyAnim.style}>
+
+        <div
+          className={styles.featuredBody}
+          data-anim={animations.body.name}
+          data-delay={animations.body.delay}
+          data-duration={animations.body.duration}
+        >
           {property.sale_status && (
             <span className={styles.featuredBadge} style={bodyStyle}>
               {property.sale_status.replace(/_/g, ' ')}
             </span>
           )}
           <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
-          {address && (
-            <p className={styles.featuredAddress} style={{color: addressColor}}>
-              {address}
-            </p>
-          )}
+          {address && <p className={styles.featuredAddress} style={{ color: addressColor }}>{address}</p>}
+
           <div className={styles.featuredSpecs}>
-            {specs.beds    != null && (
-              <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="bed"    size={15} color={iconColor} />
-                {specs.beds} bed
-              </span>
-            )}
-            {specs.baths   != null && (
-              <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="bath"   size={15} color={iconColor} />
-                {specs.baths} bath
-              </span>
-            )}
-            {specs.garages != null && (
-              <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="garage" size={15} color={iconColor} />
-                {specs.garages} garage
-              </span>
-            )}
-            {specs.area    != null && (
-              <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="area"   size={15} color={iconColor} />
-                {specs.area}m²
-              </span>
-            )}
+            {specs.beds    != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="bed"    size={15} color={iconColor} />{specs.beds} bed</span>}
+            {specs.baths   != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="bath"   size={15} color={iconColor} />{specs.baths} bath</span>}
+            {specs.garages != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="garage" size={15} color={iconColor} />{specs.garages} garage</span>}
+            {specs.area    != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="area"   size={15} color={iconColor} />{specs.area}m²</span>}
           </div>
+
           {price && (
             <p className={styles.featuredPrice} style={headingStyle}>
               {price}
-              {property.sale_status === 'for_rent' && (
-                <span className={styles.featuredPriceSuffix}>/month</span>
-              )}
+              {property.sale_status === 'for_rent' && <span className={styles.featuredPriceSuffix}>/month</span>}
             </p>
           )}
+
           {buttonText && (
             <SmartLink
               href={`property/${property.meta_handle}`}
               username={store?.username}
-              className={`${styles.featuredCta} ${ctaHover.className}`}
-              style={{ ...bodyStyle, background: buttonColor, color: buttonTextColor, borderRadius: buttonRadius, ...ctaHover.style }}
+              className={styles.featuredCta}
+              style={{ ...bodyStyle, background: buttonColor, color: buttonTextColor, borderRadius: buttonRadius }}
+              data-hover={hovers.cta.name}
+              data-hover-duration={hovers.cta.duration}
             >
               {buttonText}
             </SmartLink>
