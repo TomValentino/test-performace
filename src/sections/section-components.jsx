@@ -207,37 +207,86 @@ export function HeroHome({
 // Scope: PROPERTY
 // Props: label, ctaText, bg, color, accentColor
 
+// getAnimClass.js — maps an animation prop to its CSS class
+// Import this wherever you need to resolve animation props to classes.
+
+export const ANIM_MAP = {
+  'fade-up':    'anim-fade-up',
+  'fade-down':  'anim-fade-down',
+  'fade-in':    'anim-fade-in',
+  'fade-left':  'anim-fade-left',
+  'fade-right': 'anim-fade-right',
+  'scale-up':   'anim-scale-up',
+  'none':       '',
+}
+
+export const DELAY_MAP = {
+  1: 'anim-delay-1',
+  2: 'anim-delay-2',
+  3: 'anim-delay-3',
+  4: 'anim-delay-4',
+  5: 'anim-delay-5',
+  6: 'anim-delay-6',
+}
+
+// Returns a string of classes to spread onto className
+// e.g. getAnimClass('fade-up', 2) → 'anim-fade-up anim-delay-2'
+export function getAnimClass(anim, delay) {
+  const animClass  = ANIM_MAP[anim] ?? ''
+  const delayClass = delay ? (DELAY_MAP[delay] ?? '') : ''
+  return [animClass, delayClass].filter(Boolean).join(' ')
+}
+
+
+// ─── PropertyFeatured — updated with animation props ─────────────────────────
+//
+// New props:
+//   labelAnim       = 'fade-up'   animation for the label
+//   imageAnim       = 'fade-up'   animation for the image
+//   bodyAnim        = 'fade-up'   animation for the body
+//   imageAnimDelay  = 1           delay step (1–6) for image
+//   bodyAnimDelay   = 2           delay step (1–6) for body
+//   Pass 'none' to any to disable individually.
+
 export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
- 
+
   primaryFont         = null,
   primaryFontWeight   = null,
   secondaryFont       = null,
   secondaryFontWeight = null,
- 
+
   style,
   primaryTextColor = '#111111',
   textColor        = '#111111',
   accentColor      = '#111111',
- 
+
   label           = 'Featured Property',
   ctaText         = 'View Property',
   buttonColor     = '#FFFFFF',
   buttonTextColor = '#111111',
- 
+
   addressFormat = 'default',
-  specsColor    = null,  // null → textColor at 0.65 opacity
-  iconColor     = null,  // null → accentColor
- 
+  specsColor    = null,
+  iconColor     = null,
+
+  // ── animation props ──────────────────────────────
+  labelAnim      = 'fade-right',
+  imageAnim      = 'fade-up',
+  bodyAnim       = 'scale-up',
+  imageAnimDelay = 1,
+  bodyAnimDelay  = 2,
+  // ─────────────────────────────────────────────────
+
   property,
   store,
   profile,
- 
+
 }) {
   if (!property) return null
- 
+
   const fontPrimary   = resolveFonts(primaryFont,   store?.fonts?.heading, 'plus-jakarta-sans')
   const fontSecondary = resolveFonts(secondaryFont, store?.fonts?.body,    'dm-sans')
- 
+
   const headingStyle = {
     fontFamily: `var(--font-${fontPrimary})`,
     fontWeight: primaryFontWeight   ?? store?.fonts?.heading_weight ?? 600,
@@ -248,22 +297,30 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
     fontWeight: secondaryFontWeight ?? store?.fonts?.body_weight    ?? 400,
     color:      textColor,
   }
- 
+
   const resolvedIconColor = iconColor ?? accentColor
   const specStyle = { ...bodyStyle, color: specsColor ?? textColor, opacity: specsColor ? 1 : 0.65 }
- 
+
   const photo   = property.photos?.[0]?.url ?? null
   const price   = property.price ? `${formatPrice(property.price, store.currency)}` : null
   const address = formatAddress(property.address, addressFormat)
   const specs   = property.specs ?? {}
- 
+
   return (
     <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`} style={{ ...style }}>
-      <p className={styles.featuredLabel} style={{ ...bodyStyle, color: accentColor }}>{label}</p>
+
+      <p className={`${styles.featuredLabel} ${getAnimClass(labelAnim)}`} style={{ ...bodyStyle, color: accentColor }}>
+        {label}
+      </p>
+
       <div className={styles.featuredInner}>
- 
+
         {photo && (
-          <SmartLink href={`property/${property.meta_handle}`} username={store?.username} className={styles.featuredImageWrap}>
+          <SmartLink
+            href={`property/${property.meta_handle}`}
+            username={store?.username}
+            className={`${styles.featuredImageWrap} ${getAnimClass(imageAnim, imageAnimDelay)}`}
+          >
             <img
               src={photo}
               alt={property.photos?.[0]?.alt ?? property.title ?? ''}
@@ -271,22 +328,22 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
             />
           </SmartLink>
         )}
- 
-        <div className={styles.featuredBody}>
+
+        <div className={`${styles.featuredBody} ${getAnimClass(bodyAnim, bodyAnimDelay)}`}>
           {property.sale_status && (
             <span className={styles.featuredBadge} style={bodyStyle}>
               {property.sale_status.replace(/_/g, ' ')}
             </span>
           )}
- 
+
           <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
- 
+
           {address && (
             <p className={styles.featuredAddress} style={{ ...bodyStyle, opacity: 0.55 }}>
               {address}
             </p>
           )}
- 
+
           <div className={styles.featuredSpecs}>
             {specs.beds    != null && (
               <span className={styles.featuredSpec} style={specStyle}>
@@ -313,9 +370,9 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
               </span>
             )}
           </div>
- 
+
           {price && <p className={styles.featuredPrice} style={headingStyle}>{price}</p>}
- 
+
           {ctaText && (
             <SmartLink
               href={`property/${property.meta_handle}`}
@@ -327,7 +384,7 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
             </SmartLink>
           )}
         </div>
- 
+
       </div>
     </section>
   )

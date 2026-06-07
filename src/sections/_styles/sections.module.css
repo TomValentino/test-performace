@@ -19,7 +19,6 @@
   position: absolute;
   inset: 0;
   background: #000;
-  /* opacity set inline */
 }
 .heroContent {
   position: relative;
@@ -37,18 +36,15 @@
   border: 1px solid currentColor;
   border-radius: 4px;
   width: fit-content;
-  /* color + font set inline */
 }
 .heroTitle {
   font-size: clamp(32px, 5vw, 64px);
   margin: 0;
-  /* font + color set inline */
 }
 .heroLine {
   margin: 0;
   font-size: 15px;
   opacity: 0.8;
-  /* font + color set inline */
 }
 .heroSpecs {
   display: flex;
@@ -58,29 +54,24 @@
 .heroSpec {
   font-size: 13px;
   opacity: 0.75;
-  /* font + color set inline */
 }
 .heroPrice {
   margin: 0;
   font-size: 28px;
-  /* font + color set inline */
 }
 
 /* ── COLLECTION ──────────────────────────────────────────────────────────── */
 .collection {
   padding: 64px 40px;
-  /* background set inline */
 }
 .collectionTitle {
   font-size: 36px;
   margin: 0 0 8px;
-  /* font + color set inline */
 }
 .collectionCount {
   font-size: 14px;
   margin: 0 0 40px;
   opacity: 0.5;
-  /* font + color set inline */
 }
 .collectionEmpty {
   opacity: 0.4;
@@ -105,6 +96,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.cardImageWrap:hover .cardImage {
+  transform: scale(1.04);
 }
 .cardBody {
   padding: 20px;
@@ -117,18 +112,15 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   opacity: 0.6;
-  /* font + color set inline */
 }
 .cardTitle {
   font-size: 18px;
   margin: 0;
-  /* font + color set inline */
 }
 .cardAddress {
   font-size: 13px;
   margin: 0;
   opacity: 0.55;
-  /* font + color set inline */
 }
 .cardSpecs {
   display: flex;
@@ -139,63 +131,48 @@
 .cardSpec {
   font-size: 12px;
   opacity: 0.6;
-  /* font + color set inline */
 }
 .cardPrice {
   font-size: 20px;
   margin: 8px 0 0;
-  /* font + color set inline */
 }
 
-
-
-
-
-
 /* ─── PropertyFeatured ─────────────────────────────────────────────────────── */
-
 .featured {
   padding: clamp(48px, 8vw, 120px) clamp(20px, 5vw, 80px);
 }
-
 .featuredLabel {
   font-size: clamp(10px, 1.1vw, 12px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: clamp(16px, 2.5vw, 24px);
 }
-
 .featuredInner {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
   gap: clamp(24px, 4vw, 48px);
   align-items: center;
 }
-
 .featuredImageWrap {
   display: block;
   overflow: hidden;
   border-radius: clamp(2px, 0.4vw, 6px);
   aspect-ratio: 4/3;
 }
-
 .featuredImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
-
 .featuredImageWrap:hover .featuredImage {
   transform: scale(1.03);
 }
-
 .featuredBody {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
 .featuredBadge {
   font-size: clamp(10px, 1.1vw, 11px);
   letter-spacing: 0.1em;
@@ -204,37 +181,31 @@
   display: block;
   margin-bottom: clamp(8px, 1.2vw, 12px);
 }
-
 .featuredTitle {
   font-size: clamp(24px, 3vw, 40px);
   line-height: 1.2;
   margin-bottom: clamp(6px, 0.8vw, 10px);
 }
-
 .featuredAddress {
   font-size: clamp(13px, 1.4vw, 15px);
   margin-bottom: clamp(16px, 2vw, 24px);
 }
-
 .featuredSpecs {
   display: flex;
   flex-wrap: wrap;
   gap: clamp(12px, 1.5vw, 20px);
   margin-bottom: clamp(16px, 2vw, 24px);
 }
-
 .featuredSpec {
   display: flex;
   align-items: center;
   gap: clamp(4px, 0.5vw, 6px);
   font-size: clamp(12px, 1.4vw, 14px);
 }
-
 .featuredPrice {
   font-size: clamp(20px, 2.5vw, 32px);
   margin-bottom: clamp(20px, 2.5vw, 32px);
 }
-
 .featuredCta {
   display: inline-block;
   padding: clamp(10px, 1.2vw, 14px) clamp(20px, 2.5vw, 32px);
@@ -243,7 +214,6 @@
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
-
 .featuredCta:hover {
   opacity: 0.85;
 }
@@ -306,72 +276,3 @@
   transition: opacity 0.2s ease;
 }
 .agentCta:hover { opacity: 0.85; }
-
-
-
-/* ── ANIMATIONS ─────────────────────────────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-
-  /* Hero — image fades, content fades up */
-  .heroImage {
-    animation: fadeIn 0.8s ease both;
-  }
-  .heroContent {
-    animation: fadeUp 0.7s ease 0.15s both;
-  }
-
-  /* Collection — title fades up, cards stagger */
-  .collectionTitle {
-    animation: fadeUp 0.6s ease both;
-  }
-  .collectionCount {
-    animation: fadeUp 0.6s ease 0.1s both;
-  }
-  .card {
-    animation: fadeUp 0.5s ease both;
-  }
-  .card:nth-child(1) { animation-delay: 0.1s; }
-  .card:nth-child(2) { animation-delay: 0.18s; }
-  .card:nth-child(3) { animation-delay: 0.26s; }
-  .card:nth-child(4) { animation-delay: 0.34s; }
-  .card:nth-child(5) { animation-delay: 0.42s; }
-  .card:nth-child(6) { animation-delay: 0.50s; }
-
-  /* Card image zoom on hover */
-  .cardImage {
-    transition: transform 0.4s ease;
-  }
-  .cardImageWrap:hover .cardImage {
-    transform: scale(1.04);
-  }
-
-  /* Featured — image left, content right, slight offset */
-  .featuredLabel {
-    animation: fadeUp 0.5s ease both;
-  }
-  .featuredImageWrap {
-    animation: fadeUp 0.6s ease 0.1s both;
-  }
-  .featuredBody {
-    animation: fadeUp 0.6s ease 0.22s both;
-  }
-
-  /* Agent — photo + body stagger */
-  .agentPhoto {
-    animation: fadeUp 0.6s ease both;
-  }
-  .agentBody {
-    animation: fadeUp 0.6s ease 0.15s both;
-  }
-
-}
