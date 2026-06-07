@@ -147,3 +147,42 @@ iframe {
   .anim-scale-up   { animation: scaleUp   var(--anim-duration, 0.45s) var(--anim-easing, ease) var(--anim-delay, 0s) both; }
 
 }
+
+
+
+
+
+:root {
+  --hover-duration: 0.2s;
+  --hover-easing:   ease;
+  --hover-scale:    1.03;
+  --hover-lift:     -6px;
+  --hover-lift-sm:  -3px;
+  --hover-scale-sm: 1.015;
+  --hover-opacity:  0.7;
+  --hover-glow:     rgba(0,0,0,0.18);
+  --hover-tint:     rgba(0,0,0,0.05);
+}
+
+[class*="hover-"] {
+  transition-property: transform, opacity, box-shadow, background, filter, border-color, text-decoration-color;
+  transition-duration: var(--hover-duration);
+  transition-timing-function: var(--hover-easing);
+}
+
+.hover-lift:hover          { transform: translateY(var(--hover-lift)); box-shadow: 0 12px 32px var(--hover-glow); }
+.hover-lift-sm:hover       { transform: translateY(var(--hover-lift-sm)); box-shadow: 0 6px 16px var(--hover-glow); }
+.hover-scale:hover         { transform: scale(var(--hover-scale)); }
+.hover-scale-sm:hover      { transform: scale(var(--hover-scale-sm)); }
+.hover-fade:hover          { opacity: var(--hover-opacity); }
+.hover-brighten:hover      { filter: brightness(1.08); }
+.hover-dim:hover           { filter: brightness(0.88); }
+.hover-glow:hover          { box-shadow: 0 0 0 3px var(--hover-glow); }
+.hover-glow-inset:hover    { box-shadow: inset 0 0 0 2px var(--hover-glow); }
+.hover-underline:hover     { text-decoration: underline; text-underline-offset: 3px; }
+.hover-bg-tint:hover       { background: var(--hover-tint); }
+.hover-border-reveal:hover { border-color: currentColor !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="hover-"] { transition: none; }
+}

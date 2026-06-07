@@ -199,9 +199,6 @@ export function HeroHome({
 }
 
 
-
-
-
 // getAnimClass.js — maps animation prop to its CSS class.
 // Delay + duration are inline style vars, not utility classes.
 //
@@ -219,8 +216,21 @@ export const ANIM_MAP = {
   'none':       '',
 }
 
-
-
+export const HOVER_MAP = {
+  'lift':          'hover-lift',
+  'lift-sm':       'hover-lift-sm',
+  'scale':         'hover-scale',
+  'scale-sm':      'hover-scale-sm',
+  'fade':          'hover-fade',
+  'brighten':      'hover-brighten',
+  'dim':           'hover-dim',
+  'glow':          'hover-glow',
+  'glow-inset':    'hover-glow-inset',
+  'underline':     'hover-underline',
+  'bg-tint':       'hover-bg-tint',
+  'border-reveal': 'hover-border-reveal',
+  'none':          '',
+}
 export function resolveAnim(config) {
   if (!config || config.name === 'none') return { className: '', style: {} }
   return {
@@ -232,7 +242,18 @@ export function resolveAnim(config) {
     },
   }
 }
- 
+
+export function resolveHover(config) {
+  if (!config || config.name === 'none') return { className: '', style: {} }
+  const style = {}
+  if (config.duration) style['--hover-duration'] = config.duration
+  if (config.easing)   style['--hover-easing']   = config.easing
+  if (config.scale)    style['--hover-scale']     = config.scale
+  if (config.lift)     style['--hover-lift']      = config.lift
+  if (config.opacity)  style['--hover-opacity']   = config.opacity
+  return { className: HOVER_MAP[config.name] ?? '', style }
+}
+
 
 // ─── PropertyFeatured ────────────────────────────────────────────────────────
 //
@@ -244,60 +265,83 @@ export function resolveAnim(config) {
 //   imageAnimDelay = '0.1s'
 //   bodyAnimDelay  = '0.22s'
 //   labelAnimDuration / imageAnimDuration / bodyAnimDuration — optional overrides
-
+//
+// Hover props:
+//   hovers.image = { name: 'lift' }
+//   hovers.cta   = { name: 'scale' }
 
 export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
   primaryFont         = null,
   primaryFontWeight   = null,
   secondaryFont       = null,
   secondaryFontWeight = null,
-  style,
+
   primaryTextColor = '#111111',
   textColor        = '#111111',
-  accentColor      = '#111111',
-  label           = 'Featured Property',
-  ctaText         = 'View Property',
-  buttonColor     = '#FFFFFF',
-  buttonTextColor = '#111111',
-  addressFormat = 'default',
-  specsColor    = null,
-  iconColor     = null,
+
+  labelColor      = '#111111',
+  label            = 'Featured Property',
+
+  buttonText         = 'View Property',
+  buttonColor     = '#111111',
+  buttonTextColor = '#FFFFFF',
+  buttonRadius = '4px',
+
+  addressColor  = '#888888',
+
+  specsColor    = '#636262',
+  iconColor     = '#636262',
+
   animations = {
-    label: { name: 'scale-up', delay: '0s',    duration: '1s' },
+    label: { name: 'scale-up',   delay: '0s',    duration: '1s' },
     image: { name: 'fade-right', delay: '0.1s',  duration: '2s' },
-    body:  { name: 'fade-up', delay: '0.22s', duration: '3s' },
+    body:  { name: 'fade-up',    delay: '0.22s', duration: '3s' },
   },
+
+  hovers = {
+    image: { name: 'lift' },
+    cta:   { name: 'glow' },
+  },
+
   property,
   store,
   profile,
-}) {
+}){
   if (!property) return null
+
   const labelAnim = resolveAnim(animations.label)
   const imageAnim = resolveAnim(animations.image)
   const bodyAnim  = resolveAnim(animations.body)
+
+  const imageHover = resolveHover(hovers.image)
+  const ctaHover   = resolveHover(hovers.cta)
+
   const fontPrimary   = resolveFonts(primaryFont,   store?.fonts?.heading, 'plus-jakarta-sans')
   const fontSecondary = resolveFonts(secondaryFont, store?.fonts?.body,    'dm-sans')
+
   const headingStyle = {
     fontFamily: `var(--font-${fontPrimary})`,
     fontWeight: primaryFontWeight   ?? store?.fonts?.heading_weight ?? 600,
     color:      primaryTextColor,
   }
+
   const bodyStyle = {
     fontFamily: `var(--font-${fontSecondary})`,
     fontWeight: secondaryFontWeight ?? store?.fonts?.body_weight    ?? 400,
     color:      textColor,
   }
-  const resolvedIconColor = iconColor ?? accentColor
-  const specStyle = { ...bodyStyle, color: specsColor ?? textColor, opacity: specsColor ? 1 : 0.65 }
+
+  const specStyle = { ...bodyStyle, color: specsColor }
   const photo   = property.photos?.[0]?.url ?? null
   const price   = property.price ? `${formatPrice(property.price, store.currency)}` : null
-  const address = formatAddress(property.address, addressFormat)
+  const address = formatAddress(property.address, 'default')
   const specs   = property.specs ?? {}
+
   return (
-    <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`} style={{ ...style }}>
+    <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`} >
       <p
         className={`${styles.featuredLabel} ${labelAnim.className}`}
-        style={{ ...bodyStyle, color: accentColor, ...labelAnim.style }}
+        style={{ ...bodyStyle, color: labelColor, ...labelAnim.style }}
       >
         {label}
       </p>
@@ -306,8 +350,8 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
           <SmartLink
             href={`property/${property.meta_handle}`}
             username={store?.username}
-            className={`${styles.featuredImageWrap} ${imageAnim.className}`}
-            style={imageAnim.style}
+            className={`${styles.featuredImageWrap} ${imageAnim.className} ${imageHover.className}`}
+            style={{ ...imageAnim.style, ...imageHover.style }}
           >
             <img
               src={photo}
@@ -324,45 +368,52 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
           )}
           <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
           {address && (
-            <p className={styles.featuredAddress} style={{ ...bodyStyle, opacity: 0.55 }}>
+            <p className={styles.featuredAddress} style={{color: addressColor}}>
               {address}
             </p>
           )}
           <div className={styles.featuredSpecs}>
             {specs.beds    != null && (
               <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="bed"    size={15} color={resolvedIconColor} />
+                <Icon name="bed"    size={15} color={iconColor} />
                 {specs.beds} bed
               </span>
             )}
             {specs.baths   != null && (
               <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="bath"   size={15} color={resolvedIconColor} />
+                <Icon name="bath"   size={15} color={iconColor} />
                 {specs.baths} bath
               </span>
             )}
             {specs.garages != null && (
               <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="garage" size={15} color={resolvedIconColor} />
+                <Icon name="garage" size={15} color={iconColor} />
                 {specs.garages} garage
               </span>
             )}
             {specs.area    != null && (
               <span className={styles.featuredSpec} style={specStyle}>
-                <Icon name="area"   size={15} color={resolvedIconColor} />
+                <Icon name="area"   size={15} color={iconColor} />
                 {specs.area}m²
               </span>
             )}
           </div>
-          {price && <p className={styles.featuredPrice} style={headingStyle}>{price}</p>}
-          {ctaText && (
+          {price && (
+            <p className={styles.featuredPrice} style={headingStyle}>
+              {price}
+              {property.sale_status === 'for_rent' && (
+                <span className={styles.featuredPriceSuffix}>/month</span>
+              )}
+            </p>
+          )}
+          {buttonText && (
             <SmartLink
               href={`property/${property.meta_handle}`}
               username={store?.username}
-              className={styles.featuredCta}
-              style={{ ...bodyStyle, background: buttonColor, color: buttonTextColor }}
+              className={`${styles.featuredCta} ${ctaHover.className}`}
+              style={{ ...bodyStyle, background: buttonColor, color: buttonTextColor, borderRadius: buttonRadius, ...ctaHover.style }}
             >
-              {ctaText}
+              {buttonText}
             </SmartLink>
           )}
         </div>
@@ -370,7 +421,6 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
     </section>
   )
 })
- 
 // ─── AgentCard ───────────────────────────────────────────────────────────────
 // Agent bio + contact — simple clean card
 // Scope: none (uses profile directly)
