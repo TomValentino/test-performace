@@ -375,7 +375,7 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
             href={`property/${property.meta_handle}`}
             username={store?.username}
             className={styles.featuredImageWrap}
-            style={{ direction: layout === 'right' ? 'ltr' : undefined }}
+            style={{ direction: layout === 'right' ? 'ltr' : undefined, borderRadius: resolveRadius(photoBorderRadius) }}
             data-anim={ANIM_MAP[animations.image.name]}
             data-delay={animations.image.delay}
             data-duration={animations.image.duration}
@@ -390,7 +390,7 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
               className={styles.featuredImage}
-              style={{ borderRadius: resolveRadius(photoBorderRadius) }}
+            
             />
           </SmartLink>
         )}
