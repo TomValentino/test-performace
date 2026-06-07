@@ -136,95 +136,100 @@
   font-size: 20px;
   margin: 8px 0 0;
 }
-
 /* ─── PropertyFeatured ─────────────────────────────────────────────────────── */
 .featured {
   padding: clamp(48px, 8vw, 120px) clamp(20px, 5vw, 80px);
 }
+
 .featuredLabel {
   font-size: clamp(10px, 1.1vw, 12px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: clamp(16px, 2.5vw, 24px);
 }
+
 .featuredInner {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
   gap: clamp(24px, 4vw, 48px);
   align-items: center;
 }
+
+/* ─── Image ─────────────────────────────────────────────────────────────────── */
 .featuredImageWrap {
   display: block;
   overflow: hidden;
 }
+
 .featuredImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  display: block;
 }
-.featuredImageWrap:hover .featuredImage {
-  /* transform: scale(1.03); */
-}
+
+/* ─── Body ──────────────────────────────────────────────────────────────────── */
 .featuredBody {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
+/* ─── Badge ─────────────────────────────────────────────────────────────────── */
 .featuredBadge {
   font-size: clamp(10px, 1.1vw, 11px);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  opacity: 0.5;
-  display: block;
+  display: inline-block;
   margin-bottom: clamp(8px, 1.2vw, 12px);
 }
+/* ─── Text ──────────────────────────────────────────────────────────────────── */
 .featuredTitle {
   font-size: clamp(24px, 3vw, 40px);
   line-height: 1.2;
   margin-bottom: clamp(6px, 0.8vw, 10px);
 }
+
 .featuredAddress {
   font-size: clamp(13px, 1.4vw, 15px);
   margin-bottom: clamp(16px, 2vw, 24px);
 }
+
+/* ─── Specs ─────────────────────────────────────────────────────────────────── */
 .featuredSpecs {
   display: flex;
   flex-wrap: wrap;
   gap: clamp(12px, 1.5vw, 20px);
   margin-bottom: clamp(16px, 2vw, 24px);
 }
+
 .featuredSpec {
   display: flex;
   align-items: center;
   gap: clamp(4px, 0.5vw, 6px);
   font-size: clamp(12px, 1.4vw, 14px);
 }
+
+/* ─── Price ─────────────────────────────────────────────────────────────────── */
 .featuredPrice {
   font-size: clamp(20px, 2.5vw, 32px);
   margin-bottom: clamp(20px, 2.5vw, 32px);
 }
+
 .featuredPriceSuffix {
   font-size: 0.5em;
   opacity: 0.9;
   margin-left: 2px;
   font-weight: 400;
 }
+
+/* ─── CTA ───────────────────────────────────────────────────────────────────── */
 .featuredCta {
   display: inline-block;
   padding: clamp(10px, 1.2vw, 14px) clamp(20px, 2.5vw, 32px);
-  border-radius: clamp(2px, 0.4vw, 6px);
   font-size: clamp(13px, 1.4vw, 14px);
   text-decoration: none;
-  transition: background 0.2s ease,opacity 0.2s ease;
-}
-
-.featuredCta:hover {
-  opacity: 0.9;
-}
-
-.featuredCta:active {
-  transform: translateY(0);
+  /* radius / border / colors come in via inline style from props */
 }
 /* ─── AgentCard ────────────────────────────────────────────────────── */
 .agent {

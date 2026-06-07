@@ -199,7 +199,54 @@ export function HeroHome({
   )
 }
 
+// tokens.js
+// ─── Maps ──────────────────────────────────────────────────────────────────
+// Keys = dropdown options for UI. Values = CSS applied as inline override.
+// CSS module clamps are always the default — these only apply when prop is set.
 
+const SPACING = {
+  'xs':  'clamp(8px,  1vw,   12px)',
+  'sm':  'clamp(12px, 1.5vw, 16px)',
+  'md':  'clamp(16px, 2vw,   24px)',
+  'lg':  'clamp(24px, 3vw,   40px)',
+  'xl':  'clamp(40px, 5vw,   64px)',
+}
+
+const FONT_SIZE = {
+  'xs':  'clamp(10px, 1vw,   12px)',
+  'sm':  'clamp(12px, 1.2vw, 14px)',
+  'md':  'clamp(14px, 1.5vw, 16px)',
+  'lg':  'clamp(18px, 2vw,   24px)',
+  'xl':  'clamp(24px, 3vw,   32px)',
+  '2xl': 'clamp(32px, 4vw,   48px)',
+  '3xl': 'clamp(40px, 5vw,   64px)',
+}
+
+const RADIUS = {
+  'none': '0px',
+  'sm':   '4px',
+  'md':   '8px',
+  'lg':   '16px',
+  'xl':   '24px',
+  'full': '9999px',
+}
+
+// ─── Resolvers ─────────────────────────────────────────────────────────────
+// Pass a key → get the token value
+// Pass a raw value like '12px' → passes straight through
+// Pass nothing → returns undefined (no inline style applied, CSS default wins)
+
+export const resolveSpacing  = (val) => val == null ? undefined : (SPACING[val]   ?? val)
+export const resolveFontSize = (val) => val == null ? undefined : (FONT_SIZE[val] ?? val)
+export const resolveRadius   = (val) => val == null ? undefined : (RADIUS[val]    ?? val)
+
+// ─── Keys (for building dropdown UIs) ──────────────────────────────────────
+export const SPACING_OPTIONS   = Object.keys(SPACING)    // ['xs','sm','md','lg','xl']
+export const FONT_SIZE_OPTIONS = Object.keys(FONT_SIZE)  // ['xs','sm','md','lg','xl','2xl','3xl']
+export const RADIUS_OPTIONS    = Object.keys(RADIUS)     // ['none','sm','md','lg','xl','full']
+
+
+ 
 // getAnimClass.js — maps animation prop to its CSS class.
 // Delay + duration are inline style vars, not utility classes.
 //
@@ -214,30 +261,87 @@ export const HOVER_MAP = { 'lift': 'lift', 'lift-sm': 'lift-sm', 'scale': 'scale
 
 
 // PropertyFeatured.jsx
+
+
+
 export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
   primaryFont, primaryFontWeight, secondaryFont, secondaryFontWeight,
+
+  // ─── Text colors ───────────────────────────────────────────────────────────
   primaryTextColor = '#111111',
   textColor        = '#111111',
   labelColor       = '#111111',
-  label            = 'Featured Property',
-  buttonText       = 'View Property',
-  buttonColor      = '#111111',
-  buttonTextColor  = '#FFFFFF',
-  buttonRadius     = '4px',
-  photoAspectRatio = '4/3',
-  photoBorderRadius = '8px',
   addressColor     = '#888888',
   specsColor       = '#636262',
   iconColor        = '#636262',
-animations = {
-  label: { name: 'fade-up',    delay: '0',    duration: '0.4' },
-  image: { name: 'fade-right', delay: '0.15', duration: '0.6' },
-  body:  { name: 'fade-up',    delay: '0.3',  duration: '0.5' },
-},
-  hovers = {
-    image: { name: 'lift', duration: '0.2' },
-    cta:   { name: 'scale', duration: '0.2' },
-  },
+  priceColor,
+
+  // ─── Label ─────────────────────────────────────────────────────────────────
+  label     = 'Featured Property',
+  showLabel = true,
+  labelSize,                        // FONT_SIZE key or raw
+
+  // ─── Badge ─────────────────────────────────────────────────────────────────
+  badgeColor     = 'transparent',
+  badgeTextColor = '#111111',
+  badgeRadius    = 'sm',            // RADIUS key or raw
+  badgeSize,                        // FONT_SIZE key or raw
+
+  // ─── Title ─────────────────────────────────────────────────────────────────
+  titleSize,                        // FONT_SIZE key or raw
+
+  // ─── Address ───────────────────────────────────────────────────────────────
+  addressSize,                      // FONT_SIZE key or raw
+
+  // ─── Specs ─────────────────────────────────────────────────────────────────
+  specsSize,                        // FONT_SIZE key or raw
+  specsGap,                         // SPACING key or raw
+  showBeds    = true,
+  showBaths   = true,
+  showGarages = true,
+  showArea    = true,
+
+  // ─── Price ─────────────────────────────────────────────────────────────────
+  priceSize,                        // FONT_SIZE key or raw
+
+  // ─── Button ────────────────────────────────────────────────────────────────
+  buttonText        = 'View Property',
+  buttonColor       = '#111111',
+  buttonTextColor   = '#FFFFFF',
+  buttonRadius      = 'sm',         // RADIUS key or raw
+  buttonBorderColor = 'transparent',
+  buttonBorderWidth = '0px',
+  buttonSize,                       // FONT_SIZE key or raw
+
+  // ─── Image ─────────────────────────────────────────────────────────────────
+  photoAspectRatio  = '4/3',
+  photoBorderRadius = 'md',         // RADIUS key or raw
+
+  // ─── Layout ────────────────────────────────────────────────────────────────
+  layout = 'left',                  // 'left' | 'right'
+  gap,                              // SPACING key or raw
+
+  // ─── Label animation ───────────────────────────────────────────────────────
+  labelAnimation         = 'fade-up',
+  labelAnimationDelay    = '0',
+  labelAnimationDuration = '0.4',
+
+  // ─── Image animation ───────────────────────────────────────────────────────
+  imageAnimation         = 'fade-right',
+  imageAnimationDelay    = '0.15',
+  imageAnimationDuration = '0.6',
+
+  // ─── Body animation ────────────────────────────────────────────────────────
+  bodyAnimation         = 'fade-up',
+  bodyAnimationDelay    = '0.3',
+  bodyAnimationDuration = '0.5',
+
+  // ─── Hovers ────────────────────────────────────────────────────────────────
+  imageHover         = 'lift',
+  imageHoverDuration = '0.2',
+  buttonHover        = 'scale',
+  buttonHoverDuration = '0.2',
+
   property, store, profile,
 }) {
   if (!property) return null
@@ -255,66 +359,108 @@ animations = {
   return (
     <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`}>
 
-      <p
-        className={styles.featuredLabel}
-        style={{ ...bodyStyle, color: labelColor }}
-        data-anim={animations.label.name}
-        data-delay={animations.label.delay}
-        data-duration={animations.label.duration}
-      >
-        {label}
-      </p>
+      {showLabel && (
+        <p
+          className={styles.featuredLabel}
+          style={{ ...bodyStyle, color: labelColor, fontSize: resolveFontSize(labelSize) }}
+          data-anim={ANIM_MAP[labelAnimation]}
+          data-delay={labelAnimationDelay}
+          data-duration={labelAnimationDuration}
+        >
+          {label}
+        </p>
+      )}
 
-      <div className={styles.featuredInner}>
+      <div
+        className={styles.featuredInner}
+        style={{
+          direction: layout === 'right' ? 'rtl' : undefined,
+          gap:       resolveSpacing(gap),
+        }}
+      >
         {photo && (
           <SmartLink
             href={`property/${property.meta_handle}`}
             username={store?.username}
             className={styles.featuredImageWrap}
-            data-anim={animations.image.name}
-            data-delay={animations.image.delay}
-            data-duration={animations.image.duration}
-            data-hover={hovers.image.name}
-            data-hover-duration={hovers.image.duration}
+            style={{ direction: layout === 'right' ? 'ltr' : undefined }}
+            data-anim={ANIM_MAP[imageAnimation]}
+            data-delay={imageAnimationDelay}
+            data-duration={imageAnimationDuration}
+            data-hover={HOVER_MAP[imageHover]}
+            data-hover-duration={imageHoverDuration}
           >
             <PropImage
               src={photo}
               aspectRatio={photoAspectRatio}
               alt={property.photos?.[0]?.alt ?? property.title ?? ''}
               fill
-              priority          // hero image — preload it
+              priority
               sizes="(max-width: 768px) 100vw, 50vw"
               className={styles.featuredImage}
-              style={{borderRadius: photoBorderRadius}}
+              style={{ borderRadius: resolveRadius(photoBorderRadius) }}
             />
           </SmartLink>
-        )} 
+        )}
 
         <div
           className={styles.featuredBody}
-          data-anim={animations.body.name}
-          data-delay={animations.body.delay}
-          data-duration={animations.body.duration}
+          style={{ direction: layout === 'right' ? 'ltr' : undefined }}
+          data-anim={ANIM_MAP[bodyAnimation]}
+          data-delay={bodyAnimationDelay}
+          data-duration={bodyAnimationDuration}
         >
           {property.sale_status && (
-            <span className={styles.featuredBadge} style={bodyStyle}>
+            <span
+              className={styles.featuredBadge}
+             style={{
+                ...bodyStyle,
+                background:   badgeColor,
+                color:        badgeTextColor,
+                borderRadius: resolveRadius(badgeRadius),
+                fontSize:     resolveFontSize(badgeSize),
+                padding: badgeColor !== 'transparent' ? 'clamp(3px, 0.4vw, 5px) clamp(8px, 1vw, 12px)' : undefined,
+              }}
+            >
               {property.sale_status.replace(/_/g, ' ')}
             </span>
           )}
-          <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
-          {address && <p className={styles.featuredAddress} style={{ color: addressColor }}>{address}</p>}
 
-          <div className={styles.featuredSpecs}>
-            {specs.beds    != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="bed"    size={15} color={iconColor} />{specs.beds} bed</span>}
-            {specs.baths   != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="bath"   size={15} color={iconColor} />{specs.baths} bath</span>}
-            {specs.garages != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="garage" size={15} color={iconColor} />{specs.garages} garage</span>}
-            {specs.area    != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor }}><Icon name="area"   size={15} color={iconColor} />{specs.area}m²</span>}
+          <h2
+            className={styles.featuredTitle}
+            style={{ ...headingStyle, fontSize: resolveFontSize(titleSize) }}
+          >
+            {property.title}
+          </h2>
+
+          {address && (
+            <p
+              className={styles.featuredAddress}
+              style={{ color: addressColor, fontSize: resolveFontSize(addressSize) }}
+            >
+              {address}
+            </p>
+          )}
+
+          <div
+            className={styles.featuredSpecs}
+            style={{ gap: resolveSpacing(specsGap) }}
+          >
+            {showBeds    && specs.beds    != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor, fontSize: resolveFontSize(specsSize) }}><Icon name="bed"    size={15} color={iconColor} />{specs.beds} bed</span>}
+            {showBaths   && specs.baths   != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor, fontSize: resolveFontSize(specsSize) }}><Icon name="bath"   size={15} color={iconColor} />{specs.baths} bath</span>}
+            {showGarages && specs.garages != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor, fontSize: resolveFontSize(specsSize) }}><Icon name="garage" size={15} color={iconColor} />{specs.garages} garage</span>}
+            {showArea    && specs.area    != null && <span className={styles.featuredSpec} style={{ ...bodyStyle, color: specsColor, fontSize: resolveFontSize(specsSize) }}><Icon name="area"   size={15} color={iconColor} />{specs.area}m²</span>}
           </div>
 
           {price && (
-            <p className={styles.featuredPrice} style={headingStyle}>
+            <p
+              className={styles.featuredPrice}
+              style={{ ...headingStyle, color: priceColor ?? primaryTextColor, fontSize: resolveFontSize(priceSize) }}
+            >
               {price}
-              {property.sale_status === 'for_rent' && <span className={styles.featuredPriceSuffix}>/month</span>}
+              {property.sale_status === 'for_rent' && (
+                <span className={styles.featuredPriceSuffix}>/month</span>
+              )}
             </p>
           )}
 
@@ -323,9 +469,18 @@ animations = {
               href={`property/${property.meta_handle}`}
               username={store?.username}
               className={styles.featuredCta}
-              style={{ ...bodyStyle, background: buttonColor, color: buttonTextColor, borderRadius: buttonRadius }}
-              data-hover={hovers.cta.name}
-              data-hover-duration={hovers.cta.duration}
+              style={{
+                ...bodyStyle,
+                background:   buttonColor,
+                color:        buttonTextColor,
+                borderRadius: resolveRadius(buttonRadius),
+                borderColor:  buttonBorderColor,
+                borderWidth:  buttonBorderWidth,
+                borderStyle:  buttonBorderWidth !== '0px' ? 'solid' : 'none',
+                fontSize:     resolveFontSize(buttonSize),
+              }}
+              data-hover={HOVER_MAP[buttonHover]}
+              data-hover-duration={buttonHoverDuration}
             >
               {buttonText}
             </SmartLink>
