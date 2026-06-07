@@ -219,10 +219,20 @@ export const ANIM_MAP = {
   'none':       '',
 }
 
-export function getAnimClass(anim) {
-  return ANIM_MAP[anim] ?? ''
-}
 
+
+export function resolveAnim(config) {
+  if (!config || config.name === 'none') return { className: '', style: {} }
+  return {
+    className: ANIM_MAP[config.name] ?? '',
+    style: {
+      '--anim-delay':    config.delay    ?? '0s',
+      ...(config.duration && { '--anim-duration': config.duration }),
+      ...(config.easing   && { '--anim-easing':   config.easing }),
+    },
+  }
+}
+ 
 
 // ─── PropertyFeatured ────────────────────────────────────────────────────────
 //
@@ -235,49 +245,38 @@ export function getAnimClass(anim) {
 //   bodyAnimDelay  = '0.22s'
 //   labelAnimDuration / imageAnimDuration / bodyAnimDuration — optional overrides
 
-export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
 
+export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
   primaryFont         = null,
   primaryFontWeight   = null,
   secondaryFont       = null,
   secondaryFontWeight = null,
-
   style,
   primaryTextColor = '#111111',
   textColor        = '#111111',
   accentColor      = '#111111',
-
   label           = 'Featured Property',
   ctaText         = 'View Property',
   buttonColor     = '#FFFFFF',
   buttonTextColor = '#111111',
-
   addressFormat = 'default',
   specsColor    = null,
   iconColor     = null,
-
-  // ── animation props ──────────────────────────────
-  labelAnim         = 'fade-up',
-  imageAnim         = 'fade-right',
-  bodyAnim          = 'scale-up',
-  labelAnimDelay    = '0s',
-  imageAnimDelay    = '0.1s',
-  bodyAnimDelay     = '0.22s',
-  labelAnimDuration = '1s',   // null = use CSS default
-  imageAnimDuration = '2s',
-  bodyAnimDuration  = '3s',
-  // ─────────────────────────────────────────────────
-
+  animations = {
+    label: { name: 'scale-up', delay: '0s',    duration: '1s' },
+    image: { name: 'fade-right', delay: '0.1s',  duration: '2s' },
+    body:  { name: 'fade-up', delay: '0.22s', duration: '3s' },
+  },
   property,
   store,
   profile,
-
 }) {
   if (!property) return null
-
+  const labelAnim = resolveAnim(animations.label)
+  const imageAnim = resolveAnim(animations.image)
+  const bodyAnim  = resolveAnim(animations.body)
   const fontPrimary   = resolveFonts(primaryFont,   store?.fonts?.heading, 'plus-jakarta-sans')
   const fontSecondary = resolveFonts(secondaryFont, store?.fonts?.body,    'dm-sans')
-
   const headingStyle = {
     fontFamily: `var(--font-${fontPrimary})`,
     fontWeight: primaryFontWeight   ?? store?.fonts?.heading_weight ?? 600,
@@ -288,41 +287,27 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
     fontWeight: secondaryFontWeight ?? store?.fonts?.body_weight    ?? 400,
     color:      textColor,
   }
-
   const resolvedIconColor = iconColor ?? accentColor
   const specStyle = { ...bodyStyle, color: specsColor ?? textColor, opacity: specsColor ? 1 : 0.65 }
-
   const photo   = property.photos?.[0]?.url ?? null
   const price   = property.price ? `${formatPrice(property.price, store.currency)}` : null
   const address = formatAddress(property.address, addressFormat)
   const specs   = property.specs ?? {}
-
   return (
     <section className={`${getFontVariables([fontPrimary, fontSecondary])} ${styles.featured}`} style={{ ...style }}>
-
       <p
-        className={`${styles.featuredLabel} ${getAnimClass(labelAnim)}`}
-        style={{
-          ...bodyStyle,
-          color: accentColor,
-          '--anim-delay':    labelAnimDelay,
-          ...(labelAnimDuration && { '--anim-duration': labelAnimDuration }),
-        }}
+        className={`${styles.featuredLabel} ${labelAnim.className}`}
+        style={{ ...bodyStyle, color: accentColor, ...labelAnim.style }}
       >
         {label}
       </p>
-
       <div className={styles.featuredInner}>
-
         {photo && (
           <SmartLink
             href={`property/${property.meta_handle}`}
             username={store?.username}
-            className={`${styles.featuredImageWrap} ${getAnimClass(imageAnim)}`}
-            style={{
-              '--anim-delay':    imageAnimDelay,
-              ...(imageAnimDuration && { '--anim-duration': imageAnimDuration }),
-            }}
+            className={`${styles.featuredImageWrap} ${imageAnim.className}`}
+            style={imageAnim.style}
           >
             <img
               src={photo}
@@ -331,28 +316,18 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
             />
           </SmartLink>
         )}
-
-        <div
-          className={`${styles.featuredBody} ${getAnimClass(bodyAnim)}`}
-          style={{
-            '--anim-delay':    bodyAnimDelay,
-            ...(bodyAnimDuration && { '--anim-duration': bodyAnimDuration }),
-          }}
-        >
+        <div className={`${styles.featuredBody} ${bodyAnim.className}`} style={bodyAnim.style}>
           {property.sale_status && (
             <span className={styles.featuredBadge} style={bodyStyle}>
               {property.sale_status.replace(/_/g, ' ')}
             </span>
           )}
-
           <h2 className={styles.featuredTitle} style={headingStyle}>{property.title}</h2>
-
           {address && (
             <p className={styles.featuredAddress} style={{ ...bodyStyle, opacity: 0.55 }}>
               {address}
             </p>
           )}
-
           <div className={styles.featuredSpecs}>
             {specs.beds    != null && (
               <span className={styles.featuredSpec} style={specStyle}>
@@ -379,9 +354,7 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
               </span>
             )}
           </div>
-
           {price && <p className={styles.featuredPrice} style={headingStyle}>{price}</p>}
-
           {ctaText && (
             <SmartLink
               href={`property/${property.meta_handle}`}
@@ -393,11 +366,11 @@ export const PropertyFeatured = withLayoutProps(function PropertyFeatured({
             </SmartLink>
           )}
         </div>
-
       </div>
     </section>
   )
 })
+ 
 // ─── AgentCard ───────────────────────────────────────────────────────────────
 // Agent bio + contact — simple clean card
 // Scope: none (uses profile directly)
