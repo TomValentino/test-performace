@@ -9,7 +9,7 @@ import { useId }                                                                
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
-function animProps(animation, animPreset) {
+function animProps(animation, animPreset = null) {
   if (animPreset) return {}
   return {
     'data-anim':     animation.animName,
