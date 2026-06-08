@@ -10,11 +10,11 @@ import { useId }                                                                
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
 function onloadProps(onload, onloadPreset = null) {
-  if (onloadPreset) return {}
+  if (onloadPreset || !onload?.onLoadAnimation) return {}
   return {
     'data-onload-animation': onload.onLoadAnimation,
-    'data-delay':     onload.onLoadDelay,
-    'data-duration':  onload.onLoadDuration,
+    'data-delay':            onload.onLoadDelay,
+    'data-duration':         onload.onLoadDuration,
   }
 }
 
