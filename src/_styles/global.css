@@ -138,7 +138,7 @@ iframe {
   [data-onload-animation="pop-in"]     { animation: popIn     var(--anim-duration, 0.4s)  cubic-bezier(0.34,1.56,0.64,1) var(--anim-delay, 0s) forwards; }
   [data-onload-animation="flip-x"]     { animation: flipX     var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
 
-  /* [data-onload-animation] { opacity: 0; } */
+  [data-onload-animation] { opacity: 0; }
 }
 
 /* ─── Delays ─────────────────────────────────────────────────────────────────── */
