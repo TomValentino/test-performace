@@ -136,6 +136,8 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
         gap,
         alignItems:            align,
         justifyContent:        justify,
+                position: 'relative',
+
                 overflow: 'hidden',
 
         ...style,
