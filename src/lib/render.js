@@ -86,7 +86,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
       style={{
         ...flexStyle,
         position: 'relative',
-        overflow: 'hidden',
+         overflow: backgroundImage ? 'hidden' : 'visible',
         ...style,
       }}
       {...onloadProps(onload)}
