@@ -65,6 +65,10 @@ export const ContentBlock = withBaseProps(function ContentBlock({
   gap,
   align,
   justify,
+  backgroundImage,
+  backgroundImageSizes,
+  backgroundImagePriority = false,
+  backgroundImageOpacity  = 1,
   style,
   onload,
   hover,
@@ -82,12 +86,29 @@ export const ContentBlock = withBaseProps(function ContentBlock({
       style={{
         ...flexStyle,
         position: 'relative',
+        overflow: 'hidden',
         ...style,
       }}
       {...onloadProps(onload)}
       {...hoverProps(hover)}
     >
-      {children}
+      {backgroundImage && (
+        <Image
+          src={backgroundImage}
+          alt=""
+          fill
+          placeholder="blur"
+          blurDataURL={skeletonURL(1600, 900)}
+          priority={backgroundImagePriority}
+          sizes={backgroundImageSizes ?? '100vw'}
+          style={{ objectFit: 'cover', opacity: backgroundImageOpacity, zIndex: 0 }}
+        />
+      )}
+      {backgroundImage ? (
+        <div style={{ ...flexStyle, position: 'relative', zIndex: 1 }}>
+          {children}
+        </div>
+      ) : children}
     </div>
   )
 })
