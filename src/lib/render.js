@@ -4,6 +4,7 @@ import { PropImage, skeletonURL }                                               
 import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
 import { PropertyDescription }                                                  from '@/sections/property'
 import { AgentCard, ONLOAD_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius, ANIM_MAP } from '@/sections/section-components'
+import { scrollProps }                                                          from '@/lib/scroll-entrance'
 import { useId }                                                                from 'react'
 
 
@@ -36,6 +37,7 @@ export function withBaseProps(Component) {
     style = {},
     onLoadAnimation, onLoadDelay, onLoadDuration,
     hover, hoverDuration,
+    scrollAnimation, scrollDuration, scrollDelay, scrollOffset, scrollRepeat,
     ...props
   }) {
     return (
@@ -53,6 +55,7 @@ export function withBaseProps(Component) {
         }}
         onload={{ onLoadAnimation, onLoadDelay, onLoadDuration }}
         hover={{ hover, hoverDuration }}
+        scroll={{ scrollAnimation, scrollDuration, scrollDelay, scrollOffset, scrollRepeat }}
       />
     )
   }
@@ -73,6 +76,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
   style,
   onload,
   hover,
+  scroll,
 }) {
   const flexStyle = {
     display:       'flex',
@@ -92,6 +96,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
       }}
       {...onloadProps(onload)}
       {...hoverProps(hover)}
+      {...scrollProps(scroll)}
     >
       {backgroundImage && (
         <Image
@@ -116,14 +121,15 @@ export const ContentBlock = withBaseProps(function ContentBlock({
 
 export const ColumnBlock = withBaseProps(function ColumnBlock({
   children,
-  widths     = [],
+  widths      = [],
   breakpoints = [],
-  gap        = '1rem',
-  align      = 'stretch',
-  justify    = 'start',
+  gap         = '1rem',
+  align       = 'stretch',
+  justify     = 'start',
   style,
   onload,
   hover,
+  scroll,
 }) {
   const uid = useId()
   const cls = `col-${uid.replace(/:/g, '')}`
@@ -132,19 +138,18 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
     <div
       className={cls}
       style={{
-        display:               'grid',
-        gridTemplateColumns:   widths.length ? widths.join(' ') : '1fr',
+        display:             'grid',
+        gridTemplateColumns: widths.length ? widths.join(' ') : '1fr',
         gap,
-        alignItems:            align,
-        justifyContent:        justify,
-                position: 'relative',
-
-                overflow: 'hidden',
-
+        alignItems:          align,
+        justifyContent:      justify,
+        position:            'relative',
+        overflow:            'hidden',
         ...style,
       }}
       {...onloadProps(onload)}
       {...hoverProps(hover)}
+      {...scrollProps(scroll)}
     >
       {breakpoints.length > 0 && (
         <style>{breakpoints
@@ -170,6 +175,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   style,
   onload,
   hover,
+  scroll,
   property,
   store,
 }) {
@@ -189,6 +195,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
       }}
       {...onloadProps(onload)}
       {...hoverProps(hover)}
+      {...scrollProps(scroll)}
     >
       <PropImage
         src={photo.url}
@@ -212,11 +219,12 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
   fontWeight,
   lineHeight,
   letterSpacing,
-  color  = '#111111',
+  color   = '#111111',
   as: Tag = 'h2',
   style,
   onload,
   hover,
+  scroll,
   property,
   store,
 }) {
@@ -237,13 +245,12 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
       }}
       {...onloadProps(onload)}
       {...hoverProps(hover)}
+      {...scrollProps(scroll)}
     >
       {property.title}
     </Tag>
   )
 })
-
-
 
 export const PropertySpecs = withBaseProps(function PropertySpecs({
   showBeds    = true,
@@ -270,6 +277,7 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   style,
   onload,
   hover,
+  scroll,
   property,
   store,
 }) {
@@ -303,6 +311,7 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
       style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
       {...(!onloadPreset && onloadProps(onload))}
       {...hoverProps(hover)}
+      {...scrollProps(scroll)}
     >
       {items.map(({ icon, value, label }, index) => (
         <span

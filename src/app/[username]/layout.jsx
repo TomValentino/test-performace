@@ -3,6 +3,7 @@ import { getStore, getProfile } from '@/db/read'
 import { renderSections }       from '@/lib/render'
 import { getFontStyle, getFontVariables }     from '@/lib/fonts'
 import "@/_styles/global.css"
+import { ScrollEntranceScript } from '@/lib/scroll-entrance'
 
 export const dynamic    = 'force-static'
 export const revalidate = 86400
@@ -54,6 +55,7 @@ const fontStyle     = getFontStyle(fonts)
   return (
   <html lang="en" className={fontVariables} style={fontStyle}>
       <body>
+        <ScrollEntranceScript />
         {renderSections(header.sections, ctx)}
         {children}
         {renderSections(footer.sections, ctx)}
