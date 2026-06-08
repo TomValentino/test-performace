@@ -1,75 +1,52 @@
 import { Icon } from '@/components/icons'
-import { PropImage, skeletonURL }                                                            from '@/components/img'
+import { PropImage }                                                            from '@/components/img'
 import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
 import { PropertyDescription }                                                  from '@/sections/property'
 import { AgentCard, ANIM_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius }  from '@/sections/section-components'
-import Image from 'next/image'
 import { useId }                                                                from 'react'
 
 
 // ─── Base HOC ──────────────────────────────────────────────────────────────────
 
 export function withBaseProps(Component) {
-  return function({
-    background,
-    border,
-    borderRadius,
-    boxShadow,
-    padding,
-    margin,
-    maxWidth,
+  return function({ 
+    background, padding, margin, maxWidth,
     style = {},
     animName, animDelay, animDuration,
     hover, hoverDuration,
-    ...props
+    ...props 
   }) {
     return (
       <Component
         {...props}
-        style={{
-          background,
-          padding,
-          margin,
-          maxWidth,
-          ...(border       && { border }),
-          ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
-          ...(boxShadow    && { boxShadow }),
-          ...style,
-        }}
-        animation={{ animName, animDelay, animDuration }}
-        hover={{ hover, hoverDuration }}
+         style={{ background, padding, margin, maxWidth, ...style }}
+         animation={{ animName, animDelay, animDuration }}
+         hover={{ hover, hoverDuration }}
       />
     )
   }
 }
 
+
 // ─── Layout Blocks ─────────────────────────────────────────────────────────────
+
 export const ContentBlock = withBaseProps(function ContentBlock({
   children,
   gap,
   align,
   justify,
-  backgroundImage,
-  backgroundImageSizes,
-  backgroundImagePriority = false,
-  backgroundImageOpacity = 1,
   style,
   animation,
   hover,
 }) {
-  const flexStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    ...(gap     && { gap }),
-    ...(align   && { alignItems: align }),
-    ...(justify && { justifyContent: justify }),
-  }
-
   return (
     <div
       style={{
-        ...flexStyle,
-        ...(backgroundImage && { position: 'relative', overflow: 'hidden' }),
+        display: 'flex',
+        flexDirection: 'column',
+        ...(gap     && { gap }),
+        ...(align   && { alignItems: align }),
+        ...(justify && { justifyContent: justify }),
         ...style,
       }}
       data-anim={animation.animName}
@@ -78,23 +55,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
       data-hover={hover.hover}
       data-hover-duration={hover.hoverDuration}
     >
-      {backgroundImage ? (
-        <>
-         <Image
-  src={backgroundImage}
-  alt=""
-  fill
-  placeholder="blur"
-  blurDataURL={skeletonURL(1600, 900)}
-  priority={backgroundImagePriority}
-  sizes={backgroundImageSizes ?? '100vw'}
-  style={{ objectFit: 'cover', opacity: backgroundImageOpacity, zIndex: 0 }}
-/>
-          <div style={{ ...flexStyle, position: 'relative', zIndex: 1 }}>
-            {children}
-          </div>
-        </>
-      ) : children}
+      {children}
     </div>
   )
 })
