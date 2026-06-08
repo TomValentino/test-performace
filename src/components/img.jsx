@@ -32,7 +32,7 @@ const b64 = (str) =>
     ? Buffer.from(str).toString('base64')
     : window.btoa(str)
 
-const skeletonURL = (w, h) =>
+export const skeletonURL = (w, h) =>
   `data:image/svg+xml;base64,${b64(shimmerSVG(w, h))}`
 
 // ---------------------------------------------------------------------------

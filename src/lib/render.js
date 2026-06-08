@@ -1,5 +1,5 @@
 import { Icon } from '@/components/icons'
-import { PropImage }                                                            from '@/components/img'
+import { PropImage, skeletonURL }                                                            from '@/components/img'
 import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
 import { PropertyDescription }                                                  from '@/sections/property'
 import { AgentCard, ANIM_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius }  from '@/sections/section-components'
@@ -84,6 +84,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
             src={backgroundImage}
             alt=""
             fill
+            blurDataURL={skeletonURL(1600, 900)}
             priority={backgroundImagePriority}
             sizes={backgroundImageSizes ?? '100vw'}
             style={{ objectFit: 'cover', opacity: backgroundImageOpacity, zIndex: 0 }}
