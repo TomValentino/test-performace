@@ -6,7 +6,11 @@
 // sections[]: { id, props }
 // --------------------------------------------------
 
-export const sectionLibrary = [
+const CATEGORIES = {}
+
+// TODO: ENSURE THAT CATEGORIES ARE ALL FROM THE MAIN ONE. - SO CENTERALISE IT. NOT JUST STRINGS.
+
+export const templateLibrary = [
   {
     id: 'nav-simple-light',
     title: 'Simple Nav - Light',
@@ -14,6 +18,18 @@ export const sectionLibrary = [
     required_scopes: null,
     sections: [
       { id: 'nav-simple', props: {} },
+    ],
+  },
+  {
+    id: 'homepage-simple',
+    title: 'Simple Homepage',
+    category: 'HOMEPAGE',
+    required_scopes: null,
+    sections: [
+      { id: 'nav-simple',      props: {}, scope: null,         scope_id: '' },
+      { id: 'hero-home',       props: {}, scope: null,         scope_id: '' },
+      { id: 'collection-grid', props: {}, scope: 'COLLECTION', scope_id: '' },
+      { id: 'footer-simple',   props: {}, scope: null,         scope_id: '' },
     ],
   },
   {

@@ -56,6 +56,7 @@ console.log('>>> page', page)
 
   // Reuse fetchSectionData so any property/collection sections are hydrated
   const { propertiesMap, collectionsMap } = await fetchSectionData(components, {})
+  console.log('??',propertiesMap, components)
 
   return (
     <main>
