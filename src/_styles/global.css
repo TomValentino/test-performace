@@ -105,12 +105,14 @@ iframe {
 [class^="col-"] { grid-template-columns: var(--col-template); }
 
 
-
+main {
+  padding-top: 30px;
+}
 /* animations.css */
 
 /* onload.css */
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
-@keyframes fadeUp    { from { opacity: 0; transform: translateY(0px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp    { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeDown  { from { opacity: 0; transform: translateY(-0px);} to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn    { from { opacity: 0; }                              to { opacity: 1; } }
 @keyframes fadeLeft  { from { opacity: 0; transform: translateX(12px);  } to { opacity: 1; transform: translateX(0); } }
