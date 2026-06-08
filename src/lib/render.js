@@ -4,26 +4,34 @@ import { PropImage, skeletonURL }                                               
 import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
 import { PropertyDescription }                                                  from '@/sections/property'
 import { AgentCard, ONLOAD_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius, ANIM_MAP } from '@/sections/section-components'
-import { scrollProps }                                                          from '@/lib/scroll-entrance'
 import { useId }                                                                from 'react'
 
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
-function onloadProps(onload, onloadPreset = null) {
-  if (onloadPreset) return {} // parent handled by preset on children, skip wrapper
-  if (!onload?.onLoadAnimation) return {}
+function onloadProps({ animation, delay, duration } = {}) {
+  if (!animation || animation === 'none') return {}
   return {
-    'data-onload-animation': onload.onLoadAnimation,
-    'data-delay':            onload.onLoadDelay,
-    'data-duration':         onload.onLoadDuration,
+    'data-animation':                          animation,
+    ...(delay    != null && { 'data-anim-delay':    String(delay)    }),
+    ...(duration != null && { 'data-anim-duration': String(duration) }),
   }
 }
 
-function hoverProps(hover) {
+function scrollProps({ animation, duration, threshold, repeat } = {}) {
+  if (!animation || animation === 'none') return {}
   return {
-    'data-hover':          hover.hover,
-    'data-hover-duration': hover.hoverDuration,
+    'data-scroll-anim':                                       animation,
+    ...(duration  != null && { 'data-scroll-duration':  String(duration)  }),
+    ...(threshold != null && { 'data-scroll-threshold': String(threshold) }),
+    ...(repeat               && { 'data-scroll-repeat':    'true'            }),
+  }
+}
+
+function hoverProps({ hover, hoverDuration } = {}) {
+  return {
+    ...(hover         && { 'data-hover':          hover         }),
+    ...(hoverDuration && { 'data-hover-duration': hoverDuration }),
   }
 }
 
@@ -35,14 +43,18 @@ export function withBaseProps(Component) {
     background, padding, margin, maxWidth,
     border, borderRadius, boxShadow,
     style = {},
+    // onload
     onLoadAnimation, onLoadDelay, onLoadDuration,
+    // scroll
+    scrollAnimation, scrollDuration, scrollThreshold, scrollRepeat,
+    // hover
     hover, hoverDuration,
-    scrollAnimation, scrollDuration, scrollDelay, scrollOffset, scrollRepeat,
     ...props
   }) {
     return (
       <Component
         {...props}
+        suppressHydrationWarning
         style={{
           background,
           padding,
@@ -53,9 +65,9 @@ export function withBaseProps(Component) {
           ...(boxShadow    && { boxShadow }),
           ...style,
         }}
-        onload={{ onLoadAnimation, onLoadDelay, onLoadDuration }}
+        onload={{ animation: onLoadAnimation, delay: onLoadDelay, duration: onLoadDuration }}
+        scroll={{ animation: scrollAnimation, duration: scrollDuration, threshold: scrollThreshold, repeat: scrollRepeat }}
         hover={{ hover, hoverDuration }}
-        scroll={{ scrollAnimation, scrollDuration, scrollDelay, scrollOffset, scrollRepeat }}
       />
     )
   }
@@ -88,6 +100,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
 
   return (
     <div
+      suppressHydrationWarning
       style={{
         ...flexStyle,
         position: 'relative',
@@ -137,6 +150,7 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
   return (
     <div
       className={cls}
+      suppressHydrationWarning
       style={{
         display:             'grid',
         gridTemplateColumns: widths.length ? widths.join(' ') : '1fr',
@@ -188,6 +202,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
     <SmartLink
       href={`property/${property.meta_handle}`}
       username={store?.username}
+      suppressHydrationWarning
       style={{
         display: 'block',
         ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
@@ -233,6 +248,7 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
 
   return (
     <Tag
+      suppressHydrationWarning
       style={{
         margin: 0,
         ...(resolvedFamily && { fontFamily: resolvedFamily }),
@@ -270,10 +286,6 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   color     = '#636262',
   iconColor = '#636262',
   iconSize  = 15,
-  customOnLoadAnimation,
-  customOnLoadDelay        = 0,
-  customOnLoadStaggerDelay = 0.1,
-  customOnLoadDuration,
   style,
   onload,
   hover,
@@ -304,38 +316,19 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
     color,
   }
 
-  const onloadPreset = customOnLoadAnimation ? (ANIM_MAP[customOnLoadAnimation] ?? null) : null
-
   return (
     <div
+      suppressHydrationWarning
       style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
-      {...(!onloadPreset && onloadProps(onload))}
       {...hoverProps(hover)}
       {...scrollProps(scroll)}
     >
-      {items.map(({ icon, value, label }, index) => (
+      {items.map(({ icon, value, label }) => (
         <span
           key={icon}
-          {...(onloadPreset
-            ? { 'data-onload-animation': onloadPreset }
-            : onload?.onLoadAnimation
-              ? { 'data-onload-animation': onload.onLoadAnimation }
-              : {}
-          )}
-          style={{
-            display:    'flex',
-            alignItems: 'center',
-            gap:        '0.35em',
-            ...(onloadPreset && {
-              '--anim-delay':    `${(customOnLoadDelay + index * customOnLoadStaggerDelay) * 1000}ms`,
-              ...(customOnLoadDuration && { '--anim-duration': `${customOnLoadDuration * 1000}ms` }),
-            }),
-            ...(!onloadPreset && onload?.onLoadAnimation && {
-              ...(onload.onLoadDelay    && { '--anim-delay':    `${onload.onLoadDelay}s`    }),
-              ...(onload.onLoadDuration && { '--anim-duration': `${onload.onLoadDuration}s` }),
-            }),
-            ...textStyle,
-          }}
+          suppressHydrationWarning
+          style={{ display: 'flex', alignItems: 'center', gap: '0.35em', ...textStyle }}
+          {...onloadProps(onload)}
         >
           <Icon name={icon} size={iconSize} color={iconColor} />
           {value} {label}

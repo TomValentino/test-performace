@@ -230,69 +230,69 @@ iframe {
 
 /* animations.css */
 
-/* onload.css */
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
-@keyframes fadeUp    { from { opacity: 0; transform: translateY(0px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeDown  { from { opacity: 0; transform: translateY(0px);} to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn    { from { opacity: 0; }                              to { opacity: 1; } }
-@keyframes fadeLeft  { from { opacity: 0; transform: translateX(12px);  } to { opacity: 1; transform: translateX(0); } }
-@keyframes fadeRight { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes scaleUp   { from { opacity: 0; transform: scale(0.96);       } to { opacity: 1; transform: scale(1); } }
-@keyframes scaleDown { from { opacity: 0; transform: scale(1.04);       } to { opacity: 1; transform: scale(1); } }
-@keyframes slideUp   { from { transform: translateY(100%); }             to { transform: translateY(0); } }
-@keyframes slideDown { from { transform: translateY(-100%); }            to { transform: translateY(0); } }
-@keyframes blurIn    { from { opacity: 0; filter: blur(6px); }           to { opacity: 1; filter: blur(0); } }
-@keyframes popIn     { from { opacity: 0; transform: scale(0.9); }       to { opacity: 1; transform: scale(1); } }
-@keyframes flipX     { from { opacity: 0; transform: rotateX(90deg); }   to { opacity: 1; transform: rotateX(0); } }
+@keyframes fadeUp    { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeDown  { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn    { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeLeft  { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleUp   { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes scaleDown { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideUp   { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes blurIn    { from { opacity: 0; filter: blur(6px); } to { opacity: 1; filter: blur(0); } }
+@keyframes popIn     { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes flipX     { from { opacity: 0; transform: rotateX(90deg); } to { opacity: 1; transform: rotateX(0); } }
 
-/* ─── Animations ─────────────────────────────────────────────────────────────── */
+/* ─── The ONE animation trigger ─────────────────────────────────────────────── */
+/* Used by BOTH onload (set in SSR) and scroll (set by JS at runtime)           */
 @media (prefers-reduced-motion: no-preference) {
-  [data-onload-animation="fade-up"]    { animation: fadeUp    var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="fade-down"]  { animation: fadeDown  var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="fade-in"]    { animation: fadeIn    var(--anim-duration, 0.6s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="fade-left"]  { animation: fadeLeft  var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="fade-right"] { animation: fadeRight var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="scale-up"]   { animation: scaleUp   var(--anim-duration, 0.45s) ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="scale-down"] { animation: scaleDown var(--anim-duration, 0.45s) ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="slide-up"]   { animation: slideUp   var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="slide-down"] { animation: slideDown var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="blur-in"]    { animation: blurIn    var(--anim-duration, 0.6s)  ease var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="pop-in"]     { animation: popIn     var(--anim-duration, 0.4s)  cubic-bezier(0.34,1.56,0.64,1) var(--anim-delay, 0s) forwards; }
-  [data-onload-animation="flip-x"]     { animation: flipX     var(--anim-duration, 0.5s)  ease var(--anim-delay, 0s) forwards; }
-
-  [data-onload-animation] { opacity: 0; }
+  [data-animation="fade-up"]    { animation: fadeUp    var(--anim-duration, 0.5s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="fade-down"]  { animation: fadeDown  var(--anim-duration, 0.5s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="fade-in"]    { animation: fadeIn    var(--anim-duration, 0.6s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="fade-left"]  { animation: fadeLeft  var(--anim-duration, 0.5s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="fade-right"] { animation: fadeRight var(--anim-duration, 0.5s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="scale-up"]   { animation: scaleUp   var(--anim-duration, 0.45s) ease                        var(--anim-delay, 0s) both; }
+  [data-animation="scale-down"] { animation: scaleDown var(--anim-duration, 0.45s) ease                        var(--anim-delay, 0s) both; }
+  [data-animation="slide-up"]   { animation: slideUp   var(--anim-duration, 0.5s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="slide-down"] { animation: slideDown var(--anim-duration, 0.5s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="blur-in"]    { animation: blurIn    var(--anim-duration, 0.6s)  ease                        var(--anim-delay, 0s) both; }
+  [data-animation="pop-in"]     { animation: popIn     var(--anim-duration, 0.4s)  cubic-bezier(0.34,1.56,0.64,1) var(--anim-delay, 0s) both; }
+  [data-animation="flip-x"]     { animation: flipX     var(--anim-duration, 0.5s)  ease                        var(--anim-delay, 0s) both; }
 }
 
-/* ─── Delays ─────────────────────────────────────────────────────────────────── */
-[data-delay="0"]   { --anim-delay: 0s;   }
-[data-delay="0.1"] { --anim-delay: 0.1s; }
-[data-delay="0.2"] { --anim-delay: 0.2s; }
-[data-delay="0.3"] { --anim-delay: 0.3s; }
-[data-delay="0.4"] { --anim-delay: 0.4s; }
-[data-delay="0.5"] { --anim-delay: 0.5s; }
-[data-delay="0.6"] { --anim-delay: 0.6s; }
-[data-delay="0.7"] { --anim-delay: 0.7s; }
-[data-delay="0.8"] { --anim-delay: 0.8s; }
-[data-delay="0.9"] { --anim-delay: 0.9s; }
-[data-delay="1"]   { --anim-delay: 1s;   }
-[data-delay="1.5"] { --anim-delay: 1.5s; }
-[data-delay="2"]   { --anim-delay: 2s;   }
+/* ─── Delay tokens (onload only) ─────────────────────────────────────────────── */
+[data-anim-delay="0"]   { --anim-delay: 0s;   }
+[data-anim-delay="0.1"] { --anim-delay: 0.1s; }
+[data-anim-delay="0.2"] { --anim-delay: 0.2s; }
+[data-anim-delay="0.3"] { --anim-delay: 0.3s; }
+[data-anim-delay="0.4"] { --anim-delay: 0.4s; }
+[data-anim-delay="0.5"] { --anim-delay: 0.5s; }
+[data-anim-delay="0.6"] { --anim-delay: 0.6s; }
+[data-anim-delay="0.7"] { --anim-delay: 0.7s; }
+[data-anim-delay="0.8"] { --anim-delay: 0.8s; }
+[data-anim-delay="0.9"] { --anim-delay: 0.9s; }
+[data-anim-delay="1"]   { --anim-delay: 1s;   }
+[data-anim-delay="1.5"] { --anim-delay: 1.5s; }
+[data-anim-delay="2"]   { --anim-delay: 2s;   }
 
-/* ─── Durations ──────────────────────────────────────────────────────────────── */
-[data-duration="0.1"] { --anim-duration: 0.1s; }
-[data-duration="0.2"] { --anim-duration: 0.2s; }
-[data-duration="0.3"] { --anim-duration: 0.3s; }
-[data-duration="0.4"] { --anim-duration: 0.4s; }
-[data-duration="0.5"] { --anim-duration: 0.5s; }
-[data-duration="0.6"] { --anim-duration: 0.6s; }
-[data-duration="0.7"] { --anim-duration: 0.7s; }
-[data-duration="0.8"] { --anim-duration: 0.8s; }
-[data-duration="0.9"] { --anim-duration: 0.9s; }
-[data-duration="1"]   { --anim-duration: 1s;   }
-[data-duration="1.5"] { --anim-duration: 1.5s; }
-[data-duration="2"]   { --anim-duration: 2s;   }
-[data-duration="3"]   { --anim-duration: 3s;   }
+/* ─── Duration tokens ────────────────────────────────────────────────────────── */
+[data-anim-duration="0.2"] { --anim-duration: 0.2s; }
+[data-anim-duration="0.3"] { --anim-duration: 0.3s; }
+[data-anim-duration="0.4"] { --anim-duration: 0.4s; }
+[data-anim-duration="0.5"] { --anim-duration: 0.5s; }
+[data-anim-duration="0.6"] { --anim-duration: 0.6s; }
+[data-anim-duration="0.7"] { --anim-duration: 0.7s; }
+[data-anim-duration="0.8"] { --anim-duration: 0.8s; }
+[data-anim-duration="0.9"] { --anim-duration: 0.9s; }
+[data-anim-duration="1"]   { --anim-duration: 1s;   }
+[data-anim-duration="1.5"] { --anim-duration: 1.5s; }
+[data-anim-duration="2"]   { --anim-duration: 2s;   }
 
+/* ─── Reduced motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  [data-animation] { animation: none !important; opacity: 1 !important; }
+}
 /* ─── Hover ──────────────────────────────────────────────────────────────────── */
 :root {
   --hover-duration: 0.2s;
