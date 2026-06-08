@@ -115,29 +115,32 @@ export const ContentBlock = withBaseProps(function ContentBlock({
 
 export const ColumnBlock = withBaseProps(function ColumnBlock({
   children,
-  widths      = [],
+  widths     = [],
   breakpoints = [],
-  gap         = '1rem',
-  align       = 'stretch',
-  justify     = 'start',
+  gap        = '1rem',
+  align      = 'stretch',
+  justify    = 'start',
   style,
   onload,
   hover,
 }) {
   const uid = useId()
   const cls = `col-${uid.replace(/:/g, '')}`
+
   return (
     <div
       className={cls}
       style={{
-        display:             'grid',
-        gridTemplateColumns: widths.length ? widths.join(' ') : '1fr',
+        display:               'grid',
+        gridTemplateColumns:   widths.length ? widths.join(' ') : '1fr',
         gap,
-        alignItems:          align,
-        justifyContent:      justify,
-        position:            'relative',   // ← FIX 1: proper containing block
+        alignItems:            align,
+        justifyContent:        justify,
+                position: 'relative',
+
+                overflow: 'hidden',
+
         ...style,
-        // overflow: 'hidden' removed from grid wrapper — cells handle it now
       }}
       {...onloadProps(onload)}
       {...hoverProps(hover)}
@@ -149,12 +152,7 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
           ).join('\n')}
         </style>
       )}
-
-      {Children.map(children, (child) => (   // ← FIX 2: clip at cell level
-        <div style={{ overflow: 'hidden', minWidth: 0 }}>
-          {child}
-        </div>
-      ))}
+      {children}
     </div>
   )
 })
