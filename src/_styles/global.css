@@ -110,16 +110,16 @@ iframe {
 
 /* onload.css */
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
-@keyframes fadeUp    { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0px); } }
-@keyframes fadeDown  { from { opacity: 0; transform: translateY(-12px);} to { opacity: 1; transform: translateY(0px); } }
+@keyframes fadeUp    { from { opacity: 0; transform: translateY(0px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeDown  { from { opacity: 0; transform: translateY(-0px);} to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn    { from { opacity: 0; }                              to { opacity: 1; } }
-@keyframes fadeLeft  { from { opacity: 0; transform: translateX(12px);  } to { opacity: 1; transform: translateX(0px); } }
-@keyframes fadeRight { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0px); } }
+@keyframes fadeLeft  { from { opacity: 0; transform: translateX(12px);  } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeRight { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes scaleUp   { from { opacity: 0; transform: scale(0.96);       } to { opacity: 1; transform: scale(1); } }
 @keyframes scaleDown { from { opacity: 0; transform: scale(1.04);       } to { opacity: 1; transform: scale(1); } }
-@keyframes slideUp   { from { transform: translateY(100%); }             to { transform: translateY(0px); } }
-@keyframes slideDown { from { transform: translateY(-100%); }            to { transform: translateY(0px); } }
-@keyframes blurIn    { from { opacity: 0; filter: blur(6px); }           to { opacity: 1; filter: blur(0px); } }
+@keyframes slideUp   { from { transform: translateY(100%); }             to { transform: translateY(0); } }
+@keyframes slideDown { from { transform: translateY(-100%); }            to { transform: translateY(0); } }
+@keyframes blurIn    { from { opacity: 0; filter: blur(6px); }           to { opacity: 1; filter: blur(0); } }
 @keyframes popIn     { from { opacity: 0; transform: scale(0.9); }       to { opacity: 1; transform: scale(1); } }
 @keyframes flipX     { from { opacity: 0; transform: rotateX(90deg); }   to { opacity: 1; transform: rotateX(0); } }
 
