@@ -243,6 +243,8 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
   )
 })
 
+
+
 export const PropertySpecs = withBaseProps(function PropertySpecs({
   showBeds    = true,
   showBaths   = true,
@@ -261,10 +263,10 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   color     = '#636262',
   iconColor = '#636262',
   iconSize  = 15,
-  customOnloadAnimation,
-  customOnloadDelay        = 0,
-  customOnloadStaggerDelay = 100,
-  customOnloadDuration,
+  customOnLoadAnimation,
+  customOnLoadDelay        = 0,
+  customOnLoadStaggerDelay = 0.1,
+  customOnLoadDuration,
   style,
   onload,
   hover,
@@ -294,7 +296,7 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
     color,
   }
 
-  const onloadPreset = customOnloadAnimation ? (ANIM_MAP[customOnloadAnimation] ?? null) : null
+  const onloadPreset = customOnLoadAnimation ? (ANIM_MAP[customOnLoadAnimation] ?? null) : null
 
   return (
     <div
@@ -316,12 +318,12 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
             alignItems: 'center',
             gap:        '0.35em',
             ...(onloadPreset && {
-              '--anim-delay':    `${customOnloadDelay + index * customOnloadStaggerDelay}ms`,
-              ...(customOnloadDuration && { '--anim-duration': `${customOnloadDuration}ms` }),
+              '--anim-delay':    `${(customOnLoadDelay + index * customOnLoadStaggerDelay) * 1000}ms`,
+              ...(customOnLoadDuration && { '--anim-duration': `${customOnLoadDuration * 1000}ms` }),
             }),
             ...(!onloadPreset && onload?.onLoadAnimation && {
-              '--anim-delay':    onload.onLoadDelay    ? `${onload.onLoadDelay}s`    : undefined,
-              '--anim-duration': onload.onLoadDuration ? `${onload.onLoadDuration}s` : undefined,
+              ...(onload.onLoadDelay    && { '--anim-delay':    `${onload.onLoadDelay}s`    }),
+              ...(onload.onLoadDuration && { '--anim-duration': `${onload.onLoadDuration}s` }),
             }),
             ...textStyle,
           }}
