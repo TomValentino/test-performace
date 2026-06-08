@@ -1,27 +1,57 @@
-import { Icon } from '@/components/icons'
-import { PropImage }                                                            from '@/components/img'
+import Image                                                                    from 'next/image'
+import { Icon }                                                                 from '@/components/icons'
+import { PropImage, skeletonURL }                                               from '@/components/img'
 import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
 import { PropertyDescription }                                                  from '@/sections/property'
-import { AgentCard, ANIM_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius }  from '@/sections/section-components'
+import { AgentCard, ANIM_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius } from '@/sections/section-components'
 import { useId }                                                                from 'react'
+
+
+// ─── Helpers ───────────────────────────────────────────────────────────────────
+
+function animProps(animation, animPreset) {
+  if (animPreset) return {}
+  return {
+    'data-anim':     animation.animName,
+    'data-delay':    animation.animDelay,
+    'data-duration': animation.animDuration,
+  }
+}
+
+function hoverProps(hover) {
+  return {
+    'data-hover':          hover.hover,
+    'data-hover-duration': hover.hoverDuration,
+  }
+}
 
 
 // ─── Base HOC ──────────────────────────────────────────────────────────────────
 
 export function withBaseProps(Component) {
-  return function({ 
+  return function({
     background, padding, margin, maxWidth,
+    border, borderRadius, boxShadow,
     style = {},
     animName, animDelay, animDuration,
     hover, hoverDuration,
-    ...props 
+    ...props
   }) {
     return (
       <Component
         {...props}
-         style={{ background, padding, margin, maxWidth, ...style }}
-         animation={{ animName, animDelay, animDuration }}
-         hover={{ hover, hoverDuration }}
+        style={{
+          background,
+          padding,
+          margin,
+          maxWidth,
+          ...(border       && { border }),
+          ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
+          ...(boxShadow    && { boxShadow }),
+          ...style,
+        }}
+        animation={{ animName, animDelay, animDuration }}
+        hover={{ hover, hoverDuration }}
       />
     )
   }
@@ -35,60 +65,81 @@ export const ContentBlock = withBaseProps(function ContentBlock({
   gap,
   align,
   justify,
+  backgroundImage,
+  backgroundImageSizes,
+  backgroundImagePriority = false,
+  backgroundImageOpacity  = 1,
   style,
   animation,
   hover,
 }) {
+  const flexStyle = {
+    display:       'flex',
+    flexDirection: 'column',
+    ...(gap     && { gap }),
+    ...(align   && { alignItems: align }),
+    ...(justify && { justifyContent: justify }),
+  }
+
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        ...(gap     && { gap }),
-        ...(align   && { alignItems: align }),
-        ...(justify && { justifyContent: justify }),
+        ...flexStyle,
+        position: 'relative',
+        overflow: 'hidden',
         ...style,
       }}
-      data-anim={animation.animName}
-      data-delay={animation.animDelay}
-      data-duration={animation.animDuration}
-      data-hover={hover.hover}
-      data-hover-duration={hover.hoverDuration}
+      {...animProps(animation)}
+      {...hoverProps(hover)}
     >
-      {children}
+      {backgroundImage && (
+        <Image
+          src={backgroundImage}
+          alt=""
+          fill
+          placeholder="blur"
+          blurDataURL={skeletonURL(1600, 900)}
+          priority={backgroundImagePriority}
+          sizes={backgroundImageSizes ?? '100vw'}
+          style={{ objectFit: 'cover', opacity: backgroundImageOpacity, zIndex: 0 }}
+        />
+      )}
+      {backgroundImage ? (
+        <div style={{ ...flexStyle, position: 'relative', zIndex: 1 }}>
+          {children}
+        </div>
+      ) : children}
     </div>
   )
 })
 
 export const ColumnBlock = withBaseProps(function ColumnBlock({
   children,
-  widths = [],
+  widths     = [],
   breakpoints = [],
-  gap = '1rem',
-  align = 'stretch',
-  justify = 'start',
+  gap        = '1rem',
+  align      = 'stretch',
+  justify    = 'start',
   style,
   animation,
   hover,
 }) {
   const uid = useId()
   const cls = `col-${uid.replace(/:/g, '')}`
+
   return (
     <div
       className={cls}
       style={{
-        display: 'grid',
-        gridTemplateColumns: widths.length ? widths.join(' ') : '1fr',
+        display:               'grid',
+        gridTemplateColumns:   widths.length ? widths.join(' ') : '1fr',
         gap,
-        alignItems: align,
-        justifyContent: justify,
+        alignItems:            align,
+        justifyContent:        justify,
         ...style,
       }}
-      data-anim={animation.animName}
-      data-delay={animation.animDelay}
-      data-duration={animation.animDuration}
-      data-hover={hover.hover}
-      data-hover-duration={hover.hoverDuration}
+      {...animProps(animation)}
+      {...hoverProps(hover)}
     >
       {breakpoints.length > 0 && (
         <style>{breakpoints
@@ -103,7 +154,7 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
 })
 
 
-// ─── Property Primitives ────────────────────────────────────────────────────────
+// ─── Property Primitives ───────────────────────────────────────────────────────
 
 export const PropertyImage = withBaseProps(function PropertyImage({
   aspectRatio  = '4/3',
@@ -131,11 +182,8 @@ export const PropertyImage = withBaseProps(function PropertyImage({
         ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
         ...style,
       }}
-      data-anim={animation.animName}
-      data-delay={animation.animDelay}
-      data-duration={animation.animDuration}
-      data-hover={hover.hover}
-      data-hover-duration={hover.hoverDuration}
+      {...animProps(animation)}
+      {...hoverProps(hover)}
     >
       <PropImage
         src={photo.url}
@@ -159,7 +207,7 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
   fontWeight,
   lineHeight,
   letterSpacing,
-  color = '#111111',
+  color  = '#111111',
   as: Tag = 'h2',
   style,
   animation,
@@ -182,11 +230,8 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
         color,
         ...style,
       }}
-      data-anim={animation.animName}
-      data-delay={animation.animDelay}
-      data-duration={animation.animDuration}
-      data-hover={hover.hover}
-      data-hover-duration={hover.hoverDuration}
+      {...animProps(animation)}
+      {...hoverProps(hover)}
     >
       {property.title}
     </Tag>
@@ -202,7 +247,7 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   labelBaths   = 'bath',
   labelGarages = 'garage',
   labelArea    = 'm²',
-  gap = '1rem',
+  gap      = '1rem',
   fontFamily,
   fontSize,
   fontWeight,
@@ -247,20 +292,17 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   return (
     <div
       style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
-      data-anim={animPreset ? null : animation.animName}
-      data-delay={animPreset ? null : animation.animDelay}
-      data-duration={animPreset ? null : animation.animDuration}
-      data-hover={hover.hover}
-      data-hover-duration={hover.hoverDuration}
+      {...animProps(animation, animPreset)}
+      {...hoverProps(hover)}
     >
       {items.map(({ icon, value, label }, index) => (
         <span
           key={icon}
           data-anim={animPreset ?? undefined}
           style={{
-            display: 'flex',
+            display:    'flex',
             alignItems: 'center',
-            gap: '0.35em',
+            gap:        '0.35em',
             ...(animPreset && { '--anim-delay': `${index * customAnimationStaggerDelay}ms` }),
             ...textStyle,
           }}
