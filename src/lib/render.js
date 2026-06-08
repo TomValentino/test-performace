@@ -10,7 +10,8 @@ import { useId }                                                                
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
 function onloadProps(onload, onloadPreset = null) {
-  if (onloadPreset || !onload?.onLoadAnimation) return {}
+  if (onloadPreset) return {} // parent handled by preset on children, skip wrapper
+  if (!onload?.onLoadAnimation) return {}
   return {
     'data-onload-animation': onload.onLoadAnimation,
     'data-delay':            onload.onLoadDelay,
@@ -261,7 +262,9 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   iconColor = '#636262',
   iconSize  = 15,
   customOnloadAnimation,
+  customOnloadDelay        = 0,
   customOnloadStaggerDelay = 100,
+  customOnloadDuration,
   style,
   onload,
   hover,
@@ -296,18 +299,30 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   return (
     <div
       style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
-      {...onloadProps(onload, onloadPreset)}
+      {...(!onloadPreset && onloadProps(onload))}
       {...hoverProps(hover)}
     >
       {items.map(({ icon, value, label }, index) => (
         <span
           key={icon}
-          data-onload-animation={onloadPreset ?? undefined}
+          {...(onloadPreset
+            ? { 'data-onload-animation': onloadPreset }
+            : onload?.onLoadAnimation
+              ? { 'data-onload-animation': onload.onLoadAnimation }
+              : {}
+          )}
           style={{
             display:    'flex',
             alignItems: 'center',
             gap:        '0.35em',
-            ...(onloadPreset && { '--onload-delay': `${index * customOnloadStaggerDelay}ms` }),
+            ...(onloadPreset && {
+              '--anim-delay':    `${customOnloadDelay + index * customOnloadStaggerDelay}ms`,
+              ...(customOnloadDuration && { '--anim-duration': `${customOnloadDuration}ms` }),
+            }),
+            ...(!onloadPreset && onload?.onLoadAnimation && {
+              '--anim-delay':    onload.onLoadDelay    ? `${onload.onLoadDelay}s`    : undefined,
+              '--anim-duration': onload.onLoadDuration ? `${onload.onLoadDuration}s` : undefined,
+            }),
             ...textStyle,
           }}
         >
