@@ -110,8 +110,8 @@ iframe {
 
 /* onload.css */
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
-@keyframes fadeUp    { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeDown  { from { opacity: 0; transform: translateY(-12px);} to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp    { from { opacity: 0; transform: translateY(0); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeDown  { from { opacity: 0; transform: translateY(0);} to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn    { from { opacity: 0; }                              to { opacity: 1; } }
 @keyframes fadeLeft  { from { opacity: 0; transform: translateX(12px);  } to { opacity: 1; transform: translateX(0); } }
 @keyframes fadeRight { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
