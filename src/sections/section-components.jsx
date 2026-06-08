@@ -319,7 +319,7 @@ export const PropertyFeatured = withBaseProps(function PropertyFeatured({
 
   // ─── Animations ────────────────────────────────────────────────────────────
   animations = {
-    label: { name: 'fade-up',    delay: '0',    duration: '0.4' },
+    label: { name: 'fade-up',    delay: '0.1',    duration: '0.4' },
     image: { name: 'fade-right', delay: '0.15', duration: '0.6' },
     body:  { name: 'fade-up',    delay: '0.3',  duration: '0.5' },
   },
