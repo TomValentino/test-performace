@@ -2,62 +2,74 @@ import { Icon } from '@/components/icons'
 import { PropImage }                                                            from '@/components/img'
 import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
 import { PropertyDescription }                                                  from '@/sections/property'
-import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius }  from '@/sections/section-components'
+import { AgentCard, ANIM_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius }  from '@/sections/section-components'
+import Image from 'next/image'
 import { useId }                                                                from 'react'
 
 
 // ─── Base HOC ──────────────────────────────────────────────────────────────────
 
 export function withBaseProps(Component) {
-  return function({ 
-    background, padding, margin, maxWidth,
+  return function({
+    background,
+    border,
+    borderRadius,
+    boxShadow,
+    padding,
+    margin,
+    maxWidth,
     style = {},
     animName, animDelay, animDuration,
     hover, hoverDuration,
-    ...props 
+    ...props
   }) {
     return (
       <Component
         {...props}
-         style={{ background, padding, margin, maxWidth, ...style }}
-         animation={{ animName, animDelay, animDuration }}
-         hover={{ hover, hoverDuration }}
+        style={{
+          background,
+          padding,
+          margin,
+          maxWidth,
+          ...(border       && { border }),
+          ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
+          ...(boxShadow    && { boxShadow }),
+          ...style,
+        }}
+        animation={{ animName, animDelay, animDuration }}
+        hover={{ hover, hoverDuration }}
       />
     )
   }
 }
 
-// export function withBaseProps(Component) {
-//   return function({ background, padding, margin, maxWidth, style = {}, ...props }) {
-//     return (
-//       <Component
-//         {...props}
-//         style={{ background, padding, margin, maxWidth, ...style }}
-//       />
-//     )
-//   }
-// }
-
-
 // ─── Layout Blocks ─────────────────────────────────────────────────────────────
-
 export const ContentBlock = withBaseProps(function ContentBlock({
   children,
   gap,
   align,
   justify,
+  backgroundImage,
+  backgroundImageSizes,
+  backgroundImagePriority = false,
+  backgroundImageOpacity = 1,
   style,
   animation,
   hover,
 }) {
+  const flexStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    ...(gap     && { gap }),
+    ...(align   && { alignItems: align }),
+    ...(justify && { justifyContent: justify }),
+  }
+
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        ...(gap     && { gap }),
-        ...(align   && { alignItems: align }),
-        ...(justify && { justifyContent: justify }),
+        ...flexStyle,
+        ...(backgroundImage && { position: 'relative', overflow: 'hidden' }),
         ...style,
       }}
       data-anim={animation.animName}
@@ -66,7 +78,21 @@ export const ContentBlock = withBaseProps(function ContentBlock({
       data-hover={hover.hover}
       data-hover-duration={hover.hoverDuration}
     >
-      {children}
+      {backgroundImage ? (
+        <>
+          <Image
+            src={backgroundImage}
+            alt=""
+            fill
+            priority={backgroundImagePriority}
+            sizes={backgroundImageSizes ?? '100vw'}
+            style={{ objectFit: 'cover', opacity: backgroundImageOpacity, zIndex: 0 }}
+          />
+          <div style={{ ...flexStyle, position: 'relative', zIndex: 1 }}>
+            {children}
+          </div>
+        </>
+      ) : children}
     </div>
   )
 })
@@ -222,6 +248,8 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   color     = '#636262',
   iconColor = '#636262',
   iconSize  = 15,
+  customAnimation,
+  customAnimationStaggerDelay = 100,
   style,
   animation,
   hover,
@@ -230,13 +258,15 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
 }) {
   if (!property) return null
   const { specs = {} } = property
-  const hasAny = (
-    (showBeds    && specs.beds    != null) ||
-    (showBaths   && specs.baths   != null) ||
-    (showGarages && specs.garages != null) ||
-    (showArea    && specs.area    != null)
-  )
-  if (!hasAny) return null
+
+  const items = [
+    showBeds    && specs.beds    != null && { icon: 'bed',    value: specs.beds,    label: labelBeds },
+    showBaths   && specs.baths   != null && { icon: 'bath',   value: specs.baths,   label: labelBaths },
+    showGarages && specs.garages != null && { icon: 'garage', value: specs.garages, label: labelGarages },
+    showArea    && specs.area    != null && { icon: 'area',   value: specs.area,    label: labelArea },
+  ].filter(Boolean)
+
+  if (!items.length) return null
 
   const resolvedFamily = fontFamily ?? (store?.fonts?.body ? `var(--font-${store.fonts.body})` : undefined)
 
@@ -249,51 +279,33 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
     color,
   }
 
-  const specStyle = {
-    display:    'flex',
-    alignItems: 'center',
-    gap:        '0.35em',
-  }
+  const animPreset = customAnimation ? (ANIM_MAP[customAnimation] ?? null) : null
 
   return (
     <div
-      style={{
-        display:    'flex',
-        flexWrap:   'wrap',
-        alignItems: 'center',
-        gap,
-        ...style,
-      }}
-      data-anim={animation.animName}
-      data-delay={animation.animDelay}
-      data-duration={animation.animDuration}
+      style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
+      data-anim={animPreset ? null : animation.animName}
+      data-delay={animPreset ? null : animation.animDelay}
+      data-duration={animPreset ? null : animation.animDuration}
       data-hover={hover.hover}
       data-hover-duration={hover.hoverDuration}
     >
-      {showBeds    && specs.beds    != null && (
-        <span style={{ ...specStyle, ...textStyle }}>
-          <Icon name="bed"    size={iconSize} color={iconColor} />
-          {specs.beds} {labelBeds}
+      {items.map(({ icon, value, label }, index) => (
+        <span
+          key={icon}
+          data-anim={animPreset ?? undefined}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.35em',
+            ...(animPreset && { '--anim-delay': `${index * customAnimationStaggerDelay}ms` }),
+            ...textStyle,
+          }}
+        >
+          <Icon name={icon} size={iconSize} color={iconColor} />
+          {value} {label}
         </span>
-      )}
-      {showBaths   && specs.baths   != null && (
-        <span style={{ ...specStyle, ...textStyle }}>
-          <Icon name="bath"   size={iconSize} color={iconColor} />
-          {specs.baths} {labelBaths}
-        </span>
-      )}
-      {showGarages && specs.garages != null && (
-        <span style={{ ...specStyle, ...textStyle }}>
-          <Icon name="garage" size={iconSize} color={iconColor} />
-          {specs.garages} {labelGarages}
-        </span>
-      )}
-      {showArea    && specs.area    != null && (
-        <span style={{ ...specStyle, ...textStyle }}>
-          <Icon name="area"   size={iconSize} color={iconColor} />
-          {specs.area}{labelArea}
-        </span>
-      )}
+      ))}
     </div>
   )
 })
