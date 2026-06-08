@@ -345,7 +345,7 @@ export const PropertyFeatured = withBaseProps(function PropertyFeatured({
         <p
           className={styles.featuredLabel}
           style={{ ...bodyStyle, color: labelColor}}
-          data-anim={ANIM_MAP[animations.label.name]}
+          data-onload-animation={ANIM_MAP[animations.label.name]}
           data-delay={animations.label.delay}
           data-duration={animations.label.duration}
         >
@@ -366,7 +366,7 @@ export const PropertyFeatured = withBaseProps(function PropertyFeatured({
             username={store?.username}
             className={styles.featuredImageWrap}
             style={{ direction: layout === 'right' ? 'ltr' : undefined, borderRadius: resolveRadius(photoBorderRadius) }}
-            data-anim={ANIM_MAP[animations.image.name]}
+            data-onload-animation={ANIM_MAP[animations.image.name]}
             data-delay={animations.image.delay}
             data-duration={animations.image.duration}
             data-hover={HOVER_MAP[photoHover]}
@@ -388,7 +388,7 @@ export const PropertyFeatured = withBaseProps(function PropertyFeatured({
         <div
           className={styles.featuredBody}
           style={{ direction: layout === 'right' ? 'ltr' : undefined }}
-          data-anim={ANIM_MAP[animations.body.name]}
+          data-onload-animation={ANIM_MAP[animations.body.name]}
           data-delay={animations.body.delay}
           data-duration={animations.body.duration}
         >

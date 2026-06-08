@@ -3,18 +3,18 @@ import { Icon }                                                                 
 import { PropImage, skeletonURL }                                               from '@/components/img'
 import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
 import { PropertyDescription }                                                  from '@/sections/property'
-import { AgentCard, ANIM_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius } from '@/sections/section-components'
+import { AgentCard, ONLOAD_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius, ANIM_MAP } from '@/sections/section-components'
 import { useId }                                                                from 'react'
 
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
-function animProps(animation, animPreset = null) {
-  if (animPreset) return {}
+function onloadProps(onload, onloadPreset = null) {
+  if (onloadPreset) return {}
   return {
-    'data-anim':     animation.animName,
-    'data-delay':    animation.animDelay,
-    'data-duration': animation.animDuration,
+    'data-onload-animation': onload.onLoadAnimation,
+    'data-delay':     onload.onLoadDelay,
+    'data-duration':  onload.onLoadDuration,
   }
 }
 
@@ -33,7 +33,7 @@ export function withBaseProps(Component) {
     background, padding, margin, maxWidth,
     border, borderRadius, boxShadow,
     style = {},
-    animName, animDelay, animDuration,
+    onLoadAnimation, onLoadDelay, onLoadDuration,
     hover, hoverDuration,
     ...props
   }) {
@@ -50,7 +50,7 @@ export function withBaseProps(Component) {
           ...(boxShadow    && { boxShadow }),
           ...style,
         }}
-        animation={{ animName, animDelay, animDuration }}
+        onload={{ onLoadAnimation, onLoadDelay, onLoadDuration }}
         hover={{ hover, hoverDuration }}
       />
     )
@@ -70,7 +70,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
   backgroundImagePriority = false,
   backgroundImageOpacity  = 1,
   style,
-  animation,
+  onload,
   hover,
 }) {
   const flexStyle = {
@@ -89,7 +89,7 @@ export const ContentBlock = withBaseProps(function ContentBlock({
         overflow: 'hidden',
         ...style,
       }}
-      {...animProps(animation)}
+      {...onloadProps(onload)}
       {...hoverProps(hover)}
     >
       {backgroundImage && (
@@ -121,7 +121,7 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
   align      = 'stretch',
   justify    = 'start',
   style,
-  animation,
+  onload,
   hover,
 }) {
   const uid = useId()
@@ -138,7 +138,7 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
         justifyContent:        justify,
         ...style,
       }}
-      {...animProps(animation)}
+      {...onloadProps(onload)}
       {...hoverProps(hover)}
     >
       {breakpoints.length > 0 && (
@@ -163,7 +163,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   sizes        = '(max-width: 768px) 100vw, 50vw',
   priority     = false,
   style,
-  animation,
+  onload,
   hover,
   property,
   store,
@@ -182,7 +182,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
         ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
         ...style,
       }}
-      {...animProps(animation)}
+      {...onloadProps(onload)}
       {...hoverProps(hover)}
     >
       <PropImage
@@ -210,7 +210,7 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
   color  = '#111111',
   as: Tag = 'h2',
   style,
-  animation,
+  onload,
   hover,
   property,
   store,
@@ -230,7 +230,7 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
         color,
         ...style,
       }}
-      {...animProps(animation)}
+      {...onloadProps(onload)}
       {...hoverProps(hover)}
     >
       {property.title}
@@ -256,10 +256,10 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   color     = '#636262',
   iconColor = '#636262',
   iconSize  = 15,
-  customAnimation,
-  customAnimationStaggerDelay = 100,
+  customOnloadAnimation,
+  customOnloadStaggerDelay = 100,
   style,
-  animation,
+  onload,
   hover,
   property,
   store,
@@ -287,23 +287,23 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
     color,
   }
 
-  const animPreset = customAnimation ? (ANIM_MAP[customAnimation] ?? null) : null
+  const onloadPreset = customOnloadAnimation ? (ANIM_MAP[customOnloadAnimation] ?? null) : null
 
   return (
     <div
       style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
-      {...animProps(animation, animPreset)}
+      {...onloadProps(onload, onloadPreset)}
       {...hoverProps(hover)}
     >
       {items.map(({ icon, value, label }, index) => (
         <span
           key={icon}
-          data-anim={animPreset ?? undefined}
+          data-onload-animation={onloadPreset ?? undefined}
           style={{
             display:    'flex',
             alignItems: 'center',
             gap:        '0.35em',
-            ...(animPreset && { '--anim-delay': `${index * customAnimationStaggerDelay}ms` }),
+            ...(onloadPreset && { '--onload-delay': `${index * customOnloadStaggerDelay}ms` }),
             ...textStyle,
           }}
         >
