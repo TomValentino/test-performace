@@ -4,7 +4,7 @@ import { PropImage, skeletonURL } from '@/components/img'
 import { FooterSimple, NavSimple, SmartLink } from '@/sections/layout-components'
 import { PropertyDescription } from '@/sections/property'
 import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius } from '@/sections/section-components'
-import { useId } from 'react'
+import { Children, cloneElement, isValidElement, useId } from 'react'
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -197,6 +197,45 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   )
 })
 
+export const ScopeBlock = withBaseProps(function ScopeBlock({
+  children,
+  gap,
+  align,
+  justify,
+  style,
+  anim,
+  hover,
+  property,
+  collection,
+}) {
+  const flexStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    ...(gap     && { gap }),
+    ...(align   && { alignItems: align }),
+    ...(justify && { justifyContent: justify }),
+  }
+
+const injected = Children.map(children, child =>
+  isValidElement(child)
+    ? cloneElement(child, {
+        ...(property   && { property }),
+        ...(collection && { collection }),
+      })
+    : child
+)
+  return (
+    <div
+      suppressHydrationWarning
+      style={{ ...flexStyle, position: 'relative', overflow: 'hidden', ...style }}
+      {...animProps(anim)}
+      {...hoverProps(hover)}
+    >
+      {injected}
+    </div>
+  )
+})
+
 export const PropertyTitle = withBaseProps(function PropertyTitle({
   fontFamily,
   fontSize,
@@ -313,6 +352,8 @@ export const componentRegistry = [
   { id: 'property-image',       component: PropertyImage       },
   { id: 'property-title',       component: PropertyTitle       },
   { id: 'property-specs',       component: PropertySpecs       },
+  { id: 'scope-block', component: ScopeBlock },
+
 ]
 
 export const sectionRegistry  = componentRegistry

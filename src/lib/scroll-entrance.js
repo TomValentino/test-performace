@@ -2,11 +2,11 @@ export function ScrollEntranceScript() {
   return (
     <script
       id="scroll-entrance-bootstrap"
+      suppressHydrationWarning
       dangerouslySetInnerHTML={{ __html: BOOTSTRAP }}
     />
   )
 }
-
 const BOOTSTRAP = `
 (function () {
   'use strict';
