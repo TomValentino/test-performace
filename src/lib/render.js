@@ -42,22 +42,21 @@ export function withBaseProps(Component) {
         {...props}
         suppressHydrationWarning
         style={{
-          background,
-          padding,
-          margin,
-          maxWidth,
+          ...(background   && { background }),
+          ...(padding      && { padding }),
+          ...(margin       && { margin }),
+          ...(maxWidth     && { maxWidth }),
           ...(border       && { border }),
           ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
           ...(boxShadow    && { boxShadow }),
           ...style,
         }}
-        anim={{ animation, animDelay, animDuration, animThreshold, animRepeat }}
-        hover={{ hover, hoverDuration }}
+        anim={animation ? { animation, animDelay, animDuration, animThreshold, animRepeat } : undefined}
+        hover={hover ? { hover, hoverDuration } : undefined}
       />
     )
   }
 }
-
 // ─── Layout Blocks ─────────────────────────────────────────────────────────────
 
 export const ContentBlock = withBaseProps(function ContentBlock({
@@ -157,7 +156,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   sizes        = '(max-width: 768px) 100vw, 50vw',
   priority     = false,
   style,
-  anim = { animation: 'fade-in', animDuration: 600 },
+  anim = { animation: 'fade-in', animDelay: '0.05', animDuration: '0.4' } ,
   hover,
   property,
   store,
