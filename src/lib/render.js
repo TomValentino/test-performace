@@ -151,7 +151,6 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
 })
 
 // ─── Property Primitives ───────────────────────────────────────────────────────
-
 export const PropertyImage = withBaseProps(function PropertyImage({
   aspectRatio  = '4/3',
   objectFit    = 'cover',
@@ -175,27 +174,28 @@ export const PropertyImage = withBaseProps(function PropertyImage({
       suppressHydrationWarning
       style={{
         display: 'block',
-        ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
+        position: 'relative',
+        aspectRatio,
+        width: '100%',
+        overflow: 'hidden',
+        ...(radius && { borderRadius: radius }),
         ...style,
       }}
       {...animProps(anim)}
       {...hoverProps(hover)}
     >
-     <img
-  src={photo.url}
-  alt={photo.alt ?? property.title ?? ''}
-  style={{
-    width: '100%',
-    aspectRatio,
-    objectFit,
-    display: 'block',
-    ...(radius && { borderRadius: radius }),
-  }}
-/>
+      <PropImage
+        src={photo.url}
+        aspectRatio={aspectRatio}
+        alt={photo.alt ?? property.title ?? ''}
+        fill
+        priority={priority}
+        sizes={sizes}
+        style={{ objectFit }}
+      />
     </SmartLink>
   )
 })
-
 export const ScopeBlock = withBaseProps(function ScopeBlock({
   children,
   gap,
