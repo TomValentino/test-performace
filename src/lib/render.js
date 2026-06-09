@@ -150,7 +150,6 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
   )
 })
 
-// ─── Property Primitives ───────────────────────────────────────────────────────
 export const PropertyImage = withBaseProps(function PropertyImage({
   aspectRatio  = '4/3',
   objectFit    = 'cover',
@@ -158,7 +157,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   sizes        = '(max-width: 768px) 100vw, 50vw',
   priority     = false,
   style,
-  anim,
+  anim = { animation: 'fade', animDuration: 600 },
   hover,
   property,
   store,
