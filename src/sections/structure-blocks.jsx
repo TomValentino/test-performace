@@ -35,7 +35,9 @@ export const ContentBlock = withBaseProps(function ContentBlock({
   return (
     <div
       suppressHydrationWarning
-      style={{ ...flexStyle, position: 'relative', overflow: 'hidden', ...style }}
+      style={{ ...flexStyle, position: 'relative', 
+        // overflow: 'hidden',
+         ...style }}
       {...animationDataAttrs(anim)}
       {...hoverDataAttrs(hover)}
     >
@@ -91,7 +93,7 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
         alignItems:          align,
         justifyContent:      justify,
         position:            'relative',
-        overflow:            'hidden',
+        // overflow:            'hidden',
         ...style,
       }}
       {...animationDataAttrs(anim)}
