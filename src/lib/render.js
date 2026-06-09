@@ -1,9 +1,9 @@
 import Image           from 'next/image'
 import { FooterSimple, NavSimple } from '@/sections/old/old-layouts'
 import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero,resolveRadius  } from '@/sections/old/old-sections'
-import { PropertyImage, PropertyPrice, PropertySpecs, PropertyTitle } from '@/sections/property'
+import { PropertyAmenities, PropertyImage, PropertyPrice, PropertySpec, PropertySpecs, PropertyTitle } from '@/sections/property'
 import { ColumnBlock, ContentBlock, ScopeBlock } from '@/sections/structure-blocks'
-import { CollectionTitle } from '@/sections/collection'
+import { CollectionProperties, CollectionTitle } from '@/sections/collection'
 import { AgentAbout, AgentName } from '@/sections/agent'
 import {  TextElement } from '@/sections/elements'
 import { ButtonElementSchema } from '@/sections/element-schema'
@@ -87,6 +87,7 @@ export const componentRegistry = [
 
   // Collections
   { id: 'collection-title',     component: CollectionTitle,     schema: null, scope: SCOPES.COLLECTION, type: COMPONENT_TYPE.ELEMENT   },
+{ id: 'collection-properties', component: CollectionProperties, schema: null, scope: SCOPES.COLLECTION, type: COMPONENT_TYPE.SECTION },
 
   // Elements
   { id: 'button',               component: ButtonElement,       schema: ButtonElementSchema,  scope: SCOPES.NONE,     type: COMPONENT_TYPE.ELEMENT },
@@ -101,6 +102,8 @@ export const componentRegistry = [
   { id: 'property-title',       component: PropertyTitle,       schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.ELEMENT   },
   { id: 'property-price',       component: PropertyPrice,       schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.ELEMENT   },
   { id: 'property-specs',       component: PropertySpecs,       schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.ELEMENT   },
+{ id: 'property-spec', component: PropertySpec, schema: null, scope: SCOPES.PROPERTY, type: COMPONENT_TYPE.ELEMENT },
+{ id: 'property-amenities', component: PropertyAmenities, schema: null, scope: SCOPES.PROPERTY, type: COMPONENT_TYPE.ELEMENT },
 
   // Containers
   { id: 'content-block',        component: ContentBlock,        schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.CONTAINER },

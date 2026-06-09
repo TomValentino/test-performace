@@ -33,10 +33,15 @@ const BOOTSTRAP = `
     if (duration) el.style.setProperty('--anim-duration', duration + 's');
     if (delay)    el.style.setProperty('--anim-delay',    delay    + 's');
     el.setAttribute('data-animation', anim);
+    el.addEventListener('animationend', function () {
+      el.style.opacity = '';
+      el.setAttribute('data-animation-done', '');
+    }, { once: true });
   }
 
   function reset(el) {
     el.removeAttribute('data-animation');
+    el.removeAttribute('data-animation-done');
     el.style.removeProperty('--anim-duration');
     el.style.removeProperty('--anim-delay');
     el.style.opacity = '0';

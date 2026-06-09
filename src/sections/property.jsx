@@ -4,6 +4,7 @@ import { animationDataAttrs, hoverDataAttrs, withBaseProps } from "@/lib/render"
 import { Icon } from "@/components/icons"
 import { formatPrice } from "@/lib/format"
 import { FONT_MAP, getFontVariables } from "@/lib/fonts"
+import styles from './property.module.css'
 
 
 
@@ -169,70 +170,261 @@ export const PropertyPrice = withBaseProps(function PropertyPrice({
 
 // ─── Property Spec ───────────────────────────────────────────────────────────────────
 
+const SPECS_CONFIG = [
+  { key: 'beds',    icon: 'bed',      label: 'Beds'    },
+  { key: 'baths',   icon: 'bath',     label: 'Baths'   },
+  { key: 'garages', icon: 'garage',   label: 'Garages' },
+  { key: 'area',    icon: 'area',     label: 'm²'      },
+]
+ 
 export const PropertySpecs = withBaseProps(function PropertySpecs({
   showBeds     = true,
   showBaths    = true,
   showGarages  = true,
   showArea     = true,
-  labelBeds    = 'bed',
-  labelBaths   = 'bath',
-  labelGarages = 'garage',
-  labelArea    = 'm²',
-  gap          = '1rem',
+  gap          = '1.5rem',
   fontFamily,
   fontSize,
   fontWeight,
   lineHeight,
   letterSpacing,
-  color     = '#636262',
-  iconColor = '#636262',
-  iconSize  = 15,
-  style,
-  anim,
+  color,
+  iconColor,
+  iconSize     = 16,
+  animStagger  = 0.08,
+  anim         = { animation: 'fade-up', animDuration: '0.5', animDelay: '0.1' },
   hover,
+  style,
   property,
-  store,
 }) {
   if (!property) return null
+ 
   const { specs = {} } = property
-  const items = [
-    showBeds    && specs.beds    != null && { icon: 'bed',    value: specs.beds,    label: labelBeds    },
-    showBaths   && specs.baths   != null && { icon: 'bath',   value: specs.baths,   label: labelBaths   },
-    showGarages && specs.garages != null && { icon: 'garage', value: specs.garages, label: labelGarages },
-    showArea    && specs.area    != null && { icon: 'area',   value: specs.area,    label: labelArea    },
-  ].filter(Boolean)
+  const SHOW = { beds: showBeds, baths: showBaths, garages: showGarages, area: showArea }
+  const items = SPECS_CONFIG.filter(({ key }) => SHOW[key] && specs[key] != null)
   if (!items.length) return null
-  
-        const resolvedKey = FONT_MAP[fontFamily] ? fontFamily : null
-    const fontVars    = resolvedKey ? getFontVariables([resolvedKey]) : ''
-  
+ 
+  const hasStagger = animStagger != null && anim?.animation
+ 
   const textStyle = {
-        fontFamily: resolvedKey ? `var(--font-${resolvedKey})` : 'var(--font-body)',
-    ...(fontSize       && { fontSize }),
-    ...(fontWeight     && { fontWeight }),
-    ...(lineHeight     && { lineHeight }),
-    ...(letterSpacing  && { letterSpacing }),
-    color,
+    ...(fontFamily    && { fontFamily    }),
+    ...(fontSize      && { fontSize      }),
+    ...(fontWeight    && { fontWeight    }),
+    ...(lineHeight    && { lineHeight    }),
+    ...(letterSpacing && { letterSpacing }),
+    ...(color         && { color         }),
   }
+ 
   return (
     <div
-                      className={fontVars || undefined}
-
       suppressHydrationWarning
-      style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
-      {...animationDataAttrs(anim)}
-      {...hoverDataAttrs(hover)}
+      className={styles.wrap}
+      style={{ gap, ...style }}
     >
-      {items.map(({ icon, value, label }) => (
+      {items.map(({ key, icon, label }, i) => (
         <span
-          key={icon}
+          key={key}
           suppressHydrationWarning
-          style={{ display: 'flex', alignItems: 'center', gap: '0.35em', ...textStyle }}
+          className={styles.item}
+          style={textStyle}
+          {...(hasStagger ? animationDataAttrs({
+            ...anim,
+            animDelay: (parseFloat(anim.animDelay ?? 0) + i * animStagger).toFixed(2),
+          }) : animationDataAttrs(anim))}
+          {...hoverDataAttrs(hover)}
         >
           <Icon name={icon} size={iconSize} color={iconColor} />
-          {value} {label}
+          {specs[key]} {label}
         </span>
       ))}
     </div>
   )
 })
+
+
+
+
+// ─── Property Price ───────────────────────────────────────────────────────────────────
+
+
+const SPEC_CONFIG = {
+  beds:       { icon: 'bed',      label: 'Beds'    },
+  baths:      { icon: 'bath',     label: 'Baths'   },
+  garages:    { icon: 'garage',   label: 'Garages' },
+  area:       { icon: 'area',     label: 'Size'    },
+  lot_size:   { icon: 'area',     label: 'Lot'     },
+  year_built: { icon: 'calendar', label: 'Built'   },
+  stories:    { icon: 'stairs',   label: 'Stories' },
+}
+ 
+export const PropertySpec = withBaseProps(function PropertySpec({
+  spec         = 'beds',
+  label,
+  iconSize     = 24,
+  iconColor,
+  gap          = '0.5rem',
+  fontFamily,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  letterSpacing,
+  color        = '#111',
+  labelColor,
+  labelSize,
+  style,
+  anim,
+  hover,
+  property,
+}) {
+  if (!property) return null
+  const value = property.specs?.[spec]
+  if (value == null) return null
+ 
+  const config     = SPEC_CONFIG[spec]
+  const resolvedLabel = label ?? config?.label
+  const resolvedIcon  = config?.icon
+ 
+  const textStyle = {
+    ...(fontFamily    && { fontFamily    }),
+    ...(fontSize      && { fontSize      }),
+    ...(fontWeight    && { fontWeight    }),
+    ...(lineHeight    && { lineHeight    }),
+    ...(letterSpacing && { letterSpacing }),
+    color,
+  }
+ 
+  return (
+    <div
+      suppressHydrationWarning
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap, ...style }}
+      {...animationDataAttrs(anim)}
+      {...hoverDataAttrs(hover)}
+    >
+      {resolvedIcon && (
+        <Icon name={resolvedIcon} size={iconSize} color={iconColor ?? color} />
+      )}
+      <span style={{ ...textStyle, fontWeight: fontWeight ?? 600 }}>{value}</span>
+      {resolvedLabel && (
+        <span style={{
+          ...textStyle,
+          fontSize:   labelSize  ?? '0.8em',
+          color:      labelColor ?? color,
+          fontWeight: 400,
+        }}>
+          {resolvedLabel}
+        </span>
+      )}
+    </div>
+  )
+})
+
+
+
+
+
+
+
+// ─── Slug → label + icon ──────────────────────────────────────────────────────
+ 
+const AMENITY_MAP = {
+  gym:                  { label: 'Gym',                    icon: 'gym'          },
+  pool:                 { label: 'Pool',                   icon: 'pool'         },
+  rooftop_terrace:      { label: 'Rooftop Terrace',        icon: 'terrace'      },
+  concierge:            { label: 'Concierge',              icon: 'concierge'    },
+  air_conditioning:     { label: 'Air Conditioning',       icon: 'ac'           },
+  secure_parking:       { label: 'Secure Parking',         icon: 'garage'       },
+  intercom:             { label: 'Intercom',               icon: 'intercom'     },
+  built_in_wardrobes:   { label: 'Built-in Wardrobes',     icon: 'wardrobe'     },
+  dishwasher:           { label: 'Dishwasher',             icon: 'dishwasher'   },
+  balcony:              { label: 'Balcony',                icon: 'balcony'      },
+  garden:               { label: 'Garden',                 icon: 'garden'       },
+  lake_view:            { label: 'Lake View',              icon: 'lake'         },
+  ocean_view:           { label: 'Ocean View',             icon: 'ocean'        },
+  city_view:            { label: 'City View',              icon: 'city'         },
+  solar_panels:         { label: 'Solar Panels',           icon: 'solar'        },
+  ev_charging:          { label: 'EV Charging',            icon: 'ev'           },
+  home_theatre:         { label: 'Home Theatre',           icon: 'theatre'      },
+  wine_cellar:          { label: 'Wine Cellar',            icon: 'wine'         },
+  sauna:                { label: 'Sauna',                  icon: 'sauna'        },
+  bbq:                  { label: 'BBQ Area',               icon: 'bbq'          },
+  coworking:            { label: 'Co-Working Space',       icon: 'coworking'    },
+  grocery_store:        { label: 'In-House Grocery Store', icon: 'grocery'      },
+  fine_dining:          { label: 'Fine Dining',            icon: 'dining'       },
+  fireplace:            { label: 'Fireplace',              icon: 'fireplace'    },
+  storage:              { label: 'Storage',                icon: 'storage'      },
+  laundry:              { label: 'Laundry',                icon: 'laundry'      },
+  pet_friendly:         { label: 'Pet Friendly',           icon: 'pet'          },
+  wheelchair_access:    { label: 'Wheelchair Access',      icon: 'accessibility'},
+}
+ 
+export const PropertyAmenities = withBaseProps(function PropertyAmenities({
+  gap             = '0.5rem',
+  itemPadding     = '0.5rem 1rem',
+  itemRadius      = '999px',
+  itemBackground,
+  itemBorder,
+  itemShadow,
+  iconSize        = 16,
+  iconColor,
+  fontFamily,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  letterSpacing,
+  color,
+  animStagger     = 0.04,
+  anim            = { animation: 'fade-up', animDuration: '0.4', animDelay: '0.1' },
+  hover,
+  style,
+  property,
+}) {
+  if (!property?.amenities?.length) return null
+ 
+  const hasStagger = animStagger != null && anim?.animation
+ 
+  const pillStyle = {
+    padding:      itemPadding,
+    borderRadius: itemRadius,
+    ...(itemBackground && { background:  itemBackground }),
+    ...(itemBorder     && { border:      itemBorder     }),
+    ...(itemShadow     && { boxShadow:   itemShadow     }),
+    ...(fontFamily     && { fontFamily                  }),
+    ...(fontSize       && { fontSize                    }),
+    ...(fontWeight     && { fontWeight                  }),
+    ...(lineHeight     && { lineHeight                  }),
+    ...(letterSpacing  && { letterSpacing               }),
+    ...(color          && { color                       }),
+  }
+ 
+  return (
+    <div
+      suppressHydrationWarning
+      className={styles.wrap}
+      style={{ gap, ...style }}
+    >
+      {property.amenities.map((slug, i) => {
+        const entry = AMENITY_MAP[slug]
+        const label = entry?.label ?? slug.replace(/_/g, ' ')
+        const icon  = entry?.icon
+ 
+        return (
+          <span
+            key={slug}
+            suppressHydrationWarning
+            className={styles.pill}
+            style={pillStyle}
+            {...(hasStagger ? animationDataAttrs({
+              ...anim,
+              animDelay: (parseFloat(anim.animDelay ?? 0) + i * animStagger).toFixed(2),
+            }) : animationDataAttrs(anim))}
+            {...hoverDataAttrs(hover)}
+          >
+            {icon && <Icon name={icon} size={iconSize} color={iconColor ?? color} />}
+            {label}
+          </span>
+        )
+      })}
+    </div>
+  )
+})
+ 
