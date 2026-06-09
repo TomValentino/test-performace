@@ -1,7 +1,7 @@
 
 // ---------------------------------------------------------------------------
 // NAV
-import styles from './_styles/layout.module.css'
+import styles from './layout.module.css'
 
 import { getFontVariables, resolveFonts } from "@/lib/fonts"
 import Link from 'next/link'

@@ -1,14 +1,16 @@
 import Image           from 'next/image'
-import { Icon }        from '@/components/icons'
-import { PropImage, skeletonURL } from '@/components/img'
-import { FooterSimple, NavSimple, SmartLink } from '@/sections/layout-components'
-import { PropertyDescription } from '@/sections/property'
-import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius } from '@/sections/section-components'
-import { Children, cloneElement, isValidElement, useId } from 'react'
+import { FooterSimple, NavSimple } from '@/sections/old/old-layouts'
+import { AgentCard, CollectionGrid, HeroHome, PropertyDescription, PropertyFeatured, PropertyHero,resolveRadius  } from '@/sections/old/old-sections'
+import { PropertyImage, PropertyPrice, PropertySpecs, PropertyTitle } from '@/sections/property'
+import { ColumnBlock, ContentBlock, ScopeBlock } from '@/sections/structure-blocks'
+import { CollectionTitle } from '@/sections/collection'
+import { AgentAbout, AgentName } from '@/sections/agent'
+import { ButtonElement, TextElement } from '@/sections/elements'
+import { ButtonElementSchema } from '@/sections/element-schema'
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
-function animProps({ animation, animDelay, animDuration, animThreshold, animRepeat } = {}) {
+export function animationDataAttrs({ animation, animDelay, animDuration, animThreshold, animRepeat } = {}) {
   if (!animation || animation === 'none') return {}
   return {
     'data-anim':                                                   animation,
@@ -19,7 +21,7 @@ function animProps({ animation, animDelay, animDuration, animThreshold, animRepe
   }
 }
 
-function hoverProps({ hover, hoverDuration } = {}) {
+export function hoverDataAttrs({ hover, hoverDuration } = {}) {
   return {
     ...(hover         && { 'data-hover':          hover         }),
     ...(hoverDuration && { 'data-hover-duration': hoverDuration }),
@@ -57,301 +59,54 @@ export function withBaseProps(Component) {
     )
   }
 }
-// ─── Layout Blocks ─────────────────────────────────────────────────────────────
+export const SCOPES = {
+  NONE:       null,
+  PROPERTY:   'PROPERTY',
+  COLLECTION: 'COLLECTION',
+  STORE:      'STORE',
+}
 
-export const ContentBlock = withBaseProps(function ContentBlock({
-  children,
-  gap,
-  align,
-  justify,
-  backgroundImage,
-  backgroundImageSizes,
-  backgroundImagePriority = false,
-  backgroundImageOpacity  = 1,
-  style,
-  anim,
-  hover,
-}) {
-  const flexStyle = {
-    display:       'flex',
-    flexDirection: 'column',
-    ...(gap     && { gap }),
-    ...(align   && { alignItems: align }),
-    ...(justify && { justifyContent: justify }),
-  }
-  return (
-    <div
-      suppressHydrationWarning
-      style={{ ...flexStyle, position: 'relative', overflow: 'hidden', ...style }}
-      {...animProps(anim)}
-      {...hoverProps(hover)}
-    >
-      {backgroundImage && (
-        <Image
-          src={backgroundImage}
-          alt=""
-          fill
-          placeholder="blur"
-          blurDataURL={skeletonURL(1600, 900)}
-          priority={backgroundImagePriority}
-          sizes={backgroundImageSizes ?? '100vw'}
-          style={{ objectFit: 'cover', opacity: backgroundImageOpacity, zIndex: 0 }}
-        />
-      )}
-      {backgroundImage ? (
-        <div style={{ ...flexStyle, position: 'relative', zIndex: 1 }}>
-          {children}
-        </div>
-      ) : children}
-    </div>
-  )
-})
-
-export const ColumnBlock = withBaseProps(function ColumnBlock({
-  children,
-  widths      = [],
-  breakpoints = [],
-  gap         = '1rem',
-  align       = 'stretch',
-  justify     = 'start',
-  style,
-  anim,
-  hover,
-}) {
-  const uid = useId()
-  const cls = `col-${uid.replace(/:/g, '')}`
-  return (
-    <div
-      className={cls}
-      suppressHydrationWarning
-      style={{
-        display:             'grid',
-        gridTemplateColumns: widths.length ? widths.join(' ') : '1fr',
-        gap,
-        alignItems:          align,
-        justifyContent:      justify,
-        position:            'relative',
-        overflow:            'hidden',
-        ...style,
-      }}
-      {...animProps(anim)}
-      {...hoverProps(hover)}
-    >
-      {breakpoints.length > 0 && (
-        <style>{breakpoints
-          .map(({ screen, widths }) =>
-            `@media (max-width: ${screen}) { .${cls} { grid-template-columns: ${widths.join(' ')} !important; } }`
-          ).join('\n')}
-        </style>
-      )}
-      {children}
-    </div>
-  )
-})
-
-export const PropertyImage = withBaseProps(function PropertyImage({
-  aspectRatio  = '4/3',
-  objectFit    = 'cover',
-  borderRadius,
-  sizes        = '(max-width: 768px) 100vw, 50vw',
-  priority     = false,
-  style,
-  anim = { animation: 'fade-in', animDelay: '0.05', animDuration: '0.4' } ,
-  hover,
-  property,
-  store,
-}) {
-  if (!property) return null
-  const photo = property.photos?.[0]
-  if (!photo) return null
-  const radius = borderRadius ? resolveRadius(borderRadius) : undefined
-  return (
-    <SmartLink
-      href={`property/${property.meta_handle}`}
-      username={store?.username}
-      suppressHydrationWarning
-      style={{
-        display: 'block',
-        position: 'relative',
-        aspectRatio,
-        width: '100%',
-        overflow: 'hidden',
-        ...(radius && { borderRadius: radius }),
-        ...style,
-      }}
-      {...animProps(anim)}
-      {...hoverProps(hover)}
-    >
-      <PropImage
-        src={photo.url}
-        aspectRatio={aspectRatio}
-        alt={photo.alt ?? property.title ?? ''}
-        fill
-        priority={priority}
-        sizes={sizes}
-        style={{ objectFit }}
-      />
-    </SmartLink>
-  )
-})
-export const ScopeBlock = withBaseProps(function ScopeBlock({
-  children,
-  gap,
-  align,
-  justify,
-  style,
-  anim,
-  hover,
-  property,
-  collection,
-}) {
-  const flexStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    ...(gap     && { gap }),
-    ...(align   && { alignItems: align }),
-    ...(justify && { justifyContent: justify }),
-  }
-
-const injected = Children.map(children, child =>
-  isValidElement(child)
-    ? cloneElement(child, {
-        ...(property   && { property }),
-        ...(collection && { collection }),
-      })
-    : child
-)
-  return (
-    <div
-      suppressHydrationWarning
-      style={{ ...flexStyle, position: 'relative', overflow: 'hidden', ...style }}
-      {...animProps(anim)}
-      {...hoverProps(hover)}
-    >
-      {injected}
-    </div>
-  )
-})
-
-export const PropertyTitle = withBaseProps(function PropertyTitle({
-  fontFamily,
-  fontSize,
-  fontWeight,
-  lineHeight,
-  letterSpacing,
-  color   = '#111111',
-  as: Tag = 'h2',
-  style,
-  anim,
-  hover,
-  property,
-  store,
-}) {
-  if (!property?.title) return null
-  const resolvedFamily = fontFamily ?? (store?.fonts?.heading ? `var(--font-${store.fonts.heading})` : undefined)
-  return (
-    <Tag
-      suppressHydrationWarning
-      style={{
-        margin: 0,
-        ...(resolvedFamily && { fontFamily: resolvedFamily }),
-        ...(fontSize       && { fontSize }),
-        ...(fontWeight     && { fontWeight }),
-        ...(lineHeight     && { lineHeight }),
-        ...(letterSpacing  && { letterSpacing }),
-        color,
-        ...style,
-      }}
-      {...animProps(anim)}
-      {...hoverProps(hover)}
-    >
-      {property.title}
-    </Tag>
-  )
-})
-
-export const PropertySpecs = withBaseProps(function PropertySpecs({
-  showBeds     = true,
-  showBaths    = true,
-  showGarages  = true,
-  showArea     = true,
-  labelBeds    = 'bed',
-  labelBaths   = 'bath',
-  labelGarages = 'garage',
-  labelArea    = 'm²',
-  gap          = '1rem',
-  fontFamily,
-  fontSize,
-  fontWeight,
-  lineHeight,
-  letterSpacing,
-  color     = '#636262',
-  iconColor = '#636262',
-  iconSize  = 15,
-  style,
-  anim,
-  hover,
-  property,
-  store,
-}) {
-  if (!property) return null
-  const { specs = {} } = property
-  const items = [
-    showBeds    && specs.beds    != null && { icon: 'bed',    value: specs.beds,    label: labelBeds    },
-    showBaths   && specs.baths   != null && { icon: 'bath',   value: specs.baths,   label: labelBaths   },
-    showGarages && specs.garages != null && { icon: 'garage', value: specs.garages, label: labelGarages },
-    showArea    && specs.area    != null && { icon: 'area',   value: specs.area,    label: labelArea    },
-  ].filter(Boolean)
-  if (!items.length) return null
-  const resolvedFamily = fontFamily ?? (store?.fonts?.body ? `var(--font-${store.fonts.body})` : undefined)
-  const textStyle = {
-    ...(resolvedFamily && { fontFamily: resolvedFamily }),
-    ...(fontSize       && { fontSize }),
-    ...(fontWeight     && { fontWeight }),
-    ...(lineHeight     && { lineHeight }),
-    ...(letterSpacing  && { letterSpacing }),
-    color,
-  }
-  return (
-    <div
-      suppressHydrationWarning
-      style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
-      {...animProps(anim)}
-      {...hoverProps(hover)}
-    >
-      {items.map(({ icon, value, label }) => (
-        <span
-          key={icon}
-          suppressHydrationWarning
-          style={{ display: 'flex', alignItems: 'center', gap: '0.35em', ...textStyle }}
-        >
-          <Icon name={icon} size={iconSize} color={iconColor} />
-          {value} {label}
-        </span>
-      ))}
-    </div>
-  )
-})
+export const COMPONENT_TYPE = {
+  SECTION:   'SECTION',
+  ELEMENT:   'ELEMENT',
+  CONTAINER: 'CONTAINER',
+}
 
 // ─── Registry ──────────────────────────────────────────────────────────────────
-
 export const componentRegistry = [
-  { id: 'nav-simple',           component: NavSimple           },
-  { id: 'footer-simple',        component: FooterSimple        },
-  { id: 'hero-home',            component: HeroHome            },
-  { id: 'property-hero',        component: PropertyHero        },
-  { id: 'property-description', component: PropertyDescription },
-  { id: 'property-featured',    component: PropertyFeatured    },
-  { id: 'collection-grid',      component: CollectionGrid      },
-  { id: 'agent-card',           component: AgentCard           },
-  { id: 'content-block',        component: ContentBlock        },
-  { id: 'column-block',         component: ColumnBlock         },
-  { id: 'property-image',       component: PropertyImage       },
-  { id: 'property-title',       component: PropertyTitle       },
-  { id: 'property-specs',       component: PropertySpecs       },
-  { id: 'scope-block', component: ScopeBlock },
+  // Sections
+  { id: 'nav-simple',           component: NavSimple,           schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.SECTION   },
+  { id: 'footer-simple',        component: FooterSimple,        schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.SECTION   },
+  { id: 'hero-home',            component: HeroHome,            schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.SECTION   },
+  { id: 'property-hero',        component: PropertyHero,        schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.SECTION   },
+  { id: 'property-description', component: PropertyDescription, schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.SECTION   },
+  { id: 'property-featured',    component: PropertyFeatured,    schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.SECTION   },
+  { id: 'collection-grid',      component: CollectionGrid,      schema: null, scope: SCOPES.COLLECTION, type: COMPONENT_TYPE.SECTION   },
+  { id: 'agent-card',           component: AgentCard,           schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.SECTION   },
 
+  // Collections
+  { id: 'collection-title',     component: CollectionTitle,     schema: null, scope: SCOPES.COLLECTION, type: COMPONENT_TYPE.ELEMENT   },
+
+  // Elements
+  { id: 'button',               component: ButtonElement,       schema: ButtonElementSchema,  scope: SCOPES.NONE,     type: COMPONENT_TYPE.ELEMENT },
+  { id: 'text',         component: TextElement,         schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.ELEMENT   },
+
+  // Agent
+  { id: 'agent-name',           component: AgentName,           schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.ELEMENT   },
+  { id: 'agent-about',          component: AgentAbout,          schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.ELEMENT   },
+
+  // Property
+  { id: 'property-image',       component: PropertyImage,       schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.ELEMENT   },
+  { id: 'property-title',       component: PropertyTitle,       schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.ELEMENT   },
+  { id: 'property-price',       component: PropertyPrice,       schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.ELEMENT   },
+  { id: 'property-specs',       component: PropertySpecs,       schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.ELEMENT   },
+
+  // Containers
+  { id: 'content-block',        component: ContentBlock,        schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.CONTAINER },
+  { id: 'column-block',         component: ColumnBlock,         schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.CONTAINER },
+  { id: 'scope-block',          component: ScopeBlock,          schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.CONTAINER },
 ]
+
 
 export const sectionRegistry  = componentRegistry
 export const getComponentById = (id) => componentRegistry.find(c => c.id === id) ?? null

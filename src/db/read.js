@@ -105,22 +105,29 @@ export const getPage = cache(
 
 export async function fetchSectionData(sections = [], ctx = {}) {
   const { currentPropertyId = null, currentCollectionId = null } = ctx
-
   const propertyIds   = new Set()
   const collectionIds = new Set()
 
-  for (const s of sections) {
-    if (s.scope === 'PROPERTY') {
-      const id = s.scope_id ?? currentPropertyId
-      if (id) propertyIds.add(id)
-    }
-    if (s.scope === 'COLLECTION') {
-      const id = s.scope_id ?? currentCollectionId
-      if (id) collectionIds.add(id)
+  function collectIds(nodes) {
+    for (const s of nodes) {
+      if (s.scope === 'PROPERTY') {
+        const id = s.scope_id ?? currentPropertyId
+        if (id) propertyIds.add(id)
+      }
+      if (s.scope === 'COLLECTION') {
+        const id = s.scope_id ?? currentCollectionId
+        if (id) collectionIds.add(id)
+      }
+      if (Array.isArray(s.children) && s.children.length) {
+        collectIds(s.children)          // recurse into children
+      }
     }
   }
 
+  collectIds(sections)
+
   console.log('collectionIds', collectionIds)
+
   const [properties, collections] = await Promise.all([
     getPropertiesByIds([...propertyIds]),
     getCollectionsByIds([...collectionIds]),

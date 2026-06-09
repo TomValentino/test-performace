@@ -29,7 +29,7 @@ const libreBaskerville  = Libre_Baskerville({  subsets: ['latin'], variable: '--
 const spectral          = Spectral({           subsets: ['latin'], variable: '--font-spectral',            display: 'swap', weight: ['200', '300', '400', '500', '600', '700', '800'] })
 const dmSerifDisplay    = DM_Serif_Display({   subsets: ['latin'], variable: '--font-dm-serif-display',   display: 'swap', weight: ['400'] })
 
-const FONT_MAP = {
+export const FONT_MAP = {
   'playfair-display':   playfairDisplay,
   'dm-sans':            dmSans,
   'fraunces':           fraunces,
