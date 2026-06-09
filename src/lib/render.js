@@ -1,30 +1,21 @@
-import Image                                                                    from 'next/image'
-import { Icon }                                                                 from '@/components/icons'
-import { PropImage, skeletonURL }                                               from '@/components/img'
-import { FooterSimple, NavSimple, SmartLink }                                   from '@/sections/layout-components'
-import { PropertyDescription }                                                  from '@/sections/property'
-import { AgentCard, ONLOAD_MAP, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius, ANIM_MAP } from '@/sections/section-components'
-import { useId }                                                                from 'react'
-
+import Image           from 'next/image'
+import { Icon }        from '@/components/icons'
+import { PropImage, skeletonURL } from '@/components/img'
+import { FooterSimple, NavSimple, SmartLink } from '@/sections/layout-components'
+import { PropertyDescription } from '@/sections/property'
+import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero, resolveRadius } from '@/sections/section-components'
+import { useId } from 'react'
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
-function onloadProps({ animation, delay, duration } = {}) {
+function animProps({ animation, animDelay, animDuration, animThreshold, animRepeat } = {}) {
   if (!animation || animation === 'none') return {}
   return {
-    'data-animation':                          animation,
-    ...(delay    != null && { 'data-anim-delay':    String(delay)    }),
-    ...(duration != null && { 'data-anim-duration': String(duration) }),
-  }
-}
-
-function scrollProps({ animation, duration, threshold, repeat } = {}) {
-  if (!animation || animation === 'none') return {}
-  return {
-    'data-scroll-anim':                                       animation,
-    ...(duration  != null && { 'data-scroll-duration':  String(duration)  }),
-    ...(threshold != null && { 'data-scroll-threshold': String(threshold) }),
-    ...(repeat               && { 'data-scroll-repeat':    'true'            }),
+    'data-anim':                                                   animation,
+    ...(animDelay     != null && { 'data-anim-delay':     String(animDelay)     }),
+    ...(animDuration  != null && { 'data-anim-duration':  String(animDuration)  }),
+    ...(animThreshold != null && { 'data-anim-threshold': String(animThreshold) }),
+    ...(animRepeat              && { 'data-anim-repeat':   'true'                }),
   }
 }
 
@@ -35,7 +26,6 @@ function hoverProps({ hover, hoverDuration } = {}) {
   }
 }
 
-
 // ─── Base HOC ──────────────────────────────────────────────────────────────────
 
 export function withBaseProps(Component) {
@@ -43,11 +33,7 @@ export function withBaseProps(Component) {
     background, padding, margin, maxWidth,
     border, borderRadius, boxShadow,
     style = {},
-    // onload
-    onLoadAnimation, onLoadDelay, onLoadDuration,
-    // scroll
-    scrollAnimation, scrollDuration, scrollThreshold, scrollRepeat,
-    // hover
+    animation, animDelay, animDuration, animThreshold, animRepeat,
     hover, hoverDuration,
     ...props
   }) {
@@ -65,14 +51,12 @@ export function withBaseProps(Component) {
           ...(boxShadow    && { boxShadow }),
           ...style,
         }}
-        onload={{ animation: onLoadAnimation, delay: onLoadDelay, duration: onLoadDuration }}
-        scroll={{ animation: scrollAnimation, duration: scrollDuration, threshold: scrollThreshold, repeat: scrollRepeat }}
+        anim={{ animation, animDelay, animDuration, animThreshold, animRepeat }}
         hover={{ hover, hoverDuration }}
       />
     )
   }
 }
-
 
 // ─── Layout Blocks ─────────────────────────────────────────────────────────────
 
@@ -86,9 +70,8 @@ export const ContentBlock = withBaseProps(function ContentBlock({
   backgroundImagePriority = false,
   backgroundImageOpacity  = 1,
   style,
-  onload,
+  anim,
   hover,
-  scroll,
 }) {
   const flexStyle = {
     display:       'flex',
@@ -97,19 +80,12 @@ export const ContentBlock = withBaseProps(function ContentBlock({
     ...(align   && { alignItems: align }),
     ...(justify && { justifyContent: justify }),
   }
-
   return (
     <div
       suppressHydrationWarning
-      style={{
-        ...flexStyle,
-        position: 'relative',
-        overflow: 'hidden',
-        ...style,
-      }}
-      {...onloadProps(onload)}
+      style={{ ...flexStyle, position: 'relative', overflow: 'hidden', ...style }}
+      {...animProps(anim)}
       {...hoverProps(hover)}
-      {...scrollProps(scroll)}
     >
       {backgroundImage && (
         <Image
@@ -140,13 +116,11 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
   align       = 'stretch',
   justify     = 'start',
   style,
-  onload,
+  anim,
   hover,
-  scroll,
 }) {
   const uid = useId()
   const cls = `col-${uid.replace(/:/g, '')}`
-
   return (
     <div
       className={cls}
@@ -161,9 +135,8 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
         overflow:            'hidden',
         ...style,
       }}
-      {...onloadProps(onload)}
+      {...animProps(anim)}
       {...hoverProps(hover)}
-      {...scrollProps(scroll)}
     >
       {breakpoints.length > 0 && (
         <style>{breakpoints
@@ -177,7 +150,6 @@ export const ColumnBlock = withBaseProps(function ColumnBlock({
   )
 })
 
-
 // ─── Property Primitives ───────────────────────────────────────────────────────
 
 export const PropertyImage = withBaseProps(function PropertyImage({
@@ -187,9 +159,8 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   sizes        = '(max-width: 768px) 100vw, 50vw',
   priority     = false,
   style,
-  onload,
+  anim,
   hover,
-  scroll,
   property,
   store,
 }) {
@@ -197,7 +168,6 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   const photo = property.photos?.[0]
   if (!photo) return null
   const radius = borderRadius ? resolveRadius(borderRadius) : undefined
-
   return (
     <SmartLink
       href={`property/${property.meta_handle}`}
@@ -208,9 +178,8 @@ export const PropertyImage = withBaseProps(function PropertyImage({
         ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
         ...style,
       }}
-      {...onloadProps(onload)}
+      {...animProps(anim)}
       {...hoverProps(hover)}
-      {...scrollProps(scroll)}
     >
       <PropImage
         src={photo.url}
@@ -237,15 +206,13 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
   color   = '#111111',
   as: Tag = 'h2',
   style,
-  onload,
+  anim,
   hover,
-  scroll,
   property,
   store,
 }) {
   if (!property?.title) return null
   const resolvedFamily = fontFamily ?? (store?.fonts?.heading ? `var(--font-${store.fonts.heading})` : undefined)
-
   return (
     <Tag
       suppressHydrationWarning
@@ -259,9 +226,8 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
         color,
         ...style,
       }}
-      {...onloadProps(onload)}
+      {...animProps(anim)}
       {...hoverProps(hover)}
-      {...scrollProps(scroll)}
     >
       {property.title}
     </Tag>
@@ -269,15 +235,15 @@ export const PropertyTitle = withBaseProps(function PropertyTitle({
 })
 
 export const PropertySpecs = withBaseProps(function PropertySpecs({
-  showBeds    = true,
-  showBaths   = true,
-  showGarages = true,
-  showArea    = true,
+  showBeds     = true,
+  showBaths    = true,
+  showGarages  = true,
+  showArea     = true,
   labelBeds    = 'bed',
   labelBaths   = 'bath',
   labelGarages = 'garage',
   labelArea    = 'm²',
-  gap      = '1rem',
+  gap          = '1rem',
   fontFamily,
   fontSize,
   fontWeight,
@@ -287,26 +253,21 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
   iconColor = '#636262',
   iconSize  = 15,
   style,
-  onload,
+  anim,
   hover,
-  scroll,
   property,
   store,
 }) {
   if (!property) return null
   const { specs = {} } = property
-
   const items = [
-    showBeds    && specs.beds    != null && { icon: 'bed',    value: specs.beds,    label: labelBeds },
-    showBaths   && specs.baths   != null && { icon: 'bath',   value: specs.baths,   label: labelBaths },
+    showBeds    && specs.beds    != null && { icon: 'bed',    value: specs.beds,    label: labelBeds    },
+    showBaths   && specs.baths   != null && { icon: 'bath',   value: specs.baths,   label: labelBaths   },
     showGarages && specs.garages != null && { icon: 'garage', value: specs.garages, label: labelGarages },
-    showArea    && specs.area    != null && { icon: 'area',   value: specs.area,    label: labelArea },
+    showArea    && specs.area    != null && { icon: 'area',   value: specs.area,    label: labelArea    },
   ].filter(Boolean)
-
   if (!items.length) return null
-
   const resolvedFamily = fontFamily ?? (store?.fonts?.body ? `var(--font-${store.fonts.body})` : undefined)
-
   const textStyle = {
     ...(resolvedFamily && { fontFamily: resolvedFamily }),
     ...(fontSize       && { fontSize }),
@@ -315,20 +276,18 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
     ...(letterSpacing  && { letterSpacing }),
     color,
   }
-
   return (
     <div
       suppressHydrationWarning
       style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap, ...style }}
+      {...animProps(anim)}
       {...hoverProps(hover)}
-      {...scrollProps(scroll)}
     >
       {items.map(({ icon, value, label }) => (
         <span
           key={icon}
           suppressHydrationWarning
           style={{ display: 'flex', alignItems: 'center', gap: '0.35em', ...textStyle }}
-          {...onloadProps(onload)}
         >
           <Icon name={icon} size={iconSize} color={iconColor} />
           {value} {label}
@@ -337,7 +296,6 @@ export const PropertySpecs = withBaseProps(function PropertySpecs({
     </div>
   )
 })
-
 
 // ─── Registry ──────────────────────────────────────────────────────────────────
 
@@ -361,7 +319,6 @@ export const sectionRegistry  = componentRegistry
 export const getComponentById = (id) => componentRegistry.find(c => c.id === id) ?? null
 export const getSectionById   = getComponentById
 
-
 // ─── Token helpers ─────────────────────────────────────────────────────────────
 
 export function resolveTokens(str, ctx) {
@@ -381,7 +338,6 @@ function resolveProps(props, ctx) {
   )
 }
 
-
 // ─── Renderer ──────────────────────────────────────────────────────────────────
 
 function renderItem(item, ctx, key) {
@@ -393,10 +349,8 @@ function renderItem(item, ctx, key) {
     currentPropertyId   = null,
     currentCollectionId = null,
   } = ctx
-
   const entry = getComponentById(item.id)
   if (!entry) return null
-
   const scoped = {}
   if (item.scope === 'PROPERTY') {
     const id = item.scope_id ?? currentPropertyId
@@ -406,10 +360,8 @@ function renderItem(item, ctx, key) {
     const id = item.scope_id ?? currentCollectionId
     scoped.collection = id ? (collectionsMap[id] ?? null) : null
   }
-
   const resolvedProps = resolveProps(item.props, { store, profile, ...scoped })
   const children      = item.children?.map((child, i) => renderItem(child, ctx, `${key}-${i}`))
-
   return (
     <entry.component key={key} {...resolvedProps} {...scoped} store={store} profile={profile}>
       {children}
