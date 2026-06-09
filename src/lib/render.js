@@ -157,7 +157,7 @@ export const PropertyImage = withBaseProps(function PropertyImage({
   sizes        = '(max-width: 768px) 100vw, 50vw',
   priority     = false,
   style,
-  anim = { animation: 'fade', animDuration: 600 },
+  anim = { animation: 'fade-in', animDuration: 600 },
   hover,
   property,
   store,
