@@ -175,24 +175,23 @@ export const PropertyImage = withBaseProps(function PropertyImage({
       suppressHydrationWarning
       style={{
         display: 'block',
-        position: 'relative',
-        aspectRatio,
-        width: '100%',
-        ...(radius && { borderRadius: radius, overflow: 'hidden' }),
+        ...(borderRadius && { borderRadius: resolveRadius(borderRadius) }),
         ...style,
       }}
       {...animProps(anim)}
       {...hoverProps(hover)}
     >
-      <PropImage
-        src={photo.url}
-        aspectRatio={aspectRatio}
-        alt={photo.alt ?? property.title ?? ''}
-        fill
-        priority={priority}
-        sizes={sizes}
-        style={{ objectFit }}
-      />
+     <img
+  src={photo.url}
+  alt={photo.alt ?? property.title ?? ''}
+  style={{
+    width: '100%',
+    aspectRatio,
+    objectFit,
+    display: 'block',
+    ...(radius && { borderRadius: radius }),
+  }}
+/>
     </SmartLink>
   )
 })
