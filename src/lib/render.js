@@ -1,12 +1,13 @@
 import Image           from 'next/image'
 import { FooterSimple, NavSimple } from '@/sections/old/old-layouts'
-import { AgentCard, CollectionGrid, HeroHome, PropertyDescription, PropertyFeatured, PropertyHero,resolveRadius  } from '@/sections/old/old-sections'
+import { AgentCard, CollectionGrid, HeroHome, PropertyFeatured, PropertyHero,resolveRadius  } from '@/sections/old/old-sections'
 import { PropertyImage, PropertyPrice, PropertySpecs, PropertyTitle } from '@/sections/property'
 import { ColumnBlock, ContentBlock, ScopeBlock } from '@/sections/structure-blocks'
 import { CollectionTitle } from '@/sections/collection'
 import { AgentAbout, AgentName } from '@/sections/agent'
-import { ButtonElement, TextElement } from '@/sections/elements'
+import {  TextElement } from '@/sections/elements'
 import { ButtonElementSchema } from '@/sections/element-schema'
+import { ButtonElement } from '@/sections/elements-client'
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -79,7 +80,7 @@ export const componentRegistry = [
   { id: 'footer-simple',        component: FooterSimple,        schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.SECTION   },
   { id: 'hero-home',            component: HeroHome,            schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.SECTION   },
   { id: 'property-hero',        component: PropertyHero,        schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.SECTION   },
-  { id: 'property-description', component: PropertyDescription, schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.SECTION   },
+  // { id: 'property-description', component: PropertyDescription, schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.SECTION   },
   { id: 'property-featured',    component: PropertyFeatured,    schema: null, scope: SCOPES.PROPERTY,   type: COMPONENT_TYPE.SECTION   },
   { id: 'collection-grid',      component: CollectionGrid,      schema: null, scope: SCOPES.COLLECTION, type: COMPONENT_TYPE.SECTION   },
   { id: 'agent-card',           component: AgentCard,           schema: null, scope: SCOPES.NONE,       type: COMPONENT_TYPE.SECTION   },
